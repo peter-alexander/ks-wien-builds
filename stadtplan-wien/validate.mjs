@@ -41,7 +41,7 @@ for (const [sourceName, source] of Object.entries(style.sources)) {
 	if (!source || typeof source !== "object" || Array.isArray(source)) continue;
 	if (typeof source.url !== "string") continue;
 
-	const prefix = "/Maps/StadtplanWien/releases/" + releaseId + "/sources/";
+	const prefix = "https://peter-alexander.github.io/ks-wien-builds/StadtplanWien/releases/" + releaseId + "/sources/";
 	if (!source.url.startsWith(prefix)) continue;
 
 	localSourceCount++;
@@ -78,7 +78,7 @@ if (localSourceCount < 1) {
 	fail("Style enthält keine lokalisierten Source-TileJSONs.");
 }
 
-const expectedSpriteBase = "/Maps/StadtplanWien/releases/" + releaseId + "/sprite";
+const expectedSpriteBase = "https://peter-alexander.github.io/ks-wien-builds/StadtplanWien/releases/" + releaseId + "/sprite";
 
 if (style.sprite !== expectedSpriteBase) {
 	fail("Style verweist nicht auf das lokale Release-Sprite.");
