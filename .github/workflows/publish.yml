@@ -10,9 +10,11 @@ on:
         options:
           - baumkataster
           - buildings
+          - stadtplan
   schedule:
     - cron: '37 2 * * *'
     - cron: '23 3 * * 2,5'
+    - cron: '19 0 * * *'
 
 permissions:
   contents: write
@@ -26,7 +28,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 120
     env:
-      DATASET: ${{ github.event_name == 'workflow_dispatch' && inputs.dataset || (github.event.schedule == '37 2 * * *' && 'baumkataster' || 'buildings') }}
+      DATASET: ${{ github.event_name == 'workflow_dispatch' && inputs.dataset || (github.event.schedule == '37 2 * * *' && 'baumkataster' || github.event.schedule == '19 0 * * *' && 'stadtplan' || 'buildings') }}
       WIEN_LOD21_TARGETS: wien-lod21/targets.production.json
     steps:
       - uses: actions/checkout@v4
@@ -47,6 +49,7 @@ jobs:
           cache-dependency-path: sources/package-lock.json
 
       - name: Install dependencies
+        if: env.DATASET != 'stadtplan'
         working-directory: sources
         run: |
           npm ci --ignore-scripts --no-audit --no-fund
@@ -62,7 +65,7 @@ jobs:
           key: ${{ runner.os }}-wien-tippecanoe-v1
 
       - name: Build tippecanoe
-        if: env.DATASET != 'lod21' && steps.tippecanoe-cache.outputs.cache-hit != 'true'
+        if: (env.DATASET == 'baumkataster' || env.DATASET == 'buildings') && steps.tippecanoe-cache.outputs.cache-hit != 'true'
         working-directory: sources
         run: bash .github/scripts/build-tippecanoe.sh
 
@@ -80,6 +83,11 @@ jobs:
               bash wien-lod21/run.sh
               node wien-lod21/validate-production.mjs wien-lod21/build/WienBuildingsLOD21
               ;;
+            stadtplan)
+              node stadtplan-wien/test.mjs
+              node stadtplan-wien/build.mjs
+              node stadtplan-wien/validate.mjs
+              ;;
             *)
               echo "Unsupported dataset: $DATASET" >&2
               exit 1
@@ -93,6 +101,10 @@ jobs:
             baumkataster)
               target="pages/Baumkataster"
               source="sources/baumkataster/build/Baumkataster"
+              ;;
+            stadtplan)
+              target="pages/StadtplanWien"
+              source="sources/stadtplan-wien/build"
               ;;
             buildings)
               target="pages/WienBuildings"
@@ -120,6 +132,12 @@ jobs:
             cp -a "$source/." "$target/LOD1/"
             cp -a sources/wien-lod21/build/WienBuildingsLOD21/. "$target/LOD21/"
             rm -f "$target/LOD1/.htaccess"
+          elif [ "$DATASET" = "stadtplan" ]; then
+            mkdir -p "$target/releases"
+            release_id="$(tr -d '\r\n' < "$source/release-id.txt")"
+            test -d "$source/releases/$release_id"
+            cp -a "$source/releases/$release_id" "$target/releases/"
+            cp "$source/style.json" "$target/style.json"
           else
             mkdir -p "$target"
             cp -a "$source/." "$target/"
