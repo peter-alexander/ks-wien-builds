@@ -223,7 +223,7 @@ style.metadata = {
 
 for (const [sourceName, output] of sourceOutputs) {
 	style.sources[sourceName].url =
-		"/Maps/StadtplanWien/releases/" + releaseId + "/sources/" + output.fileName;
+		"https://peter-alexander.github.io/ks-wien-builds/StadtplanWien/releases/" + releaseId + "/sources/" + output.fileName;
 
 	writeFile(
 		new URL(output.fileName, sourceRoot),
@@ -232,7 +232,7 @@ for (const [sourceName, output] of sourceOutputs) {
 }
 
 if (sprite) {
-	style.sprite = "/Maps/StadtplanWien/releases/" + releaseId + "/sprite";
+	style.sprite = "https://peter-alexander.github.io/ks-wien-builds/StadtplanWien/releases/" + releaseId + "/sprite";
 
 	for (const file of sprite.files) {
 		writeFile(
