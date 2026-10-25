@@ -1,0 +1,31 @@
+{
+	"name": "kartensammlung-overlay-builds",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"build:rge-analyse": "node rge-analyse/build.mjs",
+		"build:radparken:data": "node radparken/build.mjs ./radparken/input ./radparken/output",
+		"build:radparken": "bash ./radparken/run.sh",
+		"build:sitzmoeglichkeiten": "bash ./sitzmoeglichkeiten/run.sh",
+		"build:radlkarte": "bash ./radlkarte/run.sh",
+		"build:timezone-boundaries": "bash ./timezone-boundaries/run.sh",
+		"build:wien-lod21": "bash ./wien-lod21/run.sh"
+	},
+	"dependencies": {
+		"@xmldom/xmldom": "0.8.13",
+		"earcut": "^3.0.2",
+		"geos-wasm": "^3.1.1",
+		"jsts": "^2.12.1",
+		"ol": "^10.10.0",
+		"osmtogeojson": "^3.0.0-beta.5",
+		"proj4": "^2.22.0",
+		"rbush": "^4.0.1",
+		"wellknown": "^0.5.0"
+	},
+	"overrides": {
+		"@xmldom/xmldom": "0.8.13"
+	},
+	"engines": {
+		"node": "24.x"
+	}
+}
