@@ -1,0 +1,135 @@
+name: Build and publish Vienna data to GitHub Pages
+
+on:
+  workflow_dispatch:
+    inputs:
+      dataset:
+        description: Dataset to build and publish
+        type: choice
+        required: true
+        options:
+          - baumkataster
+          - lod1
+          - lod21
+  schedule:
+    - cron: '37 2 * * *'
+    - cron: '23 3 * * 2,5'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: wien-pages-publish
+  cancel-in-progress: false
+
+jobs:
+  build-publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    env:
+      DATASET: ${{ github.event_name == 'workflow_dispatch' && inputs.dataset || (github.event.schedule == '37 2 * * *' && 'baumkataster' || 'lod1') }}
+      WIEN_LOD21_TARGETS: wien-lod21/targets.production.json
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: sources
+          persist-credentials: false
+
+      - uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          path: pages
+          fetch-depth: 1
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: sources/.nvmrc
+          cache: npm
+          cache-dependency-path: sources/package-lock.json
+
+      - name: Install dependencies
+        working-directory: sources
+        run: |
+          npm ci --ignore-scripts --no-audit --no-fund
+          sudo apt-get update
+          sudo apt-get install -y build-essential libsqlite3-dev zlib1g-dev unzip
+
+      - name: Cache tippecanoe
+        if: env.DATASET != 'lod21'
+        id: tippecanoe-cache
+        uses: actions/cache@v4
+        with:
+          path: sources/.local/bin
+          key: ${{ runner.os }}-wien-tippecanoe-v1
+
+      - name: Build tippecanoe
+        if: env.DATASET != 'lod21' && steps.tippecanoe-cache.outputs.cache-hit != 'true'
+        working-directory: sources
+        run: bash .github/scripts/build-tippecanoe.sh
+
+      - name: Build requested dataset
+        working-directory: sources
+        env:
+          TIPPECANOE_BIN: ${{ github.workspace }}/sources/.local/bin/tippecanoe
+        run: |
+          case "$DATASET" in
+            baumkataster)
+              bash baumkataster/run.sh
+              ;;
+            lod1)
+              bash wien-buildings/run.sh
+              ;;
+            lod21)
+              bash wien-lod21/run.sh
+              node wien-lod21/validate-production.mjs wien-lod21/build/WienBuildingsLOD21
+              ;;
+            *)
+              echo "Unsupported dataset: $DATASET" >&2
+              exit 1
+              ;;
+          esac
+
+      - name: Prepare GitHub Pages files
+        run: |
+          set -euo pipefail
+          case "$DATASET" in
+            baumkataster)
+              target="pages/Baumkataster"
+              source="sources/baumkataster/build/Baumkataster"
+              ;;
+            lod1)
+              target="pages/WienBuildings/LOD1"
+              source="sources/wien-buildings/build/WienBuildings"
+              # GitHub Pages cannot configure Content-Encoding for pre-gzipped PBF.
+              # Store actual PBF bytes uncompressed so browsers can parse them.
+              find "$source/tiles" -type f -name '*.pbf' -print0 |
+                while IFS= read -r -d '' tile; do
+                  gzip -dc "$tile" > "$tile.tmp"
+                  mv "$tile.tmp" "$tile"
+                done
+              ;;
+            lod21)
+              target="pages/WienBuildings/LOD21"
+              source="sources/wien-lod21/build/WienBuildingsLOD21"
+              ;;
+          esac
+          test -d "$source"
+          mkdir -p "$target"
+          cp -a "$source/." "$target/"
+          rm -f pages/WienBuildings/LOD1/.htaccess
+          touch pages/.nojekyll
+          echo "PAGES_TARGET=$target" >> "$GITHUB_ENV"
+
+      - name: Commit dataset to gh-pages without deleting other datasets
+        working-directory: pages
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A -- "${PAGES_TARGET#pages/}" .nojekyll
+          if git diff --cached --quiet; then
+            echo "No changes to publish"
+            exit 0
+          fi
+          git commit -m "Publish Vienna $DATASET data"
+          git push origin HEAD:gh-pages
