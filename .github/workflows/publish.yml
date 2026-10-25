@@ -127,13 +127,16 @@ jobs:
           touch pages/.nojekyll
           echo "PAGES_TARGET=$target" >> "$GITHUB_ENV"
 
+      - name: Update root asset versions
+        run: node sources/scripts/update-asset-versions.mjs pages "$DATASET"
+
       - name: Commit dataset to gh-pages without deleting other datasets
         working-directory: pages
         run: |
           set -euo pipefail
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add -A -- "${PAGES_TARGET#pages/}" .nojekyll
+          git add -A -- "${PAGES_TARGET#pages/}" .nojekyll asset-versions.json
           if git diff --cached --quiet; then
             echo "No changes to publish"
             exit 0
