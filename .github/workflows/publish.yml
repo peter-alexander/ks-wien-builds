@@ -9,8 +9,7 @@ on:
         required: true
         options:
           - baumkataster
-          - lod1
-          - lod21
+          - buildings
   schedule:
     - cron: '37 2 * * *'
     - cron: '23 3 * * 2,5'
@@ -27,7 +26,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 120
     env:
-      DATASET: ${{ github.event_name == 'workflow_dispatch' && inputs.dataset || (github.event.schedule == '37 2 * * *' && 'baumkataster' || 'lod1') }}
+      DATASET: ${{ github.event_name == 'workflow_dispatch' && inputs.dataset || (github.event.schedule == '37 2 * * *' && 'baumkataster' || 'buildings') }}
       WIEN_LOD21_TARGETS: wien-lod21/targets.production.json
     steps:
       - uses: actions/checkout@v4
@@ -55,7 +54,7 @@ jobs:
           sudo apt-get install -y build-essential libsqlite3-dev zlib1g-dev unzip
 
       - name: Cache tippecanoe
-        if: env.DATASET != 'lod21'
+        if: env.DATASET == 'baumkataster' || env.DATASET == 'buildings'
         id: tippecanoe-cache
         uses: actions/cache@v4
         with:
@@ -76,10 +75,8 @@ jobs:
             baumkataster)
               bash baumkataster/run.sh
               ;;
-            lod1)
+            buildings)
               bash wien-buildings/run.sh
-              ;;
-            lod21)
               bash wien-lod21/run.sh
               node wien-lod21/validate-production.mjs wien-lod21/build/WienBuildingsLOD21
               ;;
@@ -97,8 +94,8 @@ jobs:
               target="pages/Baumkataster"
               source="sources/baumkataster/build/Baumkataster"
               ;;
-            lod1)
-              target="pages/WienBuildings/LOD1"
+            buildings)
+              target="pages/WienBuildings"
               source="sources/wien-buildings/build/WienBuildings"
               # GitHub Pages cannot configure Content-Encoding for pre-gzipped PBF.
               # Store actual PBF bytes uncompressed so browsers can parse them.
@@ -115,15 +112,18 @@ jobs:
                 fs.writeFileSync(p, JSON.stringify(data, null, 2) + String.fromCharCode(10));
               ' "$source/release.json"
               ;;
-            lod21)
-              target="pages/WienBuildings/LOD21"
-              source="sources/wien-lod21/build/WienBuildingsLOD21"
-              ;;
           esac
           test -d "$source"
-          mkdir -p "$target"
-          cp -a "$source/." "$target/"
-          rm -f pages/WienBuildings/LOD1/.htaccess
+          if [ "$DATASET" = "buildings" ]; then
+            test -d sources/wien-lod21/build/WienBuildingsLOD21
+            mkdir -p "$target/LOD1" "$target/LOD21"
+            cp -a "$source/." "$target/LOD1/"
+            cp -a sources/wien-lod21/build/WienBuildingsLOD21/. "$target/LOD21/"
+            rm -f "$target/LOD1/.htaccess"
+          else
+            mkdir -p "$target"
+            cp -a "$source/." "$target/"
+          fi
           touch pages/.nojekyll
           echo "PAGES_TARGET=$target" >> "$GITHUB_ENV"
 
