@@ -1,6 +1,6 @@
 {
 	"schemaVersion": 3,
-	"generatedAt": "2026-10-28T09:00:49.840Z",
+	"generatedAt": "2026-10-29T08:52:28.098Z",
 	"sources": {
 		"wienBaumkataster": {
 			"url": "https://data.wien.gv.at/daten/geo",
@@ -9,7 +9,7 @@
 			"attribution": "Stadt Wien – data.wien.gv.at, CC BY 4.0"
 		},
 		"openStreetMap": {
-			"overpassEndpoint": "https://overpass-api.de/api/interpreter",
+			"overpassEndpoint": "https://overpass.kumi.systems/api/interpreter",
 			"query": "[out:json][timeout:300];\narea[\"boundary\"=\"administrative\"][\"ISO3166-2\"=\"AT-9\"]->.vienna;\n(\n\tnode[\"natural\"=\"tree\"](area.vienna);\n\tway[\"natural\"=\"tree_row\"](area.vienna);\n);\nout body geom qt;",
 			"attribution": "© OpenStreetMap contributors, ODbL"
 		}
@@ -665,26 +665,26 @@
 		}
 	},
 	"counts": {
-		"totalOutput": 280812,
+		"totalOutput": 278767,
 		"wfs": {
-			"source": 233096,
-			"output": 233096,
+			"source": 233111,
+			"output": 233111,
 			"skippedGeometry": 0,
 			"pages": 10,
-			"sourceReportedTotal": 233096
+			"sourceReportedTotal": 233111
 		},
 		"osm": {
-			"elements": 172986,
-			"treeNodes": 172451,
-			"treeNodesOutput": 41322,
-			"treeNodesSkippedWfsOverlap": 131107,
-			"treeNodesSkippedDuplicate": 22,
-			"treeRows": 535,
+			"elements": 170216,
+			"treeNodes": 169685,
+			"treeNodesOutput": 39421,
+			"treeNodesSkippedWfsOverlap": 130243,
+			"treeNodesSkippedDuplicate": 21,
+			"treeRows": 531,
 			"treeRowsInvalidGeometry": 0,
-			"treeRowGeneratedPoints": 7081,
-			"treeRowOutput": 6394,
+			"treeRowGeneratedPoints": 6918,
+			"treeRowOutput": 6235,
 			"treeRowSkippedWfsOverlap": 365,
-			"treeRowSkippedExplicitTree": 317,
+			"treeRowSkippedExplicitTree": 313,
 			"treeRowSkippedRowOverlap": 5
 		}
 	},
