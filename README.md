@@ -20,4 +20,4 @@ Anschließend unter Actions → **Build and publish Vienna data to GitHub Pages*
 
 Stadtplan täglich um 00:19 UTC, Baumkataster täglich um 02:37 UTC; LOD1 und LOD2.1 gemeinsam Dienstag und Freitag um 03:23 UTC. Die LOD2.1-Analyseworkflows sind ebenfalls manuell.
 
-Bei der GitHub-Pages-Veröffentlichung werden die bisher gzip-komprimierten LOD1-PBF-Kacheln entpackt, da GitHub Pages dafür keine eigenen `Content-Encoding`-Header konfigurieren lässt. Die ursprünglichen Produktionsdateien auf Lima City bleiben unberührt.
+Bei der GitHub-Pages-Veröffentlichung werden die bisher gzip-komprimierten LOD1-PBF-Kacheln entpackt, da GitHub Pages dafür keine eigenen `Content-Encoding`-Header konfigurieren lässt.
