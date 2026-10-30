@@ -21,15 +21,15 @@ jobs:
     outputs:
       matrix: ${{ steps.shards.outputs.matrix }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
         with:
           node-version-file: '.nvmrc'
       - name: Check sharding and downloader regression tests
         run: node --test wien-lod21/plan-shards.test.mjs wien-lod21/download-sheets.test.mjs
       - name: Split production manifest into 12-sheet packages
         id: shards
-        run: node wien-lod21/plan-shards.mjs wien-lod21/targets.production.json 12
+        run: node wien-lod21/plan-shards.mjs wien-lod21/targets.production.json 12 30
 
   sources:
     needs: plan
@@ -40,13 +40,13 @@ jobs:
       max-parallel: 3
       matrix: ${{ fromJSON(needs.plan.outputs.matrix) }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
         with:
           node-version-file: '.nvmrc'
       - name: Restore validated ZIP cache for this package
         id: source-cache
-        uses: actions/cache/restore@v4
+        uses: actions/cache/restore@v6
         with:
           path: ${{ runner.temp }}/lod21-zips
           key: lod21-zips-v1-${{ hashFiles('wien-lod21/targets.production.json') }}-${{ matrix.index }}
@@ -69,12 +69,12 @@ jobs:
             --retry-ms 1000
       - name: Save complete source package in Actions cache
         if: steps.source-cache.outputs.cache-hit != 'true'
-        uses: actions/cache/save@v4
+        uses: actions/cache/save@v6
         with:
           path: ${{ runner.temp }}/lod21-zips
           key: lod21-zips-v1-${{ hashFiles('wien-lod21/targets.production.json') }}-${{ matrix.index }}
       - name: Make source package available to final build
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: lod21-source-${{ matrix.index }}
           path: ${{ runner.temp }}/lod21-zips/*.zip
@@ -95,22 +95,22 @@ jobs:
       WIEN_LOD21_TARGETS: wien-lod21/targets.production.json
       WIEN_LOD21_SKIP_DOWNLOAD: '1'
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           path: sources
           persist-credentials: false
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           ref: gh-pages
           path: pages
           fetch-depth: 1
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version-file: sources/.nvmrc
           cache: npm
           cache-dependency-path: sources/package-lock.json
       - name: Assemble ZIP packages from all source runners
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           pattern: lod21-source-*
           merge-multiple: true

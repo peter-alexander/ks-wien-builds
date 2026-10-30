@@ -30,18 +30,18 @@ jobs:
       DATASET: ${{ github.event_name == 'workflow_dispatch' && inputs.dataset || (github.event.schedule == '37 2 * * *' && 'baumkataster' || github.event.schedule == '19 0 * * *' && 'stadtplan' || github.event.schedule == '23 3 * * 2,5' && 'buildings-lod1' || '') }}
       WIEN_LOD21_TARGETS: wien-lod21/targets.production.json
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           path: sources
           persist-credentials: false
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           ref: gh-pages
           path: pages
           fetch-depth: 1
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version-file: sources/.nvmrc
           cache: npm
@@ -58,7 +58,7 @@ jobs:
       - name: Cache tippecanoe
         if: env.DATASET == 'baumkataster' || env.DATASET == 'buildings-lod1'
         id: tippecanoe-cache
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: sources/.local/bin
           key: ${{ runner.os }}-wien-tippecanoe-v1

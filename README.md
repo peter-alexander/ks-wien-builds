@@ -45,3 +45,9 @@ Der Workflow `.github/workflows/wien-lod21-publish.yml` zerlegt die 734 Produkti
 Nach erfolgreichem Abschluss aller Pakete lädt der Build-Job die Artefakte, prüft die lückenlose Blattabdeckung, startet `wien-lod21/run.sh` mit `WIEN_LOD21_SKIP_DOWNLOAD=1`, validiert das vollständige Produktionsmodell und veröffentlicht nur dann `WienBuildings/LOD21` auf `gh-pages`. Für die Veröffentlichung nutzt er weiterhin die gemeinsame Concurrency-Gruppe `wien-pages-publish`.
 
 Die bisherigen LOD1-/Baumkataster-/Stadtplan-Builds bleiben unverändert. Der LOD2.1-Zeitplan und die manuelle Ausführung wurden auf den neuen Workflow umgestellt. Eine größere GitHub-Actions-Jobanzahl ist der bewusste Kompromiss für verlässliche Downloads. Der Quellcache basiert auf dem Produktionsmanifest und wird **nicht** automatisch aktualisiert, wenn Wien eine ZIP-Datei bei gleichbleibendem Blattnamen ersetzt; in diesem Fall muss der Cache-Schlüssel versioniert werden.
+
+### Wiederherstellung von Paket 30
+
+Im ersten Produktionslauf scheiterte nur Paket 30 nach 11 von 12 erfolgreich heruntergeladenen ZIP-Dateien an `105082` (TCP-Verbindungs-Timeout). Die bisherigen **61 erfolgreichen Paket-Caches** behalten ihre unveränderten Schlüssel. Das fehlgeschlagene Paket wird in **zwei neue Pakete zu je sechs Blättern** (Indizes 62 und 63) aufgeteilt; damit umfasst der Produktionsplan nun **63 Pakete**. Die Quellblätter werden dadurch weiterhin exakt einmal und vollständig abgedeckt. Künftige Aufteilungen müssen jeweils mit neuen Cache-Indizes erfolgen.
+
+Die in diesem Repository bisher noch verwendeten Node.js-20-GitHub-Actions wurden durch Node.js-24-kompatible Versionen ersetzt (`checkout@v7`, `setup-node@v7`, `cache@v6`, `upload-artifact@v7`, `download-artifact@v8`). Die nicht mehr benötigten Netzwerkanalyse-Workflows starten nicht mehr automatisch durch Repository-Änderungen.

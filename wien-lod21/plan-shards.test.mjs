@@ -17,3 +17,24 @@ test("invalid shard sizes are rejected", () => {
 	assert.throws(() => createShardPlan(["1"], 21), /size/);
 	assert.throws(() => createShardPlan([], 12), /empty/);
 });
+
+test("split the failed shard without invalidating successful cached shards", () => {
+	const ids = Array.from({ length: 734 }, (_, i) => String(i));
+	const original = createShardPlan(ids, 12);
+	const split = createShardPlan(ids, 12, [30]);
+	assert.equal(split.include.length, 63);
+	assert.equal(split.include.some((shard) => shard.index === 30), false);
+	assert.deepEqual(split.include.filter((shard) => shard.index >= 62), [
+		{ index: 62, offset: 360, limit: 6 },
+		{ index: 63, offset: 366, limit: 6 }
+	]);
+	assert.deepEqual(
+		split.include.filter((shard) => shard.index < 62),
+		original.include.filter((shard) => shard.index !== 30)
+	);
+	assert.deepEqual(
+		split.include.flatMap((shard) => ids.slice(shard.offset, shard.offset + shard.limit)),
+		ids
+	);
+	assert.throws(() => createShardPlan(ids, 12, [999]), /Invalid shard/);
+});

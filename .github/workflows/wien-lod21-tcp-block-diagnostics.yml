@@ -2,10 +2,6 @@ name: Diagnose LOD2.1 TCP blocking across runners
 
 on:
   workflow_dispatch:
-  push:
-    paths:
-      - '.github/workflows/wien-lod21-tcp-block-diagnostics.yml'
-      - 'wien-lod21/diagnose-tcp-block.mjs'
 
 permissions:
   contents: read
@@ -20,8 +16,8 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 19
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
         with:
           node-version-file: '.nvmrc'
       - name: Syntax check
@@ -32,7 +28,7 @@ jobs:
         run: node wien-lod21/diagnose-tcp-block.mjs load
       - name: Upload Linux metrics
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: lod21-linux-network-diagnostics
           path: ${{ runner.temp }}/lod21-linux-network.json
@@ -44,8 +40,8 @@ jobs:
     runs-on: windows-2025
     timeout-minutes: 17
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
         with:
           node-version-file: '.nvmrc'
       - name: Syntax check
@@ -56,7 +52,7 @@ jobs:
         run: node wien-lod21/diagnose-tcp-block.mjs observe
       - name: Upload Windows metrics
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: lod21-windows-network-diagnostics
           path: ${{ runner.temp }}/lod21-windows-network.json
