@@ -37,7 +37,7 @@ jobs:
 
       - name: Download initial production subset
         env:
-          MAX_SHEETS: ${ github.event_name == 'workflow_dispatch' && inputs.max_sheets || '120' }}
+          MAX_SHEETS: ${{ github.event_name == 'workflow_dispatch' && inputs.max_sheets || '120' }}
         run: |
           node wien-lod21/download-sheets.mjs \
             --targets wien-lod21/targets.production.json \
@@ -53,7 +53,7 @@ jobs:
 
       - name: Re-run to verify cache reuse
         env:
-          MAX_SHEETS: ${ github.event_name == 'workflow_dispatch' && inputs.max_sheets || '120' }}
+          MAX_SHEETS: ${{ github.event_name == 'workflow_dispatch' && inputs.max_sheets || '120' }}
         run: |
           node wien-lod21/download-sheets.mjs \
             --targets wien-lod21/targets.production.json \
@@ -84,7 +84,7 @@ jobs:
         with:
           name: wien-lod21-download-pacing-report
           path: |
-            ${ runner.temp }}/lod21-download-report.json
-            ${ runner.temp }}/lod21-cache-report.json
+            ${{ runner.temp }}/lod21-download-report.json
+            ${{ runner.temp }}/lod21-cache-report.json
           if-no-files-found: warn
           retention-days: 7
