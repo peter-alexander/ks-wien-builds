@@ -13,7 +13,7 @@ permissions:
 
 concurrency:
   group: wien-lod21-sharded-production
-  cancel-in-progress: false
+  cancel-in-progress: ${{ github.event_name == 'push' }}
 
 jobs:
   plan:
@@ -44,12 +44,13 @@ jobs:
       - uses: actions/setup-node@v7
         with:
           node-version-file: '.nvmrc'
+      # Reuse the existing source-sheet ZIP caches; bump the cache namespace if the set of sheets changes.
       - name: Restore validated ZIP cache for this package
         id: source-cache
         uses: actions/cache/restore@v6
         with:
           path: ${{ runner.temp }}/lod21-zips
-          key: lod21-zips-v1-${{ hashFiles('wien-lod21/targets.production.json') }}-${{ matrix.index }}
+          key: lod21-zips-v1-97e58d32da47f04df3278772a67a925c246f24fa74de373366f3a0e49874fb42-${{ matrix.index }}
       - name: Download and validate this package
         env:
           SHARD_OFFSET: ${{ matrix.offset }}
@@ -72,7 +73,7 @@ jobs:
         uses: actions/cache/save@v6
         with:
           path: ${{ runner.temp }}/lod21-zips
-          key: lod21-zips-v1-${{ hashFiles('wien-lod21/targets.production.json') }}-${{ matrix.index }}
+          key: lod21-zips-v1-97e58d32da47f04df3278772a67a925c246f24fa74de373366f3a0e49874fb42-${{ matrix.index }}
       - name: Make source package available to final build
         uses: actions/upload-artifact@v7
         with:
