@@ -9,11 +9,13 @@ on:
         required: true
         options:
           - baumkataster
-          - buildings
+          - buildings-lod1
+          - buildings-lod21
           - stadtplan
   schedule:
     - cron: '37 2 * * *'
     - cron: '23 3 * * 2,5'
+    - cron: '23 4 * * 2,5'
     - cron: '19 0 * * *'
 
 permissions:
@@ -27,7 +29,7 @@ jobs:
   build-publish:
     runs-on: ubuntu-latest
     env:
-      DATASET: ${{ github.event_name == 'workflow_dispatch' && inputs.dataset || (github.event.schedule == '37 2 * * *' && 'baumkataster' || github.event.schedule == '19 0 * * *' && 'stadtplan' || 'buildings') }}
+      DATASET: ${{ github.event_name == 'workflow_dispatch' && inputs.dataset || (github.event.schedule == '37 2 * * *' && 'baumkataster' || github.event.schedule == '19 0 * * *' && 'stadtplan' || github.event.schedule == '23 3 * * 2,5' && 'buildings-lod1' || 'buildings-lod21') }}
       WIEN_LOD21_TARGETS: wien-lod21/targets.production.json
     steps:
       - uses: actions/checkout@v4
@@ -56,7 +58,7 @@ jobs:
           sudo apt-get install -y build-essential libsqlite3-dev zlib1g-dev unzip
 
       - name: Cache tippecanoe
-        if: env.DATASET == 'baumkataster' || env.DATASET == 'buildings'
+        if: env.DATASET == 'baumkataster' || env.DATASET == 'buildings-lod1'
         id: tippecanoe-cache
         uses: actions/cache@v4
         with:
@@ -64,9 +66,13 @@ jobs:
           key: ${{ runner.os }}-wien-tippecanoe-v1
 
       - name: Build tippecanoe
-        if: (env.DATASET == 'baumkataster' || env.DATASET == 'buildings') && steps.tippecanoe-cache.outputs.cache-hit != 'true'
+        if: (env.DATASET == 'baumkataster' || env.DATASET == 'buildings-lod1') && steps.tippecanoe-cache.outputs.cache-hit != 'true'
         working-directory: sources
         run: bash .github/scripts/build-tippecanoe.sh
+
+      - name: Test independent asset versions
+        working-directory: sources
+        run: node --test scripts/update-asset-versions.test.mjs
 
       - name: Build requested dataset
         working-directory: sources
@@ -77,8 +83,10 @@ jobs:
             baumkataster)
               bash baumkataster/run.sh
               ;;
-            buildings)
+            buildings-lod1)
               bash wien-buildings/run.sh
+              ;;
+            buildings-lod21)
               bash wien-lod21/run.sh
               node wien-lod21/validate-production.mjs wien-lod21/build/WienBuildingsLOD21
               ;;
@@ -105,8 +113,8 @@ jobs:
               target="pages/StadtplanWien"
               source="sources/stadtplan-wien/build"
               ;;
-            buildings)
-              target="pages/WienBuildings"
+            buildings-lod1)
+              target="pages/WienBuildings/LOD1"
               source="sources/wien-buildings/build/WienBuildings"
               # GitHub Pages cannot configure Content-Encoding for pre-gzipped PBF.
               # Store actual PBF bytes uncompressed so browsers can parse them.
@@ -123,15 +131,13 @@ jobs:
                 fs.writeFileSync(p, JSON.stringify(data, null, 2) + String.fromCharCode(10));
               ' "$source/release.json"
               ;;
+            buildings-lod21)
+              target="pages/WienBuildings/LOD21"
+              source="sources/wien-lod21/build/WienBuildingsLOD21"
+              ;;
           esac
           test -d "$source"
-          if [ "$DATASET" = "buildings" ]; then
-            test -d sources/wien-lod21/build/WienBuildingsLOD21
-            mkdir -p "$target/LOD1" "$target/LOD21"
-            cp -a "$source/." "$target/LOD1/"
-            cp -a sources/wien-lod21/build/WienBuildingsLOD21/. "$target/LOD21/"
-            rm -f "$target/LOD1/.htaccess"
-          elif [ "$DATASET" = "stadtplan" ]; then
+          if [ "$DATASET" = "stadtplan" ]; then
             mkdir -p "$target/releases"
             release_id="$(tr -d '\r\n' < "$source/release-id.txt")"
             test -d "$source/releases/$release_id"
@@ -140,6 +146,9 @@ jobs:
           else
             mkdir -p "$target"
             cp -a "$source/." "$target/"
+            if [ "$DATASET" = "buildings-lod1" ]; then
+              rm -f "$target/.htaccess"
+            fi
           fi
           touch pages/.nojekyll
           echo "PAGES_TARGET=$target" >> "$GITHUB_ENV"

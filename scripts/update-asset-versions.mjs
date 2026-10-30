@@ -7,9 +7,11 @@ const root = path.resolve(process.argv[2] || "pages");
 const dataset = process.argv[3];
 const groups = {
 	baumkataster: ["Baumkataster/release.json", "Baumkataster/tilejson.json"],
-	buildings: [
+	"buildings-lod1": [
 		"WienBuildings/LOD1/release.json",
-		"WienBuildings/LOD1/tilejson.json",
+		"WienBuildings/LOD1/tilejson.json"
+	],
+	"buildings-lod21": [
 		"WienBuildings/LOD21/release.json",
 		"WienBuildings/LOD21/targets.json"
 	],
