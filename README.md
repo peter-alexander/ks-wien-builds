@@ -29,3 +29,11 @@ Der manuell startbare Workflow `.github/workflows/wien-lod21-download-diagnostic
 Im Actions-Job erscheinen die Verbindungsmetriken als Summary-Tabelle. Das Artifact `wien-lod21-download-diagnostics` enthält zusätzlich DNS-Informationen, curl-Timings, vollständige HTTP-Header sowie Verbose-Logs. Ein curl-Fehlercode 63 bei vorhandenem HTTP-Status ist durch die absichtliche Größenbegrenzung erklärbar; Range-Abfragen sind nicht völlig identisch mit dem produktiven ZIP-Download.
 
 Der Workflow läuft einmalig beim Hinzufügen/Ändern seiner Diagnose-Dateien und kann bei Bedarf über `workflow_dispatch` erneut gestartet werden. Er baut keine 3D-Daten, verändert keinen produktiven Download und veröffentlicht nichts.
+
+## LOD2.1-Download mit Begrenzung und Wiederaufnahme
+
+Der Download wurde aus `wien-lod21/run.sh` nach `wien-lod21/download-sheets.mjs` ausgelagert. Standardmäßig starten höchstens **2 parallele Downloads**, mit **1,5 Sekunden Mindestabstand** zwischen neuen Verbindungen. Ein Blatt erhält maximal **3 Versuche**. Nach **2 aufeinanderfolgenden Downloadfehlern** wird die nächste Verbindung für **90 Sekunden** aufgeschoben, nach mehr als **2 Pausen** wird kontrolliert abgebrochen. Konfigurierbare Umgebungsvariablen: `WIEN_LOD21_DOWNLOAD_PARALLEL`, `WIEN_LOD21_INTERVAL_MS`, `WIEN_LOD21_DOWNLOAD_ATTEMPTS`, `WIEN_LOD21_FAILURE_THRESHOLD`, `WIEN_LOD21_COOLDOWN_MS`, `WIEN_LOD21_MAX_COOLDOWNS` und `WIEN_LOD21_RETRY_MS`.
+
+Vollständig heruntergeladene ZIPs bleiben in `wien-lod21/build/downloads/` und werden bei einem erneuten Aufruf im **selben Arbeitsverzeichnis** nach `unzip -tqq` wiederverwendet. Ungültige oder nur teilweise heruntergeladene Dateien werden nicht übernommen. Ein neuer GitHub-Actions-Run bekommt einen neuen Runner; es wird **kein** großer ZIP-Cache zwischen GitHub-Runs übertragen.
+
+Zum kontrollierten Belastungstest dient `.github/workflows/wien-lod21-download-pacing.yml`: Er lädt 120 nach Blattnummer sortierte Blätter aus dem Produktionsmanifest und überprüft anschließend die Wiederverwendung aus dem Cache. Er **baut und veröffentlicht keine 3D-Daten** und archiviert ausschließlich JSON-Berichte, nicht die ZIP-Dateien.

@@ -7,14 +7,22 @@ SOURCE_DIR="$BUILD_DIR/source"
 OUTPUT_DIR="$BUILD_DIR/WienBuildingsLOD21"
 TARGETS_FILE="${WIEN_LOD21_TARGETS:-$SCRIPT_DIR/targets.pilot.json}"
 HYBRID_CURRENT_FILE="$BUILD_DIR/hybrid-current.json"
-DOWNLOAD_BASE="https://www.wien.gv.at/MA41datenviewer/downloads/geodaten/lod2_gml"
+DOWNLOAD_DIR="${WIEN_LOD21_DOWNLOAD_DIR:-$BUILD_DIR/downloads}"
 
-rm -rf "$BUILD_DIR"
-mkdir -p "$SOURCE_DIR" "$OUTPUT_DIR"
+# Preserve validated ZIPs across invocations in the same workspace.
+rm -rf "$SOURCE_DIR" "$OUTPUT_DIR"
+rm -f "$HYBRID_CURRENT_FILE"
+mkdir -p "$BUILD_DIR" "$SOURCE_DIR" "$OUTPUT_DIR" "$DOWNLOAD_DIR"
 
 node --check "$SCRIPT_DIR/build.mjs"
 node --check "$SCRIPT_DIR/fetch-hybrid-current.mjs"
 node --check "$SCRIPT_DIR/validate-production.mjs"
+node --check "$SCRIPT_DIR/download-sheets.mjs"
+
+node "$SCRIPT_DIR/download-sheets.mjs" \
+	--targets "$TARGETS_FILE" \
+	--cache-dir "$DOWNLOAD_DIR" \
+	--summary "$BUILD_DIR/download-report.json"
 
 mapfile -t SHEETS < <(
 	node --input-type=module - "$TARGETS_FILE" <<'NODE'
@@ -26,38 +34,8 @@ for (const sheet of [...new Set((input.buildings || []).map((item) => String(ite
 NODE
 )
 
-if [ "${#SHEETS[@]}" -eq 0 ]; then
-	echo "No Vienna LOD2.1 source sheets configured." >&2
-	exit 1
-fi
-
-DOWNLOAD_PARALLEL="${WIEN_LOD21_DOWNLOAD_PARALLEL:-4}"
-
-download_sheet() {
-	local sheet="$1"
-	local zip_path="$BUILD_DIR/${sheet}_lod2_gml.zip"
-	local url="$DOWNLOAD_BASE/${sheet}_lod2_gml.zip"
-	echo "Download LOD2.1 sheet $sheet"
-	curl \
-		--fail \
-		--location \
-		--retry 4 \
-		--retry-all-errors \
-		--connect-timeout 30 \
-		--max-time 300 \
-		--user-agent "ks-wien-builds/wien-lod21" \
-		"$url" \
-		-o "$zip_path"
-}
-
-export BUILD_DIR DOWNLOAD_BASE
-export -f download_sheet
-
-printf '%s\n' "${SHEETS[@]}" \
-	| xargs -I{} -P "$DOWNLOAD_PARALLEL" bash -c 'download_sheet "$1"' _ {}
-
 for sheet in "${SHEETS[@]}"; do
-	unzip -q "$BUILD_DIR/${sheet}_lod2_gml.zip" -d "$SOURCE_DIR"
+	unzip -q "$DOWNLOAD_DIR/${sheet}_lod2_gml.zip" -d "$SOURCE_DIR"
 done
 
 node "$SCRIPT_DIR/fetch-hybrid-current.mjs" \
