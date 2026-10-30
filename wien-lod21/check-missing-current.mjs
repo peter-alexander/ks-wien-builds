@@ -6,7 +6,11 @@ const cases = [
 	{ layer: "FMZKBKMOGD", filter: "FMZK_ID IN (" + ids.slice(0, 3).map(id => "'" + id + "'").join(",") + ")" },
 	...ids.map(id => ({layer:"FMZKBKMOGD",filter:"FMZK_ID='" + id + "'"})),
 	...ids.slice(0,3).map(id => ({layer:"FMZKBKMOGD",filter:"FMZK_ID=" + id})),
-	...ids.map(id => ({layer:"FMZKGEBOGD",filter:"FMZK_ID='" + id + "'"}))
+	...ids.map(id => ({layer:"FMZKGEBOGD",filter:"FMZK_ID='" + id + "'"})),
+	...["5436256","5411794"].flatMap(id => [
+		{layer:"FMZKBKMOGD",filter:"BW_GEB_ID=" + id},
+		{layer:"FMZKGEBOGD",filter:"BW_GEB_ID=" + id}
+	])
 ];
 const res = [];
 for (const c of cases) {
@@ -27,6 +31,11 @@ for (const c of cases) {
 			ids:(json?.features||[]).map(f=>String(f?.properties?.FMZK_ID)),
 			featureProperties:(json?.features||[]).slice(0,1).map(f=>Object.keys(f.properties||{})),
 			geometryTypes:[...new Set((json?.features||[]).map(f=>f.geometry?.type))],
+			recordDetails:(json?.features||[]).slice(0,60).map(f=>({
+				id:f.properties?.FMZK_ID,bwGebId:f.properties?.BW_GEB_ID,
+				height:f.properties?.O_KOTE,base:f.properties?.T_KOTE,
+				fKlasse:f.properties?.F_KLASSE
+			})),
 			numberMatched:json?.numberMatched??null,
 			error:response.ok?null:body.slice(0,400) };
 		res.push(result);
