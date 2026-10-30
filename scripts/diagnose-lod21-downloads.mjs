@@ -57,26 +57,28 @@ const environment = {
 };
 await fs.writeFile(path.join(outputDir, "environment.json"), JSON.stringify(environment, null, "\t") + "\n");
 
-async function probe(mode, agent, sheet) {
+async function probe(mode, agent, sheet, fullDownload = false) {
 	const name = mode + "-" + agent.name + "-" + sheet;
 	const url = baseUrl + sheet + "_lod2_gml.zip";
 	const headersFile = path.join(outputDir, name + ".headers.txt");
 	const verboseFile = path.join(outputDir, name + ".verbose.txt");
+	const zipFile = path.join(os.tmpdir(), name + "-" + process.pid + ".zip");
 	const args = [
 		"--location",
 		"--proto", "=https",
 		"--proto-redir", "=https",
 		"--max-redirs", "5",
 		"--connect-timeout", "12",
-		"--max-time", "30",
+		"--max-time", fullDownload ? "90" : "30",
 		"--retry", "0",
-		"--range", "0-0",
-		"--max-filesize", "65536",
+		...(fullDownload
+			? ["--max-filesize", "15000000"]
+			: ["--range", "0-0", "--max-filesize", "65536"]),
 		"--user-agent", agent.value,
 		"--verbose",
 		"--silent",
 		"--show-error",
-		"--output", os.devNull,
+		"--output", fullDownload ? zipFile : os.devNull,
 		"--dump-header", headersFile,
 		"--write-out", "%{json}",
 		url
@@ -84,6 +86,25 @@ async function probe(mode, agent, sheet) {
 	const started = new Date().toISOString();
 	const command = await execute("curl", args);
 	await fs.writeFile(verboseFile, command.stderr);
+	let zipValidation = null;
+	let zipBytes = null;
+	if (fullDownload) {
+		try {
+			const stat = await fs.stat(zipFile);
+			zipBytes = stat.size;
+			if (command.code === 0) {
+				const check = await execute("unzip", ["-tqq", zipFile]);
+				zipValidation = {
+					exitCode: check.code,
+					error: check.spawnError || check.stderr.trim() || null
+				};
+			}
+		} catch (error) {
+			zipValidation = { exitCode: null, error: String(error) };
+		} finally {
+			await fs.rm(zipFile, { force: true });
+		}
+	}
 	let metrics = {};
 	let parseError = null;
 	try {
@@ -93,6 +114,9 @@ async function probe(mode, agent, sheet) {
 	}
 	const result = {
 		mode,
+		fullDownload,
+		zipBytes,
+		zipValidation,
 		agent: agent.name,
 		userAgent: agent.value,
 		sheet,
@@ -121,7 +145,8 @@ async function probe(mode, agent, sheet) {
 		mode, agent: agent.name, sheet, curlExitCode: result.curlExitCode,
 		httpStatus: result.httpStatus, ip: result.ip,
 		dnsSeconds: result.dnsSeconds, tcpSeconds: result.tcpSeconds,
-		tlsSeconds: result.tlsSeconds, totalSeconds: result.totalSeconds
+		tlsSeconds: result.tlsSeconds, totalSeconds: result.totalSeconds,
+		zipValid: result.zipValidation?.exitCode === 0
 	}));
 	return result;
 }
@@ -144,26 +169,38 @@ for (let batch = 0; batch < 2; batch++) {
 	results.push(...batchResults);
 }
 
+// Echte GETs: kleiner, kontrollierter Produktionsdownload mit je vier
+// Einzelverbindungen und vier gleichzeitig gestarteten ZIP-Downloads.
+// Die Agenten werden zwischen beiden Modi pro Blatt vertauscht.
+for (let i = 0; i < sheets.length; i++) {
+	results.push(await probe("full-serial", agents[i % 2], sheets[i], true));
+}
+const fullParallel = await Promise.all(sheets.map((sheet, index) =>
+	probe("full-parallel", agents[(index + 1) % 2], sheet, true)
+));
+results.push(...fullParallel);
+
 const format = (value) => value == null || value === "" ? "–" : String(value);
 const time = (value) => value == null ? "–" : Number(value).toFixed(3);
 const summary = [
 	"# Wiener LOD2.1: Download-Netzwerkdiagnose",
 	"",
-	"Vier Produktionsblätter, jeweils mit altem und neuem User-Agent, zuerst seriell und danach in zwei Batches mit vier parallelen Verbindungen.",
-	"HTTP-GET mit Range 0–0 und maximal 64 KiB Download; keine vollständigen ZIP-Downloads und keine Retries.",
+	"Vier Produktionsblätter mit beiden User-Agents: zuerst 16 Range-GETs (seriell und 4-fach parallel), danach acht echte ZIP-Downloads (vier seriell und vier parallel).",
+	"Range-GETs: Byte 0, höchstens 64 KiB. Echte GETs: gesamte ZIP, höchstens 15 MB je Datei, anschließend unzip-Integritätsprüfung und Löschen der ZIP. Keine Retries.",
 	"",
 	"**Wichtig:** HTTP 200/206 bei curl-Exit 63 kann bedeuten, dass der Server Range ignoriert hat und der Download absichtlich durch das Größenlimit abgebrochen wurde. Das ist kein TCP-/TLS-Verbindungsfehler. Range-GET ist nicht vollständig mit dem produktiven GET vergleichbar.",
 	"",
-	"| Modus | UA | Blatt | curl | HTTP | IP | DNS s | TCP s | TLS s | First byte s | Gesamt s |",
-	"|---|---|---|---:|---:|---|---:|---:|---:|---:|---:|",
+	"| Modus | UA | Blatt | curl | HTTP | ZIP gültig | IP | DNS s | TCP s | TLS s | First byte s | Gesamt s |",
+	"|---|---|---|---:|---:|---|---|---:|---:|---:|---:|---:|",
 	...results.map((r) => "| " + [
 		r.mode, r.agent, r.sheet, format(r.curlExitCode),
-		r.httpStatus, format(r.ip), time(r.dnsSeconds),
+		r.httpStatus, r.fullDownload ? (r.zipValidation?.exitCode === 0 ? "ja" : "nein") : "–",
+		format(r.ip), time(r.dnsSeconds),
 		time(r.tcpSeconds), time(r.tlsSeconds),
 		time(r.firstByteSeconds), time(r.totalSeconds)
 	].join(" | ") + " |"),
 	"",
-	"Alle Redirects und HTTP-Header stehen in den *.headers.txt-Dateien; TLS-, Verbindungs- und curl-Fehler in den *.verbose.txt-Dateien. Die Umgebung und DNS-Antworten stehen in environment.json.",
+	"Alle Redirects und HTTP-Header stehen in den *.headers.txt-Dateien; TLS-, Verbindungs- und curl-Fehler in den *.verbose.txt-Dateien. Die Umgebung und DNS-Antworten stehen in environment.json. Vollständige ZIP-Dateien werden nicht in das Artifact aufgenommen.",
 	""
 ].join("\n");
 await fs.writeFile(path.join(outputDir, "summary.md"), summary);

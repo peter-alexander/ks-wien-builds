@@ -24,7 +24,7 @@ Bei der GitHub-Pages-Veröffentlichung werden die bisher gzip-komprimierten LOD1
 
 ## LOD2.1-Downloaddiagnose
 
-Der manuell startbare Workflow `.github/workflows/wien-lod21-download-diagnostics.yml` vergleicht die Wiener LOD2.1-ZIP-Endpunkte für die Blätter `104078`, `105080`, `105082` und `106082`, jeweils mit dem alten und neuen User-Agent. Acht Abfragen erfolgen seriell, acht weitere in zwei Vierergruppen parallel. Jede Abfrage verwendet einen HTTPS-Range-GET (Byte 0), höchstens 64 KiB Download, 12 s Connect-Timeout und 30 s Gesamt-Timeout ohne Wiederholungen.
+Der manuell startbare Workflow `.github/workflows/wien-lod21-download-diagnostics.yml` vergleicht die Wiener LOD2.1-ZIP-Endpunkte für die Blätter `104078`, `105080`, `105082` und `106082`, jeweils mit dem alten und neuen User-Agent. Acht Range-GETs erfolgen seriell, acht weitere in zwei Vierergruppen parallel (Byte 0, höchstens 64 KiB je Anfrage). Danach folgen vier vollständige, serielle ZIP-Downloads und vier vollständige, parallele ZIP-Downloads mit den jeweils anderen User-Agents. Die ZIP-Dateien sind auf 15 MB je Datei begrenzt, werden mit `unzip -tqq` geprüft und anschließend gelöscht. Alle Anfragen verwenden 12 s Connect-Timeout ohne Wiederholungen.
 
 Im Actions-Job erscheinen die Verbindungsmetriken als Summary-Tabelle. Das Artifact `wien-lod21-download-diagnostics` enthält zusätzlich DNS-Informationen, curl-Timings, vollständige HTTP-Header sowie Verbose-Logs. Ein curl-Fehlercode 63 bei vorhandenem HTTP-Status ist durch die absichtliche Größenbegrenzung erklärbar; Range-Abfragen sind nicht völlig identisch mit dem produktiven ZIP-Download.
 
