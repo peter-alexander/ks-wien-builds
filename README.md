@@ -14,11 +14,11 @@ Die Daten werden vom Workflow `.github/workflows/publish.yml` **inkrementell** a
 
 **Einmalige GitHub-Einstellung:** Settings → Pages → Build and deployment → Deploy from a branch → `gh-pages` → `/(root)` → Save.
 
-Anschließend unter Actions → **Build and publish Vienna data to GitHub Pages** → Run workflow die Optionen `baumkataster`, `buildings-lod1`, `buildings-lod21` und `stadtplan` einzeln ausführen. LOD1 und LOD2.1 werden unabhängig gebaut, validiert und in ihre jeweiligen Pages-Unterverzeichnisse veröffentlicht. Fehler bei LOD2.1 verhindern eine LOD1-Veröffentlichung nicht. Erst nach erfolgreicher Publikation und Prüfung der tatsächlichen URLs sollten die alten Build-Workflows abgeschaltet und Karten-URLs umgestellt werden.
+Anschließend unter Actions → **Build and publish Vienna data to GitHub Pages** → Run workflow die Optionen `baumkataster`, `buildings-lod1` und `stadtplan` einzeln ausführen. LOD2.1 besitzt nun den eigenen Workflow **Build and publish Vienna LOD2.1 in source shards**. LOD1 und LOD2.1 werden unabhängig gebaut, validiert und in ihre jeweiligen Pages-Unterverzeichnisse veröffentlicht. Fehler bei LOD2.1 verhindern eine LOD1-Veröffentlichung nicht. Erst nach erfolgreicher Publikation und Prüfung der tatsächlichen URLs sollten die alten Build-Workflows abgeschaltet und Karten-URLs umgestellt werden.
 
 ## Regelmäßige Aktualisierung
 
-Stadtplan täglich um 00:19 UTC, Baumkataster täglich um 02:37 UTC; LOD1 Dienstag und Freitag um 03:23 UTC, LOD2.1 separat Dienstag und Freitag um 04:23 UTC. Die LOD2.1-Analyseworkflows sind weiterhin manuell. Alle Veröffentlichungen verwenden dieselbe GitHub-Pages-Concurrency-Gruppe, damit sich gleichzeitige Pushes auf `gh-pages` nicht überschreiben.
+Stadtplan täglich um 00:19 UTC, Baumkataster täglich um 02:37 UTC; LOD1 Dienstag und Freitag um 03:23 UTC, LOD2.1 im eigenständigen Shard-Workflow Dienstag und Freitag um 04:23 UTC. Die LOD2.1-Analyseworkflows sind weiterhin manuell. Alle Veröffentlichungen verwenden dieselbe GitHub-Pages-Concurrency-Gruppe, damit sich gleichzeitige Pushes auf `gh-pages` nicht überschreiben.
 
 Bei der GitHub-Pages-Veröffentlichung werden die bisher gzip-komprimierten LOD1-PBF-Kacheln entpackt, da GitHub Pages dafür keine eigenen `Content-Encoding`-Header konfigurieren lässt.
 
@@ -37,3 +37,11 @@ Der Download wurde aus `wien-lod21/run.sh` nach `wien-lod21/download-sheets.mjs`
 Vollständig heruntergeladene ZIPs bleiben in `wien-lod21/build/downloads/` und werden bei einem erneuten Aufruf im **selben Arbeitsverzeichnis** nach `unzip -tqq` wiederverwendet. Ungültige oder nur teilweise heruntergeladene Dateien werden nicht übernommen. Ein neuer GitHub-Actions-Run bekommt einen neuen Runner; es wird **kein** großer ZIP-Cache zwischen GitHub-Runs übertragen.
 
 Zum kontrollierten Belastungstest dient `.github/workflows/wien-lod21-download-pacing.yml`: Er lädt 120 nach Blattnummer sortierte Blätter aus dem Produktionsmanifest und überprüft anschließend die Wiederverwendung aus dem Cache. Er **baut und veröffentlicht keine 3D-Daten** und archiviert ausschließlich JSON-Berichte, nicht die ZIP-Dateien.
+
+## LOD2.1-Build mit unabhängigen Download-Runnern
+
+Der Workflow `.github/workflows/wien-lod21-publish.yml` zerlegt die 734 Produktionsblätter in **62 Pakete zu maximal 12 ZIP-Dateien**. Jedes Paket wird auf einem eigenen GitHub-Runner mit maximal einem laufenden Download und 1,5 Sekunden Abstand geladen, vollständig auf ZIP-Integrität geprüft und als Workflow-Artefakt bereitgestellt. Maximal drei Pakete werden gleichzeitig bearbeitet. Erfolgreiche Pakete werden außerdem über `actions/cache` mit einem an das Produktionsmanifest gebundenen Schlüssel vorgehalten, damit Folgeläufe möglichst keine erneuten Downloads benötigen. Bei fehlgeschlagenen Einzelpaketen kann der GitHub-Actions-Lauf mit **Re-run failed jobs** fortgesetzt werden.
+
+Nach erfolgreichem Abschluss aller Pakete lädt der Build-Job die Artefakte, prüft die lückenlose Blattabdeckung, startet `wien-lod21/run.sh` mit `WIEN_LOD21_SKIP_DOWNLOAD=1`, validiert das vollständige Produktionsmodell und veröffentlicht nur dann `WienBuildings/LOD21` auf `gh-pages`. Für die Veröffentlichung nutzt er weiterhin die gemeinsame Concurrency-Gruppe `wien-pages-publish`.
+
+Die bisherigen LOD1-/Baumkataster-/Stadtplan-Builds bleiben unverändert. Der LOD2.1-Zeitplan und die manuelle Ausführung wurden auf den neuen Workflow umgestellt. Eine größere GitHub-Actions-Jobanzahl ist der bewusste Kompromiss für verlässliche Downloads. Der Quellcache basiert auf dem Produktionsmanifest und wird **nicht** automatisch aktualisiert, wenn Wien eine ZIP-Datei bei gleichbleibendem Blattnamen ersetzt; in diesem Fall muss der Cache-Schlüssel versioniert werden.

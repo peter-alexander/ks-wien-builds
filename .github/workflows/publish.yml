@@ -10,12 +10,10 @@ on:
         options:
           - baumkataster
           - buildings-lod1
-          - buildings-lod21
           - stadtplan
   schedule:
     - cron: '37 2 * * *'
     - cron: '23 3 * * 2,5'
-    - cron: '23 4 * * 2,5'
     - cron: '19 0 * * *'
 
 permissions:
@@ -29,7 +27,7 @@ jobs:
   build-publish:
     runs-on: ubuntu-latest
     env:
-      DATASET: ${{ github.event_name == 'workflow_dispatch' && inputs.dataset || (github.event.schedule == '37 2 * * *' && 'baumkataster' || github.event.schedule == '19 0 * * *' && 'stadtplan' || github.event.schedule == '23 3 * * 2,5' && 'buildings-lod1' || 'buildings-lod21') }}
+      DATASET: ${{ github.event_name == 'workflow_dispatch' && inputs.dataset || (github.event.schedule == '37 2 * * *' && 'baumkataster' || github.event.schedule == '19 0 * * *' && 'stadtplan' || github.event.schedule == '23 3 * * 2,5' && 'buildings-lod1' || '') }}
       WIEN_LOD21_TARGETS: wien-lod21/targets.production.json
     steps:
       - uses: actions/checkout@v4
@@ -86,10 +84,6 @@ jobs:
             buildings-lod1)
               bash wien-buildings/run.sh
               ;;
-            buildings-lod21)
-              bash wien-lod21/run.sh
-              node wien-lod21/validate-production.mjs wien-lod21/build/WienBuildingsLOD21
-              ;;
             stadtplan)
               node stadtplan-wien/test.mjs
               node stadtplan-wien/build.mjs
@@ -130,10 +124,6 @@ jobs:
                 data.vectorTiles.compression = "none";
                 fs.writeFileSync(p, JSON.stringify(data, null, 2) + String.fromCharCode(10));
               ' "$source/release.json"
-              ;;
-            buildings-lod21)
-              target="pages/WienBuildings/LOD21"
-              source="sources/wien-lod21/build/WienBuildingsLOD21"
               ;;
           esac
           test -d "$source"

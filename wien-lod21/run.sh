@@ -19,10 +19,14 @@ node --check "$SCRIPT_DIR/fetch-hybrid-current.mjs"
 node --check "$SCRIPT_DIR/validate-production.mjs"
 node --check "$SCRIPT_DIR/download-sheets.mjs"
 
-node "$SCRIPT_DIR/download-sheets.mjs" \
-	--targets "$TARGETS_FILE" \
-	--cache-dir "$DOWNLOAD_DIR" \
-	--summary "$BUILD_DIR/download-report.json"
+if [ "${WIEN_LOD21_SKIP_DOWNLOAD:-0}" = "1" ]; then
+	echo "Use previously collected LOD2.1 source ZIPs: $DOWNLOAD_DIR"
+else
+	node "$SCRIPT_DIR/download-sheets.mjs" \
+		--targets "$TARGETS_FILE" \
+		--cache-dir "$DOWNLOAD_DIR" \
+		--summary "$BUILD_DIR/download-report.json"
+fi
 
 mapfile -t SHEETS < <(
 	node --input-type=module - "$TARGETS_FILE" <<'NODE'

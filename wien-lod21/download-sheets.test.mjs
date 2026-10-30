@@ -16,6 +16,8 @@ async function temporary(fn) {
 test("unique sorted sheets, valid sheet IDs and bounded parallelism", () => {
 	assert.deepEqual(selectedSheets({ buildings: [{ sheet: "105080" }, { sheet: "104078" },
 		{ sheet: "105080" }] }, 2), ["104078", "105080"]);
+	assert.deepEqual(selectedSheets({ buildings: [{ sheet: "105080" }, { sheet: "104078" },
+		{ sheet: "106082" }] }, 1, 1), ["105080"]);
 	assert.throws(() => selectedSheets({ buildings: [{ sheet: "../a" }] }), /Invalid/);
 	assert.throws(() => optionsFrom(["--parallel", "0"]), /parallel/);
 });

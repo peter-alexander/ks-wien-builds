@@ -1,0 +1,159 @@
+name: Build and publish Vienna LOD2.1 in source shards
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '23 4 * * 2,5'
+  push:
+    paths:
+      - '.github/workflows/wien-lod21-publish.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: wien-lod21-sharded-production
+  cancel-in-progress: false
+
+jobs:
+  plan:
+    runs-on: ubuntu-24.04
+    outputs:
+      matrix: ${{ steps.shards.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+      - name: Check sharding and downloader regression tests
+        run: node --test wien-lod21/plan-shards.test.mjs wien-lod21/download-sheets.test.mjs
+      - name: Split production manifest into 12-sheet packages
+        id: shards
+        run: node wien-lod21/plan-shards.mjs wien-lod21/targets.production.json 12
+
+  sources:
+    needs: plan
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    strategy:
+      fail-fast: false
+      max-parallel: 3
+      matrix: ${{ fromJSON(needs.plan.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+      - name: Restore validated ZIP cache for this package
+        id: source-cache
+        uses: actions/cache/restore@v4
+        with:
+          path: ${{ runner.temp }}/lod21-zips
+          key: lod21-zips-v1-${{ hashFiles('wien-lod21/targets.production.json') }}-${{ matrix.index }}
+      - name: Download and validate this package
+        env:
+          SHARD_OFFSET: ${{ matrix.offset }}
+          SHARD_LIMIT: ${{ matrix.limit }}
+        run: |
+          node wien-lod21/download-sheets.mjs \
+            --targets wien-lod21/targets.production.json \
+            --cache-dir "$RUNNER_TEMP/lod21-zips" \
+            --summary "$RUNNER_TEMP/lod21-source-report.json" \
+            --offset "$SHARD_OFFSET" \
+            --limit "$SHARD_LIMIT" \
+            --parallel 1 \
+            --interval-ms 1500 \
+            --attempts 2 \
+            --threshold 2 \
+            --max-cooldowns 0 \
+            --retry-ms 1000
+      - name: Save complete source package in Actions cache
+        if: steps.source-cache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v4
+        with:
+          path: ${{ runner.temp }}/lod21-zips
+          key: lod21-zips-v1-${{ hashFiles('wien-lod21/targets.production.json') }}-${{ matrix.index }}
+      - name: Make source package available to final build
+        uses: actions/upload-artifact@v4
+        with:
+          name: lod21-source-${{ matrix.index }}
+          path: ${{ runner.temp }}/lod21-zips/*.zip
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 2
+
+  build-publish:
+    needs: [plan, sources]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 180
+    concurrency:
+      group: wien-pages-publish
+      cancel-in-progress: false
+    permissions:
+      contents: write
+    env:
+      WIEN_LOD21_TARGETS: wien-lod21/targets.production.json
+      WIEN_LOD21_SKIP_DOWNLOAD: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: sources
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          path: pages
+          fetch-depth: 1
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: sources/.nvmrc
+          cache: npm
+          cache-dependency-path: sources/package-lock.json
+      - name: Assemble ZIP packages from all source runners
+        uses: actions/download-artifact@v4
+        with:
+          pattern: lod21-source-*
+          merge-multiple: true
+          path: sources/wien-lod21/build/downloads
+      - name: Ensure every production sheet was supplied
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from "node:fs";
+          const manifest = JSON.parse(fs.readFileSync("sources/wien-lod21/targets.production.json", "utf8"));
+          const ids = [...new Set(manifest.buildings.map((building) => String(building.sheet)))].sort();
+          const dir = "sources/wien-lod21/build/downloads";
+          const present = fs.readdirSync(dir).filter((name) => name.endsWith("_lod2_gml.zip"));
+          const missing = ids.filter((id) => !fs.existsSync(dir + "/" + id + "_lod2_gml.zip"));
+          console.log("LOD2.1 source coverage: " + present.length + "/" + ids.length);
+          if (missing.length || present.length !== ids.length) {
+            throw new Error("Incomplete LOD2.1 source set: " + missing.join(", "));
+          }
+          NODE
+      - name: Install 3D build dependencies
+        working-directory: sources
+        run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Build LOD2.1 from collected source ZIPs
+        working-directory: sources
+        run: |
+          bash wien-lod21/run.sh
+          node wien-lod21/validate-production.mjs wien-lod21/build/WienBuildingsLOD21
+      - name: Copy validated LOD2.1 to GitHub Pages working tree
+        run: |
+          mkdir -p pages/WienBuildings/LOD21
+          cp -a sources/wien-lod21/build/WienBuildingsLOD21/. pages/WienBuildings/LOD21/
+          touch pages/.nojekyll
+      - name: Update LOD2.1 asset versions
+        run: node sources/scripts/update-asset-versions.mjs pages buildings-lod21
+      - name: Commit only LOD2.1 release and asset versions
+        working-directory: pages
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A -- WienBuildings/LOD21 .nojekyll asset-versions.json
+          if git diff --cached --quiet; then
+            echo 'No LOD2.1 changes to publish'
+            exit 0
+          fi
+          git commit -m 'Publish Vienna buildings-lod21 data'
+          git push origin HEAD:gh-pages

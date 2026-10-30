@@ -19,7 +19,7 @@ export function optionsFrom(argv = process.argv.slice(2), env = process.env) {
 		if (!argv[i]?.startsWith("--") || !argv[i + 1] || argv[i + 1].startsWith("--")) throw new Error("Expected --option value at " + argv[i]);
 		args[argv[i].slice(2)] = argv[i + 1];
 	}
-	const allowed = ["targets", "cache-dir", "summary", "limit", "parallel", "interval-ms", "attempts",
+	const allowed = ["targets", "cache-dir", "summary", "limit", "offset", "parallel", "interval-ms", "attempts",
 		"threshold", "cooldown-ms", "max-cooldowns", "retry-ms"];
 	for (const key of Object.keys(args)) if (!allowed.includes(key)) throw new Error("Unknown option " + key);
 	return {
@@ -27,6 +27,7 @@ export function optionsFrom(argv = process.argv.slice(2), env = process.env) {
 		cacheDir: path.resolve(args["cache-dir"] || env.WIEN_LOD21_DOWNLOAD_DIR || "wien-lod21/build/downloads"),
 		summary: path.resolve(args.summary || "wien-lod21/build/download-report.json"),
 		limit: number(args.limit ?? 100000, "limit", 1, 100000),
+		offset: number(args.offset ?? 0, "offset", 0, 100000),
 		parallel: number(args.parallel ?? env.WIEN_LOD21_DOWNLOAD_PARALLEL ?? 2, "parallel", 1, 8),
 		intervalMs: number(args["interval-ms"] ?? env.WIEN_LOD21_INTERVAL_MS ?? 1500, "interval-ms", 0, 60000),
 		attempts: number(args.attempts ?? env.WIEN_LOD21_DOWNLOAD_ATTEMPTS ?? 3, "attempts", 1, 10),
@@ -37,11 +38,11 @@ export function optionsFrom(argv = process.argv.slice(2), env = process.env) {
 	};
 }
 
-export function selectedSheets(data, limit = Infinity) {
+export function selectedSheets(data, limit = Infinity, offset = 0) {
 	if (!Array.isArray(data?.buildings)) throw new Error("Invalid target manifest");
 	const sheets = [...new Set(data.buildings.map((item) => String(item.sheet)))].sort();
 	if (!sheets.length || sheets.some((id) => !/^[0-9]{6}$/.test(id))) throw new Error("Invalid sheet identifier");
-	return sheets.slice(0, limit);
+	return sheets.slice(offset, offset + limit);
 }
 
 function command(bin, args) {
@@ -170,7 +171,7 @@ export async function downloadBatch(sheets, config, overrides = {}) {
 async function main() {
 	const opts = optionsFrom();
 	const targets = JSON.parse(await fs.readFile(opts.targets, "utf8"));
-	const sheets = selectedSheets(targets, opts.limit);
+	const sheets = selectedSheets(targets, opts.limit, opts.offset);
 	await fs.mkdir(path.dirname(opts.summary), { recursive: true });
 	console.log("LOD2.1: " + sheets.length + " sheets, parallel=" + opts.parallel + ", interval=" + opts.intervalMs + "ms");
 	const report = await downloadBatch(sheets, opts, { emit: (entry) => console.log(JSON.stringify(entry)) });
