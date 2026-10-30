@@ -51,3 +51,12 @@ Die bisherigen LOD1-/Baumkataster-/Stadtplan-Builds bleiben unverändert. Der LO
 Im ersten Produktionslauf scheiterte nur Paket 30 nach 11 von 12 erfolgreich heruntergeladenen ZIP-Dateien an `105082` (TCP-Verbindungs-Timeout). Die bisherigen **61 erfolgreichen Paket-Caches** behalten ihre unveränderten Schlüssel. Das fehlgeschlagene Paket wird in **zwei neue Pakete zu je sechs Blättern** (Indizes 62 und 63) aufgeteilt; damit umfasst der Produktionsplan nun **63 Pakete**. Die Quellblätter werden dadurch weiterhin exakt einmal und vollständig abgedeckt. Künftige Aufteilungen müssen jeweils mit neuen Cache-Indizes erfolgen.
 
 Die in diesem Repository bisher noch verwendeten Node.js-20-GitHub-Actions wurden durch Node.js-24-kompatible Versionen ersetzt (`checkout@v7`, `setup-node@v7`, `cache@v6`, `upload-artifact@v7`, `download-artifact@v8`). Die nicht mehr benötigten Netzwerkanalyse-Workflows starten nicht mehr automatisch durch Repository-Änderungen.
+
+## Aktualisierung der zwei Hybrid-Gebäude (30.10.2026)
+
+Die im September eingefrorene Produktionsliste enthielt drei `FMZK_ID`s, die die Stadt Wien in den aktuellen WFS-Layern `FMZKBKMOGD` und `FMZKGEBOGD` nicht mehr liefert. Die Werte wurden durch Einzelabfragen mit `FMZK_ID`, `BW_GEB_ID` und eine räumliche Umgebungsabfrage geprüft. Dokumentation: `wien-lod21/current-source-reconciliation.json`.
+
+- **181120**: Die alte `4007653867` wurde durch `4007927900` ersetzt, da beide zur `BW_GEB_ID=5411794` gehören. Zwei weitere alte Teilflächen dieser Gebäude-ID existieren weiterhin.
+- **052768**: Die zwei alten Teilflächen und die historische `BW_GEB_ID=5436256` sind nicht mehr vorhanden. Statt einen alten, nicht mehr nachweisbaren Baukörper auszugeben, bleibt dieser ehemalige Hybrid-Kandidat aus dem aktuellen Produktionsfallback ausgeschlossen. In seiner Umgebung sind heute andere Baukörper erfasst.
+
+Damit werden derzeit **2.309** statt 2.310 historische LOD2.1-Dach-Fallbacks ausgegeben; die Hybrid-A-Klasse umfasst **613** statt 614 Objekte. Das Produktionsmanifest und die Validator-Erwartungen wurden zusammen geändert, und die Abweichung ist automatisiert getestet. Bei einer späteren Neugenerierung des Produktionsmanifests muss diese Revision bewusst mitgeführt oder neu auditiert werden.

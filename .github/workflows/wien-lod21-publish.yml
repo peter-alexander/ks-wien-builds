@@ -26,7 +26,7 @@ jobs:
         with:
           node-version-file: '.nvmrc'
       - name: Check sharding and downloader regression tests
-        run: node --test wien-lod21/plan-shards.test.mjs wien-lod21/download-sheets.test.mjs
+        run: node --test wien-lod21/plan-shards.test.mjs wien-lod21/download-sheets.test.mjs wien-lod21/current-source-reconciliation.test.mjs
       - name: Split production manifest into 12-sheet packages
         id: shards
         run: node wien-lod21/plan-shards.mjs wien-lod21/targets.production.json 12 30

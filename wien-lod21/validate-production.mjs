@@ -120,9 +120,9 @@ if (manualPilotStrong !== 1 || release.counts.manualPilotStrong !== 1) {
 		+ manualPilotStrong + " / release " + release.counts.manualPilotStrong
 	);
 }
-if (hybridA !== 614 || Number(release.counts.hybridA || 0) !== hybridA) {
+if (hybridA !== 613 || Number(release.counts.hybridA || 0) !== hybridA) {
 	throw new Error(
-		"Expected 614 Hybrid-A targets, got "
+		"Expected 613 Hybrid-A targets, got "
 		+ hybridA + " / release " + Number(release.counts.hybridA || 0)
 	);
 }
@@ -209,7 +209,7 @@ if (
 	);
 }
 const expectedProductionTargets =
-	2274 + EXPECTED_MAPTOOLKIT_ROOF_REPLACEMENTS;
+	2273 + EXPECTED_MAPTOOLKIT_ROOF_REPLACEMENTS;
 if (items.length !== expectedProductionTargets) {
 	throw new Error(
 		"Expected " + expectedProductionTargets

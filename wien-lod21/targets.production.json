@@ -17,12 +17,36 @@
 		"hybridHeightSplitToleranceM": 0.25,
 		"maptoolkitRoofReplacementSelected": 36,
 		"maptoolkitRoofReplacementAuditGeneratedAt": "2026-09-24T18:30:55.357Z",
-		"auditedPlausibleEaveClipSelected": 1
+		"auditedPlausibleEaveClipSelected": 1,
+		"currentGeometryReconciliation": {
+			"auditDate": "2026-10-30",
+			"source": "Stadt Wien WFS FMZKBKMOGD and FMZKGEBOGD, exact FMZK_ID and BW_GEB_ID queries",
+			"excluded": [
+				{
+					"historicalCode": "052768",
+					"formerBwGebId": 5436256,
+					"formerFmzkIds": [
+						4005738567,
+						4005738573
+					],
+					"reason": "former BW_GEB_ID and both FMZK_IDs absent from both current WFS layers; historical roof not rendered as present-day building"
+				}
+			],
+			"reconciled": [
+				{
+					"historicalCode": "181120",
+					"bwGebId": 5411794,
+					"removedFmzkId": 4007653867,
+					"currentFmzkId": 4007927900,
+					"reason": "the replacement FMZK_ID is returned under the same BW_GEB_ID and has current LOD1.4 height properties"
+				}
+			]
+		}
 	},
 	"counts": {
-		"total": 2310,
+		"total": 2309,
 		"directStrong": 1209,
-		"hybridA": 614,
+		"hybridA": 613,
 		"hybridBAbsolute": 72,
 		"hybridBThin": 3,
 		"hybridBClip": 7,
@@ -7729,21 +7753,6 @@
 			"lat": 48.2265676,
 			"rolloutMode": "hybrid-a",
 			"expectedRemainderM2": 35.48,
-			"historicalOutsideCurrentM2": 0
-		},
-		{
-			"name": "Wien LOD2.1 052768",
-			"historicalCode": "052768",
-			"bwGebId": 5436256,
-			"ksIds": [
-				"wien-fmzk:4005738567",
-				"wien-fmzk:4005738573"
-			],
-			"sheet": "093085",
-			"lng": 16.2876888,
-			"lat": 48.2239918,
-			"rolloutMode": "hybrid-a",
-			"expectedRemainderM2": 49.54,
 			"historicalOutsideCurrentM2": 0
 		},
 		{
@@ -30254,7 +30263,7 @@
 			"ksIds": [
 				"wien-fmzk:4001892559",
 				"wien-fmzk:4007121901",
-				"wien-fmzk:4007653867"
+				"wien-fmzk:4007927900"
 			],
 			"sheet": "094082",
 			"lng": 16.2929258,

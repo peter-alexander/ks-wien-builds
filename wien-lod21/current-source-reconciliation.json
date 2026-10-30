@@ -1,0 +1,24 @@
+{
+	"schemaVersion": 1,
+	"auditDate": "2026-10-30",
+	"description": "Anpassung des September-2026-Produktionssnapshots an den aktuellen FMZK-Stand. Zwei historische Gebäude sind betroffen; keines wird ohne aktuellen Baukörper als verlässlicher Dach-Fallback ausgegeben.",
+	"sourceLayer": "ogdwien:FMZKBKMOGD",
+	"secondaryLayer": "ogdwien:FMZKGEBOGD",
+	"changes": [
+		{
+			"action": "exclude",
+			"historicalCode": "052768",
+			"formerBwGebId": 5436256,
+			"formerFmzkIds": [4005738567, 4005738573],
+			"reason": "Keiner der alten IDs beziehungsweise der BW_GEB_ID ist in den zwei WFS-Layern vorhanden. Keine unbelegte Dach-Geometrie publizieren."
+		},
+		{
+			"action": "replace-current-part",
+			"historicalCode": "181120",
+			"bwGebId": 5411794,
+			"formerFmzkId": 4007653867,
+			"currentFmzkId": 4007927900,
+			"reason": "Aktueller FMZK-Baukörper derselben BW_GEB_ID; die anderen beiden FMZK-Teile bleiben erhalten."
+		}
+	]
+}
