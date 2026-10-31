@@ -34,6 +34,12 @@ node "$SCRIPT_DIR/build.mjs" \
 test -s "$GEOJSONSEQ_FILE"
 test -s "$RELEASE_FILE"
 
+log "Prüfe OGD-Z15-Feature-Abdeckung und sichere Kachelgrenzen"
+node --test "$SCRIPT_DIR/build-feature-coverage.test.mjs"
+node "$SCRIPT_DIR/build-feature-coverage.mjs" \
+	"$GEOJSONSEQ_FILE" "$PUBLISH_DIR/feature-coverage-z15.json"
+test -s "$PUBLISH_DIR/feature-coverage-z15.json"
+
 log "Erzeuge gzip-komprimierte Z${MIN_ZOOM}-Z${MAX_ZOOM}-PBF-Vektorkacheln"
 log "Z${MAX_ZOOM} bleibt geometrisch vollständig; Z${MIN_ZOOM}-Z$((MAX_ZOOM - 1)) werden nur geometrisch vereinfacht (Faktor ${LOW_ZOOM_SIMPLIFICATION}), ohne Gebäude wegen Tile-Limits zu verwerfen."
 mkdir -p "$PBF_DIR"
