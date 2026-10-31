@@ -13,6 +13,35 @@ Priorität:
 3. geprüftes Wiener LOD2.1 als Fallback bei vollständig fehlendem Maptoolkit
 4. aktuelles OGD-Baukörpermodell LOD1
 
+
+## Zusätzlich veröffentlichte Z14-Dachgeometrie
+
+Nach jedem erfolgreichen Produktions-Build führt
+`.github/workflows/wien-lod21-z14-publish.yml` einen separaten
+Veröffentlichungslauf aus. `wien-lod21/repack-z14.mjs` liest die
+bereits veröffentlichten, auditierten KSL21B01-Z15-Kacheln und
+baut jeweils bis zu vier Kindkacheln zu einer Z14-Kachel zusammen.
+Anker, Triangle-Indices, Normalen, Gebäudeidentitäten, relative
+Höhen und die geprüften Dach- und Gebäudeflächen bleiben erhalten;
+es erfolgt keine Vereinfachung oder erneute Interpretation der
+historischen GML-Quellen.
+
+Der erste Lauf wurde am 31. Oktober 2026 erfolgreich ausgeführt:
+419 Z15-Quellkacheln wurden zu 146 Z14-Kacheln zusammengefasst.
+Die veröffentlichten Metadaten bestätigen die Erhaltung von
+512.062 Vertices und 4.886 Gebäudeobjekten.
+
+Download: `WienBuildings/LOD21Z14/release.json` und
+`WienBuildings/LOD21Z14/tiles/14/{x}/{y}.bin`.
+
+**Abdeckungsgrenze:** Dies ist ausschließlich der geprüfte
+historische LOD2.1-Teilbestand; die aktuelle Maptoolkit-LOD2-
+Gebäudegeometrie ist darin ausdrücklich nicht enthalten.
+Die Kartensammlung verwendet das weiterhin veröffentlichte
+OGD-LOD1 für nicht überdeckte Objekte. Der Build rehostet keine
+Maptoolkit-Daten.
+
+
 ## Matching
 
 Primär wird der historische FMZK-Adresscode `BEZUG` mit `gml:name` des
