@@ -1,0 +1,74 @@
+name: Retile and publish audited Vienna LOD2.1 roofs at Z14
+
+on:
+  workflow_dispatch:
+  workflow_run:
+    workflows:
+      - Build and publish Vienna LOD2.1 in source shards
+    types:
+      - completed
+
+permissions:
+  contents: write
+
+concurrency:
+  group: wien-pages-publish
+  cancel-in-progress: false
+
+jobs:
+  repack-publish:
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+          path: sources
+          persist-credentials: false
+
+      - uses: actions/checkout@v7
+        with:
+          ref: gh-pages
+          path: pages
+          fetch-depth: 1
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: sources/.nvmrc
+
+      - name: Validate Z14 repacker
+        run: node --test sources/wien-lod21/repack-z14.test.mjs
+
+      - name: Repack existing published Z15 CityGML geometry to Z14
+        run: |
+          set -euo pipefail
+          rm -rf pages/WienBuildings/LOD21Z14
+          node sources/wien-lod21/repack-z14.mjs \
+            pages/WienBuildings/LOD21 \
+            pages/WienBuildings/LOD21Z14
+          test -s pages/WienBuildings/LOD21Z14/release.json
+
+      - name: Publish Z14 without modifying other datasets
+        working-directory: pages
+        run: |
+          set -euo pipefail
+          touch .nojekyll
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A -- WienBuildings/LOD21Z14 .nojekyll
+          if git diff --cached --quiet; then
+            echo 'Z14 already up-to-date'
+            exit 0
+          fi
+          git commit -m 'Publish audited Vienna LOD2.1 Z14 tiles'
+          for attempt in 1 2 3; do
+            git fetch origin gh-pages
+            git rebase origin/gh-pages
+            if git push origin HEAD:gh-pages; then
+              exit 0
+            fi
+            echo "gh-pages advanced; retrying $attempt" >&2
+            sleep "$((attempt * 3))"
+          done
+          exit 1
