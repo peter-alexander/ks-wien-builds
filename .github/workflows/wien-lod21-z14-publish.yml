@@ -1,6 +1,12 @@
 name: Retile and publish audited Vienna LOD2.1 roofs at Z14
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - wien-lod21/repack-z14.mjs
+      - wien-lod21/repack-z14.test.mjs
+      - .github/workflows/wien-lod21-z14-publish.yml
   workflow_dispatch:
   workflow_run:
     workflows:
@@ -17,7 +23,7 @@ concurrency:
 
 jobs:
   repack-publish:
-    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-24.04
     timeout-minutes: 30
     steps:
