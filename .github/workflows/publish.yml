@@ -1,6 +1,11 @@
 name: Build and publish Vienna data to GitHub Pages
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - 'wien-buildings/**'
+      - '.github/workflows/publish.yml'
   workflow_dispatch:
     inputs:
       dataset:
@@ -27,7 +32,7 @@ jobs:
   build-publish:
     runs-on: ubuntu-latest
     env:
-      DATASET: ${{ github.event_name == 'workflow_dispatch' && inputs.dataset || (github.event.schedule == '37 2 * * *' && 'baumkataster' || github.event.schedule == '19 0 * * *' && 'stadtplan' || github.event.schedule == '23 3 * * 2,5' && 'buildings-lod1' || '') }}
+      DATASET: ${{ github.event_name == 'workflow_dispatch' && inputs.dataset || (github.event_name == 'push' && 'buildings-lod1' || github.event.schedule == '37 2 * * *' && 'baumkataster' || github.event.schedule == '19 0 * * *' && 'stadtplan' || github.event.schedule == '23 3 * * 2,5' && 'buildings-lod1' || '') }}
     steps:
       - uses: actions/checkout@v7
         with:
