@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import fs from "node:fs/promises";
+import { makeWienLod21OwnershipIndex } from "./build-ownership-index.mjs";
 import path from "node:path";
 import { DOMParser } from "@xmldom/xmldom";
 import earcut from "earcut";
@@ -2012,6 +2013,13 @@ async function main() {
 	}
 
 	const generatedAt = new Date().toISOString();
+	// Index only actually emitted geometry; native Stadtplan identities are not inferred.
+	const ownershipIndex = makeWienLod21OwnershipIndex(tileData, generatedAt);
+	await fs.writeFile(
+		path.join(args.output, "ownership-z15.json"),
+		JSON.stringify(ownershipIndex) + "\n",
+		"utf8"
+	);
 	const status = String(targetsConfig.status || "pilot");
 	const targetManifest = {
 		schemaVersion: 1,
@@ -2182,6 +2190,7 @@ async function main() {
 			urlTemplate: "tiles/{z}/{x}/{y}.bin",
 			presentTilesZ15
 		},
+		ownership: { schemaVersion: 1, url: "ownership-z15.json", nativeStadtplanIdsVerified: false },
 		maptoolkitRoofOverrides: {
 			schemaVersion: 1,
 			mode: "fail-safe-feature-fingerprint",
