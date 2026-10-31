@@ -123,6 +123,12 @@ async function main() {
 		tinyPolygonReduction: false
 	};
 	release.vectorTiles.presentTilesZ15 = presentTilesZ15;
+	release.vectorTiles.featureCoverageZ15 = {
+		url: "feature-coverage-z15.json",
+		schemaVersion: 1,
+		identity: "KS_ID",
+		mode: "conservative-bounding-box"
+	};
 	release.vectorTiles.tileCounts = Object.fromEntries(
 		Object.entries(tileKeysByZoom).map(([zoom, keys]) => [zoom, keys.length])
 	);
