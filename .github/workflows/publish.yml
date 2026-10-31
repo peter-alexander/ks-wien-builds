@@ -28,7 +28,6 @@ jobs:
     runs-on: ubuntu-latest
     env:
       DATASET: ${{ github.event_name == 'workflow_dispatch' && inputs.dataset || (github.event.schedule == '37 2 * * *' && 'baumkataster' || github.event.schedule == '19 0 * * *' && 'stadtplan' || github.event.schedule == '23 3 * * 2,5' && 'buildings-lod1' || '') }}
-      WIEN_LOD21_TARGETS: wien-lod21/targets.production.json
     steps:
       - uses: actions/checkout@v7
         with:
@@ -158,4 +157,16 @@ jobs:
             exit 0
           fi
           git commit -m "Publish Vienna $DATASET data"
-          git push origin HEAD:gh-pages
+          # Reconcile changes to gh-pages made after the checkout (e.g. manual cleanup).
+          # Do not force-push; any conflicting modifications must fail safely.
+          for attempt in 1 2 3; do
+            git fetch origin gh-pages
+            git rebase origin/gh-pages
+            if git push origin HEAD:gh-pages; then
+              exit 0
+            fi
+            echo "gh-pages advanced during push; retrying ($attempt/3)" >&2
+            sleep "$((attempt * 3))"
+          done
+          echo "Could not publish after three safe retries" >&2
+          exit 1

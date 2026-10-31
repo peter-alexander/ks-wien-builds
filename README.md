@@ -1,62 +1,30 @@
 # Wiener Kartendaten-Builds
 
-Builds für den Wiener Baumkataster, das Baukörpermodell (LOD1), den geprüften LOD2.1-Dach-Fallback und den Stadtplan-Wien-Style-Snapshot, einschließlich der LOD2.1-Analysewerkzeuge.
+Dieses Repository erstellt und veröffentlicht vier Datensätze auf GitHub Pages, aufgeteilt in **zwei produktive Workflows**.
+
+| Datensatz | Intervall (UTC) | Workflow | Veröffentlichung |
+|---|---|---|---|
+| Stadtplan Wien | täglich 00:19 | `publish.yml` | `StadtplanWien/style.json` |
+| Baumkataster | täglich 02:37 | `publish.yml` | `Baumkataster/tilejson.json` |
+| Gebäude LOD1 | Di und Fr 03:23 | `publish.yml` | `WienBuildings/LOD1/tilejson.json` |
+| Gebäude LOD2.1 | Di und Fr 04:23 | `wien-lod21-publish.yml` | `WienBuildings/LOD21/release.json` |
+
+Alle Uhrzeiten sind UTC und können durch GitHub-Actions-Warteschlangen verzögert ausgeführt werden. Alle vier Datensätze lassen sich zudem über `workflow_dispatch` manuell erstellen.
 
 ## Veröffentlichung
 
-Die Daten werden vom Workflow `.github/workflows/publish.yml` **inkrementell** auf den Branch `gh-pages` übertragen. Bei einem Lauf wird ausschließlich der ausgewählte Datensatz aktualisiert, nicht das gesamte Pages-Verzeichnis.
+Die Workflows bauen aus `main`, validieren die Ausgabedaten und aktualisieren auf `gh-pages` **ausschließlich den jeweiligen Datensatz und `asset-versions.json`**. Andere Layer werden nicht gelöscht. Die gemeinsame Veröffentlichungs-Concurrency-Gruppe `wien-pages-publish` schützt vor gleichzeitigen Workflow-Pushes. Externe Änderungen am Branch werden unmittelbar vor dem Push über `git fetch` + `git rebase` berücksichtigt; bei einem Push-Rennen erfolgen höchstens drei Versuche ohne Force-Push.
 
-- Baumkataster: https://peter-alexander.github.io/ks-wien-builds/Baumkataster/tilejson.json
-- Gebäude LOD1: https://peter-alexander.github.io/ks-wien-builds/WienBuildings/LOD1/tilejson.json
-- Gebäude LOD2.1: https://peter-alexander.github.io/ks-wien-builds/WienBuildings/LOD21/
-- Stadtplan Wien: https://peter-alexander.github.io/ks-wien-builds/StadtplanWien/style.json
-- Versionen: https://peter-alexander.github.io/ks-wien-builds/asset-versions.json
+GitHub Pages ist auf **Deploy from a branch → `gh-pages` → `/(root)`** eingestellt. Der automatisch von GitHub gestartete Lauf **pages build and deployment** ist nicht der Kartendaten-Build, sondern die Veröffentlichung der Änderungen aus `gh-pages`.
 
-**Einmalige GitHub-Einstellung:** Settings → Pages → Build and deployment → Deploy from a branch → `gh-pages` → `/(root)` → Save.
+Der veröffentlichte Branch soll nur `.nojekyll`, `asset-versions.json` und die Ausgabeordner `Baumkataster/`, `StadtplanWien/`, `WienBuildings/` enthalten.
 
-Anschließend unter Actions → **Build and publish Vienna data to GitHub Pages** → Run workflow die Optionen `baumkataster`, `buildings-lod1` und `stadtplan` einzeln ausführen. LOD2.1 besitzt nun den eigenen Workflow **Build and publish Vienna LOD2.1 in source shards**. LOD1 und LOD2.1 werden unabhängig gebaut, validiert und in ihre jeweiligen Pages-Unterverzeichnisse veröffentlicht. Fehler bei LOD2.1 verhindern eine LOD1-Veröffentlichung nicht. Erst nach erfolgreicher Publikation und Prüfung der tatsächlichen URLs sollten die alten Build-Workflows abgeschaltet und Karten-URLs umgestellt werden.
+## LOD2.1
 
-## Regelmäßige Aktualisierung
+Die 734 Quellblätter werden in 63 getrennten Downloadpaketen geladen; vorhandene ZIPs werden über GitHub-Actions-Cache wiederverwendet. Erst wenn alle Pakete erfolgreich sind, wird das 3D-Modell gebaut und mit `validate-production.mjs` geprüft. Die Produktionsliste umfasst derzeit 2.309 ausgewählte historische Dach-Fallbacks.
 
-Stadtplan täglich um 00:19 UTC, Baumkataster täglich um 02:37 UTC; LOD1 Dienstag und Freitag um 03:23 UTC, LOD2.1 im eigenständigen Shard-Workflow Dienstag und Freitag um 04:23 UTC. Die LOD2.1-Analyseworkflows sind weiterhin manuell. Alle Veröffentlichungen verwenden dieselbe GitHub-Pages-Concurrency-Gruppe, damit sich gleichzeitige Pushes auf `gh-pages` nicht überschreiben.
+Die Änderung zweier nicht mehr gültiger Wiener FMZK-IDs ist in `wien-lod21/current-source-reconciliation.json` dokumentiert und per Unit-Test abgesichert. Bei Änderungen am Bestand der Quellblätter muss der LOD2.1-ZIP-Cache-Namespace bewusst angepasst werden, damit keine veralteten Blätter übernommen werden.
 
-Bei der GitHub-Pages-Veröffentlichung werden die bisher gzip-komprimierten LOD1-PBF-Kacheln entpackt, da GitHub Pages dafür keine eigenen `Content-Encoding`-Header konfigurieren lässt.
+## Entwicklungs- und Wartungsdateien
 
-## LOD2.1-Downloaddiagnose
-
-Der manuell startbare Workflow `.github/workflows/wien-lod21-download-diagnostics.yml` vergleicht die Wiener LOD2.1-ZIP-Endpunkte für die Blätter `104078`, `105080`, `105082` und `106082`, jeweils mit dem alten und neuen User-Agent. Acht Range-GETs erfolgen seriell, acht weitere in zwei Vierergruppen parallel (Byte 0, höchstens 64 KiB je Anfrage). Danach folgen vier vollständige, serielle ZIP-Downloads und vier vollständige, parallele ZIP-Downloads mit den jeweils anderen User-Agents. Die ZIP-Dateien sind auf 15 MB je Datei begrenzt, werden mit `unzip -tqq` geprüft und anschließend gelöscht. Alle Anfragen verwenden 12 s Connect-Timeout ohne Wiederholungen.
-
-Im Actions-Job erscheinen die Verbindungsmetriken als Summary-Tabelle. Das Artifact `wien-lod21-download-diagnostics` enthält zusätzlich DNS-Informationen, curl-Timings, vollständige HTTP-Header sowie Verbose-Logs. Ein curl-Fehlercode 63 bei vorhandenem HTTP-Status ist durch die absichtliche Größenbegrenzung erklärbar; Range-Abfragen sind nicht völlig identisch mit dem produktiven ZIP-Download.
-
-Der Workflow läuft einmalig beim Hinzufügen/Ändern seiner Diagnose-Dateien und kann bei Bedarf über `workflow_dispatch` erneut gestartet werden. Er baut keine 3D-Daten, verändert keinen produktiven Download und veröffentlicht nichts.
-
-## LOD2.1-Download mit Begrenzung und Wiederaufnahme
-
-Der Download wurde aus `wien-lod21/run.sh` nach `wien-lod21/download-sheets.mjs` ausgelagert. Standardmäßig starten höchstens **2 parallele Downloads**, mit **1,5 Sekunden Mindestabstand** zwischen neuen Verbindungen. Ein Blatt erhält maximal **3 Versuche**. Nach **2 aufeinanderfolgenden Downloadfehlern** wird die nächste Verbindung für **90 Sekunden** aufgeschoben, nach mehr als **2 Pausen** wird kontrolliert abgebrochen. Konfigurierbare Umgebungsvariablen: `WIEN_LOD21_DOWNLOAD_PARALLEL`, `WIEN_LOD21_INTERVAL_MS`, `WIEN_LOD21_DOWNLOAD_ATTEMPTS`, `WIEN_LOD21_FAILURE_THRESHOLD`, `WIEN_LOD21_COOLDOWN_MS`, `WIEN_LOD21_MAX_COOLDOWNS` und `WIEN_LOD21_RETRY_MS`.
-
-Vollständig heruntergeladene ZIPs bleiben in `wien-lod21/build/downloads/` und werden bei einem erneuten Aufruf im **selben Arbeitsverzeichnis** nach `unzip -tqq` wiederverwendet. Ungültige oder nur teilweise heruntergeladene Dateien werden nicht übernommen. Ein neuer GitHub-Actions-Run bekommt einen neuen Runner; es wird **kein** großer ZIP-Cache zwischen GitHub-Runs übertragen.
-
-Zum kontrollierten Belastungstest dient `.github/workflows/wien-lod21-download-pacing.yml`: Er lädt 120 nach Blattnummer sortierte Blätter aus dem Produktionsmanifest und überprüft anschließend die Wiederverwendung aus dem Cache. Er **baut und veröffentlicht keine 3D-Daten** und archiviert ausschließlich JSON-Berichte, nicht die ZIP-Dateien.
-
-## LOD2.1-Build mit unabhängigen Download-Runnern
-
-Der Workflow `.github/workflows/wien-lod21-publish.yml` zerlegt die 734 Produktionsblätter in **62 Pakete zu maximal 12 ZIP-Dateien**. Jedes Paket wird auf einem eigenen GitHub-Runner mit maximal einem laufenden Download und 1,5 Sekunden Abstand geladen, vollständig auf ZIP-Integrität geprüft und als Workflow-Artefakt bereitgestellt. Maximal drei Pakete werden gleichzeitig bearbeitet. Erfolgreiche Pakete werden außerdem über `actions/cache` mit einem an das Produktionsmanifest gebundenen Schlüssel vorgehalten, damit Folgeläufe möglichst keine erneuten Downloads benötigen. Bei fehlgeschlagenen Einzelpaketen kann der GitHub-Actions-Lauf mit **Re-run failed jobs** fortgesetzt werden.
-
-Nach erfolgreichem Abschluss aller Pakete lädt der Build-Job die Artefakte, prüft die lückenlose Blattabdeckung, startet `wien-lod21/run.sh` mit `WIEN_LOD21_SKIP_DOWNLOAD=1`, validiert das vollständige Produktionsmodell und veröffentlicht nur dann `WienBuildings/LOD21` auf `gh-pages`. Für die Veröffentlichung nutzt er weiterhin die gemeinsame Concurrency-Gruppe `wien-pages-publish`.
-
-Die bisherigen LOD1-/Baumkataster-/Stadtplan-Builds bleiben unverändert. Der LOD2.1-Zeitplan und die manuelle Ausführung wurden auf den neuen Workflow umgestellt. Eine größere GitHub-Actions-Jobanzahl ist der bewusste Kompromiss für verlässliche Downloads. Der Quellcache basiert auf dem Produktionsmanifest und wird **nicht** automatisch aktualisiert, wenn Wien eine ZIP-Datei bei gleichbleibendem Blattnamen ersetzt; in diesem Fall muss der Cache-Schlüssel versioniert werden.
-
-### Wiederherstellung von Paket 30
-
-Im ersten Produktionslauf scheiterte nur Paket 30 nach 11 von 12 erfolgreich heruntergeladenen ZIP-Dateien an `105082` (TCP-Verbindungs-Timeout). Die bisherigen **61 erfolgreichen Paket-Caches** behalten ihre unveränderten Schlüssel. Das fehlgeschlagene Paket wird in **zwei neue Pakete zu je sechs Blättern** (Indizes 62 und 63) aufgeteilt; damit umfasst der Produktionsplan nun **63 Pakete**. Die Quellblätter werden dadurch weiterhin exakt einmal und vollständig abgedeckt. Künftige Aufteilungen müssen jeweils mit neuen Cache-Indizes erfolgen.
-
-Die in diesem Repository bisher noch verwendeten Node.js-20-GitHub-Actions wurden durch Node.js-24-kompatible Versionen ersetzt (`checkout@v7`, `setup-node@v7`, `cache@v6`, `upload-artifact@v7`, `download-artifact@v8`). Die nicht mehr benötigten Netzwerkanalyse-Workflows starten nicht mehr automatisch durch Repository-Änderungen.
-
-## Aktualisierung der zwei Hybrid-Gebäude (30.10.2026)
-
-Die im September eingefrorene Produktionsliste enthielt drei `FMZK_ID`s, die die Stadt Wien in den aktuellen WFS-Layern `FMZKBKMOGD` und `FMZKGEBOGD` nicht mehr liefert. Die Werte wurden durch Einzelabfragen mit `FMZK_ID`, `BW_GEB_ID` und eine räumliche Umgebungsabfrage geprüft. Dokumentation: `wien-lod21/current-source-reconciliation.json`.
-
-- **181120**: Die alte `4007653867` wurde durch `4007927900` ersetzt, da beide zur `BW_GEB_ID=5411794` gehören. Zwei weitere alte Teilflächen dieser Gebäude-ID existieren weiterhin.
-- **052768**: Die zwei alten Teilflächen und die historische `BW_GEB_ID=5436256` sind nicht mehr vorhanden. Statt einen alten, nicht mehr nachweisbaren Baukörper auszugeben, bleibt dieser ehemalige Hybrid-Kandidat aus dem aktuellen Produktionsfallback ausgeschlossen. In seiner Umgebung sind heute andere Baukörper erfasst.
-
-Damit werden derzeit **2.309** statt 2.310 historische LOD2.1-Dach-Fallbacks ausgegeben; die Hybrid-A-Klasse umfasst **613** statt 614 Objekte. Das Produktionsmanifest und die Validator-Erwartungen wurden zusammen geändert, und die Abweichung ist automatisiert getestet. Bei einer späteren Neugenerierung des Produktionsmanifests muss diese Revision bewusst mitgeführt oder neu auditiert werden.
+Die für Builds notwendigen Skripte und die Produktionsmanifeste bleiben auf `main`. Temporäre Netzwerkdiagnosen, experimentelle Matching-Workflows und ad-hoc-Analysen wurden entfernt. Die generierten Audit-Dateien und das Skript zur bewussten Neugenerierung der LOD2.1-Produktionsliste bleiben erhalten.

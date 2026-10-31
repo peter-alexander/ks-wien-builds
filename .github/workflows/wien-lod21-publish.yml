@@ -4,9 +4,6 @@ on:
   workflow_dispatch:
   schedule:
     - cron: '23 4 * * 2,5'
-  push:
-    paths:
-      - '.github/workflows/wien-lod21-publish.yml'
 
 permissions:
   contents: read
@@ -157,4 +154,16 @@ jobs:
             exit 0
           fi
           git commit -m 'Publish Vienna buildings-lod21 data'
-          git push origin HEAD:gh-pages
+          # Reconcile changes to gh-pages made after the checkout (e.g. manual cleanup).
+          # Do not force-push; any conflicting modifications must fail safely.
+          for attempt in 1 2 3; do
+            git fetch origin gh-pages
+            git rebase origin/gh-pages
+            if git push origin HEAD:gh-pages; then
+              exit 0
+            fi
+            echo "gh-pages advanced during push; retrying ($attempt/3)" >&2
+            sleep "$((attempt * 3))"
+          done
+          echo "Could not publish after three safe retries" >&2
+          exit 1
