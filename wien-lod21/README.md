@@ -511,3 +511,20 @@ Der isolierte Test erreicht bei beiden Gebäuden **100 % projizierte
 Dachabdeckung, 100 % historische Wandabdeckung und 0,000 m unabgedeckten
 historischen Rand**. Die produktive Klasse `hybrid-height-split` ist
 absichtlich auf genau diese beiden vollständig auditierten Codes begrenzt.
+
+
+## Z15-Abdeckungsindex für die Hybrid-Darstellung
+
+Der Produktionsbuild veröffentlicht neben den KSL21B01-Kacheln
+`ownership-z15.json`. Die Datei wird ausschließlich aus den **tatsächlich
+ausgegebenen** Geometrieobjekten erzeugt und enthält pro Z15-Kachel den
+historischen Code, die auditierten aktuellen OGD-`KS_ID`s und die Angabe,
+ob für den Dachersatz eine Maptoolkit-Fingerprintprüfung erforderlich ist.
+
+Die Zuordnung ist absichtlich nur ein **Kandidatenindex**: Ein Client darf
+OGD-Prismen erst ausblenden, nachdem die zugehörige Detailgeometrie geladen
+und der konkrete Ersatzfall geprüft wurde. Insbesondere enthält der Index
+**keine** bestätigten Feature-IDs des nativen Stadtplan-`buildings_lod1`.
+Dessen Ausblendung darf nicht aus OGD-IDs oder bloßer Tile-Überdeckung
+abgeleitet werden. Beim Fehlen/Fehler des Index bleibt die bisherige
+Darstellung unverändert.
