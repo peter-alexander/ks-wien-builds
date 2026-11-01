@@ -1,0 +1,41 @@
+name: Build optimized Vienna Z15 building tile pilot
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'wien-optimized/**'
+      - '.github/workflows/wien-optimized-pilot.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: wien-optimized-z15-pilot
+  cancel-in-progress: true
+
+jobs:
+  pilot:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          cache: npm
+      - name: Install build dependencies
+        run: |
+          npm ci --ignore-scripts --no-audit --no-fund
+          npm install --no-save --ignore-scripts --no-audit --no-fund @mapbox/vector-tile@3.0.0 pbf@5.1.2 three@0.186.1
+      - name: Test optimized Z15 mesh encoding
+        run: node --test wien-optimized/tests/unit/wien-optimized-buildings-build.test.mjs
+      - name: Build real Z15 pilot tile
+        run: node wien-optimized/scripts/build-wien-optimized-buildings.mjs --tiles 15/17874/11362 --output wien-optimized/build
+      - uses: actions/upload-artifact@v4
+        with:
+          name: wien-z15-optimized-pilot
+          path: wien-optimized/build/
+          if-no-files-found: error
+          retention-days: 7
