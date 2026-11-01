@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { gunzipSync } from "node:zlib";
-import { parseTileKey, encodeOptimizedTile, decodeOptimizedTile, stripBuildOnlyGeometryMetadata } from "../../scripts/build-wien-optimized-buildings.mjs";
+import { parseTileKey, encodeOptimizedTile, decodeOptimizedTile, stripBuildOnlyGeometryMetadata, quantizeBuildingNormals } from "../../scripts/build-wien-optimized-buildings.mjs";
 
 test("optimized building tile preserves transferable mesh attributes", () => {
 	const original = {
@@ -42,4 +42,20 @@ test("offline-only overlap masks are stripped without losing DEM alignment data"
 	assert.equal("ksFallbackMaskTilePoints" in resource.lod2Geometry.userData, false);
 	assert.equal(resource.lod2Geometry.userData.ksGroundRanges.length, 1);
 	assert.deepEqual(resource.lod2Geometry.userData.ksRelativeHeights, new Float32Array([10]));
+});
+
+test("16-bit normalized normals round-trip with sub-0.00004 component error", () => {
+	const original = new Float32Array([0, 0.25, -0.5, 0.70710677, -1, 1]);
+	const resource = {
+		lod2Geometry: { attributes: { normal: { array: original, itemSize: 3, normalized: false } } }
+	};
+	quantizeBuildingNormals(resource);
+	const normal = resource.lod2Geometry.attributes.normal;
+	assert.ok(normal.array instanceof Int16Array);
+	assert.equal(normal.normalized, true);
+	const restored = decodeOptimizedTile(encodeOptimizedTile(resource), gunzipSync);
+	const values = restored.lod2Geometry.attributes.normal.array;
+	for (let i = 0; i < original.length; i++) {
+		assert.ok(Math.abs(values[i] / 32767 - original[i]) <= 1 / 32767);
+	}
 });
