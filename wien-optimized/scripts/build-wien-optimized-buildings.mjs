@@ -43,6 +43,21 @@ const ARRAY_TYPES = new Map([
 	["Int32Array", Int32Array]
 ]);
 
+/**
+ * These masks exist only to resolve LOD2 versus OGD overlap during the
+ * build. The renderer needs ground ranges and relative heights for DEM
+ * alignment, but does not need either intermediate fallback mask.
+ */
+export function stripBuildOnlyGeometryMetadata(payload) {
+	for (const key of ["lod2Geometry", "lod21Geometry", "lod1Geometry"]) {
+		const data = payload?.[key]?.userData;
+		if (!data) continue;
+		delete data.ksFallbackMaskPoints;
+		delete data.ksFallbackMaskTilePoints;
+	}
+	return payload;
+}
+
 export function encodeOptimizedTile(payload) {
 	const arrays = [];
 	const replace = (value) => {
@@ -104,11 +119,19 @@ export async function buildOptimizedTiles(keys, output, {
 			const tile = parseTileKey(key);
 			const resource = await prepare({ tile, dataSource: source });
 			const { payload } = packWienBuildingResource(resource);
+			stripBuildOnlyGeometryMetadata(payload);
 			const bytes = encodeOptimizedTile(payload);
 			const filename = path.join(output, "tiles", key + ".kswb.gz");
 			await fs.mkdir(path.dirname(filename), { recursive: true });
 			await fs.writeFile(filename, bytes);
-			manifest.tiles[key] = { bytes: bytes.byteLength,
+			const geomBytes = Object.fromEntries(["lod2Geometry", "lod21Geometry", "lod1Geometry"].map((kind) => {
+				const geometry = payload?.[kind];
+				const attributes = geometry?.attributes || {};
+				const size = Object.values(attributes).reduce((sum, item) => sum + (item?.array?.byteLength || 0), 0)
+					+ (geometry?.index?.array?.byteLength || 0);
+				return [kind, size];
+			}));
+			manifest.tiles[key] = { bytes: bytes.byteLength, geometryBytes: geomBytes,
 				degraded: Boolean(resource?.failures?.length),
 				failures: resource?.failures || [] };
 			resource?.dispose?.();
