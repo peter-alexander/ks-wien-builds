@@ -48,6 +48,29 @@ const ARRAY_TYPES = new Map([
  * build. The renderer needs ground ranges and relative heights for DEM
  * alignment, but does not need either intermediate fallback mask.
  */
+/**
+ * 16-bit normalized vertex normals have <= 1/32767 component error.
+ * Three.js BufferAttribute(normalized=true) reconstructs shader floats;
+ * positions and terrain-relevant data stay lossless.
+ */
+export function quantizeBuildingNormals(payload) {
+	for (const key of ["lod2Geometry", "lod21Geometry", "lod1Geometry"]) {
+		const normal = payload?.[key]?.attributes?.normal;
+		if (!normal || !(normal.array instanceof Float32Array)) continue;
+		const values = normal.array;
+		const quantized = new Int16Array(values.length);
+		for (let i = 0; i < values.length; i++) {
+			if (!Number.isFinite(values[i]) || Math.abs(values[i]) > 1.00001) {
+				throw new Error("Invalid vertex normal for quantization");
+			}
+			quantized[i] = Math.round(Math.max(-1, Math.min(1, values[i])) * 32767);
+		}
+		normal.array = quantized;
+		normal.normalized = true;
+	}
+	return payload;
+}
+
 export function stripBuildOnlyGeometryMetadata(payload) {
 	for (const key of ["lod2Geometry", "lod21Geometry", "lod1Geometry"]) {
 		const data = payload?.[key]?.userData;
@@ -120,6 +143,7 @@ export async function buildOptimizedTiles(keys, output, {
 			const resource = await prepare({ tile, dataSource: source });
 			const { payload } = packWienBuildingResource(resource);
 			stripBuildOnlyGeometryMetadata(payload);
+			quantizeBuildingNormals(payload);
 			const bytes = encodeOptimizedTile(payload);
 			const filename = path.join(output, "tiles", key + ".kswb.gz");
 			await fs.mkdir(path.dirname(filename), { recursive: true });
