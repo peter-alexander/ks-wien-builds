@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { gunzipSync } from "node:zlib";
-import { parseTileKey, encodeOptimizedTile, decodeOptimizedTile } from "../../scripts/build-wien-optimized-buildings.mjs";
+import { parseTileKey, encodeOptimizedTile, decodeOptimizedTile, stripBuildOnlyGeometryMetadata } from "../../scripts/build-wien-optimized-buildings.mjs";
 
 test("optimized building tile preserves transferable mesh attributes", () => {
 	const original = {
@@ -28,4 +28,18 @@ test("only bounded Z15 keys are accepted", () => {
 	for (const key of ["14/1/1", "15/-1/1", "15/32768/0", "15/1/NaN"]) {
 		assert.throws(() => parseTileKey(key));
 	}
+});
+
+test("offline-only overlap masks are stripped without losing DEM alignment data", () => {
+	const resource = { lod2Geometry: { userData: {
+		ksFallbackMaskPoints: [[1, 2]],
+		ksFallbackMaskTilePoints: [[3, 4]],
+		ksGroundRanges: [{ start: 0, count: 1, lng: 16.3, lat: 48.2 }],
+		ksRelativeHeights: new Float32Array([10])
+	} } };
+	stripBuildOnlyGeometryMetadata(resource);
+	assert.equal("ksFallbackMaskPoints" in resource.lod2Geometry.userData, false);
+	assert.equal("ksFallbackMaskTilePoints" in resource.lod2Geometry.userData, false);
+	assert.equal(resource.lod2Geometry.userData.ksGroundRanges.length, 1);
+	assert.deepEqual(resource.lod2Geometry.userData.ksRelativeHeights, new Float32Array([10]));
 });
