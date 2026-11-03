@@ -1,6 +1,6 @@
 {
 	"schemaVersion": 1,
-	"generatedAt": "2026-10-30T22:18:52.391Z",
+	"generatedAt": "2026-11-03T12:10:50.224Z",
 	"status": "production",
 	"source": {
 		"product": "Stadt Wien – Generalisiertes Dachmodell (LOD2.1)",
@@ -1183,6 +1183,11 @@
 			"15/17890/11360"
 		]
 	},
+	"ownership": {
+		"schemaVersion": 1,
+		"url": "ownership-z15.json",
+		"nativeStadtplanIdsVerified": false
+	},
 	"maptoolkitRoofOverrides": {
 		"schemaVersion": 1,
 		"mode": "fail-safe-feature-fingerprint",
@@ -1568,8 +1573,8 @@
 		"manualPilotHybrid": 1,
 		"hybridRemainderTargets": 1040,
 		"cityGmlBuildingObjects": 4886,
-		"vertices": 512062,
-		"triangles": 304207,
+		"vertices": 512075,
+		"triangles": 304214,
 		"tiles": 419
 	},
 	"targetsUrl": "targets.json"
