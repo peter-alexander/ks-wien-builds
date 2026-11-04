@@ -91,6 +91,10 @@ export async function assembleCityRelease({
 						part.info.sourceSheets.some(sheet=>!region.sheets.includes(sheet))){
 						throw new Error("Historical roof without matching original CityGML sheet: "+key);
 					}
+					if(!part.info.replacesKsIds?.length ||
+						part.info.replacesKsIds.some(id=>!/^wien-fmzk:[A-Za-z0-9._-]+$/.test(id))){
+						throw new Error("Historical roof missing official FMZK replacement identities: "+key);
+					}
 					lod21Parts++;
 				}else if(part.info.source==="lod1"){
 					if(!part.info.id.startsWith("ogd:") ||
