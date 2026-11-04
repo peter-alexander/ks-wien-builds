@@ -69,6 +69,59 @@ aus 1,45 Mio Vertices und einem 3×3-Viewport ist auf mobilen GPUs
 ausdrücklich auf Renderzeit und Speicherverbrauch zu prüfen.
 Gzip reduziert die Übertragung, nicht die GPU-Geometrie.
 
+## Separater Test: vollständiger Original-CityGML-Dachbestand
+
+Am **4. November 2026** wurde der Pipeline-Test von der bisherigen,
+für Maptoolkit-Lücken geprüften Auswahl abgekoppelt. Er lädt **20
+Original-CityGML-Blätter** direkt von der Stadt Wien. Die ursprüngliche
+LODGML-Quelle umfasst weit mehr Gebäude als die knapp 2.300 früheren
+Fallback-Ziele.
+
+Die neue Prüfung verknüpft historische Dachflächen über ihren
+Adresscode mit aktuellen FMZK-Baukörperteilen und validiert zusätzlich
+deren Geometrie in EPSG:31256. Historische Dächer werden nur
+übernommen, wenn:
+
+- der aktuelle historische Adresscode genau einer heutigen BW_GEB_ID
+  zugeordnet ist;
+- alle betroffenen Geometrien vollständig in derselben Z15-Kachel
+  liegen (mit Randpuffer);
+- Dachform wirklich geneigt ist (mindestens 0,35 m Höhenunterschied);
+- historische und aktuelle Grundrissdeckung in beide Richtungen
+  mindestens **96,5 %** und Intersection-over-Union mindestens
+  **94 %** beträgt;
+- ein vollständiges Dachmesh entsteht, bevor die zugehörigen heutigen
+  FMZK-Körperteile entfernt werden.
+
+**Erfolgreicher Build**:
+`wien-native-roofs-pilot.yml` → `WienBuildings/NativePilotRoofs/`.
+
+| Kennzahl | Alter Pilot | Neuer Originaldach-Pilot |
+| --- | ---: | ---: |
+| Z15-Kacheln | 9 | 9 |
+| Gesamt-Baukörperteile | 24.623 | 18.818 |
+| Selbst erzeugte historische Dachmodelle | 19 | **1.906** |
+| Verbleibende FMZK-Baukörperteile | 24.604 | 16.912 |
+| Vertices | 1.451.256 | 1.645.004 |
+| Gzip-Kachelvolumen | 10,01 MB | 11,55 MB |
+
+Das Originalmodell wurde in 3.678 relevanten CityGML-Objekten der
+20 Blätter untersucht. Von 4.066 aktuellen Gebäude-Adresscodes wurden
+**1.877** eindeutig zugeordnet. Weitere wurden aufgrund von
+Kachelgrenzen, unzureichender Deckung, Mehrfachidentitäten oder
+fehlender bzw. flacher historischer Dächer bewusst nicht ersetzt.
+
+Die streng gekachelte Abnahme ist für diesen Last- und Sichttest
+absichtlich konservativ. Sie ist **noch keine** vollständige Abdeckung
+Wiens und kein Beweis für die optische Genauigkeit jedes 2013
+erfassten Dachmodells. Die Geländehöhen kommen weiterhin aus MapLibre,
+aber der fundamentbezogene Übergang historischer Modelle bleibt
+visuell zu prüfen. Es gibt keinen Maptoolkit-Fallback.
+
+**Testseite:** `WienBuildings/NativePilotRoofs/index.html` (separat vom
+ersten flachdachlastigen Piloten). 
+**Audit:** `WienBuildings/NativePilotRoofs/roof-matching-audit.json`.
+
 ## Offene technische Fragen
 
 - Der FMZK-Grundriss wird aktuell aus unseren bereits gekachelten
