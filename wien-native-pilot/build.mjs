@@ -121,7 +121,7 @@ export function encodeNativeTile(tile, resources) {
 	const indexBytes = Buffer.alloc(totalIndices * 4);
 	let vertexOffset = 0;
 	let indexOffset = 0;
-	for (const { geometry, source } of resources) {
+	for (const { geometry, source, provenance = null } of resources) {
 		if (!geometry) continue;
 		const positions = geometry.getAttribute("position");
 		const normals = geometry.getAttribute("normal");
@@ -149,9 +149,16 @@ export function encodeNativeTile(tile, resources) {
 				indexCursor += 3;
 			}
 			const [anchorX, anchorY] = anchorToTile(tile, range);
+			const id = String(range.key || "");
+			const sourceSheets = provenance?.get(id) ?? null;
+			if (provenance && (!Array.isArray(sourceSheets) || !sourceSheets.length
+				|| sourceSheets.some(sheet => !/^[0-9]{6}$/.test(sheet))) {
+				throw new Error("Missing original CityGML sheet lineage for " + id);
+			}
 			buildingRecords.push({
 				source,
-				id: String(range.key || ""),
+				id,
+				...(sourceSheets ? { sourceSheets: [...new Set(sourceSheets)].sort() } : {}),
 				vertexStart: vertexOffset + start,
 				vertexCount: range.count,
 				indexStart: indexOffset + rangeIndexStart,
@@ -350,6 +357,7 @@ export async function buildPilot({
 		const tile = { z, x, y };
 		const lod1Buffer = await fetchData(`${BASE}/LOD1/tiles/${key}.pbf`);
 		let roofGeometry = null;
+		const roofProvenance = new Map();
 		const excludedKsIds = new Set();
 		if (roofTiles.has(key)) {
 			const roofBuffer = localRoofDirectory
@@ -375,6 +383,12 @@ export async function buildPilot({
 					roofGeometry.userData.ksLOD21HistoricalCodes || []
 				);
 				for (const target of selected) {
+					if (localRoofDirectory) {
+						if (!Array.isArray(target.sourceSheets) || !target.sourceSheets.length) {
+							throw new Error("Original roof missing CityGML source sheet " + target.historicalCode);
+						}
+						roofProvenance.set("lod21:" + target.bwGebId, target.sourceSheets);
+					}
 					if (!actualIds.has(target.historicalCode)) {
 						throw new Error(`Selected roof ${target.historicalCode} absent in ${key}`);
 					}
@@ -391,7 +405,8 @@ export async function buildPilot({
 		try {
 			const { compressed, stats } = encodeNativeTile(tile, [
 				{ source: "lod1", geometry: lod1 },
-				{ source: "lod21", geometry: roofGeometry }
+				{ source: "lod21", geometry: roofGeometry,
+					provenance: localRoofDirectory ? roofProvenance : null }
 			]);
 			const output = path.join(outputDir, "tiles", key + ".bin.gz");
 			await fs.mkdir(path.dirname(output), { recursive: true });
