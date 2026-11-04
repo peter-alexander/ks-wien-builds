@@ -271,15 +271,22 @@ async function request(url, asJson = false) {
 }
 
 export async function buildPilot({
-	outputDir = "wien-native-pilot/build",
+	outputDir = process.env.WIEN_NATIVE_OUTPUT_DIR || "wien-native-pilot/build",
 	center = CENTER,
 	radius = RADIUS,
-	fetchData = request
+	fetchData = request,
+	localRoofDirectory = process.env.WIEN_NATIVE_ROOF_DIR || "",
+	localRoofTargets = process.env.WIEN_NATIVE_ROOF_TARGETS || ""
 } = {}) {
 	const release = await fetchData(`${BASE}/LOD1/release.json`, true);
-	const roofs = await fetchData(`${BASE}/LOD21/release.json`, true);
+	if (Boolean(localRoofDirectory) !== Boolean(localRoofTargets)) {
+		throw new Error("Local roof model and validated target list must be provided together");
+	}
+	const roofs = localRoofDirectory
+		? JSON.parse(await fs.readFile(path.join(localRoofDirectory, "release.json"), "utf8"))
+		: await fetchData(`${BASE}/LOD21/release.json`, true);
 	const rawTargets = JSON.parse(await fs.readFile(
-		fileURLToPath(new URL("../wien-lod21/targets.production.json", import.meta.url)), "utf8"
+		localRoofTargets || fileURLToPath(new URL("../wien-lod21/targets.production.json", import.meta.url)), "utf8"
 	));
 	if (release?.vectorTiles?.compression !== "none"
 		|| release?.vectorTiles?.layer !== "wien_buildings"
@@ -287,7 +294,14 @@ export async function buildPilot({
 		|| roofs?.binary?.magic !== "KSL21B01") {
 		throw new Error("Unexpected building source schema; abort pilot build");
 	}
-	const allowed = safeRoofCandidates(rawTargets);
+	const allowed = localRoofDirectory
+		? new Map(rawTargets.buildings.filter((b) => b.roofCoverageAudit
+			&& b.rolloutMode === "direct-strong"
+			&& b.roofCoverageAudit.coverCurrent >= 0.965
+			&& b.roofCoverageAudit.coverHistorical >= 0.965
+			&& b.roofCoverageAudit.iou >= 0.94)
+			.map((b) => [String(b.historicalCode), b]))
+		: safeRoofCandidates(rawTargets);
 	const lod1Tiles = new Set(release.vectorTiles.presentTilesZ15 || []);
 	const roofTiles = new Set(roofs.tiles?.presentTilesZ15 || []);
 	const keys = makePilotKeys(center, radius);
@@ -304,8 +318,12 @@ export async function buildPilot({
 		tiles: {},
 		generatedAt: new Date().toISOString(),
 		terrainAltitudeStored: false,
-		roofPolicy: "exact-audited-direct-strong-only",
-		notes: "LOD1 complete, roofs only where current part identifiers match an exact small-footprint-difference historical roof. Not a citywide LOD2 dataset."
+		roofPolicy: localRoofDirectory
+			? "original-citygml-pitched-footprints-verified-current-fmzk-single-tile"
+			: "exact-audited-direct-strong-only",
+		notes: localRoofDirectory
+			? "LOD1 complete; the original CityGML pitched roof is used only for single-tile buildings verified with current FMZK."
+			: "LOD1 complete, roofs only where current part identifiers match an exact small-footprint-difference historical roof. Not a citywide LOD2 dataset."
 	};
 	for (const key of keys) {
 		if (!lod1Tiles.has(key)) {
@@ -317,8 +335,14 @@ export async function buildPilot({
 		let roofGeometry = null;
 		const excludedKsIds = new Set();
 		if (roofTiles.has(key)) {
-			const roofBuffer = await fetchData(`${BASE}/LOD21/tiles/${key}.bin`);
-			const parsed = parseWienLod21Tile(roofBuffer);
+			const roofBuffer = localRoofDirectory
+				? await fs.readFile(path.join(localRoofDirectory, "tiles", key + ".bin"))
+				: await fetchData(`${BASE}/LOD21/tiles/${key}.bin`);
+			const rawBuffer = roofBuffer instanceof ArrayBuffer
+				? roofBuffer : roofBuffer.buffer.slice(
+					roofBuffer.byteOffset, roofBuffer.byteOffset + roofBuffer.byteLength
+				);
+			const parsed = parseWienLod21Tile(rawBuffer);
 			const selected = selectRoofParts(parsed, allowed);
 			if (selected.length) {
 				const selectedIds = new Set(selected.map((b) => String(b.bwGebId)));
