@@ -62,8 +62,8 @@ jobs:
           const keys = Object.keys(data.tiles);
           if (keys.length !== 9 || keys.some(key => {
             const tile = data.tiles[key];
-            const file = root + '/tiles/' + key + '.bin';
-            return !fs.existsSync(file) || tile.rawBytes !== fs.statSync(file).size
+            const file = root + '/tiles/' + key + '.bin.gz';
+            return !fs.existsSync(file) || tile.gzipBytes !== fs.statSync(file).size
               || tile.lod1Parts <= 0 || tile.vertices <= 0 || tile.triangles <= 0;
           })) {
             throw new Error('Nine complete nonempty Z15 pilot tiles were not produced');
