@@ -219,13 +219,18 @@ export async function matchCityGml({
 	if (!files.length) throw new Error("No original CityGML source sheets downloaded");
 	const historical = new Map();
 	const visited = new Set();
+	const sourceSheetsByCode = new Map();
 	let parsedObjects = 0;
 	for (const file of files) {
 		const xml = await fs.readFile(file, "utf8");
+		const sheet = path.basename(file, path.extname(file));
+		if (!/^[0-9]{6}$/.test(sheet)) throw new Error("Unexpected original CityGML sheet file name: " + file);
 		let used = 0;
 		for (const fragment of buildingXmlMatches(xml)) {
 			const code = normalizeCode(extractFirstLocalTagText(fragment, "name"));
 			if (!current.has(code)) continue;
+			if (!sourceSheetsByCode.has(code)) sourceSheetsByCode.set(code, new Set());
+			sourceSheetsByCode.get(code).add(sheet);
 			const building = parseBuildingFragment(fragment, file);
 			if (!building) continue;
 			const cityId = building.getAttributeNS("http://www.opengis.net/gml", "id")
@@ -291,6 +296,7 @@ export async function matchCityGml({
 						targets.push({
 							name: "Vienna native roof " + code,
 							historicalCode: code,
+							sourceSheets: [...sourceSheetsByCode.get(code)].sort(),
 							bwGebId: Number([...group.buildingIds][0]),
 							ksIds: [...group.ksIds].sort(),
 							lng: lnglat.lng,
