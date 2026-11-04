@@ -227,9 +227,13 @@ test("confirmed original CityGML 404 becomes an auditable FMZK fallback without 
 		const second=await downloadBatch(["111081"],{
 			...settings,cacheDir,missingPolicy:"confirmed-404",attempts:1
 		},{
-			validate:async()=>true,
-			fetch:async()=>{throw new Error("should never be called");}
+			validate:async file=>(await fs.readFile(file,"utf8").catch(()=>""))==="good",
+			fetch:async(_sheet,partial)=>{
+				await fs.writeFile(partial,"good");
+				return {httpStatus:200};
+			}
 		});
-		assert.equal(second.cached,1);
+		assert.equal(second.downloaded,1);
+		await assert.rejects(fs.access(path.join(cacheDir,"111081_lod2_gml.zip.missing.json")));
 	});
 });
