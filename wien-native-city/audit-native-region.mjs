@@ -30,7 +30,7 @@ export async function auditNativeRegion(root,{readFile=fs.readFile}={}){
 	let patchVerified=false;
 	const examples=[];
 	for(const [key,metric] of Object.entries(manifest.tiles)){
-		if(!/^15\\/\\d+\\/\\d+$/.test(key))throw new Error("Invalid Z15 tile key "+key);
+		if(!/^15\/[0-9]+\/[0-9]+$/.test(key))throw new Error("Invalid Z15 tile key "+key);
 		const [,x,y]=key.split("/").map(Number);
 		const encoded=await readFile(path.join(root,"tiles",key+".bin.gz"));
 		if(sha256(encoded)!==metric.sha256)throw new Error("Tile checksum mismatch "+key);
