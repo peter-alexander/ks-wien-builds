@@ -83,6 +83,13 @@ export function readNativeTile(input) {
 			item.sourceSheets.some(s=>typeof s !== "string" || !/^[0-9]{6}$/.test(s)))) {
 			throw new Error("Invalid original CityGML provenance");
 		}
+		if(item.replacesKsIds!==undefined &&
+			(item.source!=="lod21" || !Array.isArray(item.replacesKsIds) ||
+			!item.replacesKsIds.length ||
+			item.replacesKsIds.some(id=>typeof id!=="string" ||
+				!/^[A-Za-z0-9:._-]{1,128}$/.test(id)))) {
+			throw new Error("Invalid replaced official FMZK building IDs");
+		}
 		const vertices = Buffer.from(raw.subarray(vertexStart+vs*STRIDE,vertexStart+(vs+vc)*STRIDE));
 		const indices = Buffer.alloc(ic*4);
 		for(let i=0;i<ic;i++) {
@@ -127,6 +134,13 @@ export function writeNativeTile(parts, {gzip = true} = {}) {
 			!info.sourceSheets.length ||
 			info.sourceSheets.some(sheet=>!/^\d{6}$/.test(sheet)))) {
 			throw new Error("Invalid native source sheet lineage");
+		}
+		if(info.replacesKsIds!==undefined &&
+			(info.source!=="lod21" || !Array.isArray(info.replacesKsIds) ||
+			!info.replacesKsIds.length ||
+			info.replacesKsIds.some(id=>typeof id!=="string" ||
+				!/^[A-Za-z0-9:._-]{1,128}$/.test(id)))) {
+			throw new Error("Invalid replaced official FMZK building IDs");
 		}
 		const vc=part.vertices.length/STRIDE,ic=part.indices.length/4;
 		records.push({...info,
