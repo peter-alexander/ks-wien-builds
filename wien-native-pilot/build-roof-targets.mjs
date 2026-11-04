@@ -221,6 +221,7 @@ export async function matchCityGml({
 	const visited = new Set();
 	const sourceSheetsByCode = new Map();
 	let parsedObjects = 0;
+	let parseFailures = 0;
 	for (const file of files) {
 		const xml = await fs.readFile(file, "utf8");
 		const sheet = path.basename(file, path.extname(file));
@@ -231,30 +232,40 @@ export async function matchCityGml({
 			if (!current.has(code)) continue;
 			if (!sourceSheetsByCode.has(code)) sourceSheetsByCode.set(code, new Set());
 			sourceSheetsByCode.get(code).add(sheet);
-			const building = parseBuildingFragment(fragment, file);
-			if (!building) continue;
-			const cityId = building.getAttributeNS("http://www.opengis.net/gml", "id")
-				|| building.getAttribute("gml:id") || "";
-			if (cityId && visited.has(cityId)) continue;
-			if (cityId) visited.add(cityId);
-			const surfaces = parseSemanticSurfaces(building);
-			const ground = groundGeometryFromSurfaces(surfaces, reader);
-			if (!ground || ground.isEmpty()) continue;
-			const points = getSurfacePoints(surfaces);
-			const roofZs = surfaces.filter(s => s.semantic === "roof")
-				.flatMap(s => s.rings.flatMap(r => r.map(p => p.z)));
-			const groundZs = surfaces.filter(s => s.semantic === "ground")
-				.flatMap(s => s.rings.flatMap(r => r.map(p => p.z)));
-			if (!points.length || !roofZs.length || !groundZs.length) continue;
-			const entry = historical.get(code) || { footprints: [], sourceCount: 0, pitch: 0, sourceHeight: 0 };
-			entry.footprints.push(ground);
-			entry.pitch = Math.max(entry.pitch, reliefOfRoof(surfaces));
-			entry.sourceHeight = Math.max(entry.sourceHeight,
-				Math.max(...roofZs) - Math.min(...groundZs));
-			entry.sourceCount++;
-			historical.set(code, entry);
-			used++;
-			parsedObjects++;
+			try {
+				const building = parseBuildingFragment(fragment, file);
+				if (!building) continue;
+				const cityId = building.getAttributeNS("http://www.opengis.net/gml", "id")
+					|| building.getAttribute("gml:id") || "";
+				if (cityId && visited.has(cityId)) continue;
+				if (cityId) visited.add(cityId);
+				const surfaces = parseSemanticSurfaces(building);
+				const ground = groundGeometryFromSurfaces(surfaces, reader);
+				if (!ground || ground.isEmpty()) continue;
+				const points = getSurfacePoints(surfaces);
+				const roofZs = surfaces.filter(s => s.semantic === "roof")
+					.flatMap(s => s.rings.flatMap(r => r.map(p => p.z)));
+				const groundZs = surfaces.filter(s => s.semantic === "ground")
+					.flatMap(s => s.rings.flatMap(r => r.map(p => p.z)));
+				if (!points.length || !roofZs.length || !groundZs.length) continue;
+				const entry = historical.get(code) || { footprints: [], sourceCount: 0, pitch: 0, sourceHeight: 0 };
+				entry.footprints.push(ground);
+				entry.pitch = Math.max(entry.pitch, reliefOfRoof(surfaces));
+				entry.sourceHeight = Math.max(entry.sourceHeight,
+					Math.max(...roofZs) - Math.min(...groundZs));
+				entry.sourceCount++;
+				historical.set(code, entry);
+				used++;
+				parsedObjects++;
+			} catch(error) {
+				parseFailures++;
+				if(parseFailures <= 20) {
+					console.warn("Skipped invalid historical source object in "+sheet+": "+String(error).slice(0,250));
+				}
+				if(parseFailures > 500 || parseFailures > Math.max(30, Math.floor(current.size*0.05))) {
+					throw new Error("Excessive invalid historical source geometry ("+parseFailures+"); abort roof build");
+				}
+			}
 		}
 		console.log(`Scanned ${path.basename(file)}: ${used} candidate objects`);
 	}
@@ -331,6 +342,7 @@ export async function matchCityGml({
 	await fs.writeFile(auditFile, JSON.stringify({
 		sourceSheetCount: files.length,
 		cityGmlObjects: parsedObjects,
+		parseFailures,
 		currentCodes: current.size,
 		matchedCodes: targets.length,
 		decisionCounts: reasons,
