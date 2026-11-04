@@ -1,0 +1,111 @@
+{
+	"schemaVersion": 1,
+	"format": "KSWN0001",
+	"zoom": 15,
+	"center": {
+		"z": 15,
+		"x": 17873,
+		"y": 11364
+	},
+	"radius": 1,
+	"sourceReleases": {
+		"lod1": "2026-11-03T11:04:51.669Z",
+		"lod21": "2026-11-03T12:10:50.224Z"
+	},
+	"tiles": {
+		"15/17872/11363": {
+			"buildingParts": 3558,
+			"lod1Parts": 3556,
+			"lod21Parts": 2,
+			"vertices": 210691,
+			"triangles": 120098,
+			"rawBytes": 5373716,
+			"gzipBytes": 1453705,
+			"replacedFmzkParts": 12
+		},
+		"15/17873/11363": {
+			"buildingParts": 3227,
+			"lod1Parts": 3226,
+			"lod21Parts": 1,
+			"vertices": 186882,
+			"triangles": 106524,
+			"rawBytes": 4776428,
+			"gzipBytes": 1292545,
+			"replacedFmzkParts": 11
+		},
+		"15/17874/11363": {
+			"buildingParts": 1736,
+			"lod1Parts": 1736,
+			"lod21Parts": 0,
+			"vertices": 134980,
+			"triangles": 77996,
+			"rawBytes": 3368284,
+			"gzipBytes": 915569,
+			"replacedFmzkParts": 0
+		},
+		"15/17872/11364": {
+			"buildingParts": 3165,
+			"lod1Parts": 3162,
+			"lod21Parts": 3,
+			"vertices": 184858,
+			"triangles": 105251,
+			"rawBytes": 4719168,
+			"gzipBytes": 1283801,
+			"replacedFmzkParts": 5
+		},
+		"15/17873/11364": {
+			"buildingParts": 3188,
+			"lod1Parts": 3177,
+			"lod21Parts": 11,
+			"vertices": 178888,
+			"triangles": 101744,
+			"rawBytes": 4584180,
+			"gzipBytes": 1247079,
+			"replacedFmzkParts": 36
+		},
+		"15/17874/11364": {
+			"buildingParts": 2057,
+			"lod1Parts": 2055,
+			"lod21Parts": 2,
+			"vertices": 120782,
+			"triangles": 68765,
+			"rawBytes": 3079736,
+			"gzipBytes": 832271,
+			"replacedFmzkParts": 7
+		},
+		"15/17872/11365": {
+			"buildingParts": 2799,
+			"lod1Parts": 2799,
+			"lod21Parts": 0,
+			"vertices": 155035,
+			"triangles": 88013,
+			"rawBytes": 3976272,
+			"gzipBytes": 1071503,
+			"replacedFmzkParts": 0
+		},
+		"15/17873/11365": {
+			"buildingParts": 1987,
+			"lod1Parts": 1987,
+			"lod21Parts": 0,
+			"vertices": 118680,
+			"triangles": 67869,
+			"rawBytes": 3025140,
+			"gzipBytes": 821036,
+			"replacedFmzkParts": 0
+		},
+		"15/17874/11365": {
+			"buildingParts": 2906,
+			"lod1Parts": 2906,
+			"lod21Parts": 0,
+			"vertices": 160460,
+			"triangles": 91378,
+			"rawBytes": 4120916,
+			"gzipBytes": 1092846,
+			"replacedFmzkParts": 0
+		}
+	},
+	"generatedAt": "2026-11-04T13:47:53.569Z",
+	"terrainAltitudeStored": false,
+	"roofPolicy": "exact-audited-direct-strong-only",
+	"notes": "LOD1 complete, roofs only where current part identifiers match an exact small-footprint-difference historical roof. Not a citywide LOD2 dataset."
+}
