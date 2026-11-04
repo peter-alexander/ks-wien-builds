@@ -1,0 +1,133 @@
+name: Build and verify complete Vienna native Z15 3D buildings
+run-name: Vienna Z15 whole-city build (678 tiles, 18 regions)
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/wien-native-full-city.yml'
+
+permissions:
+  contents: read
+  actions: write
+
+concurrency:
+  group: wien-native-full-city
+  cancel-in-progress: false
+
+jobs:
+  plan:
+    name: Verify 678-tile city inventory and incremental dependencies
+    runs-on: ubuntu-24.04
+    outputs:
+      regions: ${{ steps.prepare.outputs.regions }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+      - name: Verify deterministic regions, receipt coverage, and source index
+        run: |
+          node --check wien-native-city/city-run-controller.mjs
+          node --test wien-native-city/city-run-controller.test.mjs
+      - name: Plan 17 missing regions; reuse previously verified 64-tile region
+        id: prepare
+        run: |
+          node wien-native-city/city-run-controller.mjs plan >> "$GITHUB_OUTPUT"
+
+  regions:
+    name: Verify and build region ${{ matrix.region }}
+    needs: plan
+    runs-on: ubuntu-24.04
+    timeout-minutes: 110
+    strategy:
+      fail-fast: true
+      max-parallel: 1
+      matrix:
+        region: ${{ fromJSON(needs.plan.outputs.regions) }}
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+      - name: Run one bounded regional source/build pipeline and wait for success
+        run: |
+          node wien-native-city/city-run-controller.mjs watch \
+            "${{ matrix.region }}" wien-native-city/build/receipts
+      - name: Save verified source-region workflow identity
+        uses: actions/upload-artifact@v6
+        with:
+          name: z15-region-receipt-${{ matrix.region }}
+          path: wien-native-city/build/receipts/${{ matrix.region }}.json
+          retention-days: 14
+          if-no-files-found: error
+
+  full-city:
+    name: Assemble and validate all 678 native Z15 tiles
+    needs: [plan, regions]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 110
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+      - name: Recover precisely one successful run per missing region
+        uses: actions/download-artifact@v8
+        with:
+          pattern: z15-region-receipt-*
+          path: wien-native-city/build/receipts
+          merge-multiple: true
+      - name: Retrieve all 18 independently verified region artifacts
+        run: |
+          node wien-native-city/city-run-controller.mjs download \
+            wien-native-city/build/receipts \
+            wien-native-city/build/region-artifacts
+      - name: Verify every original source revision and publish an unpublished release artifact
+        run: |
+          node --max-old-space-size=6144 wien-native-city/assemble-regions.mjs \
+            wien-native-city/build/region-artifacts \
+            wien-native-city/build/whole-vienna
+      - name: Verify release completeness and metadata index checksums
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from "node:fs";
+          import {createHash} from "node:crypto";
+          import {readNativeBuildingIndex} from "./wien-native-city/building-index.mjs";
+          const root="wien-native-city/build/whole-vienna";
+          const release=JSON.parse(fs.readFileSync(root+"/release.json","utf8"));
+          if(release.publishedTileCount!==678 || Object.keys(release.tiles).length!==678 ||
+            release.buildingIndex.partCount!==release.buildingParts ||
+            release.dependencyIndex.tileKeys.length!==678 ||
+            Object.keys(release.sources).length!==1588){
+            throw new Error("Full Vienna output is incomplete");
+          }
+          const packed=fs.readFileSync(root+"/"+release.buildingIndex.path);
+          const sha=createHash("sha256").update(packed).digest("hex");
+          const index=readNativeBuildingIndex(packed);
+          if(sha!==release.buildingIndex.sha256 ||
+            index.buildingCount!==release.buildingIndex.buildingCount ||
+            index.tileCount!==678){
+            throw new Error("Full Vienna building index integrity failure");
+          }
+          console.log(JSON.stringify({
+            tiles:release.publishedTileCount,parts:release.buildingParts,
+            roofs:release.lod21Parts,buildings:index.buildingCount,
+            fmzkReplacements:Object.keys(index.replacedBy).length,
+            compressedBytes:release.gzipBytes,
+            buildingIndexBytes:packed.length
+          }));
+          NODE
+      - name: Retain complete but unpublished citywide Z15 release
+        uses: actions/upload-artifact@v6
+        with:
+          name: wien-native-z15-whole-city-678-tiles
+          path: wien-native-city/build/whole-vienna/
+          retention-days: 21
+          compression-level: 0
+          if-no-files-found: error
