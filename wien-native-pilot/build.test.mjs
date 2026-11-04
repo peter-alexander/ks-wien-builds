@@ -127,3 +127,22 @@ test("original CityGML source lineage is embedded in the native roof record",()=
 		}]),/Missing original CityGML sheet lineage/);
 	} finally {roof.dispose();}
 });
+
+test("historical roof output records which official FMZK KS_IDs it replaces",()=>{
+	const roof=makeTriangleGeometry("lod21:42");
+	try {
+		const data=encodeNativeTile(TILE,[{
+			source:"lod21",geometry:roof,
+			provenance:new Map([["lod21:triangle",["104078"]]]),
+			replacements:new Map([["lod21:triangle",["wien-fmzk:123","wien-fmzk:456"]]])
+		}]);
+		const size=data.raw.readUInt32LE(28);
+		const info=JSON.parse(data.raw.subarray(32,32+size)).buildings[0];
+		assert.deepEqual(info.replacesKsIds,["wien-fmzk:123","wien-fmzk:456"]);
+		assert.throws(()=>encodeNativeTile(TILE,[{
+			source:"lod21",geometry:roof,
+			provenance:new Map([["lod21:triangle",["104078"]]]),
+			replacements:new Map()
+		}]),/Missing stable replaced FMZK KS_IDs/);
+	}finally{roof.dispose();}
+});
