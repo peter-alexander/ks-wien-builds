@@ -2,6 +2,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { spawn } from "node:child_process";
+import { createHash } from "node:crypto";
 import { fileURLToPath } from "node:url";
 
 const BASE = "https://www.wien.gv.at/MA41datenviewer/downloads/geodaten/lod2_gml";
@@ -20,7 +21,7 @@ export function optionsFrom(argv = process.argv.slice(2), env = process.env) {
 		args[argv[i].slice(2)] = argv[i + 1];
 	}
 	const allowed = ["targets", "cache-dir", "summary", "limit", "offset", "parallel", "interval-ms", "attempts",
-		"threshold", "cooldown-ms", "max-cooldowns", "retry-ms"];
+		"threshold", "cooldown-ms", "max-cooldowns", "retry-ms", "revalidate"];
 	for (const key of Object.keys(args)) if (!allowed.includes(key)) throw new Error("Unknown option " + key);
 	return {
 		targets: path.resolve(args.targets || env.WIEN_LOD21_TARGETS || "wien-lod21/targets.pilot.json"),
@@ -34,7 +35,12 @@ export function optionsFrom(argv = process.argv.slice(2), env = process.env) {
 		threshold: number(args.threshold ?? env.WIEN_LOD21_FAILURE_THRESHOLD ?? 2, "threshold", 1, 20),
 		cooldownMs: number(args["cooldown-ms"] ?? env.WIEN_LOD21_COOLDOWN_MS ?? 90000, "cooldown-ms", 0, 1800000),
 		maxCooldowns: number(args["max-cooldowns"] ?? env.WIEN_LOD21_MAX_COOLDOWNS ?? 2, "max-cooldowns", 0, 20),
-		retryMs: number(args["retry-ms"] ?? env.WIEN_LOD21_RETRY_MS ?? 3000, "retry-ms", 0, 60000)
+		retryMs: number(args["retry-ms"] ?? env.WIEN_LOD21_RETRY_MS ?? 3000, "retry-ms", 0, 60000),
+		revalidate: (() => {
+			const mode = args.revalidate ?? env.WIEN_LOD21_REVALIDATE ?? "off";
+			if (!["off", "conditional", "strict"].includes(mode)) throw new Error("Invalid revalidate mode " + mode);
+			return mode;
+		})()
 	};
 }
 
@@ -64,23 +70,56 @@ async function validZip(file) {
 	} catch { return false; }
 }
 
-async function downloadZip(sheet, file) {
-	const result = await command("curl", [
-		"--fail", "--location", "--proto", "=https", "--proto-redir", "=https",
-		"--max-redirs", "5", "--connect-timeout", "20", "--max-time", "120",
-		"--retry", "0", "--max-filesize", "100000000",
-		"--silent", "--show-error", "--user-agent", "ks-wien-builds/wien-lod21",
-		"--output", file, "--write-out", "%{http_code}|%{remote_ip}|%{time_total}",
-		BASE + "/" + sheet + "_lod2_gml.zip"
-	]);
-	const [status, ip, seconds] = result.stdout.trim().split("|");
-	if (result.code !== 0 || !/^2[0-9][0-9]$/.test(status || "")) {
-		const error = new Error("curl=" + result.code + ", HTTP=" + status + ": " + result.stderr);
-		error.curlCode = result.code;
-		error.httpStatus = Number(status || 0);
-		throw error;
+export function parseResponseValidators(raw) {
+	const parts = String(raw).split(/\r?\n\r?\n/).filter(Boolean);
+	const finalBlock = [...parts].reverse().find(block => /^HTTP\/\d(?:\.\d)?\s+\d{3}/mi.test(block)) || "";
+	const headers = new Map();
+	for (const line of finalBlock.split(/\r?\n/).slice(1)) {
+		const pos = line.indexOf(":");
+		if (pos > 0) headers.set(line.slice(0, pos).toLowerCase(), line.slice(pos + 1).trim());
 	}
-	return { httpStatus: Number(status), ip, seconds: Number(seconds) };
+	const text = key => {
+		const value = headers.get(key);
+		return value && !/[\r\n]/.test(value) && value.length <= 300 ? value : null;
+	};
+	return {
+		etag: text("etag"),
+		lastModified: text("last-modified"),
+		contentLength: text("content-length")
+	};
+}
+
+async function downloadZip(sheet, file, validators = {}) {
+	const headersPath = file + ".headers";
+	const conditional = [];
+	if (validators?.etag) conditional.push("--header", "If-None-Match: " + validators.etag);
+	else if (validators?.lastModified) conditional.push("--header", "If-Modified-Since: " + validators.lastModified);
+	try {
+		const result = await command("curl", [
+			"--fail", "--location", "--proto", "=https", "--proto-redir", "=https",
+			"--max-redirs", "5", "--connect-timeout", "20", "--max-time", "120",
+			"--retry", "0", "--max-filesize", "100000000",
+			"--silent", "--show-error", "--user-agent", "ks-wien-builds/wien-lod21",
+			...conditional,
+			"--dump-header", headersPath,
+			"--output", file, "--write-out", "%{http_code}|%{remote_ip}|%{time_total}",
+			BASE + "/" + sheet + "_lod2_gml.zip"
+		]);
+		const [status, ip, seconds] = result.stdout.trim().split("|");
+		if (result.code !== 0 || !(status === "304" || /^2[0-9][0-9]$/.test(status || ""))) {
+			const error = new Error("curl=" + result.code + ", HTTP=" + status + ": " + result.stderr);
+			error.curlCode = result.code;
+			error.httpStatus = Number(status || 0);
+			throw error;
+		}
+		const rawHeaders = await fs.readFile(headersPath, "utf8").catch(() => "");
+		return {
+			httpStatus: Number(status), ip, seconds: Number(seconds),
+			...parseResponseValidators(rawHeaders)
+		};
+	} finally {
+		await fs.rm(headersPath, { force: true });
+	}
 }
 
 export async function downloadBatch(sheets, config, overrides = {}) {
@@ -91,7 +130,8 @@ export async function downloadBatch(sheets, config, overrides = {}) {
 	const emit = overrides.emit || (() => {});
 	await fs.mkdir(config.cacheDir, { recursive: true });
 	const report = { startedAt: new Date().toISOString(), requested: sheets.length,
-		downloaded: 0, cached: 0, failed: [], attempts: 0, cooldowns: 0, events: [] };
+		downloaded: 0, cached: 0, notModified: 0, cachedUnverified: 0,
+		failed: [], attempts: 0, cooldowns: 0, events: [] };
 	let cursor = 0, stop = false, streak = 0, cooldownUntil = 0, nextStart = 0;
 	let gate = Promise.resolve();
 	const log = (kind, details) => {
@@ -118,23 +158,65 @@ export async function downloadBatch(sheets, config, overrides = {}) {
 	}
 	async function one(sheet) {
 		const file = path.join(config.cacheDir, sheet + "_lod2_gml.zip");
-		if (await validate(file)) {
+		const metadataFile = file + ".http.json";
+		const previouslyValid = await validate(file);
+		let prior = null;
+		if (previouslyValid && config.revalidate !== "off" && config.revalidate) {
+			try {
+				const data = JSON.parse(await fs.readFile(metadataFile, "utf8"));
+				if (data.schemaVersion === 1 &&
+					(data.etag || data.lastModified) &&
+					!/[\r\n]/.test(data.etag || "") &&
+					!/[\r\n]/.test(data.lastModified || "")) {
+					prior = data;
+				}
+			} catch {}
+		}
+		if (previouslyValid && (!config.revalidate || config.revalidate === "off"
+			|| (config.revalidate === "conditional" && !prior))) {
 			report.cached++;
-			log("cached", { sheet });
+			if (config.revalidate === "conditional" && !prior) {
+				report.cachedUnverified++;
+				log("cached-no-validator", { sheet });
+			} else log("cached", { sheet });
 			return;
 		}
-		await fs.rm(file, { force: true });
+		if (!previouslyValid) {
+			await fs.rm(file, { force: true });
+			await fs.rm(metadataFile, { force: true });
+		}
 		for (let attempt = 1; attempt <= config.attempts && !stop; attempt++) {
 			if (!(await throttle())) break;
 			const partial = file + ".partial-" + process.pid + "-" + attempt;
 			report.attempts++;
 			try {
-				const response = await fetch(sheet, partial);
+				const response = await fetch(sheet, partial, prior || {});
+				if (response?.httpStatus === 304) {
+					if (!previouslyValid) throw new Error("HTTP 304 but no validated cached ZIP");
+					report.cached++;
+					report.notModified++;
+					log("not-modified", { sheet, attempt, httpStatus: 304 });
+					streak = 0;
+					return;
+				}
 				if (!(await validate(partial))) throw new Error("Invalid downloaded ZIP");
 				await fs.rename(partial, file);
+				const content = await fs.readFile(file);
+				const metadata = {
+					schemaVersion: 1,
+					sheet,
+					etag: response?.etag ?? null,
+					lastModified: response?.lastModified ?? null,
+					contentLength: response?.contentLength ?? null,
+					sha256: createHash("sha256").update(content).digest("hex"),
+					downloadedAt: new Date().toISOString()
+				};
+				const metadataPartial = metadataFile + ".partial";
+				await fs.writeFile(metadataPartial, JSON.stringify(metadata) + "\n");
+				await fs.rename(metadataPartial, metadataFile);
 				streak = 0;
 				report.downloaded++;
-				log("downloaded", { sheet, attempt, ...response });
+				log(prior ? "updated" : "downloaded", { sheet, attempt, ...response });
 				return;
 			} catch (error) {
 				streak++;
@@ -151,13 +233,16 @@ export async function downloadBatch(sheets, config, overrides = {}) {
 						log("cooldown", { ms: config.cooldownMs });
 					}
 				}
-			} finally { await fs.rm(partial, { force: true }); }
+			} finally {
+				await fs.rm(partial, { force: true });
+			}
 			if (attempt < config.attempts && !stop) await sleep(config.retryMs * attempt);
 		}
 		stop = true;
 		report.failed.push(sheet);
 		log("failed-sheet", { sheet });
 	}
+
 	const workers = Array.from({ length: Math.min(config.parallel, sheets.length) }, async () => {
 		while (!stop && cursor < sheets.length) await one(sheets[cursor++]);
 	});
@@ -178,7 +263,8 @@ async function main() {
 	await fs.writeFile(opts.summary, JSON.stringify({ options: opts, ...report }, null, "\t") + "\n");
 	console.log("Result: " + JSON.stringify({
 		success: report.success, requested: report.requested, downloaded: report.downloaded,
-		cached: report.cached, failed: report.failed, skipped: report.skipped, cooldowns: report.cooldowns
+		cached: report.cached, notModified: report.notModified,
+		cachedUnverified: report.cachedUnverified, failed: report.failed, skipped: report.skipped, cooldowns: report.cooldowns
 	}));
 	if (!report.success) process.exitCode = 1;
 }
