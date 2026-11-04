@@ -87,9 +87,9 @@ test("exhausted attempts stop safely and do not persist partial ZIPs", async () 
 
 test("HTTP validator parser uses final response after redirects", () => {
 	const headers = [
-		"HTTP/1.1 302 Found\\r\\nLocation: elsewhere\\r\\nETag: bad\\r\\n",
-		"HTTP/2 200\\r\\nETag: \\"version-7\\"\\r\\nLast-Modified: Mon, 02 Nov 2026 11:00:00 GMT\\r\\nContent-Length: 8192\\r\\n"
-	].join("\\r\\n");
+		"HTTP/1.1 302 Found\r\nLocation: elsewhere\r\nETag: bad\r\n",
+		"HTTP/2 200\r\nETag: \"version-7\"\r\nLast-Modified: Mon, 02 Nov 2026 11:00:00 GMT\r\nContent-Length: 8192\r\n"
+	].join("\r\n");
 	assert.deepEqual(parseResponseValidators(headers), {
 		etag: '"version-7"',
 		lastModified: "Mon, 02 Nov 2026 11:00:00 GMT",
