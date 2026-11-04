@@ -364,7 +364,7 @@ function buildFallbackTileGeometry(
 			groundRanges.push({
 				start: vertexStart,
 				count: vertexCount,
-				key: `ogd:${item.featureIndex}:${polygonIndex}`,
+				key: `ogd:${item.featureId || ('legacy-' + item.featureIndex)}:${polygonIndex}`,
 				lng: anchor.lng,
 				lat: anchor.lat,
 				lastTerrainSignature: "",
