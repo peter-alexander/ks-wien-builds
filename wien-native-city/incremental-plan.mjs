@@ -34,7 +34,7 @@ export function sourceChanged(previous,current) {
 	}
 	if(previous.status!==current.status)return true;
 	if(current.status==="missing")return false;
-	if(current.sha256 && previous.sha256 && current.sha256===previous.sha256)return false;
+	if(current.sha256 && previous.sha256)return current.sha256!==previous.sha256;
 	if(current.etag && previous.etag)return current.etag!==previous.etag;
 	if(current.lastModified && previous.lastModified && current.contentLength && previous.contentLength){
 		return current.lastModified!==previous.lastModified ||
