@@ -39,6 +39,62 @@ jobs:
           node wien-native-city/audit-native-region.mjs \
             /tmp/wien-native-real-region \
             /tmp/wien-native-real-region-audit.json
+      - name: Reconcile complete real region and verify no geometry changes
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from "node:fs/promises";
+          import path from "node:path";
+          import assert from "node:assert/strict";
+          import {readNativeTile} from "./wien-native-city/native-tile-patch.mjs";
+          import {reconcileNativeAnchors} from "./wien-native-city/canonical-native-anchors.mjs";
+          import {auditNativeRegion} from "./wien-native-city/audit-native-region.mjs";
+          const source="/tmp/wien-native-real-region";
+          const dest="/tmp/wien-native-canonical-region";
+          const manifest=JSON.parse(await fs.readFile(path.join(source,"manifest.json"),"utf8"));
+          const tiles=new Map();
+          for(const [key,metric] of Object.entries(manifest.tiles)){
+            tiles.set(key,{metric,binary:await fs.readFile(path.join(source,"tiles",key+".bin.gz"))});
+          }
+          const normalized=reconcileNativeAnchors(tiles);
+          assert.ok(normalized.changedTiles>0,"Expected the previous pilot to have anchor differences");
+          await fs.mkdir(dest,{recursive:true});
+          for(const [key,record] of normalized.tiles){
+            const filename=path.join(dest,"tiles",key+".bin.gz");
+            await fs.mkdir(path.dirname(filename),{recursive:true});
+            await fs.writeFile(filename,record.binary);
+            const before=readNativeTile(tiles.get(key).binary).parts;
+            const after=readNativeTile(record.binary).parts;
+            assert.equal(after.length,before.length);
+            for(let i=0;i<before.length;i++){
+              assert.deepEqual(after[i].vertices,before[i].vertices);
+              assert.deepEqual(after[i].indices,before[i].indices);
+            }
+          }
+          manifest.tiles=Object.fromEntries([...normalized.tiles].map(([key,r])=>[
+            key,{...r.metric,sha256:r.sha256,gzipBytes:r.binary.length}
+          ]));
+          manifest.gzipBytes=normalized.totalBytes;
+          await fs.writeFile(path.join(dest,"manifest.json"),JSON.stringify(manifest));
+          const audit=await auditNativeRegion(dest);
+          assert.equal(audit.anchorDisagreements,0,
+            "All parts of each logical building must share one world-space anchor");
+          assert.equal(audit.realTilePatchVerified,true);
+          const report={before:{anchorDisagreements:normalized.anchorDisagreements},
+            reconciliation:{affectedIdentities:normalized.affectedIdentities,
+              correctedParts:normalized.correctedParts,changedTiles:normalized.changedTiles},
+            after:audit};
+          await fs.writeFile("/tmp/wien-native-anchor-reconciliation.json",
+            JSON.stringify(report,null,"\\t")+"\\n");
+          console.log(JSON.stringify(report));
+          NODE
+      - name: Retain verified real-region canonical anchor report
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: wien-native-anchor-reconciliation
+          path: /tmp/wien-native-anchor-reconciliation.json
+          retention-days: 14
+          if-no-files-found: warn
       - name: Keep complete anchor-disagreement and patch-verification report
         if: always()
         uses: actions/upload-artifact@v6
