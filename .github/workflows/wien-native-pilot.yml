@@ -4,7 +4,9 @@ on:
   push:
     branches: [main]
     paths:
-      - 'wien-native-pilot/**'
+      - 'wien-native-pilot/build.mjs'
+      - 'wien-native-pilot/build.test.mjs'
+      - 'wien-native-pilot/view.html'
       - '.github/workflows/wien-native-pilot.yml'
   workflow_dispatch:
 
