@@ -118,7 +118,7 @@ export async function assembleCityRelease({
 	const metadata={
 		schemaVersion:2,format:"KSWN0001",generatedAt:new Date().toISOString(),
 		fmzkRelease:inventory.sourceRelease,
-		buildRevision,publishedTileCount:tiles.size,
+		buildRevision:builderRevision,publishedTileCount:tiles.size,
 		buildingParts:lod1Parts+lod21Parts,lod1Parts,lod21Parts,
 		gzipBytes:bytes,
 		sources:Object.fromEntries([...sourceReleases].sort((a,b)=>a[0].localeCompare(b[0]))),
