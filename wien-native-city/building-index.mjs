@@ -91,7 +91,7 @@ export function serializeNativeBuildingIndex(index){
 
 export function readNativeBuildingIndex(input){
 	if(!Buffer.isBuffer(input))throw new Error("Building index must be a gzip buffer");
-	const data=JSON.parse(gunzipSync(input,{maxOutputLength:256*1024*1024}).toString("utf8"));
+	const data=JSON.parse(gunzipSync(input,{maxOutputLength:768*1024*1024}).toString("utf8"));
 	if(data?.schemaVersion!==ID_SCHEMA||data.format!=="KSWN0001"||data.zoom!==15
 		||!data.buildings||Array.isArray(data.buildings)
 		||data.buildingCount!==Object.keys(data.buildings).length
