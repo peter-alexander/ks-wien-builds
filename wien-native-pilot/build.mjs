@@ -152,7 +152,7 @@ export function encodeNativeTile(tile, resources) {
 			const id = String(range.key || "");
 			const sourceSheets = provenance?.get(id) ?? null;
 			if (provenance && (!Array.isArray(sourceSheets) || !sourceSheets.length
-				|| sourceSheets.some(sheet => !/^[0-9]{6}$/.test(sheet))) {
+				|| sourceSheets.some(sheet => !/^[0-9]{6}$/.test(sheet)))) {
 				throw new Error("Missing original CityGML sheet lineage for " + id);
 			}
 			buildingRecords.push({
