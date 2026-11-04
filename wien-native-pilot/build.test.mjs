@@ -116,7 +116,7 @@ test("original CityGML source lineage is embedded in the native roof record",()=
 		const tile=encodeNativeTile(TILE,[{
 			source:"lod21",
 			geometry:roof,
-			provenance:new Map([["lod21:triangle",["104079","104078"]]])
+			provenance:new Map([["lod21:42:triangle",["104079","104078"]]])
 		}]);
 		const n=tile.raw.readUInt32LE(28);
 		const info=JSON.parse(tile.raw.subarray(32,32+n));
