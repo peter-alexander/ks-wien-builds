@@ -295,18 +295,26 @@ export async function buildPilot({
 	fetchData = request,
 	localRoofDirectory = process.env.WIEN_NATIVE_ROOF_DIR || "",
 	localRoofTargets = process.env.WIEN_NATIVE_ROOF_TARGETS || "",
-	tileKeys = null
+	tileKeys = null,
+	fmzkOnly = false
 } = {}) {
 	const release = await fetchData(`${BASE}/LOD1/release.json`, true);
+	if (fmzkOnly && (localRoofDirectory || localRoofTargets)) {
+		throw new Error("FMZK-only mode cannot load historical roofs");
+	}
 	if (Boolean(localRoofDirectory) !== Boolean(localRoofTargets)) {
 		throw new Error("Local roof model and validated target list must be provided together");
 	}
-	const roofs = localRoofDirectory
-		? JSON.parse(await fs.readFile(path.join(localRoofDirectory, "release.json"), "utf8"))
-		: await fetchData(`${BASE}/LOD21/release.json`, true);
-	const rawTargets = JSON.parse(await fs.readFile(
-		localRoofTargets || fileURLToPath(new URL("../wien-lod21/targets.production.json", import.meta.url)), "utf8"
-	));
+	const roofs = fmzkOnly
+		? { generatedAt: null, binary: { magic: "KSL21B01" }, tiles: { presentTilesZ15: [] } }
+		: localRoofDirectory
+			? JSON.parse(await fs.readFile(path.join(localRoofDirectory, "release.json"), "utf8"))
+			: await fetchData(`${BASE}/LOD21/release.json`, true);
+	const rawTargets = fmzkOnly
+		? { buildings: [] }
+		: JSON.parse(await fs.readFile(
+			localRoofTargets || fileURLToPath(new URL("../wien-lod21/targets.production.json", import.meta.url)), "utf8"
+		));
 	if (release?.vectorTiles?.compression !== "none"
 		|| release?.vectorTiles?.layer !== "wien_buildings"
 		|| release?.vectorTiles?.maxzoom !== 15
@@ -342,10 +350,10 @@ export async function buildPilot({
 		tiles: {},
 		generatedAt: new Date().toISOString(),
 		terrainAltitudeStored: false,
-		roofPolicy: localRoofDirectory
+		roofPolicy: fmzkOnly ? "current-official-fmzk-only" : localRoofDirectory
 			? "original-citygml-pitched-footprints-verified-current-fmzk-single-tile"
 			: "exact-audited-direct-strong-only",
-		notes: localRoofDirectory
+		notes: fmzkOnly ? "Strict official building-only baseline with zero legacy roof sources." : localRoofDirectory
 			? "LOD1 complete; the original CityGML pitched roof is used only for single-tile buildings verified with current FMZK."
 			: "LOD1 complete, roofs only where current part identifiers match an exact small-footprint-difference historical roof. Not a citywide LOD2 dataset."
 	};
