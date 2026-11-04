@@ -51,7 +51,10 @@ jobs:
         uses: actions/cache@v6
         with:
           path: wien-native-city/build/roof-sector/downloads
-          key: wien-native-citygml-sector-132-2026v1
+          key: wien-native-citygml-sector-132-2026v1-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: |
+            wien-native-citygml-sector-132-2026v1-
+          save-always: true
 
       - name: Download and validate official historical Vienna CityGML sheets
         run: |
@@ -60,11 +63,13 @@ jobs:
             --targets wien-native-city/roof-sector-sheets.json \
             --cache-dir wien-native-city/build/roof-sector/downloads \
             --summary wien-native-city/build/roof-sector/download-report.json \
-            --parallel 2 \
-            --attempts 4 \
-            --threshold 4 \
-            --cooldown-ms 30000 \
-            --max-cooldowns 3
+            --parallel 1 \
+            --interval-ms 6000 \
+            --attempts 6 \
+            --threshold 3 \
+            --cooldown-ms 120000 \
+            --max-cooldowns 4 \
+            --retry-ms 10000
 
       - name: Extract official CityGML source data
         run: |
