@@ -61,6 +61,17 @@ async function watchRegion(id,{repository,sha,receiptDir}){
 		throw new Error("Explicit repository and pinned git revision required");
 	}
 	const targetName="Z15 Vienna region "+id;
+	const previous=ghJson(["run","list","--repo",repository,"--workflow",WORKFLOW,
+		"--limit","100","--json","databaseId,displayTitle,headSha,status,conclusion"]);
+	const reused=previous.find(run=>run.displayTitle===targetName &&
+		run.headSha===sha && run.status==="completed" && run.conclusion==="success");
+	if(reused){
+		fs.mkdirSync(receiptDir,{recursive:true});
+		fs.writeFileSync(path.join(receiptDir,id+".json"),
+			JSON.stringify({region:id,runId:reused.databaseId,sha},null,"\\t")+"\\n");
+		console.log("Reusing successful region "+id+" run "+reused.databaseId);
+		return;
+	}
 	const launched=Date.now();
 	gh(["workflow","run",WORKFLOW,"--repo",repository,"--ref","main","--field","region="+id]);
 	console.log("Dispatched "+id+"; waiting for matching, pinned region workflow.");
