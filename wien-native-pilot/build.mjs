@@ -287,7 +287,8 @@ export async function buildPilot({
 	radius = RADIUS,
 	fetchData = request,
 	localRoofDirectory = process.env.WIEN_NATIVE_ROOF_DIR || "",
-	localRoofTargets = process.env.WIEN_NATIVE_ROOF_TARGETS || ""
+	localRoofTargets = process.env.WIEN_NATIVE_ROOF_TARGETS || "",
+	tileKeys = null
 } = {}) {
 	const release = await fetchData(`${BASE}/LOD1/release.json`, true);
 	if (Boolean(localRoofDirectory) !== Boolean(localRoofTargets)) {
@@ -315,13 +316,18 @@ export async function buildPilot({
 		: safeRoofCandidates(rawTargets);
 	const lod1Tiles = new Set(release.vectorTiles.presentTilesZ15 || []);
 	const roofTiles = new Set(roofs.tiles?.presentTilesZ15 || []);
-	const keys = makePilotKeys(center, radius);
+	const keys = tileKeys === null ? makePilotKeys(center, radius) : tileKeys;
+	if (!Array.isArray(keys) || !keys.length || new Set(keys).size !== keys.length
+		|| keys.some((key) => !/^15\/\d+\/\d+$/.test(key))) {
+		throw new Error("Invalid, duplicate or missing explicit Z15 tile keys");
+	}
 	const manifest = {
 		schemaVersion: 1,
 		format: MAGIC,
 		zoom: 15,
-		center,
-		radius,
+		center: tileKeys === null ? center : null,
+		radius: tileKeys === null ? radius : null,
+		explicitTileSelection: tileKeys !== null,
 		sourceReleases: {
 			lod1: release.generatedAt,
 			lod21: roofs.generatedAt
