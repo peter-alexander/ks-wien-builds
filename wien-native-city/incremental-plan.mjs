@@ -93,7 +93,7 @@ export function computeBuilderRevision(fileContents) {
 }
 
 export function planChangedTiles({
-	oldRelease=null,newSources,fmzkRelease,buildRevision,dependencyIndex
+	oldRelease=null,newSources,fmzkRelease,buildRevision,metadataRevision=null,dependencyIndex
 }={}) {
 	assertedSourceMap(newSources);
 	if(!dependencyIndex || !Array.isArray(dependencyIndex.tileKeys) ||
@@ -130,10 +130,13 @@ export function planChangedTiles({
 	else for(const sheet of changedSheets){
 		for(const key of dependencyIndex.sheets[sheet])changedKeys.add(key);
 	}
+	const needsReindex=metadataRevision!==null &&
+		(!/^[a-f0-9]{64}$/.test(metadataRevision) ? (()=>{throw new Error("Invalid metadata revision")})()
+			:!!oldRelease && oldRelease.metadataRevision!==metadataRevision);
 	return {
 		schemaVersion:1,
-		status:full?"full-rebuild":changedKeys.size?"partial-rebuild":"unchanged",
-		fmzkRelease,buildRevision,
+		status:full?"full-rebuild":changedKeys.size?"partial-rebuild":needsReindex?"reindex-only":"unchanged",
+		fmzkRelease,buildRevision,metadataRevision,needsReindex,
 		changedSheets,
 		affectedTiles:[...changedKeys].sort(),
 		tileCount:allKeys.size,
