@@ -11,6 +11,7 @@ import {createHash} from "node:crypto";
 import {fileURLToPath} from "node:url";
 import {readNativeTile} from "./native-tile-patch.mjs";
 import {mapSheetsToTiles,computeBuilderRevision} from "./incremental-plan.mjs";
+import {reconcileNativeAnchors} from "./canonical-native-anchors.mjs";
 
 const ROOT=path.dirname(fileURLToPath(import.meta.url));
 const BUILDER_INPUTS=[
@@ -19,7 +20,8 @@ const BUILDER_INPUTS=[
 	"wien-lod21/build.mjs",
 	"wien-optimized/src/app/buildings/wien-ogd-fallback-geometry.js",
 	"wien-native-city/region-plan.mjs",
-	"wien-native-city/native-tile-patch.mjs"
+	"wien-native-city/native-tile-patch.mjs",
+	"wien-native-city/canonical-native-anchors.mjs"
 ];
 
 export function sameSourceVersion(a,b) {
@@ -108,6 +110,10 @@ export async function assembleCityRelease({
 	if(lod21Parts<minExpectedLod21Parts || lod1Parts<minExpectedLod1Parts) {
 		throw new Error("Insufficient historical roofs or current FMZK source coverage");
 	}
+	// Normalize relative terrain anchors for all parts of each logical building
+	// only AFTER all 18 audited regions and their source identities are verified.
+	// This changes no packed vertex/triangle geometry and requires no CityGML ZIPs.
+	const normalized=reconcileNativeAnchors(tiles);
 	const buildFiles=[];
 	const projectRoot=path.join(ROOT,"..");
 	for(const filename of BUILDER_INPUTS){
@@ -120,10 +126,15 @@ export async function assembleCityRelease({
 		fmzkRelease:inventory.sourceRelease,
 		buildRevision:builderRevision,publishedTileCount:tiles.size,
 		buildingParts:lod1Parts+lod21Parts,lod1Parts,lod21Parts,
-		gzipBytes:bytes,
+		gzipBytes:normalized.totalBytes,
+		anchorPolicy:"global-logical-building",
+		canonicalAnchors:normalized.canonicalAnchors,
+		anchorAudit:{affectedIdentities:normalized.affectedIdentities,
+			anchorDisagreements:normalized.anchorDisagreements,
+			correctedParts:normalized.correctedParts,changedTiles:normalized.changedTiles},
 		sources:Object.fromEntries([...sourceReleases].sort((a,b)=>a[0].localeCompare(b[0]))),
 		dependencyIndex:index,
-		tiles:Object.fromEntries([...tiles].sort((a,b)=>a[0].localeCompare(b[0]))
+		tiles:Object.fromEntries([...normalized.tiles].sort((a,b)=>a[0].localeCompare(b[0]))
 			.map(([key,value])=>[key,{
 				sha256:value.sha256,gzipBytes:value.binary.length,
 				buildingParts:value.metric.buildingParts,
@@ -131,13 +142,15 @@ export async function assembleCityRelease({
 			}]))
 	};
 	await fs.mkdir(outDir,{recursive:true});
-	for(const [key,value] of tiles){
+	for(const [key,value] of normalized.tiles){
 		const filename=path.join(outDir,"tiles",key+".bin.gz");
 		await fs.mkdir(path.dirname(filename),{recursive:true});
 		await fs.writeFile(filename,value.binary);
 	}
 	await fs.writeFile(path.join(outDir,"release.json"),JSON.stringify(metadata,null,"\t")+"\n");
-	console.log("Full native Vienna:",tiles.size,"tiles,",lod21Parts,"verified original roof parts,",bytes,"bytes");
+	console.log("Full native Vienna:",normalized.tiles.size,"tiles,",lod21Parts,
+		"verified original roof parts,",normalized.totalBytes,"bytes;",
+		normalized.correctedParts,"terrain anchors reconciled");
 	return metadata;
 }
 
