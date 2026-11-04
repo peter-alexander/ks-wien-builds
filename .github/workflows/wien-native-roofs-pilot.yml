@@ -4,6 +4,8 @@ on:
   push:
     branches: [main]
     paths:
+      - 'wien-native-pilot/build.mjs'
+      - 'wien-lod21/build.mjs'
       - 'wien-native-pilot/build-roof-targets.mjs'
       - 'wien-native-pilot/build-roof-targets.test.mjs'
       - 'wien-native-pilot/roof-sheets.json'
