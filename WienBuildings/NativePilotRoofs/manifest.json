@@ -11,7 +11,7 @@
 	"explicitTileSelection": false,
 	"sourceReleases": {
 		"lod1": "2026-11-03T11:04:51.669Z",
-		"lod21": "2026-11-04T18:41:08.524Z"
+		"lod21": "2026-11-04T19:44:35.855Z"
 	},
 	"tiles": {
 		"15/17872/11363": {
@@ -25,8 +25,8 @@
 				"pitchedRoof": 7615,
 				"flatRoof": 32718
 			},
-			"rawBytes": 5689288,
-			"gzipBytes": 1566831,
+			"rawBytes": 5709268,
+			"gzipBytes": 1569235,
 			"replacedFmzkParts": 699
 		},
 		"15/17873/11363": {
@@ -40,8 +40,8 @@
 				"pitchedRoof": 12933,
 				"flatRoof": 26479
 			},
-			"rawBytes": 5234400,
-			"gzipBytes": 1475218,
+			"rawBytes": 5267408,
+			"gzipBytes": 1480399,
 			"replacedFmzkParts": 1215
 		},
 		"15/17874/11363": {
@@ -55,8 +55,8 @@
 				"pitchedRoof": 16399,
 				"flatRoof": 19204
 			},
-			"rawBytes": 4197868,
-			"gzipBytes": 1199076,
+			"rawBytes": 4227456,
+			"gzipBytes": 1201563,
 			"replacedFmzkParts": 664
 		},
 		"15/17872/11364": {
@@ -70,8 +70,8 @@
 				"pitchedRoof": 8698,
 				"flatRoof": 27199
 			},
-			"rawBytes": 5003116,
-			"gzipBytes": 1389563,
+			"rawBytes": 5023952,
+			"gzipBytes": 1392015,
 			"replacedFmzkParts": 696
 		},
 		"15/17873/11364": {
@@ -85,8 +85,8 @@
 				"pitchedRoof": 17448,
 				"flatRoof": 22062
 			},
-			"rawBytes": 5126812,
-			"gzipBytes": 1462127,
+			"rawBytes": 5168060,
+			"gzipBytes": 1468283,
 			"replacedFmzkParts": 1402
 		},
 		"15/17874/11364": {
@@ -100,8 +100,8 @@
 				"pitchedRoof": 10293,
 				"flatRoof": 16459
 			},
-			"rawBytes": 3474216,
-			"gzipBytes": 984077,
+			"rawBytes": 3500148,
+			"gzipBytes": 987812,
 			"replacedFmzkParts": 910
 		},
 		"15/17872/11365": {
@@ -115,8 +115,8 @@
 				"pitchedRoof": 9576,
 				"flatRoof": 23227
 			},
-			"rawBytes": 4429472,
-			"gzipBytes": 1226780,
+			"rawBytes": 4450176,
+			"gzipBytes": 1229793,
 			"replacedFmzkParts": 652
 		},
 		"15/17873/11365": {
@@ -130,8 +130,8 @@
 				"pitchedRoof": 13627,
 				"flatRoof": 16014
 			},
-			"rawBytes": 3631924,
-			"gzipBytes": 1045729,
+			"rawBytes": 3662924,
+			"gzipBytes": 1050273,
 			"replacedFmzkParts": 1038
 		},
 		"15/17874/11365": {
@@ -145,12 +145,12 @@
 				"pitchedRoof": 7294,
 				"flatRoof": 25142
 			},
-			"rawBytes": 4506588,
-			"gzipBytes": 1220041,
+			"rawBytes": 4520452,
+			"gzipBytes": 1222121,
 			"replacedFmzkParts": 463
 		}
 	},
-	"generatedAt": "2026-11-04T18:41:08.831Z",
+	"generatedAt": "2026-11-04T19:44:36.125Z",
 	"terrainAltitudeStored": false,
 	"roofPolicy": "original-citygml-pitched-footprints-verified-current-fmzk-single-tile",
 	"notes": "LOD1 complete; the original CityGML pitched roof is used only for single-tile buildings verified with current FMZK."
