@@ -6,6 +6,8 @@ on:
     branches: [main]
     paths:
       - '.github/workflows/wien-native-incremental-tests.yml'
+      - 'wien-native-city/source-state.mjs'
+      - 'wien-native-city/source-state.test.mjs'
       - 'wien-native-city/incremental-plan.mjs'
       - 'wien-native-city/incremental-plan.test.mjs'
       - 'wien-native-city/native-tile-patch.mjs'
@@ -42,6 +44,7 @@ jobs:
         run: |
           node --check wien-native-city/native-tile-patch.mjs
           node --check wien-native-city/incremental-plan.mjs
+          node --check wien-native-city/source-state.mjs
           node --check wien-native-pilot/build.mjs
           node --check wien-native-pilot/build-roof-targets.mjs
-          node --test wien-native-city/incremental-plan.test.mjs wien-native-city/native-tile-patch.test.mjs wien-native-pilot/build.test.mjs wien-lod21/download-sheets.test.mjs
+          node --test wien-native-city/source-state.test.mjs wien-native-city/incremental-plan.test.mjs wien-native-city/native-tile-patch.test.mjs wien-native-pilot/build.test.mjs wien-lod21/download-sheets.test.mjs
