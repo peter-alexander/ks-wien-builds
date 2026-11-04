@@ -104,6 +104,7 @@ deren Geometrie in EPSG:31256. Historische Dächer werden nur
 | Verbleibende FMZK-Baukörperteile | 24.604 | 16.912 |
 | Vertices | 1.451.256 | 1.645.004 |
 | Gzip-Kachelvolumen | 10,01 MB | 11,55 MB |
+| Tatsächlich triangulierte geneigte Dachflächen | 1.252 Dreiecke | **103.883 Dreiecke** |
 
 Das Originalmodell wurde in 3.678 relevanten CityGML-Objekten der
 20 Blätter untersucht. Von 4.066 aktuellen Gebäude-Adresscodes wurden
