@@ -71,7 +71,7 @@ export async function auditNativeRegion(root,{readFile=fs.readFile}={}){
 			for(const part of result.parts){
 				const old=oldMap.get(groupKey(part.info));
 				if(!old)throw new Error("Real tile patch introduced an unexpected identity");
-				const changed=part===result.parts[0] || groupKey(part.info)===groupKey(replacement.info);
+				const changed=groupKey(part.info)===groupKey(replacement.info);
 				if(!changed && (!part.vertices.equals(old.vertices)||!part.indices.equals(old.indices))){
 					throw new Error("Unchanged building was remeshed by patch");
 				}
