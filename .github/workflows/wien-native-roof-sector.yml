@@ -1,0 +1,146 @@
+name: Expand Vienna original-roof build to 16 contiguous Z15 tiles
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/wien-native-roof-sector.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: wien-original-roof-sector
+  cancel-in-progress: false
+
+jobs:
+  roof-sector:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          cache: npm
+
+      - name: Install official CityGML geometry and tile converters
+        run: |
+          npm ci --ignore-scripts --no-audit --no-fund
+          npm install --no-save --ignore-scripts --no-audit --no-fund @mapbox/vector-tile@3.0.0 pbf@5.1.2 three@0.186.1
+
+      - name: Ensure regional plan is pinned to the current FMZK snapshot
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from "node:fs";
+          const plan=JSON.parse(fs.readFileSync("wien-native-city/roof-sector-plan.json"));
+          const download=JSON.parse(fs.readFileSync("wien-native-city/roof-sector-sheets.json"));
+          const release=await (await fetch("https://peter-alexander.github.io/ks-wien-builds/WienBuildings/LOD1/release.json")).json();
+          const keys=new Set(release.vectorTiles.presentTilesZ15);
+          if(plan.sourceRelease!==release.generatedAt ||
+            plan.tileKeys.length!==16 || plan.tileKeys.some(k=>!keys.has(k)) ||
+            new Set(plan.tileKeys).size!==16 ||
+            plan.sheets.length!==download.buildings.length) {
+            throw new Error("Sector FMZK version or official source coverage inconsistent");
+          }
+          console.log("Sixteen official city building tiles pinned:",plan.sourceRelease);
+          NODE
+
+      - name: Cache original CityGML source sheet downloads
+        uses: actions/cache@v6
+        with:
+          path: wien-native-city/build/roof-sector/downloads
+          key: wien-native-citygml-sector-132-2026v1
+
+      - name: Download and validate official historical Vienna CityGML sheets
+        run: |
+          mkdir -p wien-native-city/build/roof-sector/downloads
+          node wien-lod21/download-sheets.mjs \
+            --targets wien-native-city/roof-sector-sheets.json \
+            --cache-dir wien-native-city/build/roof-sector/downloads \
+            --summary wien-native-city/build/roof-sector/download-report.json \
+            --parallel 2 \
+            --attempts 4 \
+            --threshold 4 \
+            --cooldown-ms 30000 \
+            --max-cooldowns 3
+
+      - name: Extract official CityGML source data
+        run: |
+          set -euo pipefail
+          mkdir -p wien-native-city/build/roof-sector/source
+          find wien-native-city/build/roof-sector/downloads -name '*_lod2_gml.zip' -print0 |
+            while IFS= read -r -d '' archive; do
+              unzip -oq "$archive" -d wien-native-city/build/roof-sector/source
+            done
+          find wien-native-city/build/roof-sector/source -name '*.gml' -print | wc -l
+
+      - name: Match original pitched roofs to current FMZK buildings in all sixteen tiles
+        run: |
+          node --max-old-space-size=4096 --input-type=module <<'NODE'
+          import fs from "node:fs";
+          import {collectCurrentGroups,matchCityGml} from "./wien-native-pilot/build-roof-targets.mjs";
+          const root="wien-native-city/build/roof-sector";
+          const plan=JSON.parse(fs.readFileSync("wien-native-city/roof-sector-plan.json"));
+          const groups=await collectCurrentGroups({keys:plan.tileKeys});
+          console.log("Matching current FMZK identities:",groups.size);
+          await matchCityGml({
+            groups,
+            sourceDir:root+"/source",
+            targetsFile:root+"/roof-targets.json",
+            auditFile:root+"/roof-matching-audit.json"
+          });
+          NODE
+
+      - name: Triangulate original CityGML roofs into GPU-ready parts
+        run: |
+          node --max-old-space-size=4096 --expose-gc wien-lod21/build.mjs \
+            --input wien-native-city/build/roof-sector/source \
+            --output wien-native-city/build/roof-sector/LOD21 \
+            --targets wien-native-city/build/roof-sector/roof-targets.json
+
+      - name: Integrate current FMZK and matched original roofs into 16 native binary tiles
+        run: |
+          node --max-old-space-size=4096 --input-type=module <<'NODE'
+          import fs from "node:fs";
+          import {buildPilot} from "./wien-native-pilot/build.mjs";
+          const root="wien-native-city/build/roof-sector";
+          const plan=JSON.parse(fs.readFileSync("wien-native-city/roof-sector-plan.json"));
+          const manifest=await buildPilot({
+            outputDir:root+"/NativeSector",
+            tileKeys:plan.tileKeys,
+            localRoofDirectory:root+"/LOD21",
+            localRoofTargets:root+"/roof-targets.json"
+          });
+          if(manifest.sourceReleases.lod1!==plan.sourceRelease ||
+            Object.keys(manifest.tiles).length!==16 ||
+            Object.values(manifest.tiles).reduce((sum,t)=>sum+t.lod21Parts,0)<1500) {
+            throw new Error("Roof sector incomplete or current-data release changed during build");
+          }
+          console.log("16-tile roof sector built with",Object.values(manifest.tiles)
+            .reduce((sum,t)=>sum+t.lod21Parts,0),"original roof parts");
+          NODE
+
+      - name: Preserve success metrics and roof geometry
+        uses: actions/upload-artifact@v6
+        with:
+          name: wien-native-original-roof-sector-16-tiles
+          path: |
+            wien-native-city/build/roof-sector/NativeSector/manifest.json
+            wien-native-city/build/roof-sector/NativeSector/tiles/
+            wien-native-city/build/roof-sector/roof-matching-audit.json
+          retention-days: 14
+          compression-level: 0
+          if-no-files-found: error
+
+      - name: Preserve download and matching diagnostics on failure
+        if: failure()
+        uses: actions/upload-artifact@v6
+        with:
+          name: wien-native-original-roof-sector-diagnostics
+          path: |
+            wien-native-city/build/roof-sector/download-report.json
+            wien-native-city/build/roof-sector/roof-matching-audit.json
+          retention-days: 14
+          if-no-files-found: warn
