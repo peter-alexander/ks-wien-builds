@@ -1,0 +1,111 @@
+{
+	"schemaVersion": 1,
+	"format": "KSWN0001",
+	"zoom": 15,
+	"center": {
+		"z": 15,
+		"x": 17873,
+		"y": 11364
+	},
+	"radius": 1,
+	"sourceReleases": {
+		"lod1": "2026-11-03T11:04:51.669Z",
+		"lod21": "2026-11-04T15:34:30.711Z"
+	},
+	"tiles": {
+		"15/17872/11363": {
+			"buildingParts": 3016,
+			"lod1Parts": 2867,
+			"lod21Parts": 149,
+			"vertices": 224408,
+			"triangles": 130878,
+			"rawBytes": 5638456,
+			"gzipBytes": 1563704,
+			"replacedFmzkParts": 699
+		},
+		"15/17873/11363": {
+			"buildingParts": 2237,
+			"lod1Parts": 2017,
+			"lod21Parts": 220,
+			"vertices": 209450,
+			"triangles": 124195,
+			"rawBytes": 5195640,
+			"gzipBytes": 1472997,
+			"replacedFmzkParts": 1215
+		},
+		"15/17874/11363": {
+			"buildingParts": 1204,
+			"lod1Parts": 1072,
+			"lod21Parts": 132,
+			"vertices": 172970,
+			"triangles": 101552,
+			"rawBytes": 4176636,
+			"gzipBytes": 1197611,
+			"replacedFmzkParts": 664
+		},
+		"15/17872/11364": {
+			"buildingParts": 2669,
+			"lod1Parts": 2471,
+			"lod21Parts": 198,
+			"vertices": 196974,
+			"triangles": 115288,
+			"rawBytes": 4957376,
+			"gzipBytes": 1386567,
+			"replacedFmzkParts": 696
+		},
+		"15/17873/11364": {
+			"buildingParts": 2180,
+			"lod1Parts": 1809,
+			"lod21Parts": 371,
+			"vertices": 204874,
+			"triangles": 121908,
+			"rawBytes": 5087552,
+			"gzipBytes": 1459050,
+			"replacedFmzkParts": 1402
+		},
+		"15/17874/11364": {
+			"buildingParts": 1352,
+			"lod1Parts": 1147,
+			"lod21Parts": 205,
+			"vertices": 139657,
+			"triangles": 83433,
+			"rawBytes": 3449860,
+			"gzipBytes": 982383,
+			"replacedFmzkParts": 910
+		},
+		"15/17872/11365": {
+			"buildingParts": 2364,
+			"lod1Parts": 2144,
+			"lod21Parts": 220,
+			"vertices": 173715,
+			"triangles": 102983,
+			"rawBytes": 4388400,
+			"gzipBytes": 1224321,
+			"replacedFmzkParts": 652
+		},
+		"15/17873/11365": {
+			"buildingParts": 1217,
+			"lod1Parts": 945,
+			"lod21Parts": 272,
+			"vertices": 146598,
+			"triangles": 89120,
+			"rawBytes": 3609052,
+			"gzipBytes": 1043883,
+			"replacedFmzkParts": 1038
+		},
+		"15/17874/11365": {
+			"buildingParts": 2579,
+			"lod1Parts": 2440,
+			"lod21Parts": 139,
+			"vertices": 176358,
+			"triangles": 102842,
+			"rawBytes": 4463132,
+			"gzipBytes": 1217563,
+			"replacedFmzkParts": 463
+		}
+	},
+	"generatedAt": "2026-11-04T15:34:31.076Z",
+	"terrainAltitudeStored": false,
+	"roofPolicy": "original-citygml-pitched-footprints-verified-current-fmzk-single-tile",
+	"notes": "LOD1 complete; the original CityGML pitched roof is used only for single-tile buildings verified with current FMZK."
+}
