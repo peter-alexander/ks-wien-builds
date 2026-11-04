@@ -1,4 +1,4 @@
-name: Audit citywide independent Vienna 3D building tiles
+name: Audit clean Vienna-wide native 3D building baseline
 
 on:
   workflow_dispatch:
@@ -10,7 +10,7 @@ on:
 permissions:
   contents: read
 
-# This is a full CITY build-through test, NOT a gh-pages publication.
+# This is the clean FMZK-provenance native baseline, NOT a gh-pages publication.
 # No Maptoolkit/Cesium and no data or private Actions-minute expenses.
 concurrency:
   group: wien-native-city-audit
@@ -36,10 +36,10 @@ jobs:
         run: |
           npm ci --ignore-scripts --no-audit --no-fund
           npm install --no-save --ignore-scripts --no-audit --no-fund @mapbox/vector-tile@3.0.0 pbf@5.1.2 three@0.186.1
-      - name: Test citywide tile selection, source validity and report aggregation
+      - name: Test stable geometry indices, incremental patching and citywide coverage
         if: matrix.shard == 0
         run: |
-          node --test wien-native-city/build.test.mjs wien-native-city/aggregate.test.mjs
+          node --test wien-native-city/build.test.mjs wien-native-city/aggregate.test.mjs wien-native-city/native-tile-patch.test.mjs
       - name: Build and verify every tile in this city shard
         run: node --max-old-space-size=4096 wien-native-city/build.mjs --shard ${{ matrix.shard }} --shards 8
       - name: Always collect diagnostic reports (including failures)
