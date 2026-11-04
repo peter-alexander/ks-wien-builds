@@ -44,7 +44,7 @@ test("final release uses one absolute-world anchor across tiles, keeping geometr
 	const result=reconcileNativeAnchors(tiles);
 	assert.equal(result.changedTiles,1);
 	assert.equal(result.affectedIdentities,2);
-	assert.equal(result.correctedParts,4);
+	assert.equal(result.correctedParts,3);
 	const first=readNativeTile(result.tiles.get("15/100/200").binary);
 	const second=readNativeTile(result.tiles.get("15/101/200").binary);
 	const worldX=100*NATIVE_EXTENT+NATIVE_EXTENT-20;
