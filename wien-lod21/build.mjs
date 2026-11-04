@@ -2256,6 +2256,7 @@ export {
 	getSurfacePoints,
 	sourcePointToLngLat,
 	unionJstsGeometries,
+	intersectionJstsGeometry,
 	addBuildingToTile,
 	encodeTile
 };
