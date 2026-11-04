@@ -75,3 +75,29 @@ test("incomplete/failed HTTP metadata cannot trigger a no-op release",()=>{
 	assert.throws(()=>planChangedTiles({oldRelease:previous,newSources:unknown,
 		fmzkRelease:inventory.sourceRelease,buildRevision:sha,dependencyIndex:deps}),/Unverified/);
 });
+
+test("a changed index format only reindexes previously published native tiles",()=>{
+	const old={...previous,metadataRevision:sha};
+	const revision=computeBuilderRevision([{path:"building-index",content:"new-revision"}]);
+	const plan=planChangedTiles({
+		oldRelease:old,newSources:baseSources,
+		fmzkRelease:inventory.sourceRelease,
+		buildRevision:sha,metadataRevision:revision,dependencyIndex:deps
+	});
+	assert.equal(plan.status,"reindex-only");
+	assert.equal(plan.needsReindex,true);
+	assert.equal(plan.affectedTiles.length,0);
+	assert.equal(plan.reusableTiles,678);
+	const unchanged=planChangedTiles({
+		oldRelease:{...old,metadataRevision:revision},newSources:baseSources,
+		fmzkRelease:inventory.sourceRelease,
+		buildRevision:sha,metadataRevision:revision,dependencyIndex:deps
+	});
+	assert.equal(unchanged.status,"unchanged");
+	assert.equal(unchanged.needsReindex,false);
+	assert.throws(()=>planChangedTiles({
+		oldRelease:old,newSources:baseSources,
+		fmzkRelease:inventory.sourceRelease,
+		buildRevision:sha,metadataRevision:"bad",dependencyIndex:deps
+	}),/metadata revision/);
+});
