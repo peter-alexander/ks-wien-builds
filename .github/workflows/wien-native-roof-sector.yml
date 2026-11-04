@@ -6,6 +6,8 @@ on:
     branches: [main]
     paths:
       - '.github/workflows/wien-native-roof-sector.yml'
+      - 'wien-native-pilot/build-roof-targets.mjs'
+      - 'wien-native-pilot/build.mjs'
 
 permissions:
   contents: read
