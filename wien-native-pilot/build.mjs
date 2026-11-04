@@ -87,6 +87,7 @@ function surfaceKind(nx, ny, nz) {
  */
 export function encodeNativeTile(tile, resources) {
 	const buildingRecords = [];
+	const faceTriangles = { wall: 0, pitchedRoof: 0, flatRoof: 0 };
 	let totalVertices = 0;
 	let totalIndices = 0;
 	for (const { geometry, source } of resources) {
@@ -161,6 +162,15 @@ export function encodeNativeTile(tile, resources) {
 		if (indexCursor !== indices.count) {
 			throw new Error(`Unassigned ${source} indices`);
 		}
+		for (let triangle = 0; triangle < indices.count; triangle += 3) {
+			const vertex = indices.getX(triangle);
+			const kind = surfaceKind(
+				normals.getX(vertex), normals.getY(vertex), normals.getZ(vertex)
+			);
+			if (kind === 2) faceTriangles.flatRoof++;
+			else if (kind === 1) faceTriangles.pitchedRoof++;
+			else faceTriangles.wall++;
+		}
 		for (let i = 0; i < positions.count; i++) {
 			const out = (vertexOffset + i) * 16;
 			vertexBytes.writeInt16LE(clampInt16((positions.getX(i) - 4096) * 4), out);
@@ -209,6 +219,7 @@ export function encodeNativeTile(tile, resources) {
 			lod21Parts: buildingRecords.filter((b) => b.source === "lod21").length,
 			vertices: totalVertices,
 			triangles: totalIndices / 3,
+			faceTriangles,
 			rawBytes: raw.length,
 			gzipBytes: compressed.length
 		}
