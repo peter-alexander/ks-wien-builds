@@ -42,7 +42,6 @@ export async function auditNativeRegion(root,{readFile=fs.readFile}={}){
 		for(const part of tile.parts){
 			parts++;
 			const partKey=groupKey(part.info);
-			if(local.has(partKey))throw new Error("Duplicate part identity in "+key+": "+partKey);
 			local.add(partKey);
 			if(part.info.source==="lod21")roofCount++;
 			const id=keyOf(part.info);
@@ -56,29 +55,37 @@ export async function auditNativeRegion(root,{readFile=fs.readFile}={}){
 		}
 		if(roofCount!==metric.lod21Parts)throw new Error("Roof count mismatch "+key);
 		roofs+=roofCount;
-		if(!patchVerified && tile.parts.length>=2){
-			const replacement=structuredClone(tile.parts[0]);
-			replacement.vertices=Buffer.from(tile.parts[0].vertices);
-			replacement.indices=Buffer.from(tile.parts[0].indices);
-			const originalHeight=replacement.vertices.readUInt16LE(4);
-			replacement.vertices.writeUInt16LE((originalHeight+1)%65536,4);
-			const modified=writeNativeTile([replacement]);
+		if(!patchVerified && tile.parts.length>=2 && local.size>=2){
+			// A historical building may legitimately consist of multiple parts
+			// with the SAME logical building ID. Replace its entire group.
+			const selectedKey=groupKey(tile.parts[0].info);
+			const oldGroup=tile.parts.filter(part=>groupKey(part.info)===selectedKey);
+			const replacements=oldGroup.map(part=>({
+				info:structuredClone(part.info),
+				vertices:Buffer.from(part.vertices),
+				indices:Buffer.from(part.indices)
+			}));
+			const height=replacements[0].vertices.readUInt16LE(4);
+			replacements[0].vertices.writeUInt16LE((height+1)%65536,4);
+			const modified=writeNativeTile(replacements);
 			const updated=patchNativeTile({base:encoded,replacements:modified.compressed,
-				invalidate:[groupKey(tile.parts[0].info)]});
+				invalidate:[selectedKey]});
 			const result=readNativeTile(updated.compressed);
-			const oldMap=new Map(tile.parts.map(part=>[groupKey(part.info),part]));
-			if(result.parts.length!==tile.parts.length)throw new Error("Real tile patch lost parts");
-			for(const part of result.parts){
-				const old=oldMap.get(groupKey(part.info));
-				if(!old)throw new Error("Real tile patch introduced an unexpected identity");
-				const changed=groupKey(part.info)===groupKey(replacement.info);
-				if(!changed && (!part.vertices.equals(old.vertices)||!part.indices.equals(old.indices))){
+			if(result.parts.length!==tile.parts.length)throw new Error("Real tile patch lost building parts");
+			const oldUnchanged=tile.parts.filter(part=>groupKey(part.info)!==selectedKey);
+			const newUnchanged=result.parts.filter(part=>groupKey(part.info)!==selectedKey);
+			if(oldUnchanged.length!==newUnchanged.length)throw new Error("Real tile patch lost an unrelated building");
+			for(let i=0;i<oldUnchanged.length;i++){
+				if(groupKey(oldUnchanged[i].info)!==groupKey(newUnchanged[i].info)
+					|| !oldUnchanged[i].vertices.equals(newUnchanged[i].vertices)
+					|| !oldUnchanged[i].indices.equals(newUnchanged[i].indices)){
 					throw new Error("Unchanged building was remeshed by patch");
 				}
 			}
-			if(result.parts.find(p=>groupKey(p.info)===groupKey(replacement.info))
-				.vertices.equals(oldMap.get(groupKey(replacement.info)).vertices)){
-				throw new Error("Real tile patch did not change the intended geometry");
+			const newGroup=result.parts.filter(part=>groupKey(part.info)===selectedKey);
+			if(newGroup.length!==oldGroup.length
+				||newGroup[0].vertices.equals(oldGroup[0].vertices)){
+				throw new Error("Group replacement did not preserve all parts and change intended geometry");
 			}
 			patchVerified=true;
 		}
