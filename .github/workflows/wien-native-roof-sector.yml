@@ -1,4 +1,4 @@
-name: Expand Vienna original-roof build to 16 contiguous Z15 tiles
+name: Expand Vienna original-roof build with restartable parallel CityGML downloads
 
 on:
   workflow_dispatch:
@@ -10,14 +10,97 @@ on:
 permissions:
   contents: read
 
+# Never cancel an active source download: successfully obtained archive chunks
+# are committed to the shared Actions cache even if a different chunk fails.
 concurrency:
-  group: wien-original-roof-sector
+  group: wien-original-roof-sector-v2
   cancel-in-progress: false
 
 jobs:
-  roof-sector:
+  citygml-downloads:
+    name: Original Vienna CityGML sheet batch ${{ matrix.shard }}/16
     runs-on: ubuntu-24.04
-    timeout-minutes: 55
+    timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      max-parallel: 4
+      matrix:
+        shard: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+
+      - name: Unit-test atomic source cache, conditional GET and disjoint shard selection
+        if: matrix.shard == 0
+        run: |
+          node --test wien-lod21/download-sheets.test.mjs wien-lod21/split-download-manifest.test.mjs
+
+      - name: Select the eight or nine official source sheets assigned to this runner
+        id: prepare
+        run: |
+          node wien-lod21/split-download-manifest.mjs \
+            --manifest wien-native-city/roof-sector-sheets.json \
+            --shard ${{ matrix.shard }} --shards 16
+          mkdir -p wien-native-city/build/roof-sector/chunks/${{ matrix.shard }}/downloads
+
+      - name: Restore valid CityGML source ZIPs and their ETag/Last-Modified metadata
+        id: restore-zip
+        uses: actions/cache/restore@v6
+        with:
+          path: wien-native-city/build/roof-sector/chunks/${{ matrix.shard }}/downloads
+          key: wien-citygml-132-batch-v2-${{ matrix.shard }}-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: |
+            wien-citygml-132-batch-v2-${{ matrix.shard }}-
+
+      - name: Download only missing or HTTP-changed original CityGML archives
+        run: |
+          node wien-lod21/download-sheets.mjs \
+            --targets wien-native-city/build/roof-sector/shard-${{ matrix.shard }}/targets.json \
+            --cache-dir wien-native-city/build/roof-sector/chunks/${{ matrix.shard }}/downloads \
+            --summary wien-native-city/build/roof-sector/chunks/${{ matrix.shard }}/report.json \
+            --revalidate conditional \
+            --parallel 1 \
+            --interval-ms 2000 \
+            --attempts 3 \
+            --threshold 3 \
+            --cooldown-ms 90000 \
+            --max-cooldowns 1 \
+            --retry-ms 6000
+
+      - name: Save all valid ZIPs even when the other source sheets failed
+        if: always() && steps.prepare.outcome == 'success'
+        uses: actions/cache/save@v6
+        with:
+          path: wien-native-city/build/roof-sector/chunks/${{ matrix.shard }}/downloads
+          key: wien-citygml-132-batch-v2-${{ matrix.shard }}-${{ github.run_id }}-${{ github.run_attempt }}
+
+      - name: Upload complete source ZIPs for downstream geometry processing
+        if: success()
+        uses: actions/upload-artifact@v6
+        with:
+          name: wien-citygml-complete-batch-${{ matrix.shard }}
+          path: wien-native-city/build/roof-sector/chunks/${{ matrix.shard }}/downloads/
+          compression-level: 0
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Retain source download diagnostics when any sheet fails
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: wien-citygml-download-report-${{ matrix.shard }}
+          path: wien-native-city/build/roof-sector/chunks/${{ matrix.shard }}/report.json
+          if-no-files-found: warn
+          retention-days: 14
+
+  native-roof-geometry:
+    name: Build all 16 Z15 native tiles from complete verified source ZIPs
+    needs: citygml-downloads
+    runs-on: ubuntu-24.04
+    timeout-minutes: 50
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-node@v7
@@ -25,53 +108,47 @@ jobs:
           node-version: '24'
           cache: npm
 
-      - name: Install official CityGML geometry and tile converters
+      - name: Install geometry and source decoding dependencies
         run: |
           npm ci --ignore-scripts --no-audit --no-fund
           npm install --no-save --ignore-scripts --no-audit --no-fund @mapbox/vector-tile@3.0.0 pbf@5.1.2 three@0.186.1
 
-      - name: Ensure regional plan is pinned to the current FMZK snapshot
+      - name: Retrieve completed original Vienna CityGML source ZIPs from all 16 jobs
+        uses: actions/download-artifact@v8
+        with:
+          pattern: wien-citygml-complete-batch-*
+          path: wien-native-city/build/roof-sector/downloads
+          merge-multiple: true
+
+      - name: Check every expected original 500 m source sheet and snapshot identity
         run: |
+          set -euo pipefail
           node --input-type=module <<'NODE'
           import fs from "node:fs";
+          import path from "node:path";
+          import { selectedSheets } from "./wien-lod21/download-sheets.mjs";
+          const root="wien-native-city/build/roof-sector";
           const plan=JSON.parse(fs.readFileSync("wien-native-city/roof-sector-plan.json"));
-          const download=JSON.parse(fs.readFileSync("wien-native-city/roof-sector-sheets.json"));
           const release=await (await fetch("https://peter-alexander.github.io/ks-wien-builds/WienBuildings/LOD1/release.json")).json();
-          const keys=new Set(release.vectorTiles.presentTilesZ15);
-          if(plan.sourceRelease!==release.generatedAt ||
-            plan.tileKeys.length!==16 || plan.tileKeys.some(k=>!keys.has(k)) ||
-            new Set(plan.tileKeys).size!==16 ||
-            plan.sheets.length!==download.buildings.length) {
-            throw new Error("Sector FMZK version or official source coverage inconsistent");
+          const wanted=selectedSheets(JSON.parse(fs.readFileSync("wien-native-city/roof-sector-sheets.json")));
+          if (plan.sourceRelease !== release.generatedAt
+            || plan.tileKeys.length !== 16
+            || plan.tileKeys.some(k => !release.vectorTiles.presentTilesZ15.includes(k))
+            || wanted.length !== 132) throw new Error("Current FMZK source release changed or 16-tile inventory incomplete");
+          const found=fs.readdirSync(path.join(root,"downloads"))
+            .filter(name=>name.endsWith("_lod2_gml.zip"))
+            .map(name=>name.slice(0,6)).sort();
+          if(JSON.stringify(found)!==JSON.stringify(wanted)) {
+            throw new Error("Missing, duplicate or unexpected downloaded CityGML sheets");
           }
-          console.log("Sixteen official city building tiles pinned:",plan.sourceRelease);
+          console.log("Verified all", found.length, "original CityGML ZIPs");
           NODE
+          find wien-native-city/build/roof-sector/downloads -name '*_lod2_gml.zip' -print0 |
+            while IFS= read -r -d '' archive; do
+              unzip -tqq "$archive" >/dev/null
+            done
 
-      - name: Cache original CityGML source sheet downloads
-        uses: actions/cache@v6
-        with:
-          path: wien-native-city/build/roof-sector/downloads
-          key: wien-native-citygml-sector-132-2026v1-${{ github.run_id }}-${{ github.run_attempt }}
-          restore-keys: |
-            wien-native-citygml-sector-132-2026v1-
-          save-always: true
-
-      - name: Download and validate official historical Vienna CityGML sheets
-        run: |
-          mkdir -p wien-native-city/build/roof-sector/downloads
-          node wien-lod21/download-sheets.mjs \
-            --targets wien-native-city/roof-sector-sheets.json \
-            --cache-dir wien-native-city/build/roof-sector/downloads \
-            --summary wien-native-city/build/roof-sector/download-report.json \
-            --parallel 1 \
-            --interval-ms 6000 \
-            --attempts 6 \
-            --threshold 3 \
-            --cooldown-ms 120000 \
-            --max-cooldowns 4 \
-            --retry-ms 10000
-
-      - name: Extract official CityGML source data
+      - name: Extract original CityGML source data
         run: |
           set -euo pipefail
           mkdir -p wien-native-city/build/roof-sector/source
@@ -81,7 +158,7 @@ jobs:
             done
           find wien-native-city/build/roof-sector/source -name '*.gml' -print | wc -l
 
-      - name: Match original pitched roofs to current FMZK buildings in all sixteen tiles
+      - name: Geometrically match original pitched roofs against the current 16 FMZK tiles
         run: |
           node --max-old-space-size=4096 --input-type=module <<'NODE'
           import fs from "node:fs";
@@ -98,14 +175,14 @@ jobs:
           });
           NODE
 
-      - name: Triangulate original CityGML roofs into GPU-ready parts
+      - name: Triangulate audited CityGML 2.1 roof surfaces
         run: |
           node --max-old-space-size=4096 --expose-gc wien-lod21/build.mjs \
             --input wien-native-city/build/roof-sector/source \
             --output wien-native-city/build/roof-sector/LOD21 \
             --targets wien-native-city/build/roof-sector/roof-targets.json
 
-      - name: Integrate current FMZK and matched original roofs into 16 native binary tiles
+      - name: Encode complete current FMZK + validated original roofs in native KSWN0001
         run: |
           node --max-old-space-size=4096 --input-type=module <<'NODE'
           import fs from "node:fs";
@@ -121,13 +198,13 @@ jobs:
           if(manifest.sourceReleases.lod1!==plan.sourceRelease ||
             Object.keys(manifest.tiles).length!==16 ||
             Object.values(manifest.tiles).reduce((sum,t)=>sum+t.lod21Parts,0)<1500) {
-            throw new Error("Roof sector incomplete or current-data release changed during build");
+            throw new Error("Native roof region incomplete or current-data release changed");
           }
-          console.log("16-tile roof sector built with",Object.values(manifest.tiles)
-            .reduce((sum,t)=>sum+t.lod21Parts,0),"original roof parts");
+          console.log("16 Z15 tiles built with",Object.values(manifest.tiles)
+            .reduce((sum,t)=>sum+t.lod21Parts,0),"historical roof parts");
           NODE
 
-      - name: Preserve success metrics and roof geometry
+      - name: Preserve successful 16-tile geometry and matching report
         uses: actions/upload-artifact@v6
         with:
           name: wien-native-original-roof-sector-16-tiles
@@ -139,13 +216,13 @@ jobs:
           compression-level: 0
           if-no-files-found: error
 
-      - name: Preserve download and matching diagnostics on failure
+      - name: Preserve geometry diagnostics if there is a build error
         if: failure()
         uses: actions/upload-artifact@v6
         with:
           name: wien-native-original-roof-sector-diagnostics
           path: |
-            wien-native-city/build/roof-sector/download-report.json
             wien-native-city/build/roof-sector/roof-matching-audit.json
+            wien-native-city/build/roof-sector/roof-targets.json
           retention-days: 14
           if-no-files-found: warn
