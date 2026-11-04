@@ -155,7 +155,7 @@ export async function buildCityShard({
 		sourcePolicy: {
 			authoritativeBuildings: "Stadt Wien FMZKBKMOGD via KS LOD1 official OGD build",
 			lod24: "not included: no publicly downloadable complete licensed source confirmed",
-			lod21: "existing verified historical CityGML subset only",
+			lod21: "not included in clean FMZK baseline; original CityGML incorporated after full source lineage",
 			maptoolkit: "forbidden"
 		},
 		terrainAltitudeStored: false,
@@ -171,7 +171,8 @@ export async function buildCityShard({
 	try {
 		const manifest = await runner({
 			outputDir: path.join(shardDir, "output"),
-			tileKeys: selected
+			tileKeys: selected,
+			fmzkOnly: true
 		});
 		if (manifest?.sourceReleases?.lod1 !== dataset.generatedAt) {
 			throw new Error("FMZK source advanced during citywide build; rerun a pinned snapshot");
