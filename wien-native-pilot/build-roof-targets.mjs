@@ -330,7 +330,7 @@ export async function matchCityGml({
 		}
 		reasons[reason] = (reasons[reason] || 0) + 1;
 	}
-	if (targets.length < 10 || targets.length > 5000) {
+	if (targets.length > current.size || targets.length > 60000) {
 		throw new Error(`Suspicious original-roof match count: ${targets.length}; audit before building`);
 	}
 	targets.sort((a,b)=>a.historicalCode.localeCompare(b.historicalCode));
