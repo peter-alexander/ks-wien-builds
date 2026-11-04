@@ -32,7 +32,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh run download 41894060412 --repo "${{ github.repository }}" \
+          gh run download 41900416698 --repo "${{ github.repository }}" \
             --name wien-native-roof-region-2234-1420 --dir /tmp/wien-native-real-region
       - name: Inspect actual binary geometry and patch a changed building part
         run: |
@@ -104,6 +104,16 @@ jobs:
           }
           const before=indexNativeTiles(tiles);
           assert.equal(before.buildingParts,94300);
+          const roofs=Object.entries(before.buildings)
+            .filter(([id,group])=>group.source==="lod21");
+          assert.ok(roofs.length>9000,"Unexpected loss of roof lineage");
+          for(const [id,group] of roofs){
+            assert.ok(group.replacesKsIds.length>0,"Roof has no replaced FMZK identities: "+id);
+          }
+          for(const [ksId,roofId] of Object.entries(before.replacedBy)){
+            assert.ok(before.buildings[roofId].replacesKsIds.includes(ksId),
+              "Broken bidirectional FMZK replacement index: "+ksId);
+          }
           assert.equal(before.tileCount,64);
           const packed=serializeNativeBuildingIndex(before);
           assert.deepEqual(readNativeBuildingIndex(packed.gzip),before);
@@ -130,6 +140,8 @@ jobs:
             unmodifiedAffectedTiles:noChange.affectedTiles.length,
             modifiedBuildingCount:delta.changed.length,
             affectedTiles:delta.affectedTiles,
+            replacedFmzkCount:Object.keys(before.replacedBy).length,
+            historicalRoofBuildingCount:roofs.length,
             sourceLineagePresent:Object.values(before.buildings)
               .filter(group=>group.source==="lod21"&&group.sourceSheets.length>0).length};
           await fs.writeFile("/tmp/wien-native-building-index-audit.json",
