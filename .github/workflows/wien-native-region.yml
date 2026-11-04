@@ -12,6 +12,9 @@ on:
     branches: [main]
     paths:
       - '.github/workflows/wien-native-region.yml'
+      - 'wien-native-city/region-plan.mjs'
+      - 'wien-native-city/roof-inventory.snapshot.json'
+      - 'wien-lod21/split-download-manifest.mjs'
 
 permissions:
   contents: read
@@ -21,15 +24,42 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  plan-sources:
+    name: Plan bounded CityGML download packages
+    runs-on: ubuntu-24.04
+    outputs:
+      matrix: ${{ steps.plan.outputs.matrix }}
+      shards: ${{ steps.plan.outputs.shards }}
+    env:
+      REGION: ${{ inputs.region || '2234-1420' }}
+    steps:
+      - uses: actions/checkout@v7
+      - name: Limit every source job to six downloads
+        id: plan
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from "node:fs";
+          import {makeRegionPlan} from "./wien-native-city/region-plan.mjs";
+          const inventory=JSON.parse(fs.readFileSync("wien-native-city/roof-inventory.snapshot.json","utf8"));
+          const region=makeRegionPlan(inventory,process.env.REGION);
+          const shards=Math.ceil(region.sourceSheets.length/6);
+          if(shards<1 || shards>64)throw new Error("Invalid source shard count: "+shards);
+          fs.appendFileSync(process.env.GITHUB_OUTPUT,
+            "matrix="+JSON.stringify({shard:Array.from({length:shards},(_,i)=>i)})+"\n"+
+            "shards="+shards+"\n");
+          console.log(region.region,region.sourceSheets.length,"original sheets across",shards,
+            "jobs (at most six sheets/job; max-parallel remains four)");
+          NODE
+
   original-sources:
-    name: Original CityGML ${{ inputs.region || '2234-1420' }} batch ${{ matrix.shard }}/16
+    needs: plan-sources
+    name: Original CityGML ${{ inputs.region || '2234-1420' }} batch ${{ matrix.shard }}/${{ needs.plan-sources.outputs.shards }}
     runs-on: ubuntu-24.04
     timeout-minutes: 30
     strategy:
       fail-fast: false
       max-parallel: 4
-      matrix:
-        shard: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+      matrix: ${{ fromJSON(needs.plan-sources.outputs.matrix) }}
     env:
       REGION: ${{ inputs.region || '2234-1420' }}
     steps:
@@ -50,15 +80,15 @@ jobs:
         run: |
           node wien-lod21/split-download-manifest.mjs \
             --manifest "wien-native-city/build/region-$REGION/sources.json" \
-            --shard ${{ matrix.shard }} --shards 16
+            --shard ${{ matrix.shard }} --shards ${{ needs.plan-sources.outputs.shards }}
 
       - name: Restore already-verified original CityGML ZIPs and validators
         uses: actions/cache/restore@v6
         with:
           path: wien-native-city/build/region-${{ env.REGION }}/shard-${{ matrix.shard }}/downloads
-          key: wien-citygml-region-${{ env.REGION }}-${{ matrix.shard }}-v1-${{ github.run_id }}-${{ github.run_attempt }}
+          key: wien-citygml-region-${{ env.REGION }}-s${{ needs.plan-sources.outputs.shards }}-${{ matrix.shard }}-v2-${{ github.run_id }}-${{ github.run_attempt }}
           restore-keys: |
-            wien-citygml-region-${{ env.REGION }}-${{ matrix.shard }}-v1-
+            wien-citygml-region-${{ env.REGION }}-s${{ needs.plan-sources.outputs.shards }}-${{ matrix.shard }}-v2-
 
       - name: Download missing/new original CityGML 500m source ZIPs
         run: |
@@ -81,7 +111,7 @@ jobs:
         uses: actions/cache/save@v6
         with:
           path: wien-native-city/build/region-${{ env.REGION }}/shard-${{ matrix.shard }}/downloads
-          key: wien-citygml-region-${{ env.REGION }}-${{ matrix.shard }}-v1-${{ github.run_id }}-${{ github.run_attempt }}
+          key: wien-citygml-region-${{ env.REGION }}-s${{ needs.plan-sources.outputs.shards }}-${{ matrix.shard }}-v2-${{ github.run_id }}-${{ github.run_attempt }}
 
       - name: Provide complete source ZIPs only to the same build run
         if: success()
