@@ -35,6 +35,7 @@ test("source-aware Z15 index groups logical FMZK IDs and multi-part roofs across
 	assert.equal(roof.partCount,2);
 	assert.deepEqual(roof.sourceSheets,["104078","104079"]);
 	assert.deepEqual(roof.replacesKsIds,["wien-fmzk:88"]);
+	assert.equal(index.replacedBy["wien-fmzk:88"],"lod21:lod21:99");
 	const encoded=serializeNativeBuildingIndex(index);
 	assert.deepEqual(readNativeBuildingIndex(encoded.gzip),index);
 	assert.equal(encoded.gzip.length,encoded.compressedBytes);
@@ -83,4 +84,12 @@ test("changed roof lineage is detected even if its packed geometry stays identic
 	const old=indexNativeTiles(set([["15/100/200",[original]]]));
 	const next=indexNativeTiles(set([["15/100/200",[altered]]]));
 	assert.deepEqual(diffNativeBuildingIndexes(old,next).changed,["lod21:lod21:99"]);
+});
+
+test("two historic roofs may not claim the same current FMZK building ID",()=>{
+	const a=part("lod21:99","lod21");
+	const b=part("lod21:100","lod21");
+	assert.throws(()=>indexNativeTiles(set([
+		["15/100/200",[a,b]]
+	])),/claimed by multiple historical roofs/);
 });
