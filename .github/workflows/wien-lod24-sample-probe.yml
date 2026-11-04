@@ -92,6 +92,23 @@ jobs:
           print(json.dumps(archives,indent=2,ensure_ascii=False))
           PY
 
+      - name: Identify CityGRID XML roof geometry element types
+        run: |
+          curl --fail --location --silent --show-error --max-time 60 \
+            https://www.wien.gv.at/downloads/ma41/3d-modell-flaechen.zip -o /tmp/lod24.zip
+          unzip -p /tmp/lod24.zip '*/3d modell.xml' > /tmp/lod24.xml
+          python3 - <<'PY'
+          import collections
+          import xml.etree.ElementTree as ET
+          root=ET.parse("/tmp/lod24.xml").getroot()
+          local=lambda name:name.split("}")[-1]
+          names=collections.Counter(local(e.tag) for e in root.iter())
+          attrs=collections.Counter(local(k) for e in root.iter() for k in e.attrib)
+          print("CityGRID root:",local(root.tag))
+          print("XML tag counts:",names.most_common(45))
+          print("XML attributes:",attrs.most_common(25))
+          PY
+
       - uses: actions/upload-artifact@v6
         if: always()
         with:
