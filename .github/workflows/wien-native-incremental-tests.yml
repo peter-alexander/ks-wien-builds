@@ -13,6 +13,7 @@ on:
       - 'wien-lod21/download-sheets.mjs'
       - 'wien-lod21/download-sheets.test.mjs'
       - 'wien-native-pilot/build.mjs'
+      - 'wien-native-pilot/build.test.mjs'
       - 'wien-native-pilot/build-roof-targets.mjs'
       - 'wien-optimized/src/app/buildings/wien-ogd-fallback-geometry.js'
 
