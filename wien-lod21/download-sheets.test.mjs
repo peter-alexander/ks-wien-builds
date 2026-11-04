@@ -203,3 +203,33 @@ test("revalidation failure never destroys the last validated source archive", as
 		assert.equal(await fs.readFile(file, "utf8"), "good");
 	});
 });
+
+test("confirmed original CityGML 404 becomes an auditable FMZK fallback without failing the batch",async()=>{
+	await temporary(async cacheDir=>{
+		const result=await downloadBatch(["104078","111081"],{
+			...settings,cacheDir,missingPolicy:"confirmed-404",attempts:2
+		},{
+			validate:async file=>(await fs.readFile(file,"utf8").catch(()=>""))==="good",
+			fetch:async(sheet,partial)=>{
+				if(sheet==="111081")throw Object.assign(new Error("not found"),{httpStatus:404,curlCode:22});
+				await fs.writeFile(partial,"good");
+				return {httpStatus:200};
+			}
+		});
+		assert.equal(result.success,true);
+		assert.equal(result.downloaded,1);
+		assert.deepEqual(result.missing,["111081"]);
+		assert.equal(result.skipped,0);
+		const marker=JSON.parse(await fs.readFile(
+			path.join(cacheDir,"111081_lod2_gml.zip.missing.json"),"utf8"
+		));
+		assert.equal(marker.httpStatus,404);
+		const second=await downloadBatch(["111081"],{
+			...settings,cacheDir,missingPolicy:"confirmed-404",attempts:1
+		},{
+			validate:async()=>true,
+			fetch:async()=>{throw new Error("should never be called");}
+		});
+		assert.equal(second.cached,1);
+	});
+});
