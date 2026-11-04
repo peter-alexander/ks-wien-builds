@@ -79,8 +79,7 @@ test("a historical roof can be fully replaced without touching unrelated geometr
 
 test("changed roof lineage is detected even if its packed geometry stays identical",()=>{
 	const original=part("lod21:99","lod21");
-	const altered=structuredClone(original);
-	altered.info.sourceSheets=["104080"];
+	const altered={...original,info:{...original.info,sourceSheets:["104080"]}};
 	const old=indexNativeTiles(set([["15/100/200",[original]]]));
 	const next=indexNativeTiles(set([["15/100/200",[altered]]]));
 	assert.deepEqual(diffNativeBuildingIndexes(old,next).changed,["lod21:lod21:99"]);
