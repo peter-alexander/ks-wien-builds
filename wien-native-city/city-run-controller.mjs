@@ -68,7 +68,7 @@ async function watchRegion(id,{repository,sha,receiptDir}){
 	if(reused){
 		fs.mkdirSync(receiptDir,{recursive:true});
 		fs.writeFileSync(path.join(receiptDir,id+".json"),
-			JSON.stringify({region:id,runId:reused.databaseId,sha},null,"\\t")+"\\n");
+			JSON.stringify({region:id,runId:reused.databaseId,sha},null,"\t")+"\n");
 		console.log("Reusing successful region "+id+" run "+reused.databaseId);
 		return;
 	}
