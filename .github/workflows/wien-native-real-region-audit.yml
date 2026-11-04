@@ -87,6 +87,63 @@ jobs:
             JSON.stringify(report,null,"\\t")+"\\n");
           console.log(JSON.stringify(report));
           NODE
+      - name: Index real canonical Z15 geometries and verify incremental change classification
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from "node:fs/promises";
+          import path from "node:path";
+          import assert from "node:assert/strict";
+          import {readNativeTile,writeNativeTile} from "./wien-native-city/native-tile-patch.mjs";
+          import {indexNativeTiles,serializeNativeBuildingIndex,
+            readNativeBuildingIndex,diffNativeBuildingIndexes} from "./wien-native-city/building-index.mjs";
+          const root="/tmp/wien-native-canonical-region";
+          const manifest=JSON.parse(await fs.readFile(path.join(root,"manifest.json"),"utf8"));
+          const tiles=new Map();
+          for(const [key,metric] of Object.entries(manifest.tiles)){
+            tiles.set(key,{metric,binary:await fs.readFile(path.join(root,"tiles",key+".bin.gz"))});
+          }
+          const before=indexNativeTiles(tiles);
+          assert.equal(before.buildingParts,94300);
+          assert.equal(before.tileCount,64);
+          const packed=serializeNativeBuildingIndex(before);
+          assert.deepEqual(readNativeBuildingIndex(packed.gzip),before);
+          const noChange=diffNativeBuildingIndexes(before,before);
+          assert.equal(noChange.affectedTiles.length,0);
+          const [selectedTile,selectedRecord]=[...tiles][0];
+          const decoded=readNativeTile(selectedRecord.binary);
+          const removed=decoded.parts[0];
+          const changed={...removed,info:{...removed.info},
+            vertices:Buffer.from(removed.vertices),indices:Buffer.from(removed.indices)};
+          const height=changed.vertices.readUInt16LE(4);
+          changed.vertices.writeUInt16LE((height+1)%65536,4);
+          const modified=new Map(tiles);
+          modified.set(selectedTile,{...selectedRecord,
+            binary:writeNativeTile([changed,...decoded.parts.slice(1)]).compressed});
+          const after=indexNativeTiles(modified);
+          const delta=diffNativeBuildingIndexes(before,after);
+          assert.equal(delta.added.length,0);
+          assert.equal(delta.removed.length,0);
+          assert.equal(delta.changed.length,1);
+          assert.ok(delta.affectedTiles.includes(selectedTile));
+          const report={sourceTiles:64,sourceBuildingParts:before.buildingParts,
+            buildingCount:before.buildingCount,indexBytes:packed.compressedBytes,
+            unmodifiedAffectedTiles:noChange.affectedTiles.length,
+            modifiedBuildingCount:delta.changed.length,
+            affectedTiles:delta.affectedTiles,
+            sourceLineagePresent:Object.values(before.buildings)
+              .filter(group=>group.source==="lod21"&&group.sourceSheets.length>0).length};
+          await fs.writeFile("/tmp/wien-native-building-index-audit.json",
+            JSON.stringify(report,null,"\\t")+"\\n");
+          console.log(JSON.stringify(report));
+          NODE
+      - name: Retain real-region building index audit
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: wien-native-building-index-audit
+          path: /tmp/wien-native-building-index-audit.json
+          retention-days: 14
+          if-no-files-found: warn
       - name: Retain verified real-region canonical anchor report
         if: always()
         uses: actions/upload-artifact@v6
