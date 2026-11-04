@@ -8,6 +8,7 @@
 		"y": 11364
 	},
 	"radius": 1,
+	"explicitTileSelection": false,
 	"sourceReleases": {
 		"lod1": "2026-11-03T11:04:51.669Z",
 		"lod21": "2026-11-03T12:10:50.224Z"
@@ -149,7 +150,7 @@
 			"replacedFmzkParts": 0
 		}
 	},
-	"generatedAt": "2026-11-04T15:35:18.586Z",
+	"generatedAt": "2026-11-04T16:03:16.597Z",
 	"terrainAltitudeStored": false,
 	"roofPolicy": "exact-audited-direct-strong-only",
 	"notes": "LOD1 complete, roofs only where current part identifiers match an exact small-footprint-difference historical roof. Not a citywide LOD2 dataset."
