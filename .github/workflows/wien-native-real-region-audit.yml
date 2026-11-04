@@ -1,0 +1,49 @@
+name: Audit real Z15 Vienna region anchors and incremental patches
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/wien-native-real-region-audit.yml'
+      - 'wien-native-city/audit-native-region.mjs'
+      - 'wien-native-city/native-tile-patch.mjs'
+
+permissions:
+  contents: read
+  actions: read
+
+concurrency:
+  group: wien-native-real-region-audit
+  cancel-in-progress: false
+
+jobs:
+  audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+      - name: Validate audit code syntax
+        run: node --check wien-native-city/audit-native-region.mjs
+      - name: Download the verified 64-tile original-roof region, not the original ZIPs
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh run download 41894060412 --repo "${{ github.repository }}" \
+            --name wien-native-roof-region-2234-1420 --dir /tmp/wien-native-real-region
+      - name: Inspect actual binary geometry and patch a changed building part
+        run: |
+          node wien-native-city/audit-native-region.mjs \
+            /tmp/wien-native-real-region \
+            /tmp/wien-native-real-region-audit.json
+      - name: Keep complete anchor-disagreement and patch-verification report
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: wien-native-real-region-audit
+          path: /tmp/wien-native-real-region-audit.json
+          retention-days: 14
+          if-no-files-found: warn
