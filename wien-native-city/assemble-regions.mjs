@@ -12,6 +12,7 @@ import {fileURLToPath} from "node:url";
 import {readNativeTile} from "./native-tile-patch.mjs";
 import {mapSheetsToTiles,computeBuilderRevision} from "./incremental-plan.mjs";
 import {reconcileNativeAnchors} from "./canonical-native-anchors.mjs";
+import {indexNativeTiles,serializeNativeBuildingIndex} from "./building-index.mjs";
 
 const ROOT=path.dirname(fileURLToPath(import.meta.url));
 const BUILDER_INPUTS=[
@@ -21,7 +22,8 @@ const BUILDER_INPUTS=[
 	"wien-optimized/src/app/buildings/wien-ogd-fallback-geometry.js",
 	"wien-native-city/region-plan.mjs",
 	"wien-native-city/native-tile-patch.mjs",
-	"wien-native-city/canonical-native-anchors.mjs"
+	"wien-native-city/canonical-native-anchors.mjs",
+	"wien-native-city/building-index.mjs"
 ];
 
 export function sameSourceVersion(a,b) {
@@ -114,6 +116,12 @@ export async function assembleCityRelease({
 	// only AFTER all 18 audited regions and their source identities are verified.
 	// This changes no packed vertex/triangle geometry and requires no CityGML ZIPs.
 	const normalized=reconcileNativeAnchors(tiles);
+	const buildingIndex=indexNativeTiles(normalized.tiles);
+	const packedIndex=serializeNativeBuildingIndex(buildingIndex);
+	if(buildingIndex.tileCount!==index.tileKeys.length ||
+		buildingIndex.buildingParts!==lod1Parts+lod21Parts){
+		throw new Error("Incomplete stable building identity index for full Vienna");
+	}
 	const buildFiles=[];
 	const projectRoot=path.join(ROOT,"..");
 	for(const filename of BUILDER_INPUTS){
@@ -129,6 +137,10 @@ export async function assembleCityRelease({
 		gzipBytes:normalized.totalBytes,
 		anchorPolicy:"global-logical-building",
 		canonicalAnchors:normalized.canonicalAnchors,
+		buildingIndex:{path:"building-index.json.gz",format:"gzip-json",
+			schemaVersion:buildingIndex.schemaVersion,sha256:packedIndex.sha256,
+			buildingCount:buildingIndex.buildingCount,partCount:buildingIndex.buildingParts,
+			gzipBytes:packedIndex.compressedBytes},
 		anchorAudit:{affectedIdentities:normalized.affectedIdentities,
 			anchorDisagreements:normalized.anchorDisagreements,
 			correctedParts:normalized.correctedParts,changedTiles:normalized.changedTiles},
@@ -147,6 +159,7 @@ export async function assembleCityRelease({
 		await fs.mkdir(path.dirname(filename),{recursive:true});
 		await fs.writeFile(filename,value.binary);
 	}
+	await fs.writeFile(path.join(outDir,"building-index.json.gz"),packedIndex.gzip);
 	await fs.writeFile(path.join(outDir,"release.json"),JSON.stringify(metadata,null,"\t")+"\n");
 	console.log("Full native Vienna:",normalized.tiles.size,"tiles,",lod21Parts,
 		"verified original roof parts,",normalized.totalBytes,"bytes;",
