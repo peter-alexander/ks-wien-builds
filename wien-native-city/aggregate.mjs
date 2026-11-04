@@ -34,7 +34,7 @@ export function aggregateCityReports(inputs) {
 		replacedFmzkParts: 0,
 		faceTriangles: { wall: 0, pitchedRoof: 0, flatRoof: 0 },
 		largestTile: { key: "", bytes: 0 },
-		roofDataState: "partial audited LOD2.1; LOD2.4 not yet available",
+		roofDataState: aggregate.lod21Parts === 0 ? "clean FMZK-only baseline; no detailed roofs yet" : "partial audited LOD2.1; LOD2.4 not yet available",
 		storageState: "artifacts only; not published to gh-pages"
 	};
 	let reportedCityTiles = null;
