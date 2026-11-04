@@ -22,8 +22,7 @@ const BUILDER_INPUTS=[
 	"wien-optimized/src/app/buildings/wien-ogd-fallback-geometry.js",
 	"wien-native-city/region-plan.mjs",
 	"wien-native-city/native-tile-patch.mjs",
-	"wien-native-city/canonical-native-anchors.mjs",
-	"wien-native-city/building-index.mjs"
+	"wien-native-city/canonical-native-anchors.mjs"
 ];
 
 export function sameSourceVersion(a,b) {
@@ -133,10 +132,14 @@ export async function assembleCityRelease({
 			content:await fs.readFile(path.join(projectRoot,filename),"utf8")});
 	}
 	const builderRevision=computeBuilderRevision(buildFiles);
+	const metadataRevision=computeBuilderRevision([{
+		path:"wien-native-city/building-index.mjs",
+		content:await fs.readFile(path.join(projectRoot,"wien-native-city/building-index.mjs"),"utf8")
+	}]);
 	const metadata={
 		schemaVersion:2,format:"KSWN0001",generatedAt:new Date().toISOString(),
 		fmzkRelease:inventory.sourceRelease,
-		buildRevision:builderRevision,publishedTileCount:tiles.size,
+		buildRevision:builderRevision,metadataRevision,publishedTileCount:tiles.size,
 		buildingParts:lod1Parts+lod21Parts,lod1Parts,lod21Parts,
 		gzipBytes:normalized.totalBytes,
 		anchorPolicy:"global-logical-building",
