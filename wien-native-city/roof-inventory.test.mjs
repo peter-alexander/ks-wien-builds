@@ -26,7 +26,7 @@ test("official Vienna 500 m CityGML sheet grid",()=>{
 });
 
 test("sheet boundaries and 8x8 planning",()=>{
-	assert.deepEqual(sheetsForProjectedBounds([2001,339001,2010,339010]),["104078"]);
+	assert.deepEqual(sheetsForProjectedBounds([2010,339010,2020,339020]),["104078"]);
 	assert.deepEqual(sheetsForProjectedBounds([2498.5,339498.5,2501.5,339501.5]).sort(),
 		["104078","104079","105078","105079"]);
 	assert.equal(regionKeyOf({z:15,x:17873,y:11364}),
