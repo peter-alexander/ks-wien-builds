@@ -53,11 +53,31 @@ Die erste Aktion **41870099652** hat nach 19 erfolgreichen Downloads
 TCP-Verbindungsfehler zum offiziellen Wiener Webserver gemeldet
 (`curl`-Code 7/28, also **keine** bestätigten HTTP-404-Fehler).
 
-Der neue Workflow sichert bereits heruntergeladene ZIPs daher auch
-bei Fehlern im GitHub-Actions-Cache und drosselt den Beginn weiterer
-Quellabfragen auf 6 Sekunden Abstand, mit längeren Cooldowns und mehr
-Wiederholungen. Die Downloads bleiben somit **wiederaufnehmbar**, ohne
-die Wiener Infrastruktur mit massenhaften Neuversuchen zu belasten.
+Der ursprüngliche Einzeljob scheiterte erneut am TCP-Verbindungsaufbau.
+Die Source-Pipeline ist deshalb auf **16 unabhängige GitHub-Actions-Jobs**
+(je 8–9 Originalblätter, höchstens 4 Jobs gleichzeitig) umgestellt.
+Jeder Job verwendet maximal eine Verbindung zur Zeit. Die originalen
+ZIP-Dateien werden auf Plausibilität geprüft und nach jeder Jobausführung,
+**auch nach einem Fehlversuch**, im GitHub-Actions-Cache gesichert.
+
+Bei späteren Läufen werden ZIP und HTTP-Metadaten zurückgeladen.
+Wenn der Wiener Server einen `ETag` oder `Last-Modified` zurückgibt,
+schickt der Client `If-None-Match` bzw. `If-Modified-Since`.
+Bei **HTTP 304** wird der bereits geprüfte ZIP-Bestand verwendet –
+**ohne erneute Übertragung** der Archivdaten. Bei **HTTP 200** wird
+die geänderte ZIP-Datei validiert und atomar ersetzt.
+
+Im strengen Modus wird bei fehlendem Validator die Quelle vollständig
+neu abgefragt. Ohne Servervalidator gibt es technisch keine zuverlässige
+Möglichkeit, ihre Unverändertheit ohne einen erneuten Datenbezug
+festzustellen. Der Header-Test des Wiener Servers ist noch separat zu
+verifizieren; wir behaupten deshalb nicht, dass 304 bereits funktioniert.
+
+**Wichtig:** Actions-Caches unterliegen einem begrenzten Speicherbudget
+und automatischer Bereinigung. Sie sind zunächst ein wiederaufnehmbarer
+Arbeitscache und **kein dauerhaftes Quellarchiv**. Für langfristige
+inkrementelle Aktualisierungen ist ein dauerhafter, versionierter
+Speicher (z. B. Repository-Releases oder Objektspeicher) notwendig.
 
 Das eigentliche originale Dachmatching und der 16-Kachel-Build folgen
 erst nach einem erfolgreichen Quellenbezug. Keine fehlerhafte
