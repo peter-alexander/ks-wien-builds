@@ -83,6 +83,7 @@ jobs:
           set -euo pipefail
           mkdir -p pages/WienBuildings/NativePilot
           rsync -a --delete sources/wien-native-pilot/build/ pages/WienBuildings/NativePilot/
+          cp sources/wien-native-pilot/view.html pages/WienBuildings/NativePilot/index.html
           touch pages/.nojekyll
 
       - name: Publish pilot on gh-pages safely
