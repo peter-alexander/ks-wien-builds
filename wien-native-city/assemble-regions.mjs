@@ -35,7 +35,8 @@ export function sameSourceVersion(a,b) {
 }
 
 export async function assembleCityRelease({
-	inventory,regionsDir,outDir,readFile=fs.readFile,copyFile=fs.copyFile
+	inventory,regionsDir,outDir,readFile=fs.readFile,
+	minExpectedLod1Parts=200000,minExpectedLod21Parts=1000
 }={}){
 	const index=mapSheetsToTiles(inventory);
 	const sourceReleases=new Map();
@@ -104,7 +105,7 @@ export async function assembleCityRelease({
 		sourceReleases.size!==inventory.coverage.sheets) {
 		throw new Error("Incomplete full Vienna native release source or tile coverage");
 	}
-	if(lod21Parts<1000 || lod1Parts<200000) {
+	if(lod21Parts<minExpectedLod21Parts || lod1Parts<minExpectedLod1Parts) {
 		throw new Error("Insufficient historical roofs or current FMZK source coverage");
 	}
 	const buildFiles=[];
