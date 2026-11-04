@@ -21,7 +21,8 @@ import {
 	groundGeometryFromSurfaces,
 	getSurfacePoints,
 	sourcePointToLngLat,
-	unionJstsGeometries
+	unionJstsGeometries,
+	intersectionJstsGeometry
 } from "../wien-lod21/build.mjs";
 import { BASE, makePilotKeys } from "./build.mjs";
 
@@ -102,7 +103,7 @@ export function evaluateRoofMatch({ current, historical, currentHeight, pitchedR
 	if (!(a > 3 && b > 3)) return { accept: false, reason: "tiny-footprint" };
 	let overlap;
 	try {
-		overlap = current.intersection(historical).getArea();
+		overlap = intersectionJstsGeometry(current, historical, "native-roof-match")?.getArea();
 	} catch {
 		return { accept: false, reason: "invalid-intersection" };
 	}
