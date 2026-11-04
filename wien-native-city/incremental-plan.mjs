@@ -130,9 +130,11 @@ export function planChangedTiles({
 	else for(const sheet of changedSheets){
 		for(const key of dependencyIndex.sheets[sheet])changedKeys.add(key);
 	}
-	const needsReindex=metadataRevision!==null &&
-		(!/^[a-f0-9]{64}$/.test(metadataRevision) ? (()=>{throw new Error("Invalid metadata revision")})()
-			:!!oldRelease && oldRelease.metadataRevision!==metadataRevision);
+	if(metadataRevision!==null && !/^[a-f0-9]{64}$/.test(metadataRevision)){
+		throw new Error("Invalid metadata revision");
+	}
+	const needsReindex=metadataRevision!==null && !!oldRelease &&
+		oldRelease.metadataRevision!==metadataRevision;
 	return {
 		schemaVersion:1,
 		status:full?"full-rebuild":changedKeys.size?"partial-rebuild":needsReindex?"reindex-only":"unchanged",
