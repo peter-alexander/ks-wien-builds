@@ -67,8 +67,19 @@ export function indexNativeTiles(tiles){
 		const fingerprint=hash(JSON.stringify({tiles,sourceSheets,replacesKsIds}));
 		return [id,{source:g.source,partCount:g.partCount,tiles,sourceSheets,replacesKsIds,fingerprint}];
 	}));
+	const replacedBy=new Map();
+	for(const [id,group] of Object.entries(entries)){
+		if(group.source!=="lod21")continue;
+		for(const ksId of group.replacesKsIds){
+			if(replacedBy.has(ksId) && replacedBy.get(ksId)!==id){
+				throw new Error("Official FMZK building claimed by multiple historical roofs: "+ksId);
+			}
+			replacedBy.set(ksId,id);
+		}
+	}
 	return {schemaVersion:ID_SCHEMA,format:"KSWN0001",zoom:15,tileCount:tileKeys.length,
 		buildingCount:groups.size,buildingParts:[...groups.values()].reduce((sum,g)=>sum+g.partCount,0),
+		replacedBy:Object.fromEntries([...replacedBy].sort((a,b)=>compare(a[0],b[0]))),
 		buildings:entries};
 }
 
@@ -84,7 +95,8 @@ export function readNativeBuildingIndex(input){
 	if(data?.schemaVersion!==ID_SCHEMA||data.format!=="KSWN0001"||data.zoom!==15
 		||!data.buildings||Array.isArray(data.buildings)
 		||data.buildingCount!==Object.keys(data.buildings).length
-		||data.tileCount<1)throw new Error("Invalid native building index");
+		||data.tileCount<1 || !data.replacedBy || Array.isArray(data.replacedBy))
+		throw new Error("Invalid native building index");
 	return data;
 }
 
