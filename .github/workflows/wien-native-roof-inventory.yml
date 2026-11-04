@@ -31,7 +31,7 @@ jobs:
           npm ci --ignore-scripts --no-audit --no-fund
           npm install --no-save --ignore-scripts --no-audit --no-fund @mapbox/vector-tile@3.0.0 pbf@5.1.2 three@0.186.1
 
-      - name: Check original 500 metre city survey grid against known Vienna coordinates
+      - name: Verify original 500 metre city survey grid against known Vienna coordinates
         run: node --test wien-native-city/roof-inventory.test.mjs
 
       - name: Scan all 678 official building Z15 tiles and list candidate original GML sheets
