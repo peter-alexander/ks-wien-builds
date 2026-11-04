@@ -21,7 +21,7 @@ export function optionsFrom(argv = process.argv.slice(2), env = process.env) {
 		args[argv[i].slice(2)] = argv[i + 1];
 	}
 	const allowed = ["targets", "cache-dir", "summary", "limit", "offset", "parallel", "interval-ms", "attempts",
-		"threshold", "cooldown-ms", "max-cooldowns", "retry-ms", "revalidate"];
+		"threshold", "cooldown-ms", "max-cooldowns", "retry-ms", "revalidate", "missing-policy"];
 	for (const key of Object.keys(args)) if (!allowed.includes(key)) throw new Error("Unknown option " + key);
 	return {
 		targets: path.resolve(args.targets || env.WIEN_LOD21_TARGETS || "wien-lod21/targets.pilot.json"),
@@ -36,6 +36,11 @@ export function optionsFrom(argv = process.argv.slice(2), env = process.env) {
 		cooldownMs: number(args["cooldown-ms"] ?? env.WIEN_LOD21_COOLDOWN_MS ?? 90000, "cooldown-ms", 0, 1800000),
 		maxCooldowns: number(args["max-cooldowns"] ?? env.WIEN_LOD21_MAX_COOLDOWNS ?? 2, "max-cooldowns", 0, 20),
 		retryMs: number(args["retry-ms"] ?? env.WIEN_LOD21_RETRY_MS ?? 3000, "retry-ms", 0, 60000),
+		missingPolicy: (() => {
+			const mode = args["missing-policy"] || "fail";
+			if (!["fail", "confirmed-404"].includes(mode)) throw new Error("Invalid missing-policy " + mode);
+			return mode;
+		})(),
 		revalidate: (() => {
 			const mode = args.revalidate ?? env.WIEN_LOD21_REVALIDATE ?? "off";
 			if (!["off", "conditional", "strict"].includes(mode)) throw new Error("Invalid revalidate mode " + mode);
@@ -131,7 +136,7 @@ export async function downloadBatch(sheets, config, overrides = {}) {
 	await fs.mkdir(config.cacheDir, { recursive: true });
 	const report = { startedAt: new Date().toISOString(), requested: sheets.length,
 		downloaded: 0, cached: 0, notModified: 0, cachedUnverified: 0,
-		failed: [], attempts: 0, cooldowns: 0, events: [] };
+		missing: [], failed: [], attempts: 0, cooldowns: 0, events: [] };
 	let cursor = 0, stop = false, streak = 0, cooldownUntil = 0, nextStart = 0;
 	let gate = Promise.resolve();
 	const log = (kind, details) => {
@@ -201,6 +206,7 @@ export async function downloadBatch(sheets, config, overrides = {}) {
 				}
 				if (!(await validate(partial))) throw new Error("Invalid downloaded ZIP");
 				await fs.rename(partial, file);
+				await fs.rm(file + ".missing.json", { force: true });
 				const content = await fs.readFile(file);
 				const metadata = {
 					schemaVersion: 1,
@@ -219,6 +225,16 @@ export async function downloadBatch(sheets, config, overrides = {}) {
 				log(prior ? "updated" : "downloaded", { sheet, attempt, ...response });
 				return;
 			} catch (error) {
+				if (error.httpStatus === 404 && config.missingPolicy === "confirmed-404" && !previouslyValid) {
+					await fs.writeFile(file + ".missing.json", JSON.stringify({
+						status: "confirmed-missing", httpStatus: 404, sheet,
+						checkedAt: new Date().toISOString()
+					}) + "\n");
+					report.missing.push(sheet);
+					log("confirmed-missing", { sheet, attempt, httpStatus: 404 });
+					streak = 0;
+					return;
+				}
 				streak++;
 				log("failure", { sheet, attempt, code: error.curlCode ?? null,
 					httpStatus: error.httpStatus ?? null, error: String(error.message).slice(0, 300) });
@@ -248,7 +264,7 @@ export async function downloadBatch(sheets, config, overrides = {}) {
 	});
 	await Promise.all(workers);
 	report.finishedAt = new Date().toISOString();
-	report.skipped = report.requested - report.downloaded - report.cached - report.failed.length;
+	report.skipped = report.requested - report.downloaded - report.cached - report.failed.length - report.missing.length;
 	report.success = report.failed.length === 0 && report.skipped === 0;
 	return report;
 }
@@ -264,7 +280,8 @@ async function main() {
 	console.log("Result: " + JSON.stringify({
 		success: report.success, requested: report.requested, downloaded: report.downloaded,
 		cached: report.cached, notModified: report.notModified,
-		cachedUnverified: report.cachedUnverified, failed: report.failed, skipped: report.skipped, cooldowns: report.cooldowns
+		cachedUnverified: report.cachedUnverified, missing: report.missing.length,
+		failed: report.failed, skipped: report.skipped, cooldowns: report.cooldowns
 	}));
 	if (!report.success) process.exitCode = 1;
 }
