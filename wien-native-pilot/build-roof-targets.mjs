@@ -70,6 +70,26 @@ function sourceBounds(geometry) {
 		: null;
 }
 
+export function uniqueInteriorTile(geometry, marginFraction = 0.01) {
+	const bbox = sourceBounds(geometry);
+	if (!bbox) return null;
+	const n = 2 ** 15;
+	const coords = [[bbox[0],bbox[1]],[bbox[0],bbox[3]],[bbox[2],bbox[1]],[bbox[2],bbox[3]]];
+	let tileX = null, tileY = null;
+	for (const xy of coords) {
+		const [lng, lat] = proj4(EPSG, "EPSG:4326", xy);
+		const wx = (lng + 180) / 360 * n;
+		const wy = (1 - Math.asinh(Math.tan(lat * Math.PI / 180)) / Math.PI) / 2 * n;
+		const x = Math.floor(wx), y = Math.floor(wy);
+		if (wx - x < marginFraction || wx - x > 1 - marginFraction
+			|| wy - y < marginFraction || wy - y > 1 - marginFraction
+			|| tileX !== null && (x !== tileX || y !== tileY)) return null;
+		tileX = x;
+		tileY = y;
+	}
+	return "15/" + tileX + "/" + tileY;
+}
+
 export function evaluateRoofMatch({ current, historical, currentHeight, pitchedRelief }) {
 	if (!current || !historical || current.isEmpty() || historical.isEmpty()) {
 		return { accept: false, reason: "missing-footprint" };
@@ -246,6 +266,14 @@ export async function matchCityGml({
 					const currentShape = unionJstsGeometries(group.geometries);
 					const historicalShape = unionJstsGeometries(old.footprints);
 					const avgHeight = group.heights.reduce((a, b) => a + b, 0) / group.heights.length;
+					const currentTile = uniqueInteriorTile(currentShape);
+					const historicalTile = uniqueInteriorTile(historicalShape);
+					if (!currentTile || currentTile !== historicalTile) {
+						reason = "tile-crossing-or-border";
+						reasons[reason] = (reasons[reason] || 0) + 1;
+						diagnostics.push({ code, reason, currentTile, historicalTile });
+						continue;
+					}
 					const match = evaluateRoofMatch({
 						current: currentShape,
 						historical: historicalShape,
