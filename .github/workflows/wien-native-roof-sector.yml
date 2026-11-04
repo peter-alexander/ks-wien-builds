@@ -61,7 +61,7 @@ jobs:
             --targets wien-native-city/build/roof-sector/shard-${{ matrix.shard }}/targets.json \
             --cache-dir wien-native-city/build/roof-sector/chunks/${{ matrix.shard }}/downloads \
             --summary wien-native-city/build/roof-sector/chunks/${{ matrix.shard }}/report.json \
-            --revalidate conditional \
+            --revalidate strict \
             --parallel 1 \
             --interval-ms 2000 \
             --attempts 3 \
