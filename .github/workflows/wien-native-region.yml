@@ -1,4 +1,5 @@
 name: Build one audited Vienna 8x8 native roof region from original CityGML
+run-name: Z15 Vienna region ${{ inputs.region || '2234-1420' }}
 
 on:
   workflow_dispatch:
