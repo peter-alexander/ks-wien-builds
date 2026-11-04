@@ -199,8 +199,10 @@ export function encodeNativeTile(tile, resources) {
 	header.writeUInt32LE(buildingRecords.length, 24);
 	header.writeUInt32LE(json.length, 28);
 	const raw = Buffer.concat([header, json, Buffer.alloc(pad), vertexBytes, indexBytes]);
+	const compressed = gzipSync(raw, { level: 9 });
 	return {
 		raw,
+		compressed,
 		stats: {
 			buildingParts: buildingRecords.length,
 			lod1Parts: buildingRecords.filter((b) => b.source === "lod1").length,
@@ -208,7 +210,7 @@ export function encodeNativeTile(tile, resources) {
 			vertices: totalVertices,
 			triangles: totalIndices / 3,
 			rawBytes: raw.length,
-			gzipBytes: gzipSync(raw, { level: 9 }).length
+			gzipBytes: compressed.length
 		}
 	};
 }
@@ -346,13 +348,13 @@ export async function buildPilot({
 		).geometry;
 		if (!lod1 && !roofGeometry) throw new Error(`Empty pilot tile ${key}`);
 		try {
-			const { raw, stats } = encodeNativeTile(tile, [
+			const { compressed, stats } = encodeNativeTile(tile, [
 				{ source: "lod1", geometry: lod1 },
 				{ source: "lod21", geometry: roofGeometry }
 			]);
-			const output = path.join(outputDir, "tiles", key + ".bin");
+			const output = path.join(outputDir, "tiles", key + ".bin.gz");
 			await fs.mkdir(path.dirname(output), { recursive: true });
-			await fs.writeFile(output, raw);
+			await fs.writeFile(output, compressed);
 			manifest.tiles[key] = {
 				...stats,
 				replacedFmzkParts: excludedKsIds.size
