@@ -15,6 +15,8 @@ on:
       - 'wien-native-city/incremental-plan.mjs'
       - 'wien-native-city/incremental-plan.test.mjs'
       - 'wien-native-city/native-tile-patch.mjs'
+      - 'wien-native-city/canonical-native-anchors.mjs'
+      - 'wien-native-city/canonical-native-anchors.test.mjs'
       - 'wien-native-city/native-tile-patch.test.mjs'
       - 'wien-lod21/download-sheets.mjs'
       - 'wien-lod21/download-sheets.test.mjs'
@@ -51,6 +53,7 @@ jobs:
           node --check wien-native-city/source-state.mjs
           node --check wien-native-city/region-plan.mjs
           node --check wien-native-city/assemble-regions.mjs
+          node --check wien-native-city/canonical-native-anchors.mjs
           node --check wien-native-pilot/build.mjs
           node --check wien-native-pilot/build-roof-targets.mjs
-          node --test wien-native-city/assemble-regions.test.mjs wien-native-city/region-plan.test.mjs wien-native-city/source-state.test.mjs wien-native-city/incremental-plan.test.mjs wien-native-city/native-tile-patch.test.mjs wien-native-pilot/build.test.mjs wien-lod21/download-sheets.test.mjs
+          node --test wien-native-city/canonical-native-anchors.test.mjs wien-native-city/assemble-regions.test.mjs wien-native-city/region-plan.test.mjs wien-native-city/source-state.test.mjs wien-native-city/incremental-plan.test.mjs wien-native-city/native-tile-patch.test.mjs wien-native-pilot/build.test.mjs wien-lod21/download-sheets.test.mjs
