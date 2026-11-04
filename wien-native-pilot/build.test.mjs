@@ -109,3 +109,21 @@ test("strict roof policy never substitutes current FMZK for an unmatched histori
 	};
 	assert.deepEqual(selectRoofParts(parsed, allowed).map((b) => b.historicalCode), ["safe"]);
 });
+
+test("original CityGML source lineage is embedded in the native roof record",()=>{
+	const roof=makeTriangleGeometry("lod21:42");
+	try {
+		const tile=encodeNativeTile(TILE,[{
+			source:"lod21",
+			geometry:roof,
+			provenance:new Map([["lod21:triangle",["104079","104078"]]])
+		}]);
+		const n=tile.raw.readUInt32LE(28);
+		const info=JSON.parse(tile.raw.subarray(32,32+n));
+		assert.deepEqual(info.buildings[0].sourceSheets,["104078","104079"]);
+		assert.throws(()=>encodeNativeTile(TILE,[{
+			source:"lod21",geometry:roof,
+			provenance:new Map()
+		}]),/Missing original CityGML sheet lineage/);
+	} finally {roof.dispose();}
+});
