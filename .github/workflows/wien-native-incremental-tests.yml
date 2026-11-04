@@ -8,6 +8,9 @@ on:
       - '.github/workflows/wien-native-incremental-tests.yml'
       - 'wien-native-city/native-tile-patch.mjs'
       - 'wien-native-city/native-tile-patch.test.mjs'
+      - 'wien-native-pilot/build.mjs'
+      - 'wien-native-pilot/build-roof-targets.mjs'
+      - 'wien-optimized/src/app/buildings/wien-ogd-fallback-geometry.js'
 
 permissions:
   contents: read
