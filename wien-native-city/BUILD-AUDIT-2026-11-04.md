@@ -116,3 +116,43 @@ Gebäudeidentität.
 - Der künftige Renderer benötigt Kachelnachladen, GPU-Culling,
   Cache-Limits und LOD-Übergänge. Die jetzigen Stadt-Builds sind
   noch kein vollständiger Produktions-Runtime.
+
+## Neuer Stand: inkrementeller Neubau vorbereitet und regional verifiziert
+
+Die ursprüngliche FMZK-Ganz-Wien-Buildprüfung wurde mit
+**stabilen KS_ID-basierten Bauteilidentitäten** und **ohne historische
+Legacy-LOD2.1-Tiles** erneut vollständig bestanden:
+GitHub Actions **41887290492**, 678/678 Z15-Kacheln,
+739.463 FMZK-Bauteile, **222.523.331 gzip-Bytes** und **0 geneigte
+historische Dach-Bauteile**. Das ist die saubere technische Ausgangsbasis,
+nicht der fertige Ganz-Wien-Dachdatensatz.
+
+Der regionale **16-Kachel-Build mit 131 originalen CityGML-Archiven
+und einem amtlich bestätigten HTTP-404-Blatt** wurde in
+GitHub Actions **41887938123** vollständig bestanden:
+**3.838** aktuelle Gebäudecodes mit passend überprüften historischen
+Dächern und **3.872** erzeugte historische Dach-Bauteile.
+Ein ungültiges historisches Polygon wurde mit Audit-Warnung
+ausgeschlossen; an seiner Stelle bleibt der FMZK-Baukörper erhalten.
+
+Die Komponenten des geplanten dauerhaften inkrementellen Builds
+sind bereits im Repository:
+
+- `wien-native-city/source-state.mjs`: SHA256- und HTTP-Revision
+  aller vollständigen Originalarchive bzw. verifizierte HTTP-404-Fehldateien.
+  Die große GML-Quelle muss im finalen Release nicht gespeichert bleiben.
+- `wien-native-city/incremental-plan.mjs`: Voll- vs. Teilneubau
+  bzw. vollständig unveränderte Veröffentlichung anhand des
+  FMZK-Releases, Geometrie-Build-Fingerprints, pro-Blatt-ETags und
+  konservativer Abhängigkeitsregionen.
+- `wien-native-city/native-tile-patch.mjs`: prüft bereits veröffentlichte
+  `KSWN0001`-Geometrien, übernimmt nicht betroffene Vertex- und Index-Daten
+  bytegenau und ergänzt veränderte Gebäude ohne erneute Triangulation
+  unveränderter Originaldächer.
+
+**Noch nicht erfolgt:** Download/Matching aller 1.588 potentiellen
+CityGML-Quellen, neuer kompletter Wiener Roof-Release, produktives
+inkrementelles Update-Verfahren, veröffentlichter Wechsel der Kartensammlung.
+Der vorherige produktive Datenbestand wird **nicht vor einem vollständig
+geprüften und erreichbaren Ersatz gelöscht**. Insbesondere die separate
+amtliche FMZK/LOD1-Quelle bleibt für notwendige Flachdach-Fallbacks erhalten.
