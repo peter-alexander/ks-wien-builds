@@ -1,0 +1,31 @@
+name: Probe official Vienna CityGML HTTP freshness validators
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/wien-lod21-http-cache-probe.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Probe HEAD metadata for a single known CityGML archive
+        run: |
+          set +e
+          url='https://www.wien.gv.at/MA41datenviewer/downloads/geodaten/lod2_gml/104078_lod2_gml.zip'
+          echo 'HEAD response status and cache-relevant headers:'
+          curl --head --location --max-redirs 3 --connect-timeout 8 --max-time 20 \
+            --silent --show-error \
+            --user-agent 'ks-wien-builds/citygml-validator' \
+            --output /dev/null --dump-header "$RUNNER_TEMP/lod21-headers.txt" \
+            --write-out 'HTTP %{http_code}, remote IP %{remote_ip}, response seconds %{time_total}\n' "$url"
+          echo "curl exit status: $?"
+          grep -Ei '^(HTTP/|etag:|last-modified:|content-length:|accept-ranges:|cache-control:|content-type:|date:)' \
+            "$RUNNER_TEMP/lod21-headers.txt" || true
+          exit 0
