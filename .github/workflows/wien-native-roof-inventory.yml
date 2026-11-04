@@ -1,0 +1,59 @@
+name: Inventory official Vienna LOD2.1 sheets for full-city build
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/wien-native-roof-inventory.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: wien-roof-inventory
+  cancel-in-progress: false
+
+jobs:
+  inventory:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          cache: npm
+
+      - name: Install current official FMZK vector tile decoder
+        run: |
+          npm ci --ignore-scripts --no-audit --no-fund
+          npm install --no-save --ignore-scripts --no-audit --no-fund @mapbox/vector-tile@3.0.0 pbf@5.1.2 three@0.186.1
+
+      - name: Check original 500 metre city survey grid against known Vienna coordinates
+        run: node --test wien-native-city/roof-inventory.test.mjs
+
+      - name: Scan all 678 official building Z15 tiles and list candidate original GML sheets
+        run: node --max-old-space-size=4096 wien-native-city/roof-inventory.mjs
+
+      - name: Verify stable FMZK identity and spatial region inventory
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from "node:fs";
+          const file="wien-native-city/build/roof-inventory.json";
+          const data=JSON.parse(fs.readFileSync(file,"utf8"));
+          if(data.coverage.tiles!==678 || data.coverage.sheets<500
+            || data.coverage.regions<3 || data.sheets.length!==data.coverage.sheets
+            || data.regions.flatMap(r=>r.tileKeys).length!==678) {
+            throw new Error("CityGML sheet index insufficient or inconsistent");
+          }
+          console.log(JSON.stringify(data.coverage,null,2));
+          NODE
+
+      - uses: actions/upload-artifact@v6
+        with:
+          name: wien-original-citygml-roof-sheet-inventory
+          path: wien-native-city/build/roof-inventory.json
+          retention-days: 30
+          if-no-files-found: error
