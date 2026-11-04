@@ -1,0 +1,170 @@
+name: Build original Vienna CityGML roofs into native MapLibre pilot
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'wien-native-pilot/build-roof-targets.mjs'
+      - 'wien-native-pilot/build-roof-targets.test.mjs'
+      - 'wien-native-pilot/roof-sheets.json'
+      - 'wien-native-pilot/view-rich.html'
+      - '.github/workflows/wien-native-roofs-pilot.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: wien-pages-publish
+  cancel-in-progress: false
+
+jobs:
+  original-roofs:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          path: sources
+          persist-credentials: false
+
+      - uses: actions/checkout@v7
+        with:
+          ref: gh-pages
+          path: pages
+          fetch-depth: 1
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: sources/package-lock.json
+
+      - name: Install parsing and geometry dependencies
+        working-directory: sources
+        run: |
+          npm ci --ignore-scripts --no-audit --no-fund
+          npm install --no-save --ignore-scripts --no-audit --no-fund @mapbox/vector-tile@3.0.0 pbf@5.1.2 three@0.186.1
+          command -v unzip
+          command -v curl
+
+      - name: Validate independent CityGML geometry/roof matching
+        working-directory: sources
+        run: |
+          node --check wien-native-pilot/build-roof-targets.mjs
+          node --check wien-lod21/build.mjs
+          node --test wien-native-pilot/build-roof-targets.test.mjs wien-native-pilot/build.test.mjs
+
+      - name: Cache the twenty primary original CityGML 500m sheets
+        uses: actions/cache@v6
+        with:
+          path: sources/wien-native-pilot/build/downloads
+          key: wien-native-original-citygml-20-v1
+
+      - name: Download and validate original LOD2.1 CityGML sources
+        working-directory: sources
+        run: |
+          mkdir -p wien-native-pilot/build/downloads
+          node wien-lod21/download-sheets.mjs \
+            --targets wien-native-pilot/roof-sheets.json \
+            --cache-dir wien-native-pilot/build/downloads \
+            --summary wien-native-pilot/build/download-report.json \
+            --parallel 2 \
+            --attempts 5 \
+            --threshold 4 \
+            --cooldown-ms 30000 \
+            --max-cooldowns 4 \
+            --retry-ms 5000
+
+      - name: Extract source GML
+        working-directory: sources
+        run: |
+          set -euo pipefail
+          mkdir -p wien-native-pilot/build/source
+          find wien-native-pilot/build/downloads -type f -name '*_lod2_gml.zip' -print0 |
+            while IFS= read -r -d '' archive; do
+              unzip -oq "$archive" -d wien-native-pilot/build/source
+            done
+          find wien-native-pilot/build/source -type f -iname '*.gml' -print
+
+      - name: Match ORIGINAL pitched roofs against current FMZK polygons
+        working-directory: sources
+        run: node --max-old-space-size=4096 wien-native-pilot/build-roof-targets.mjs
+
+      - name: Build triangulated LOD2.1 roof meshes for the geometric matches
+        working-directory: sources
+        run: |
+          node --max-old-space-size=4096 --expose-gc wien-lod21/build.mjs \
+            --input wien-native-pilot/build/source \
+            --output wien-native-pilot/build/historical-roofs \
+            --targets wien-native-pilot/build/roof-targets.json
+
+      - name: Build independent 3×3 Z15 custom meshes with more original roofs
+        working-directory: sources
+        env:
+          WIEN_NATIVE_ROOF_DIR: wien-native-pilot/build/historical-roofs
+          WIEN_NATIVE_ROOF_TARGETS: wien-native-pilot/build/roof-targets.json
+          WIEN_NATIVE_OUTPUT_DIR: wien-native-pilot/build/NativePilotRoofs
+        run: node wien-native-pilot/build.mjs
+
+      - name: Verify nine full tiles and improved detailed-roof coverage
+        working-directory: sources
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from "node:fs";
+          const root = "wien-native-pilot/build/NativePilotRoofs";
+          const manifest = JSON.parse(fs.readFileSync(root+"/manifest.json", "utf8"));
+          const entries = Object.entries(manifest.tiles);
+          const pitched = entries.reduce((n, [,t]) => n + t.lod21Parts, 0);
+          if (entries.length !== 9 || pitched <= 19 || entries.some(([key,t]) => {
+            const file = root + "/tiles/" + key + ".bin.gz";
+            return !fs.existsSync(file) || fs.statSync(file).size !== t.gzipBytes ||
+              t.lod1Parts <= 0 || t.vertices <= 0 || t.triangles <= 0;
+          })) {
+            throw new Error("Rich roof pilot failed: incomplete coverage or no improvement over original 19 roofs");
+          }
+          console.log("Original CityGML pitched roof parts:", pitched);
+          console.log("Final native pilot:", JSON.stringify(manifest.tiles,null,2));
+          NODE
+
+      - uses: actions/upload-artifact@v6
+        with:
+          name: wien-original-roofs-native-pilot
+          path: |
+            sources/wien-native-pilot/build/NativePilotRoofs/manifest.json
+            sources/wien-native-pilot/build/roof-targets.json
+            sources/wien-native-pilot/build/roof-matching-audit.json
+          retention-days: 14
+          if-no-files-found: error
+
+      - name: Prepare separate GitHub Pages preview
+        run: |
+          set -euo pipefail
+          mkdir -p pages/WienBuildings/NativePilotRoofs
+          rsync -a --delete sources/wien-native-pilot/build/NativePilotRoofs/ pages/WienBuildings/NativePilotRoofs/
+          cp sources/wien-native-pilot/view-rich.html pages/WienBuildings/NativePilotRoofs/index.html
+          cp sources/wien-native-pilot/build/roof-matching-audit.json pages/WienBuildings/NativePilotRoofs/roof-matching-audit.json
+          touch pages/.nojekyll
+
+      - name: Publish only additional native roof preview
+        working-directory: pages
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A -- WienBuildings/NativePilotRoofs .nojekyll
+          if git diff --cached --quiet; then
+            echo 'No updated roof preview data'
+            exit 0
+          fi
+          git commit -m 'Publish original CityGML roof-rich MapLibre pilot'
+          for attempt in 1 2 3; do
+            git fetch origin gh-pages
+            git rebase origin/gh-pages
+            if git push origin HEAD:gh-pages; then
+              exit 0
+            fi
+            sleep "$((attempt * 3))"
+          done
+          echo 'Could not safely publish roof-rich pilot' >&2
+          exit 1
