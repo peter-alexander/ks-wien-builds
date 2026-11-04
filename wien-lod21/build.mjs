@@ -2245,7 +2245,24 @@ async function main() {
 	}
 }
 
-main().catch((error) => {
-	console.error(error?.stack || error);
-	process.exitCode = 1;
-});
+// Shared parsing and footprint helpers for the independent MapLibre-native
+// roof builder. Importing this module must never launch a production build.
+export {
+	buildingXmlMatches,
+	extractFirstLocalTagText,
+	parseBuildingFragment,
+	parseSemanticSurfaces,
+	groundGeometryFromSurfaces,
+	getSurfacePoints,
+	sourcePointToLngLat,
+	unionJstsGeometries,
+	addBuildingToTile,
+	encodeTile
+};
+
+if (process.argv[1] && path.resolve(process.argv[1]) === new URL(import.meta.url).pathname) {
+	main().catch((error) => {
+		console.error(error?.stack || error);
+		process.exitCode = 1;
+	});
+}
