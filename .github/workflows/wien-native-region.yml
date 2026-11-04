@@ -15,6 +15,8 @@ on:
       - 'wien-native-city/region-plan.mjs'
       - 'wien-native-city/roof-inventory.snapshot.json'
       - 'wien-lod21/split-download-manifest.mjs'
+      - 'wien-native-pilot/build.mjs'
+      - 'wien-native-city/assemble-regions.mjs'
 
 permissions:
   contents: read
