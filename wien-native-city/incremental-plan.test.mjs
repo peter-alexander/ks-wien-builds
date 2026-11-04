@@ -32,6 +32,7 @@ test("conditional source caching respects 304-equivalent ETags and confirmed 404
 	assert.equal(sourceChanged({status:"present",etag:"x"},{status:"missing",httpStatus:404}),true);
 	assert.equal(sourceChanged({status:"present"},{status:"present"}),true);
 	assert.equal(sourceChanged({status:"present",sha256:"ff"},{status:"present",sha256:"ff"}),false);
+	assert.equal(sourceChanged({status:"present",etag:"x",sha256:"a"},{status:"present",etag:"x",sha256:"b"}),true);
 });
 
 test("unmodified FMZK, CityGML and builder skip ALL 678 tiles",()=>{
