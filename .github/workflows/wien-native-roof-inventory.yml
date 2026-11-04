@@ -8,7 +8,7 @@ on:
       - '.github/workflows/wien-native-roof-inventory.yml'
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
   group: wien-roof-inventory
@@ -50,6 +50,28 @@ jobs:
           }
           console.log(JSON.stringify(data.coverage,null,2));
           NODE
+
+      - name: Keep an auditable, reusable source-release snapshot on main
+        run: |
+          set -euo pipefail
+          cp wien-native-city/build/roof-inventory.json wien-native-city/roof-inventory.snapshot.json
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add wien-native-city/roof-inventory.snapshot.json
+          if git diff --cached --quiet; then
+            echo 'City roof inventory unchanged'
+          else
+            git commit -m 'data: snapshot official Vienna 500m LOD2.1 source inventory'
+            for attempt in 1 2 3; do
+              git fetch origin main
+              git rebase origin/main
+              if git push origin HEAD:main; then
+                break
+              fi
+              if [ "$attempt" = 3 ]; then exit 1; fi
+              sleep "$((attempt * 2))"
+            done
+          fi
 
       - uses: actions/upload-artifact@v6
         with:
