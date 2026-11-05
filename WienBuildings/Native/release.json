@@ -1,0 +1,45 @@
+{
+	"schemaVersion": 1,
+	"format": "KSWN0001",
+	"status": "complete",
+	"releaseId": "2026-11-05-fmzk-native-v1",
+	"fmzkRelease": "2026-11-03T11:04:51.669Z",
+	"attribution": "Stadt Wien – data.wien.gv.at, CC BY 4.0",
+	"source": "Kartensammlung original FMZK and validated original CityGML",
+	"versionedPath": "releases/2026-11-05-fmzk-native-v1/",
+	"zoomLevels": {
+		"13": {
+			"geometry": "pretriangulated-lod1-flat-roofs",
+			"tiles": 62,
+			"parts": 725214,
+			"vertices": 14188415,
+			"triangles": 7131603,
+			"gzipBytes": 102820504,
+			"manifest": "release-z13.json",
+			"tilesFormat": "chunked-by-tile",
+			"tileTemplate": "tiles/13/{x}/{y}/{chunk}.bin.gz"
+		},
+		"14": {
+			"geometry": "pretriangulated-lod1-flat-roofs",
+			"tiles": 200,
+			"parts": 729375,
+			"vertices": 16814770,
+			"triangles": 8706373,
+			"gzipBytes": 122588724,
+			"manifest": "release-z14.json",
+			"tilesFormat": "one-binary-per-tile",
+			"tileTemplate": "tiles/14/{x}/{y}.bin.gz"
+		},
+		"15": {
+			"geometry": "pretriangulated-verified-original-roofs",
+			"tiles": 678,
+			"parts": 621698,
+			"roofParts": 59589,
+			"gzipBytes": 245913243,
+			"manifest": "release-z15.json",
+			"buildingIndex": "building-index.json.gz",
+			"tileTemplate": "tiles/15/{x}/{y}.bin.gz"
+		}
+	},
+	"note": "Z13 tiles are split into independently decodable native geometry chunks; Z14 and Z15 use single files."
+}
