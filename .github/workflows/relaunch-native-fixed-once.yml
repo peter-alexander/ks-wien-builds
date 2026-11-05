@@ -1,0 +1,19 @@
+name: Restart native Vienna from corrected source-validation pipeline once
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/relaunch-native-fixed-once.yml'
+permissions:
+  actions: write
+  contents: read
+jobs:
+  relaunch:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Cancel superseded run and dispatch corrected pipeline
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh api -X POST "repos/${{ github.repository }}/actions/runs/42031126635/cancel"
+          gh api -X POST "repos/${{ github.repository }}/actions/workflows/wien-native-production.yml/dispatches" -f ref=main
