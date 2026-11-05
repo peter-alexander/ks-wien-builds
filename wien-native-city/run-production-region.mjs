@@ -75,9 +75,9 @@ async function main(){
 	node(["wien-lod21/download-sheets.mjs","--targets",targets,
 		"--cache-dir",downloads,"--summary",path.join(root,"download-report.json"),
 		"--revalidate","strict","--missing-policy","confirmed-404",
-		"--parallel","3","--interval-ms","1500","--attempts","4",
-		"--threshold","3","--cooldown-ms","60000","--max-cooldowns","2",
-		"--retry-ms","4000"]);
+		"--parallel","1","--interval-ms","3000","--attempts","8",
+		"--threshold","2","--cooldown-ms","90000","--max-cooldowns","6",
+		"--retry-ms","6000"]);
 	node(["wien-native-city/source-state.mjs",targets,downloads,path.join(root,"source-state.json")]);
 	if(await reuseProductionRegion({
 		regionRoot:root,
