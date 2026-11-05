@@ -1,0 +1,286 @@
+name: Build and publish Vienna native Z13-Z15 from current official sources
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/wien-native-production.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: wien-native-production
+  cancel-in-progress: false
+
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          cache: npm
+      - run: |
+          npm ci --ignore-scripts --no-audit --no-fund
+          npm install --no-save --ignore-scripts --no-audit --no-fund @mapbox/vector-tile@3.0.0 pbf@5.1.2 three@0.186.1
+      - name: Verify native source, geometry, manifest and patch logic
+        run: |
+          node --check wien-native-city/serve-fmzk.mjs
+          node --check wien-native-city/run-production-region.mjs
+          node --check wien-native-city/build-production-quadrant.mjs
+          node --check wien-native-city/build-production-roof-tile.mjs
+          node --check wien-native-city/package-multizoom-release.mjs
+          node --test wien-native-city/build-lowzoom.test.mjs wien-native-city/build-lowzoom-city.test.mjs wien-native-city/native-chunks.test.mjs wien-native-city/region-plan.test.mjs wien-native-city/assemble-regions.test.mjs wien-native-city/incremental-plan.test.mjs
+
+  source:
+    name: Download one authoritative FMZK snapshot for every native zoom
+    needs: verify
+    runs-on: ubuntu-24.04
+    timeout-minutes: 100
+    outputs:
+      regions: ${{ steps.inventory.outputs.regions }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          cache: npm
+      - name: Install FMZK export and native build tools
+        run: |
+          npm ci --ignore-scripts --no-audit --no-fund
+          npm install --no-save --ignore-scripts --no-audit --no-fund @mapbox/vector-tile@3.0.0 pbf@5.1.2 three@0.186.1
+      - uses: actions/cache@v6
+        id: tippecanoe
+        with:
+          path: .local/bin
+          key: ${{ runner.os }}-wien-tippecanoe-v1
+      - name: Build tippecanoe only when absent
+        if: steps.tippecanoe.outputs.cache-hit != 'true'
+        run: bash .github/scripts/build-tippecanoe.sh
+      - name: Download complete current official FMZK geometry and rebuild temporary vector source
+        env:
+          TIPPECANOE_BIN: ${{ github.workspace }}/.local/bin/tippecanoe
+        run: bash wien-buildings/run.sh
+      - name: Convert temporary vector source to native builder's expected uncompressed PBF format
+        run: |
+          set -euo pipefail
+          root="wien-buildings/build/WienBuildings"
+          find "$root/tiles" -type f -name '*.pbf' -print0 |
+            while IFS= read -r -d '' tile; do
+              gzip -t "$tile"
+              gzip -dc "$tile" > "$tile.tmp"
+              mv "$tile.tmp" "$tile"
+            done
+          node --input-type=module <<'NODE'
+          import fs from "node:fs";
+          const file="wien-buildings/build/WienBuildings/release.json";
+          const data=JSON.parse(fs.readFileSync(file,"utf8"));
+          if(data.vectorTiles.tileCounts?.["15"]<600 ||
+              data.vectorTiles.tileCounts?.["14"]<150 ||
+              data.vectorTiles.tileCounts?.["13"]<50)
+              throw new Error("Incomplete authoritative temporary FMZK source");
+          data.vectorTiles.compression="none";
+          fs.writeFileSync(file,JSON.stringify(data,null,"\t")+"\n");
+          NODE
+      - name: Derive fresh original CityGML sheet coverage from the SAME FMZK snapshot
+        id: inventory
+        env:
+          WIEN_NATIVE_SOURCE_BASE: http://127.0.0.1:18765
+        run: |
+          set -euo pipefail
+          nohup node wien-native-city/serve-fmzk.mjs wien-buildings/build/WienBuildings 18765 \
+            > /tmp/wien-fmzk-server.log 2>&1 &
+          for i in $(seq 1 30); do
+            if curl --fail --silent http://127.0.0.1:18765/LOD1/release.json >/dev/null; then break; fi
+            sleep 1
+          done
+          node --max-old-space-size=4096 wien-native-city/roof-inventory.mjs
+          node --input-type=module <<'NODE'
+          import fs from "node:fs";
+          const data=JSON.parse(fs.readFileSync("wien-native-city/build/roof-inventory.json","utf8"));
+          if(data.coverage.tiles<600 || data.coverage.regions<10 ||
+              data.coverage.sheets<500 ||
+              new Set(data.regions.flatMap(r=>r.tileKeys)).size!==data.coverage.tiles)
+              throw new Error("Incomplete live Wien Z15 inventory");
+          fs.appendFileSync(process.env.GITHUB_OUTPUT,
+            "regions="+JSON.stringify(data.regions.map(r=>r.id))+"\n");
+          console.log("Fresh FMZK inventory:",JSON.stringify(data.coverage));
+          NODE
+      - uses: actions/upload-artifact@v7
+        with:
+          name: wien-current-native-fmzk
+          path: wien-buildings/build/WienBuildings/
+          retention-days: 3
+          compression-level: 0
+          if-no-files-found: error
+      - uses: actions/upload-artifact@v7
+        with:
+          name: wien-current-native-inventory
+          path: wien-native-city/build/roof-inventory.json
+          retention-days: 3
+          if-no-files-found: error
+
+  regions:
+    name: Build original CityGML + current FMZK region ${{ matrix.region }}
+    needs: source
+    runs-on: ubuntu-24.04
+    timeout-minutes: 240
+    strategy:
+      fail-fast: false
+      max-parallel: 3
+      matrix:
+        region: ${{ fromJSON(needs.source.outputs.regions) }}
+    env:
+      WIEN_NATIVE_SOURCE_BASE: http://127.0.0.1:18765
+      WIEN_NATIVE_INVENTORY_FILE: wien-native-city/build/roof-inventory.json
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          cache: npm
+      - name: Install official geometry parsing dependencies
+        run: |
+          npm ci --ignore-scripts --no-audit --no-fund
+          npm install --no-save --ignore-scripts --no-audit --no-fund @mapbox/vector-tile@3.0.0 pbf@5.1.2 three@0.186.1
+      - uses: actions/download-artifact@v8
+        with:
+          name: wien-current-native-fmzk
+          path: wien-buildings/build/WienBuildings
+      - uses: actions/download-artifact@v8
+        with:
+          name: wien-current-native-inventory
+          path: wien-native-city/build
+      - name: Restore previously validated originals; strictly revalidate every sheet
+        uses: actions/cache/restore@v6
+        with:
+          path: wien-native-city/build/region-${{ matrix.region }}/downloads
+          key: wien-original-region-${{ matrix.region }}-${{ github.run_id }}
+          restore-keys: |
+            wien-original-region-${{ matrix.region }}-
+      - name: Serve frozen FMZK data, revalidate original CityGML, build exact Z15 geometry
+        run: |
+          set -euo pipefail
+          nohup node wien-native-city/serve-fmzk.mjs wien-buildings/build/WienBuildings 18765 \
+            > /tmp/wien-fmzk-server.log 2>&1 &
+          for i in $(seq 1 30); do
+            if curl --fail --silent http://127.0.0.1:18765/LOD1/release.json >/dev/null; then break; fi
+            sleep 1
+          done
+          node --max-old-space-size=4096 wien-native-city/run-production-region.mjs \
+            "${{ matrix.region }}" "wien-native-city/build/region-${{ matrix.region }}"
+      - name: Retain validated original ZIP downloads for future source comparisons
+        if: always()
+        uses: actions/cache/save@v6
+        with:
+          path: wien-native-city/build/region-${{ matrix.region }}/downloads
+          key: wien-original-region-${{ matrix.region }}-${{ github.run_id }}
+      - uses: actions/upload-artifact@v7
+        with:
+          name: wien-native-roof-region-${{ matrix.region }}
+          path: wien-native-city/build/region-${{ matrix.region }}/NativeRegion/
+          retention-days: 3
+          compression-level: 0
+          if-no-files-found: error
+
+  publish:
+    name: Validate all native Z13-Z15 geometry and publish a single Git snapshot
+    needs: [source, regions]
+    if: success()
+    runs-on: ubuntu-24.04
+    timeout-minutes: 180
+    concurrency:
+      group: wien-pages-publish
+      cancel-in-progress: false
+    env:
+      WIEN_NATIVE_INVENTORY_FILE: wien-native-city/build/roof-inventory.json
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          path: sources
+      - uses: actions/checkout@v7
+        with:
+          ref: gh-pages
+          path: pages
+          fetch-depth: 1
+          filter: blob:none
+          sparse-checkout: |
+            WienBuildings
+          sparse-checkout-cone-mode: true
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: sources/package-lock.json
+      - name: Install native triangulation and source verification dependencies
+        working-directory: sources
+        run: |
+          npm ci --ignore-scripts --no-audit --no-fund
+          npm install --no-save --ignore-scripts --no-audit --no-fund @mapbox/vector-tile@3.0.0 pbf@5.1.2 three@0.186.1
+      - uses: actions/download-artifact@v8
+        with:
+          name: wien-current-native-fmzk
+          path: sources/wien-buildings/build/WienBuildings
+      - uses: actions/download-artifact@v8
+        with:
+          name: wien-current-native-inventory
+          path: sources/wien-native-city/build
+      - uses: actions/download-artifact@v8
+        with:
+          pattern: wien-native-roof-region-*
+          path: sources/wien-native-city/build/region-artifacts
+      - name: Build native Z13/Z14 from the SAME temporary FMZK source
+        working-directory: sources
+        run: |
+          node --max-old-space-size=6144 wien-native-city/build-lowzoom-city.mjs \
+            wien-buildings/build/WienBuildings 13 wien-native-city/build/z13
+          node --max-old-space-size=6144 wien-native-city/build-lowzoom-city.mjs \
+            wien-buildings/build/WienBuildings 14 wien-native-city/build/z14
+      - name: Assemble verified historical roofs and current Z15 geometry
+        working-directory: sources
+        run: |
+          node --max-old-space-size=6144 wien-native-city/assemble-regions.mjs \
+            wien-native-city/build/region-artifacts wien-native-city/build/z15
+      - name: Validate and stage complete final XYZ-only release
+        working-directory: sources
+        run: |
+          set -euo pipefail
+          rev="$(node -p 'require("./wien-buildings/build/WienBuildings/release.json").generatedAt.replace(/[:.]/g,"-")')"
+          node --max-old-space-size=6144 wien-native-city/package-multizoom-release.mjs \
+            wien-native-city/build/z13 wien-native-city/build/z14 \
+            wien-native-city/build/z15 wien-native-city/build/staged "$rev"
+          node --check wien-native-city/package-multizoom-release.mjs
+      - name: Commit all verified changed XYZ files and metadata TOGETHER
+        run: |
+          set -euo pipefail
+          from="sources/wien-native-city/build/staged"
+          to="pages/WienBuildings"
+          test -s "$from/release.json"
+          test -d "$from/tiles/13"
+          test -d "$from/tiles/14"
+          test -d "$from/tiles/15"
+          mkdir -p "$to"
+          rsync -a --checksum --delete "$from/tiles/" "$to/tiles/"
+          for file in release.json release-z13.json release-z14.json release-z15.json building-index.json.gz; do
+            cp "$from/$file" "$to/$file"
+          done
+          rm -rf "$to/releases" "$to/Native" "$to/LOD1" "$to/LOD21" "$to/NativePilot"
+          git -C pages config user.name 'github-actions[bot]'
+          git -C pages config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git -C pages add -A -- WienBuildings
+          if git -C pages diff --cached --quiet; then
+            echo "Unchanged native Z13–Z15 geometry"
+            exit 0
+          fi
+          git -C pages commit -m "Publish updated Vienna Z13-Z15 from one fully validated official source snapshot"
+          for attempt in 1 2 3 4; do
+            git -C pages fetch origin gh-pages
+            git -C pages rebase origin/gh-pages
+            if git -C pages push origin HEAD:gh-pages; then exit 0; fi
+            sleep "$((attempt * 5))"
+          done
+          echo "Cannot safely advance gh-pages; old complete dataset retained" >&2
+          exit 1
