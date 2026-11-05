@@ -4,6 +4,16 @@ on:
   workflow_dispatch:
   schedule:
     - cron: '19 2 * * 0'
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/wien-native-production.yml'
+      - 'wien-native-city/**'
+      - 'wien-native-pilot/build.mjs'
+      - 'wien-native-pilot/build-roof-targets.mjs'
+      - 'wien-lod21/download-sheets.mjs'
+      - 'wien-lod21/build.mjs'
+      - 'wien-buildings/**'
 
 permissions:
   contents: write
@@ -32,11 +42,14 @@ jobs:
           node --check wien-native-city/build-production-roof-tile.mjs
           node --check wien-native-city/package-multizoom-release.mjs
           node --check wien-native-city/source-fingerprint.mjs
-          node --test wien-native-city/build-lowzoom.test.mjs wien-native-city/build-lowzoom-city.test.mjs wien-native-city/native-chunks.test.mjs wien-native-city/region-plan.test.mjs wien-native-city/assemble-regions.test.mjs wien-native-city/incremental-plan.test.mjs wien-native-city/roof-inventory.test.mjs wien-native-city/native-tile-patch.test.mjs wien-native-city/source-state.test.mjs wien-native-city/building-index.test.mjs wien-native-city/canonical-native-anchors.test.mjs wien-native-city/build.test.mjs wien-native-pilot/build.test.mjs wien-lod21/download-sheets.test.mjs
+          node --check wien-native-city/reuse-production-region.mjs
+          node --check wien-native-city/source-fingerprint.mjs
+          node --test wien-native-city/build-lowzoom.test.mjs wien-native-city/build-lowzoom-city.test.mjs wien-native-city/native-chunks.test.mjs wien-native-city/region-plan.test.mjs wien-native-city/assemble-regions.test.mjs wien-native-city/incremental-plan.test.mjs wien-native-city/roof-inventory.test.mjs wien-native-city/native-tile-patch.test.mjs wien-native-city/source-state.test.mjs wien-native-city/building-index.test.mjs wien-native-city/canonical-native-anchors.test.mjs wien-native-city/build.test.mjs wien-native-city/source-fingerprint.test.mjs wien-native-pilot/build.test.mjs wien-lod21/download-sheets.test.mjs
 
   source:
     name: Download one authoritative FMZK snapshot for every native zoom
     needs: verify
+    if: github.event_name != 'push'
     runs-on: ubuntu-24.04
     timeout-minutes: 100
     outputs:
