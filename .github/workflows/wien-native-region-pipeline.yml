@@ -334,7 +334,7 @@ jobs:
           nohup node wien-native-city/serve-fmzk.mjs wien-buildings/build/WienBuildings 18765 \
             > /tmp/wien-fmzk-server.log 2>&1 &
           ready=false
-          for i in $(seq 1 30); do
+          for _ in $(seq 1 30); do
             if curl --fail --silent http://127.0.0.1:18765/LOD1/release.json > /dev/null; then ready=true; break; fi
             sleep 1
           done
