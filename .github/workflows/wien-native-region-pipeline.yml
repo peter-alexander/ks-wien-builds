@@ -91,6 +91,11 @@ jobs:
         with:
           path: wien-native-city/build/region-${{ inputs.region }}/shard-${{ matrix.shard }}/downloads
           key: wien-gml-${{ inputs.region }}-${{ matrix.shard }}-${{ github.run_id }}
+      - name: Preserve a valid handoff even if every source URL failed
+        run: |
+          root="wien-native-city/build/region-${{ inputs.region }}/shard-${{ matrix.shard }}/downloads"
+          mkdir -p "$root"
+          printf 'pass1\n' > "$root/__stage-receipt.txt"
       - uses: actions/upload-artifact@v7
         with:
           name: wien-region-${{ inputs.region }}-pass1-${{ matrix.shard }}
@@ -173,6 +178,12 @@ jobs:
             --max-cooldowns 0 --retry-ms 0 --abort-on-network-errors 2
           mkdir -p "$root/receipts"
           cp "$root/shard-${{ matrix.shard }}/report.json" "$root/receipts/shard-${{ matrix.shard }}.json"
+      - name: Keep an empty-source repair handoff valid
+        if: matrix.shard >= 0
+        run: |
+          root="wien-native-city/build/region-${{ inputs.region }}/shard-${{ matrix.shard }}/downloads"
+          mkdir -p "$root"
+          printf 'pass2\n' > "$root/__stage-receipt.txt"
       - uses: actions/upload-artifact@v7
         if: matrix.shard >= 0
         with:
@@ -254,6 +265,12 @@ jobs:
             --missing-policy confirmed-404 --parallel 1 --interval-ms 1800 \
             --attempts 1 --threshold 2 --cooldown-ms 0 \
             --max-cooldowns 0 --retry-ms 0 --abort-on-network-errors 2
+      - name: Keep an empty-source repair handoff valid
+        if: matrix.shard >= 0
+        run: |
+          root="wien-native-city/build/region-${{ inputs.region }}/shard-${{ matrix.shard }}/downloads"
+          mkdir -p "$root"
+          printf 'pass3\n' > "$root/__stage-receipt.txt"
       - uses: actions/upload-artifact@v7
         if: matrix.shard >= 0
         with:
