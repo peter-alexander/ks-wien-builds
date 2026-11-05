@@ -1,0 +1,91 @@
+name: Build complete native Vienna Z13 LOD1 baseline from official FMZK
+run-name: Native Z13 entire Vienna baseline (62 FMZK vector tiles)
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/wien-native-z13-whole-city.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: wien-native-z13-whole-city
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Complete Z13 LOD1 baseline from 62 official FMZK tiles
+    runs-on: ubuntu-24.04
+    timeout-minutes: 65
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          path: sources
+      - uses: actions/checkout@v7
+        with:
+          ref: gh-pages
+          path: pages
+          filter: blob:none
+          sparse-checkout: |
+            WienBuildings/LOD1
+          sparse-checkout-cone-mode: false
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: sources/package-lock.json
+      - name: Install native triangulation dependencies
+        working-directory: sources
+        run: |
+          npm ci --ignore-scripts --no-audit --no-fund
+          npm install --no-save --ignore-scripts --no-audit --no-fund @mapbox/vector-tile@3.0.0 pbf@5.1.2 three@0.186.1
+      - name: Validate current-source native build tests
+        working-directory: sources
+        run: |
+          node --check wien-native-city/build-lowzoom-city.mjs
+          node --test wien-native-city/build-lowzoom.test.mjs wien-native-city/build-lowzoom-city.test.mjs
+      - name: Build all 62 already generalized Z13 FMZK buildings
+        working-directory: sources
+        run: |
+          node --max-old-space-size=6144 wien-native-city/build-lowzoom-city.mjs \
+            ../pages/WienBuildings/LOD1 13 wien-native-city/build/z13-all
+      - name: Validate native Z13 geometry and report actual triangle costs
+        working-directory: sources
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from "node:fs";
+          import {createHash} from "node:crypto";
+          import {readNativeTile} from "./wien-native-city/native-tile-patch.mjs";
+          const root="wien-native-city/build/z13-all";
+          const m=JSON.parse(fs.readFileSync(root+"/manifest.json","utf8"));
+          if(m.zoom!==13||m.source!=="current-official-fmzk-lod1"||
+            Object.keys(m.tiles).length!==62)throw new Error("Incomplete Z13");
+          let parts=0,triangles=0,bytes=0;
+          for(const [key,metric] of Object.entries(m.tiles)){
+            const buffer=fs.readFileSync(root+"/tiles/"+key+".bin.gz");
+            if(createHash("sha256").update(buffer).digest("hex")!==metric.sha256)
+              throw new Error("Z13 integrity failure "+key);
+            const parsed=readNativeTile(buffer);
+            if(parsed.parts.length!==metric.buildingParts||
+              parsed.parts.some(p=>p.info.source!=="lod1"))
+              throw new Error("Invalid Z13 FMZK building "+key);
+            parts+=parsed.parts.length;triangles+=metric.triangles;bytes+=buffer.length;
+          }
+          if(parts!==m.parts||triangles!==m.triangles||bytes!==m.gzipBytes)
+            throw new Error("Z13 accounting mismatch");
+          console.log("Z13 baseline validated:",JSON.stringify({
+            tiles:62,parts,triangles,vertices:m.vertices,gzipBytes:bytes
+          }));
+          NODE
+      - name: Retain unpublished Z13 baseline for further simplification experiments
+        uses: actions/upload-artifact@v6
+        with:
+          name: wien-native-z13-lod1-baseline-whole-city-62-tiles
+          path: sources/wien-native-city/build/z13-all/
+          retention-days: 21
+          compression-level: 0
+          if-no-files-found: error
