@@ -237,3 +237,36 @@ test("confirmed original CityGML 404 becomes an auditable FMZK fallback without 
 		await assert.rejects(fs.access(path.join(cacheDir,"111081_lod2_gml.zip.missing.json")));
 	});
 });
+
+
+test("repair stages retain successful downloads, continue after a failure, then recover",async()=>{
+	await temporary(async cacheDir=>{
+		const sheets=["104078","105080","106082"];
+		const attempts=new Map();
+		const valid=async file=>(await fs.readFile(file,"utf8").catch(()=>""))==="good";
+		const fetch=async(sheet,partial)=>{
+			attempts.set(sheet,(attempts.get(sheet)||0)+1);
+			if(sheet==="105080" && attempts.get(sheet)===1)throw new Error("upstream temporarily offline");
+			await fs.writeFile(partial,"good");
+			return {httpStatus:200};
+		};
+		const one=await downloadBatch(sheets,{
+			...settings,cacheDir,attempts:1,maxCooldowns:0,continueOnError:true,
+			onlyUnresolved:true
+		},{validate:valid,fetch});
+		assert.equal(one.success,false);
+		assert.deepEqual(one.failed,["105080"]);
+		assert.equal(one.downloaded,2);
+		assert.equal(one.skipped,0);
+		const two=await downloadBatch(sheets,{
+			...settings,cacheDir,attempts:1,maxCooldowns:0,continueOnError:true,
+			onlyUnresolved:true
+		},{validate:valid,fetch});
+		assert.equal(two.success,true);
+		assert.equal(two.cached,2);
+		assert.equal(two.downloaded,1);
+		assert.equal(attempts.get("104078"),1);
+		assert.equal(attempts.get("105080"),2);
+		assert.equal(attempts.get("106082"),1);
+	});
+});
