@@ -19,7 +19,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: wien-native-production
+  group: ${{ github.event_name == 'push' && 'wien-native-ci' || 'wien-native-production' }}
   cancel-in-progress: false
 
 jobs:
@@ -174,7 +174,7 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 240
     strategy:
-      fail-fast: false
+      fail-fast: true
       max-parallel: 1
       matrix:
         region: ${{ fromJSON(needs.source.outputs.regions) }}
