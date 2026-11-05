@@ -34,16 +34,22 @@ keine öffentliche LOD1-Zwischenquelle und keine Pilot-Publikation.
    Regionenzuordnung **für diesen Lauf** berechnet. Kein überholter
    fest eingetragener Actions-Run und kein veraltetes Inventar ist
    Produktionsquelle.
-4. Jede Region lädt die Original-CityGML-ZIPs in **drei Durchgängen**.
-   Der erste versucht sämtliche Blattquellen und sammelt einzelne Fehler,
-   ohne die übrigen Downloads abzubrechen. Zwei nachgelagerte Reparaturstufen
-   versuchen ausschließlich fehlende bzw. beschädigte Dateien erneut.
-   Bereits erfolgreich geprüfte ZIPs werden per SHA-256 wiederverwendet,
-   nachweisliche HTTP-404-Blätter als fehlend protokolliert. Alles geschieht
-   auf demselben Runner, sodass keine zusätzlichen ZIP-Artefakte zur
-   Übergabe zwischen Jobs erforderlich sind.
-   Erst die anschließende vollständige Prüfstufe darf den Z15-Build starten.
-   Unbehebbare Downloadfehler verhindern weiterhin jede Veröffentlichung.
+4. Jede Region erhält **drei getrennte GitHub-Actions-Jobs**:
+   `download`, `repair1` und `repair2`. Jeder Job startet auf einem neuen
+   GitHub-hosted Runner. Damit besteht die Chance auf eine andere
+   öffentliche Ausgangs-IP; GitHub garantiert die IP-Verschiedenheit
+   allerdings nicht.
+   Nach jedem Job werden bereits geprüfte ZIPs, HTTP-Metadaten,
+   bestätigte HTTP-404 und das Quellinventar als kurzlebiges
+   Actions-Artefakt übergeben. Die beiden Reparaturjobs prüfen die
+   vorhandenen Daten und versuchen **nur ungeklärte** Quelldateien
+   erneut; Fehler einer einzelnen Datei unterbrechen die übrigen
+   Downloads nicht.
+   Die vierte Stufe `regions` führt die vollständige Prüfung durch und
+   baut die Geometrie erst bei lückenlosem Quellstatus. Unbehebbare
+   Downloadfehler verhindern weiterhin jede Veröffentlichung.
+   Ein erfolgreicher, auch später fehlgeschlagenen Build überlebender
+   ZIP-Cache wird nach der zweiten Reparaturstufe gespeichert.
 5. Hat sich der FMZK-Quellinhalt **nicht** geändert, können Regionen
    wiederverwendet werden, wenn sämtliche Original-Quellen und der
    Geometrie-Builder unverändert sind. Diese Regionen werden anhand
