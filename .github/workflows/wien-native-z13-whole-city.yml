@@ -47,7 +47,7 @@ jobs:
         working-directory: sources
         run: |
           node --check wien-native-city/build-lowzoom-city.mjs
-          node --test wien-native-city/build-lowzoom.test.mjs wien-native-city/build-lowzoom-city.test.mjs
+          node --test wien-native-city/build-lowzoom.test.mjs wien-native-city/build-lowzoom-city.test.mjs wien-native-city/native-chunks.test.mjs
       - name: Build all 62 already generalized Z13 FMZK buildings
         working-directory: sources
         run: |
@@ -66,14 +66,23 @@ jobs:
             Object.keys(m.tiles).length!==62)throw new Error("Incomplete Z13");
           let parts=0,triangles=0,bytes=0;
           for(const [key,metric] of Object.entries(m.tiles)){
-            const buffer=fs.readFileSync(root+"/tiles/"+key+".bin.gz");
-            if(createHash("sha256").update(buffer).digest("hex")!==metric.sha256)
-              throw new Error("Z13 integrity failure "+key);
-            const parsed=readNativeTile(buffer);
-            if(parsed.parts.length!==metric.buildingParts||
-              parsed.parts.some(p=>p.info.source!=="lod1"))
-              throw new Error("Invalid Z13 FMZK building "+key);
-            parts+=parsed.parts.length;triangles+=metric.triangles;bytes+=buffer.length;
+            if(!Array.isArray(metric.chunks)||!metric.chunks.length)
+              throw new Error("Missing bounded Z13 chunks "+key);
+            let tileParts=0,tileBytes=0;
+            for(const chunk of metric.chunks){
+              const buffer=fs.readFileSync(root+"/tiles/"+chunk.key);
+              if(createHash("sha256").update(buffer).digest("hex")!==chunk.sha256 ||
+                buffer.length!==chunk.gzipBytes)
+                throw new Error("Z13 chunk integrity failure "+chunk.key);
+              const parsed=readNativeTile(buffer);
+              if(parsed.parts.length!==chunk.parts||
+                parsed.parts.some(p=>p.info.source!=="lod1"))
+                throw new Error("Invalid Z13 FMZK building "+chunk.key);
+              tileParts+=parsed.parts.length;tileBytes+=buffer.length;
+            }
+            if(tileParts!==metric.buildingParts||tileBytes!==metric.gzipBytes)
+              throw new Error("Z13 tile chunks lost parts "+key);
+            parts+=tileParts;triangles+=metric.triangles;bytes+=tileBytes;
           }
           if(parts!==m.parts||triangles!==m.triangles||bytes!==m.gzipBytes)
             throw new Error("Z13 accounting mismatch");
