@@ -294,6 +294,11 @@ jobs:
             --missing-policy confirmed-404 --revalidate strict \
             --parallel 1 --interval-ms 4000 --attempts 3 \
             --threshold 2 --cooldown-ms 45000 --max-cooldowns 3 --retry-ms 7000
+      - name: Retain successful original ZIPs for future independent builds
+        uses: actions/cache/save@v6
+        with:
+          path: wien-native-city/build/region-${{ matrix.region }}/downloads
+          key: wien-original-region-${{ matrix.region }}-${{ github.run_id }}
       - name: Preserve partial and complete verified ZIPs for the next runner
         uses: actions/upload-artifact@v7
         with:
@@ -365,11 +370,6 @@ jobs:
           test "$ready" = true
           node --max-old-space-size=4096 wien-native-city/run-production-region.mjs \
             "${{ matrix.region }}" "wien-native-city/build/region-${{ matrix.region }}"
-      - name: Preserve verified originals for subsequent builds
-        uses: actions/cache/save@v6
-        with:
-          path: wien-native-city/build/region-${{ matrix.region }}/downloads
-          key: wien-original-region-${{ matrix.region }}-${{ github.run_id }}
       - uses: actions/upload-artifact@v7
         with:
           name: wien-native-roof-region-${{ matrix.region }}
