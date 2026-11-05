@@ -22,7 +22,7 @@ export function optionsFrom(argv = process.argv.slice(2), env = process.env) {
 	}
 	const allowed = ["targets", "cache-dir", "summary", "limit", "offset", "parallel", "interval-ms", "attempts",
 		"threshold", "cooldown-ms", "max-cooldowns", "retry-ms", "revalidate", "missing-policy",
-		"continue-on-error", "only-unresolved"];
+		"continue-on-error", "only-unresolved", "abort-on-network-errors"];
 	for (const key of Object.keys(args)) if (!allowed.includes(key)) throw new Error("Unknown option " + key);
 	return {
 		targets: path.resolve(args.targets || env.WIEN_LOD21_TARGETS || "wien-lod21/targets.pilot.json"),
@@ -39,6 +39,8 @@ export function optionsFrom(argv = process.argv.slice(2), env = process.env) {
 		retryMs: number(args["retry-ms"] ?? env.WIEN_LOD21_RETRY_MS ?? 3000, "retry-ms", 0, 60000),
 		continueOnError: args["continue-on-error"] === "true",
 		onlyUnresolved: args["only-unresolved"] === "true",
+		abortOnNetworkErrors: number(args["abort-on-network-errors"] ?? 0,
+			"abort-on-network-errors",0,20),
 		missingPolicy: (() => {
 			const mode = args["missing-policy"] || "fail";
 			if (!["fail", "confirmed-404"].includes(mode)) throw new Error("Invalid missing-policy " + mode);
@@ -141,6 +143,7 @@ export async function downloadBatch(sheets, config, overrides = {}) {
 		downloaded: 0, cached: 0, notModified: 0, cachedUnverified: 0,
 		missing: [], failed: [], attempts: 0, cooldowns: 0, events: [] };
 	let cursor = 0, stop = false, streak = 0, cooldownUntil = 0, nextStart = 0;
+	let networkFailures = 0;
 	const continueOnError = config.continueOnError === true;
 	const onlyUnresolved = config.onlyUnresolved === true;
 	let gate = Promise.resolve();
@@ -229,6 +232,7 @@ export async function downloadBatch(sheets, config, overrides = {}) {
 					report.notModified++;
 					log("not-modified", { sheet, attempt, httpStatus: 304 });
 					streak = 0;
+					networkFailures = 0;
 					return;
 				}
 				if (!(await validate(partial))) throw new Error("Invalid downloaded ZIP");
@@ -248,6 +252,7 @@ export async function downloadBatch(sheets, config, overrides = {}) {
 				await fs.writeFile(metadataPartial, JSON.stringify(metadata) + "\n");
 				await fs.rename(metadataPartial, metadataFile);
 				streak = 0;
+				networkFailures = 0;
 				report.downloaded++;
 				log(prior ? "updated" : "downloaded", { sheet, attempt, ...response });
 				return;
@@ -263,9 +268,16 @@ export async function downloadBatch(sheets, config, overrides = {}) {
 					return;
 				}
 				streak++;
+				if([7,28,35,52,56].includes(error.curlCode) &&
+					(error.httpStatus===0 || error.httpStatus===undefined))networkFailures++;
+				else networkFailures=0;
 				log("failure", { sheet, attempt, code: error.curlCode ?? null,
 					httpStatus: error.httpStatus ?? null, error: String(error.message).slice(0, 300) });
-				if (streak >= config.threshold) {
+				if(config.abortOnNetworkErrors>0 &&
+					networkFailures>=config.abortOnNetworkErrors){
+					stop=true;
+					log("blocked-runner", {networkFailures, reason:"Repeated TCP/connect timeouts; hand unresolved sheets to another runner"});
+				}else if (streak >= config.threshold) {
 					streak = 0;
 					report.cooldowns++;
 					if (report.cooldowns > config.maxCooldowns && !continueOnError) {
