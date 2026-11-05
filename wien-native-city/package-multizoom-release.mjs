@@ -29,13 +29,17 @@ async function copyVerified(dest,bytes){
 }
 export async function stageNativeRelease({
 	z13Dir,z14Dir,z15Dir,outDir,releaseId="2026-11-05-fmzk-native-v1",
-	allowPartial=false
+	sourceMetadata=null,allowPartial=false
 }={}){
 	if(![z13Dir,z14Dir,z15Dir,outDir].every(x=>typeof x==="string"&&x) ||
 		!/^[a-zA-Z0-9._-]{8,100}$/.test(releaseId)){
 		throw new Error("Missing or unsafe native city release paths");
 	}
 	if(allowPartial)throw new Error("Partial city releases are forbidden");
+	if(sourceMetadata &&
+		(!/^[a-f0-9]{64}$/.test(sourceMetadata.fmzkSourceSha256||"") ||
+		!/^[a-f0-9]{64}$/.test(sourceMetadata.lowZoomBuilderRevision||"")))
+		throw new Error("Missing verified WFS source or lowzoom build revision");
 	const root=outDir;
 	const low=new Map();
 	for(const [zoom,dir] of [[13,z13Dir],[14,z14Dir]]){
@@ -148,6 +152,10 @@ export async function stageNativeRelease({
 		schemaVersion:1,format:"KSWN0001",status:"complete",releaseId,
 		fmzkRelease:reference,attribution:"Stadt Wien – data.wien.gv.at, CC BY 4.0",
 		source:"Kartensammlung original FMZK and validated original CityGML",
+		...(sourceMetadata?{
+			fmzkSourceSha256:sourceMetadata.fmzkSourceSha256,
+			lowZoomBuilderRevision:sourceMetadata.lowZoomBuilderRevision
+		}:{}),
 		tileRoot:"tiles/",cacheVersion,
 		zoomLevels:levels,
 		note:"Z13 tiles are split into independently decodable native geometry chunks; Z14 and Z15 use single files."
@@ -162,8 +170,10 @@ export async function stageNativeRelease({
 	return publication;
 }
 if(process.argv[1] && path.resolve(process.argv[1])===fileURLToPath(import.meta.url)){
-	const [z13Dir,z14Dir,z15Dir,outDir,releaseId]=process.argv.slice(2);
-	stageNativeRelease({z13Dir,z14Dir,z15Dir,outDir,releaseId}).catch(e=>{
-		console.error(e?.stack||e);process.exitCode=1;
-	});
+	const [z13Dir,z14Dir,z15Dir,outDir,releaseId,sourceFile]=process.argv.slice(2);
+	(async()=>{
+		if(!sourceFile)throw new Error("Require verified temporary FMZK release metadata");
+		const sourceMetadata=await readJson(sourceFile);
+		return stageNativeRelease({z13Dir,z14Dir,z15Dir,outDir,releaseId,sourceMetadata});
+	})().catch(e=>{console.error(e?.stack||e);process.exitCode=1;});
 }
