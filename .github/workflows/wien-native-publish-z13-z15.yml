@@ -3,10 +3,6 @@ run-name: Publish audited Wiener native 3D Z13–Z15 release
 
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/wien-native-publish-z13-z15.yml'
 
 permissions:
   contents: write
@@ -33,9 +29,7 @@ jobs:
           fetch-depth: 1
           filter: blob:none
           sparse-checkout: |
-            WienBuildings/Native
-            WienBuildings/LOD21Z14
-            WienBuildings/NativePilotRoofs
+            WienBuildings
           sparse-checkout-cone-mode: true
       - uses: actions/setup-node@v7
         with:
@@ -77,8 +71,8 @@ jobs:
         run: |
           set -euo pipefail
           src="sources/wien-native-city/build/publish/staged"
-          dest="pages/WienBuildings/Native"
-          rel="WienBuildings/Native/releases/$RELEASE_ID"
+          dest="pages/WienBuildings"
+          rel="WienBuildings/releases/$RELEASE_ID"
           mkdir -p "$dest/releases/$RELEASE_ID"
           cd pages
           git config user.name 'github-actions[bot]'
@@ -86,7 +80,7 @@ jobs:
           cd ..
           commit_and_push() {
             local message="$1"
-            git -C pages add -A -- WienBuildings/Native
+            git -C pages add -A -- WienBuildings
             if git -C pages diff --cached --quiet; then
               echo "Nothing changed: $message"
               return
@@ -117,14 +111,11 @@ jobs:
           done
 
           # Only after all three levels are available: expose one complete,
-          # coherent release. Preserve LOD1/LOD21 used by the existing
-          # Kartensammlung until the application is migrated.
+          # coherent release at WienBuildings/release.json.
           cp "$src/release.json" "$dest/release.json"
-          git -C pages add -- WienBuildings/Native/release.json
-          git -C pages rm -r --ignore-unmatch -- \
-            WienBuildings/LOD21Z14 WienBuildings/NativePilotRoofs
+          git -C pages add -- WienBuildings/release.json
           if ! git -C pages diff --cached --quiet; then
-            git -C pages commit -m "Activate complete Vienna native Z13–Z15 and remove unused legacy preview datasets"
+            git -C pages commit -m "Activate complete Vienna native Z13–Z15 at WienBuildings root"
             for attempt in 1 2 3 4; do
               git -C pages fetch origin gh-pages
               git -C pages rebase origin/gh-pages
@@ -133,9 +124,9 @@ jobs:
               sleep "$((attempt * 5))"
             done
           fi
-          echo "Published complete native Vienna release and removed unused LOD21Z14/NativePilotRoofs."
+          echo "Published complete native Vienna release at WienBuildings root."
       - name: Report completed publication
         run: |
-          echo "Native source paths:" >> "$GITHUB_STEP_SUMMARY"
-          echo "https://peter-alexander.github.io/ks-wien-builds/WienBuildings/Native/release.json" >> "$GITHUB_STEP_SUMMARY"
-          echo "Z13=62, Z14=200, Z15=678; legacy LOD1/LOD21 retained for existing clients." >> "$GITHUB_STEP_SUMMARY"
+          echo "Building release URL:" >> "$GITHUB_STEP_SUMMARY"
+          echo "https://peter-alexander.github.io/ks-wien-builds/WienBuildings/release.json" >> "$GITHUB_STEP_SUMMARY"
+          echo "Z13=62, Z14=200, Z15=678. Legacy layouts are not republished." >> "$GITHUB_STEP_SUMMARY"
