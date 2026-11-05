@@ -1,4 +1,12 @@
-# Wiener Gebäude – vollständiger LOD1-Fallback
+# Wiener Gebäude – temporäre amtliche FMZK-Quelle
+
+> **Produktionsstatus (November 2026):** Dieser Build stellt nur die
+> temporären Vektorkacheln für den *nativen* Z13–Z15-Gebäudebuild bereit.
+> Seine alten `WienBuildings/LOD1`-Dateien werden nicht mehr nach
+> `gh-pages` veröffentlicht. Die endgültige Ausgabe entsteht ausschließlich
+> über `.github/workflows/wien-native-production.yml` direkt in
+> `WienBuildings/tiles/`. Die folgenden Abschnitte beschreiben nur das
+> Eingabeformat dieses Zwischenbuilds.
 
 Dieser Build erzeugt einen gekachelten Wiener Gebäudedatensatz aus dem offiziellen
 OGD-Baukörpermodell `ogdwien:FMZKBKMOGD`.
@@ -61,8 +69,8 @@ ist nicht mehr erforderlich.
 ## Aktualisierung
 
 Der zugrunde liegende Wiener OGD-Datensatz wird unregelmäßig aktualisiert.
-Der Produktionsworkflow läuft deshalb zweimal wöchentlich sowie bei Änderungen
-an diesem Build.
+Die temporäre Quelle wird vom nativen Produktionsworkflow im selben Actions-Lauf
+neu erzeugt; dessen Zeitplan und Prüfmechanismen sind maßgeblich.
 
 ## Lokal
 
