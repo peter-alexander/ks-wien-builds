@@ -1,0 +1,141 @@
+name: Verify and publish final native Vienna building tiles Z13-Z15
+run-name: Publish audited Wiener native 3D Z13–Z15 release
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/wien-native-publish-z13-z15.yml'
+
+permissions:
+  contents: write
+  actions: read
+
+# Shares the existing gh-pages writer lock with other Vienna publishers.
+concurrency:
+  group: wien-pages-publish
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          path: sources
+          persist-credentials: false
+      - uses: actions/checkout@v7
+        with:
+          ref: gh-pages
+          path: pages
+          fetch-depth: 1
+          filter: blob:none
+          sparse-checkout: |
+            WienBuildings/Native
+            WienBuildings/LOD21Z14
+            WienBuildings/NativePilotRoofs
+          sparse-checkout-cone-mode: true
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+      - name: Retrieve independently validated Z15 complete-city release
+        uses: actions/download-artifact@v8
+        with:
+          name: wien-native-z15-whole-city-678-tiles
+          run-id: 41904116043
+          github-token: ${{ github.token }}
+          path: sources/wien-native-city/build/publish/z15
+      - name: Retrieve complete Z14 native LOD1 release
+        uses: actions/download-artifact@v8
+        with:
+          name: wien-native-z14-lod1-whole-city-200-tiles
+          run-id: 41975614148
+          github-token: ${{ github.token }}
+          path: sources/wien-native-city/build/publish/z14
+      - name: Retrieve complete Z13 native LOD1 release with bounded chunks
+        uses: actions/download-artifact@v8
+        with:
+          name: wien-native-z13-lod1-baseline-whole-city-62-tiles
+          run-id: 41976239777
+          github-token: ${{ github.token }}
+          path: sources/wien-native-city/build/publish/z13
+      - name: Validate all original source revisions and file checksums before touching gh-pages
+        working-directory: sources
+        run: |
+          node --check wien-native-city/package-multizoom-release.mjs
+          node --max-old-space-size=6144 wien-native-city/package-multizoom-release.mjs \
+            wien-native-city/build/publish/z13 \
+            wien-native-city/build/publish/z14 \
+            wien-native-city/build/publish/z15 \
+            wien-native-city/build/publish/staged \
+            2026-11-05-fmzk-native-v1
+      - name: Publish independently verified native tiles, then switch release pointer atomically
+        env:
+          RELEASE_ID: 2026-11-05-fmzk-native-v1
+        run: |
+          set -euo pipefail
+          src="sources/wien-native-city/build/publish/staged"
+          dest="pages/WienBuildings/Native"
+          rel="WienBuildings/Native/releases/$RELEASE_ID"
+          mkdir -p "$dest/releases/$RELEASE_ID"
+          cd pages
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          cd ..
+          commit_and_push() {
+            local message="$1"
+            git -C pages add -A -- WienBuildings/Native
+            if git -C pages diff --cached --quiet; then
+              echo "Nothing changed: $message"
+              return
+            fi
+            git -C pages commit -m "$message"
+            for attempt in 1 2 3 4; do
+              git -C pages fetch origin gh-pages
+              git -C pages rebase origin/gh-pages
+              if git -C pages push origin HEAD:gh-pages; then return; fi
+              sleep "$((attempt * 5))"
+            done
+            echo "Could not push validated building release safely: $message" >&2
+            exit 1
+          }
+
+          # Three smaller binary commits avoid a single 500-MB Git push.
+          for zoom in 13 14 15; do
+            mkdir -p "$dest/releases/$RELEASE_ID/tiles/$zoom"
+            rsync -a "$src/releases/$RELEASE_ID/tiles/$zoom/" \
+              "$dest/releases/$RELEASE_ID/tiles/$zoom/"
+            cp "$src/releases/$RELEASE_ID/release-z$zoom.json" \
+              "$dest/releases/$RELEASE_ID/release-z$zoom.json"
+            if [[ "$zoom" == 15 ]]; then
+              cp "$src/releases/$RELEASE_ID/building-index.json.gz" \
+                "$dest/releases/$RELEASE_ID/building-index.json.gz"
+            fi
+            commit_and_push "Publish verified Vienna native building Z$zoom geometry (immutable $RELEASE_ID)"
+          done
+
+          # Only after all three levels are available: expose one complete,
+          # coherent release. Preserve LOD1/LOD21 used by the existing
+          # Kartensammlung until the application is migrated.
+          cp "$src/release.json" "$dest/release.json"
+          git -C pages add -- WienBuildings/Native/release.json
+          git -C pages rm -r --ignore-unmatch -- \
+            WienBuildings/LOD21Z14 WienBuildings/NativePilotRoofs
+          if ! git -C pages diff --cached --quiet; then
+            git -C pages commit -m "Activate complete Vienna native Z13–Z15 and remove unused legacy preview datasets"
+            for attempt in 1 2 3 4; do
+              git -C pages fetch origin gh-pages
+              git -C pages rebase origin/gh-pages
+              if git -C pages push origin HEAD:gh-pages; then break; fi
+              if [[ "$attempt" == 4 ]]; then exit 1; fi
+              sleep "$((attempt * 5))"
+            done
+          fi
+          echo "Published complete native Vienna release and removed unused LOD21Z14/NativePilotRoofs."
+      - name: Report completed publication
+        run: |
+          echo "Native source paths:" >> "$GITHUB_STEP_SUMMARY"
+          echo "https://peter-alexander.github.io/ks-wien-builds/WienBuildings/Native/release.json" >> "$GITHUB_STEP_SUMMARY"
+          echo "Z13=62, Z14=200, Z15=678; legacy LOD1/LOD21 retained for existing clients." >> "$GITHUB_STEP_SUMMARY"
