@@ -1,10 +1,6 @@
 name: Build and publish Vienna data to GitHub Pages
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/publish.yml'
   workflow_dispatch:
     inputs:
       dataset:
@@ -116,7 +112,7 @@ jobs:
           else
             mkdir -p "$target"
             cp -a "$source/." "$target/"
-            fi
+          fi
           touch pages/.nojekyll
           echo "PAGES_TARGET=$target" >> "$GITHUB_ENV"
 
