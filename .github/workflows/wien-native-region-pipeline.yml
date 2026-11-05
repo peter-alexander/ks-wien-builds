@@ -1,0 +1,333 @@
+name: Bounded CityGML source shards and native region assembly
+on:
+  workflow_call:
+    inputs:
+      region:
+        type: string
+        required: true
+      fmzk_reuse:
+        type: string
+        required: true
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  plan:
+    name: Partition original CityGML into at most six sheets per runner
+    runs-on: ubuntu-24.04
+    outputs:
+      matrix: ${{ steps.shards.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/download-artifact@v8
+        with:
+          name: wien-current-native-inventory
+          path: wien-native-city/build
+      - name: Create deterministic regional source plan and independent shards
+        id: shards
+        env:
+          WIEN_NATIVE_INVENTORY_FILE: wien-native-city/build/roof-inventory.json
+          REGION: ${{ inputs.region }}
+        run: |
+          set -euo pipefail
+          root="wien-native-city/build/region-$REGION"
+          node wien-native-city/region-plan.mjs --region "$REGION" --out "$root"
+          node wien-native-city/source-shards.mjs "$root"
+          node --input-type=module - "$root" <<'NODE'
+          import fs from "node:fs";
+          const root=process.argv[2],data=JSON.parse(fs.readFileSync(root+"/shards.json","utf8"));
+          if(!data.shards.length||data.shards.length>64||data.shards.some(s=>s.sheetCount>6))
+            throw new Error("Invalid six-sheet production download shards");
+          fs.appendFileSync(process.env.GITHUB_OUTPUT,
+            "matrix="+JSON.stringify({include:data.shards.map(s=>({shard:s.shard}))})+"\n");
+          NODE
+      - uses: actions/upload-artifact@v7
+        with:
+          name: wien-region-plan-${{ inputs.region }}
+          path: wien-native-city/build/region-${{ inputs.region }}/
+          retention-days: 3
+          if-no-files-found: error
+
+  source:
+    name: Original CityGML ${{ inputs.region }} shard ${{ matrix.shard }}
+    needs: plan
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      max-parallel: 4
+      matrix: ${{ fromJSON(needs.plan.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/download-artifact@v8
+        with:
+          name: wien-region-plan-${{ inputs.region }}
+          path: wien-native-city/build/region-${{ inputs.region }}
+      - name: Assign no more than six original CityGML files to this runner
+        run: |
+          node wien-native-city/source-shards.mjs \
+            "wien-native-city/build/region-${{ inputs.region }}" "${{ matrix.shard }}"
+      - name: Restore previously verified source ZIPs
+        uses: actions/cache/restore@v6
+        with:
+          path: wien-native-city/build/region-${{ inputs.region }}/shard-${{ matrix.shard }}/downloads
+          key: wien-gml-${{ inputs.region }}-${{ matrix.shard }}-${{ github.run_id }}
+          restore-keys: |
+            wien-gml-${{ inputs.region }}-${{ matrix.shard }}-
+      - name: Revalidate all original files and stop promptly on network blocking
+        run: |
+          set -euo pipefail
+          root="wien-native-city/build/region-${{ inputs.region }}/shard-${{ matrix.shard }}"
+          node wien-lod21/download-sheets.mjs \
+            --targets "$root/targets.json" --cache-dir "$root/downloads" \
+            --summary "$root/report.json" \
+            --only-unresolved false --continue-on-error true --revalidate strict \
+            --missing-policy confirmed-404 --parallel 1 --interval-ms 1200 \
+            --attempts 1 --threshold 2 --cooldown-ms 0 \
+            --max-cooldowns 0 --retry-ms 0 --abort-on-network-errors 2
+      - name: Preserve successful ZIPs for subsequent runs
+        uses: actions/cache/save@v6
+        with:
+          path: wien-native-city/build/region-${{ inputs.region }}/shard-${{ matrix.shard }}/downloads
+          key: wien-gml-${{ inputs.region }}-${{ matrix.shard }}-${{ github.run_id }}
+      - uses: actions/upload-artifact@v7
+        with:
+          name: wien-region-${{ inputs.region }}-pass1-${{ matrix.shard }}
+          path: wien-native-city/build/region-${{ inputs.region }}/shard-${{ matrix.shard }}/downloads/
+          retention-days: 3
+          compression-level: 0
+          if-no-files-found: warn
+      - name: Prepare uniquely named shard receipt
+        run: |
+          root="wien-native-city/build/region-${{ inputs.region }}"
+          mkdir -p "$root/receipts"
+          cp "$root/shard-${{ matrix.shard }}/report.json" "$root/receipts/shard-${{ matrix.shard }}.json"
+      - uses: actions/upload-artifact@v7
+        with:
+          name: wien-region-${{ inputs.region }}-report-pass1-${{ matrix.shard }}
+          path: wien-native-city/build/region-${{ inputs.region }}/receipts/
+          retention-days: 3
+          if-no-files-found: error
+
+  audit1:
+    name: Identify failed CityGML shards before first repair
+    needs: [plan, source]
+    runs-on: ubuntu-24.04
+    outputs:
+      matrix: ${{ steps.audit.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/download-artifact@v8
+        with:
+          name: wien-region-plan-${{ inputs.region }}
+          path: wien-native-city/build/region-${{ inputs.region }}
+      - uses: actions/download-artifact@v8
+        with:
+          pattern: wien-region-${{ inputs.region }}-report-pass1-*
+          path: wien-native-city/build/region-${{ inputs.region }}/reports/pass1
+          merge-multiple: true
+      - name: Plan only failed or incomplete small shards
+        id: audit
+        run: |
+          set -euo pipefail
+          root="wien-native-city/build/region-${{ inputs.region }}"
+          node wien-native-city/repair-shards.mjs "$root" "$root/reports/pass1" - "$root/repair1.json"
+          node -e 'const fs=require("fs");const p=process.argv[1];fs.appendFileSync(process.env.GITHUB_OUTPUT,"matrix="+JSON.stringify({include:require(process.cwd()+"/"+p).include})+"\n")' "$root/repair1.json"
+
+  repair1:
+    name: First fresh-runner repair ${{ inputs.region }} shard ${{ matrix.shard }}
+    needs: [plan, audit1]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      max-parallel: 4
+      matrix: ${{ fromJSON(needs.audit1.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@v7
+        if: matrix.shard >= 0
+      - uses: actions/download-artifact@v8
+        if: matrix.shard >= 0
+        with:
+          name: wien-region-plan-${{ inputs.region }}
+          path: wien-native-city/build/region-${{ inputs.region }}
+      - uses: actions/download-artifact@v8
+        if: matrix.shard >= 0
+        with:
+          name: wien-region-${{ inputs.region }}-pass1-${{ matrix.shard }}
+          path: wien-native-city/build/region-${{ inputs.region }}/shard-${{ matrix.shard }}/downloads
+      - name: Repair only failed sources with a fresh network connection
+        if: matrix.shard >= 0
+        run: |
+          set -euo pipefail
+          root="wien-native-city/build/region-${{ inputs.region }}"
+          node wien-native-city/source-shards.mjs "$root" "${{ matrix.shard }}"
+          node wien-lod21/download-sheets.mjs \
+            --targets "$root/shard-${{ matrix.shard }}/targets.json" \
+            --cache-dir "$root/shard-${{ matrix.shard }}/downloads" \
+            --summary "$root/shard-${{ matrix.shard }}/report.json" \
+            --only-unresolved true --continue-on-error true \
+            --missing-policy confirmed-404 --parallel 1 --interval-ms 1400 \
+            --attempts 1 --threshold 2 --cooldown-ms 0 \
+            --max-cooldowns 0 --retry-ms 0 --abort-on-network-errors 2
+          mkdir -p "$root/receipts"
+          cp "$root/shard-${{ matrix.shard }}/report.json" "$root/receipts/shard-${{ matrix.shard }}.json"
+      - uses: actions/upload-artifact@v7
+        if: matrix.shard >= 0
+        with:
+          name: wien-region-${{ inputs.region }}-pass2-${{ matrix.shard }}
+          path: wien-native-city/build/region-${{ inputs.region }}/shard-${{ matrix.shard }}/downloads/
+          retention-days: 3
+          compression-level: 0
+          if-no-files-found: warn
+      - uses: actions/upload-artifact@v7
+        if: matrix.shard >= 0
+        with:
+          name: wien-region-${{ inputs.region }}-report-pass2-${{ matrix.shard }}
+          path: wien-native-city/build/region-${{ inputs.region }}/receipts/
+          retention-days: 3
+
+  audit2:
+    name: Identify still unresolved CityGML shards
+    needs: [plan, repair1]
+    runs-on: ubuntu-24.04
+    outputs:
+      matrix: ${{ steps.audit.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/download-artifact@v8
+        with:
+          name: wien-region-plan-${{ inputs.region }}
+          path: wien-native-city/build/region-${{ inputs.region }}
+      - uses: actions/download-artifact@v8
+        with:
+          pattern: wien-region-${{ inputs.region }}-report-pass1-*
+          path: wien-native-city/build/region-${{ inputs.region }}/reports/pass1
+          merge-multiple: true
+      - uses: actions/download-artifact@v8
+        with:
+          pattern: wien-region-${{ inputs.region }}-report-pass2-*
+          path: wien-native-city/build/region-${{ inputs.region }}/reports/pass2
+          merge-multiple: true
+      - name: Plan final targeted source repairs
+        id: audit
+        run: |
+          set -euo pipefail
+          root="wien-native-city/build/region-${{ inputs.region }}"
+          node wien-native-city/repair-shards.mjs "$root" "$root/reports/pass2" "$root/reports/pass1" "$root/repair2.json"
+          node -e 'const fs=require("fs");const p=process.argv[1];fs.appendFileSync(process.env.GITHUB_OUTPUT,"matrix="+JSON.stringify({include:require(process.cwd()+"/"+p).include})+"\n")' "$root/repair2.json"
+
+  repair2:
+    name: Second fresh-runner repair ${{ inputs.region }} shard ${{ matrix.shard }}
+    needs: [plan, audit2]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      max-parallel: 4
+      matrix: ${{ fromJSON(needs.audit2.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@v7
+        if: matrix.shard >= 0
+      - uses: actions/download-artifact@v8
+        if: matrix.shard >= 0
+        with:
+          name: wien-region-plan-${{ inputs.region }}
+          path: wien-native-city/build/region-${{ inputs.region }}
+      - uses: actions/download-artifact@v8
+        if: matrix.shard >= 0
+        with:
+          name: wien-region-${{ inputs.region }}-pass2-${{ matrix.shard }}
+          path: wien-native-city/build/region-${{ inputs.region }}/shard-${{ matrix.shard }}/downloads
+      - name: Retry only sources not yet recovered
+        if: matrix.shard >= 0
+        run: |
+          set -euo pipefail
+          root="wien-native-city/build/region-${{ inputs.region }}"
+          node wien-native-city/source-shards.mjs "$root" "${{ matrix.shard }}"
+          node wien-lod21/download-sheets.mjs \
+            --targets "$root/shard-${{ matrix.shard }}/targets.json" \
+            --cache-dir "$root/shard-${{ matrix.shard }}/downloads" \
+            --summary "$root/shard-${{ matrix.shard }}/report.json" \
+            --only-unresolved true --continue-on-error true \
+            --missing-policy confirmed-404 --parallel 1 --interval-ms 1800 \
+            --attempts 1 --threshold 2 --cooldown-ms 0 \
+            --max-cooldowns 0 --retry-ms 0 --abort-on-network-errors 2
+      - uses: actions/upload-artifact@v7
+        if: matrix.shard >= 0
+        with:
+          name: wien-region-${{ inputs.region }}-pass3-${{ matrix.shard }}
+          path: wien-native-city/build/region-${{ inputs.region }}/shard-${{ matrix.shard }}/downloads/
+          retention-days: 3
+          compression-level: 0
+          if-no-files-found: warn
+
+  assemble:
+    name: Verify all six-sheet shards and build original Z15 roofs
+    needs: [plan, source, audit1, repair1, audit2, repair2]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 240
+    env:
+      WIEN_NATIVE_SOURCE_BASE: http://127.0.0.1:18765
+      WIEN_NATIVE_INVENTORY_FILE: wien-native-city/build/roof-inventory.json
+      WIEN_NATIVE_ALLOW_REUSE: ${{ inputs.fmzk_reuse }}
+      WIEN_NATIVE_PREVIOUS_Z15: wien-native-city/build/previous/release-z15.json
+      WIEN_NATIVE_DOWNLOADS_PREPARED: 'true'
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          cache: npm
+      - name: Install native geometry dependencies
+        run: |
+          npm ci --ignore-scripts --no-audit --no-fund
+          npm install --no-save --ignore-scripts --no-audit --no-fund @mapbox/vector-tile@3.0.0 pbf@5.1.2 three@0.186.1
+      - uses: actions/download-artifact@v8
+        with:
+          name: wien-region-plan-${{ inputs.region }}
+          path: wien-native-city/build/region-${{ inputs.region }}
+      - uses: actions/download-artifact@v8
+        with:
+          name: wien-current-native-fmzk
+          path: wien-buildings/build/WienBuildings
+      - uses: actions/download-artifact@v8
+        with:
+          name: wien-current-native-inventory
+          path: wien-native-city/build
+      - uses: actions/download-artifact@v8
+        with:
+          name: wien-previous-native-z15
+          path: wien-native-city/build/previous
+      - uses: actions/download-artifact@v8
+        with:
+          pattern: wien-region-${{ inputs.region }}-pass*
+          path: wien-native-city/build/region-${{ inputs.region }}/inputs
+      - name: Select latest valid source archive for every shard and verify full coverage
+        run: |
+          set -euo pipefail
+          root="wien-native-city/build/region-${{ inputs.region }}"
+          node wien-native-city/collect-source-shards.mjs "$root" "$root/inputs"
+          node wien-native-city/source-state.mjs \
+            "$root/sources.json" "$root/downloads" "$root/source-state.json"
+      - name: Build complete independently verified Z15 geometry for this region
+        run: |
+          set -euo pipefail
+          nohup node wien-native-city/serve-fmzk.mjs wien-buildings/build/WienBuildings 18765 \
+            > /tmp/wien-fmzk-server.log 2>&1 &
+          ready=false
+          for i in $(seq 1 30); do
+            if curl --fail --silent http://127.0.0.1:18765/LOD1/release.json > /dev/null; then ready=true; break; fi
+            sleep 1
+          done
+          test "$ready" = true
+          node --max-old-space-size=4096 wien-native-city/run-production-region.mjs \
+            "${{ inputs.region }}" "wien-native-city/build/region-${{ inputs.region }}"
+      - uses: actions/upload-artifact@v7
+        with:
+          name: wien-native-roof-region-${{ inputs.region }}
+          path: wien-native-city/build/region-${{ inputs.region }}/NativeRegion/
+          retention-days: 3
+          compression-level: 0
+          if-no-files-found: error
