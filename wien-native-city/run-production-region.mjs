@@ -69,15 +69,19 @@ async function main(){
 	const region=process.argv[2],root=path.resolve(process.argv[3]||"");
 	if(!/^\d+-\d+$/.test(region||"")||!process.argv[3])
 		throw new Error("Usage: run-production-region.mjs REGION OUTPUT_DIRECTORY");
-	node(["wien-native-city/region-plan.mjs","--region",region,"--out",root]);
+	if(process.env.WIEN_NATIVE_DOWNLOADS_PREPARED!=="true"){
+		node(["wien-native-city/region-plan.mjs","--region",region,"--out",root]);
+	}
 	const targets=path.join(root,"sources.json");
 	const downloads=path.join(root,"downloads");
-	node(["wien-lod21/download-sheets.mjs","--targets",targets,
-		"--cache-dir",downloads,"--summary",path.join(root,"download-report.json"),
-		"--revalidate","strict","--missing-policy","confirmed-404",
-		"--parallel","1","--interval-ms","3000","--attempts","8",
-		"--threshold","2","--cooldown-ms","90000","--max-cooldowns","6",
-		"--retry-ms","6000"]);
+	if(process.env.WIEN_NATIVE_DOWNLOADS_PREPARED!=="true"){
+		node(["wien-lod21/download-sheets.mjs","--targets",targets,
+			"--cache-dir",downloads,"--summary",path.join(root,"download-report.json"),
+			"--revalidate","strict","--missing-policy","confirmed-404",
+			"--parallel","1","--interval-ms","3000","--attempts","3",
+			"--threshold","2","--cooldown-ms","90000","--max-cooldowns","3",
+			"--retry-ms","6000"]);
+	}
 	node(["wien-native-city/source-state.mjs",targets,downloads,path.join(root,"source-state.json")]);
 	if(await reuseProductionRegion({
 		regionRoot:root,
