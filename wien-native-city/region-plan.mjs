@@ -50,7 +50,9 @@ async function main(){
 	if(argv.length!==4 || argv[0]!=="--region" || argv[2]!=="--out"){
 		throw new Error("Usage: region-plan.mjs --region 2234-1420 --out directory");
 	}
-	const inventory=JSON.parse(await fs.readFile(new URL("./roof-inventory.snapshot.json",import.meta.url)));
+	const inventoryFile=process.env.WIEN_NATIVE_INVENTORY_FILE
+		|| new URL("./roof-inventory.snapshot.json",import.meta.url);
+	const inventory=JSON.parse(await fs.readFile(inventoryFile));
 	const plan=makeRegionPlan(inventory,argv[1]);
 	const output=path.resolve(argv[3]);
 	await fs.mkdir(output,{recursive:true});
