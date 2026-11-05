@@ -31,6 +31,7 @@ jobs:
           node --check wien-native-city/build-production-quadrant.mjs
           node --check wien-native-city/build-production-roof-tile.mjs
           node --check wien-native-city/package-multizoom-release.mjs
+          node --check wien-native-city/source-fingerprint.mjs
           node --test wien-native-city/build-lowzoom.test.mjs wien-native-city/build-lowzoom-city.test.mjs wien-native-city/native-chunks.test.mjs wien-native-city/region-plan.test.mjs wien-native-city/assemble-regions.test.mjs wien-native-city/incremental-plan.test.mjs wien-native-city/roof-inventory.test.mjs wien-native-city/native-tile-patch.test.mjs wien-native-city/source-state.test.mjs wien-native-city/building-index.test.mjs wien-native-city/canonical-native-anchors.test.mjs wien-native-city/build.test.mjs wien-native-pilot/build.test.mjs wien-lod21/download-sheets.test.mjs
 
   source:
@@ -40,8 +41,20 @@ jobs:
     timeout-minutes: 100
     outputs:
       regions: ${{ steps.inventory.outputs.regions }}
+      fmzk_reuse: ${{ steps.fingerprint.outputs.fmzk_reuse }}
+      lowzoom_reuse: ${{ steps.fingerprint.outputs.lowzoom_reuse }}
     steps:
       - uses: actions/checkout@v7
+      - uses: actions/checkout@v7
+        with:
+          ref: gh-pages
+          path: previous
+          fetch-depth: 1
+          filter: blob:none
+          sparse-checkout: |
+            WienBuildings/release.json
+            WienBuildings/release-z15.json
+          sparse-checkout-cone-mode: false
       - uses: actions/setup-node@v7
         with:
           node-version: '24'
@@ -62,6 +75,21 @@ jobs:
         env:
           TIPPECANOE_BIN: ${{ github.workspace }}/.local/bin/tippecanoe
         run: bash wien-buildings/run.sh
+      - name: Pin official source identity by content, not export timestamp
+        id: fingerprint
+        run: |
+          node wien-native-city/source-fingerprint.mjs \
+            wien-buildings/build/tmp/wien-buildings.geojsonseq \
+            wien-buildings/build/WienBuildings/release.json \
+            previous/WienBuildings/release.json \
+            wien-buildings/build/fingerprint.json
+          node --input-type=module <<'NODE'
+          import fs from "node:fs";
+          const result=JSON.parse(fs.readFileSync("wien-buildings/build/fingerprint.json","utf8"));
+          fs.appendFileSync(process.env.GITHUB_OUTPUT,
+            "fmzk_reuse="+result.fmzkReuse+"\n"+
+            "lowzoom_reuse="+result.lowZoomReuse+"\n");
+          NODE
       - name: Convert temporary vector source to native builder's expected uncompressed PBF format
         run: |
           set -euo pipefail
@@ -120,6 +148,12 @@ jobs:
           path: wien-native-city/build/roof-inventory.json
           retention-days: 3
           if-no-files-found: error
+      - uses: actions/upload-artifact@v7
+        with:
+          name: wien-previous-native-z15
+          path: previous/WienBuildings/release-z15.json
+          retention-days: 3
+          if-no-files-found: error
 
   regions:
     name: Build original CityGML + current FMZK region ${{ matrix.region }}
@@ -134,6 +168,8 @@ jobs:
     env:
       WIEN_NATIVE_SOURCE_BASE: http://127.0.0.1:18765
       WIEN_NATIVE_INVENTORY_FILE: wien-native-city/build/roof-inventory.json
+      WIEN_NATIVE_ALLOW_REUSE: ${{ needs.source.outputs.fmzk_reuse }}
+      WIEN_NATIVE_PREVIOUS_Z15: wien-native-city/build/previous/release-z15.json
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-node@v7
@@ -152,6 +188,10 @@ jobs:
         with:
           name: wien-current-native-inventory
           path: wien-native-city/build
+      - uses: actions/download-artifact@v8
+        with:
+          name: wien-previous-native-z15
+          path: wien-native-city/build/previous
       - name: Restore previously validated originals; strictly revalidate every sheet
         uses: actions/cache/restore@v6
         with:
@@ -230,13 +270,25 @@ jobs:
         with:
           pattern: wien-native-roof-region-*
           path: sources/wien-native-city/build/region-artifacts
-      - name: Build native Z13/Z14 from the SAME temporary FMZK source
+      - name: Reuse unchanged native Z13/Z14, otherwise rebuild from this FMZK snapshot
         working-directory: sources
+        env:
+          LOWZOOM_REUSE: ${{ needs.source.outputs.lowzoom_reuse }}
         run: |
-          node --max-old-space-size=6144 wien-native-city/build-lowzoom-city.mjs \
-            wien-buildings/build/WienBuildings 13 wien-native-city/build/z13
-          node --max-old-space-size=6144 wien-native-city/build-lowzoom-city.mjs \
-            wien-buildings/build/WienBuildings 14 wien-native-city/build/z14
+          set -euo pipefail
+          if [[ "$LOWZOOM_REUSE" == "true" ]]; then
+            for z in 13 14; do
+              test -s "../pages/WienBuildings/release-z$z.json"
+              mkdir -p "wien-native-city/build/z$z/tiles/$z"
+              cp -a "../pages/WienBuildings/tiles/$z/." "wien-native-city/build/z$z/tiles/$z/"
+              cp "../pages/WienBuildings/release-z$z.json" "wien-native-city/build/z$z/manifest.json"
+            done
+          else
+            node --max-old-space-size=6144 wien-native-city/build-lowzoom-city.mjs \
+              wien-buildings/build/WienBuildings 13 wien-native-city/build/z13
+            node --max-old-space-size=6144 wien-native-city/build-lowzoom-city.mjs \
+              wien-buildings/build/WienBuildings 14 wien-native-city/build/z14
+          fi
       - name: Assemble verified historical roofs and current Z15 geometry
         working-directory: sources
         run: |
@@ -249,7 +301,8 @@ jobs:
           rev="$(node -p 'require("./wien-buildings/build/WienBuildings/release.json").generatedAt.replace(/[:.]/g,"-")')"
           node --max-old-space-size=6144 wien-native-city/package-multizoom-release.mjs \
             wien-native-city/build/z13 wien-native-city/build/z14 \
-            wien-native-city/build/z15 wien-native-city/build/staged "$rev"
+            wien-native-city/build/z15 wien-native-city/build/staged "$rev" \
+            wien-buildings/build/WienBuildings/release.json
           node --check wien-native-city/package-multizoom-release.mjs
       - name: Commit all verified changed XYZ files and metadata TOGETHER
         run: |
