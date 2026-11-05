@@ -22,7 +22,10 @@ const BUILDER_INPUTS=[
 	"wien-optimized/src/app/buildings/wien-ogd-fallback-geometry.js",
 	"wien-native-city/region-plan.mjs",
 	"wien-native-city/native-tile-patch.mjs",
-	"wien-native-city/canonical-native-anchors.mjs"
+	"wien-native-city/canonical-native-anchors.mjs",
+	"wien-native-city/build-production-quadrant.mjs",
+	"wien-native-city/build-production-roof-tile.mjs",
+	"wien-native-city/run-production-region.mjs"
 ];
 
 
