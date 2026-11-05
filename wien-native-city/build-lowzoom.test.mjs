@@ -17,6 +17,9 @@ test("pinned official FMZK geometry is suitable for direct native Z14 and Z13 ex
 });
 test("refuse changed FMZK geometry release, dropping policy or wrong tiles",()=>{
 	assert.throws(()=>verifyLowZoomRelease({...release,generatedAt:"changed"},14),/no longer matches/);
+	assert.equal(verifyLowZoomRelease({...release,generatedAt:"2026-11-05T08:00:00Z"},14).generatedAt,"2026-11-05T08:00:00Z");
+	assert.throws(()=>verifyLowZoomRelease({...release,generatedAt:"2026-11-05T08:00:00Z"},14,
+		{expectedRelease:REFERENCE_OGD_RELEASE}),/no longer matches/);
 	assert.throws(()=>verifyLowZoomRelease({...release,vectorTiles:{...release.vectorTiles,
 		geometryPolicy:{...release.vectorTiles.geometryPolicy,featureDropping:true}}},14),/no longer matches/);
 	assert.throws(()=>validateLowZoomKeys(14,["14/8936/5680","14/8936/5680"]),/Invalid/);
