@@ -178,7 +178,9 @@ if(process.argv[1]&&path.resolve(process.argv[1])===fileURLToPath(import.meta.ur
 	if(process.argv.length!==4){
 		throw new Error("Usage: assemble-regions.mjs REGION_ARTIFACTS_DIR OUTPUT_DIR");
 	}
-	const inventory=JSON.parse(await fs.readFile(new URL("./roof-inventory.snapshot.json",import.meta.url)));
+	const inventoryPath=process.env.WIEN_NATIVE_INVENTORY_FILE
+		|| new URL("./roof-inventory.snapshot.json",import.meta.url);
+	const inventory=JSON.parse(await fs.readFile(inventoryPath));
 	assembleCityRelease({inventory,regionsDir:path.resolve(process.argv[2]),
 		outDir:path.resolve(process.argv[3])}).catch(e=>{
 		console.error(e?.stack||e);process.exitCode=1;
