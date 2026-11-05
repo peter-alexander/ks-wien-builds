@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Stage an immutable Vienna native 3D building release (Z13, Z14, Z15).
+ * Stage a verified Vienna native 3D building dataset (Z13, Z14, Z15).
  * Input: independently audited, unpublished GitHub Actions artifacts.
  *
  * No CityGML/Maptoolkit source required. Fails closed on missing tiles,
@@ -23,7 +23,7 @@ async function verifiedFile(file,size,sha){
 	if(bytes.length!==size || hash(bytes)!==sha)throw new Error("Native building file checksum mismatch: "+file);
 	return bytes;
 }
-async function copyVerified(source,dest,bytes){
+async function copyVerified(dest,bytes){
 	await fs.mkdir(path.dirname(dest),{recursive:true});
 	await fs.writeFile(dest,bytes);
 }
@@ -36,7 +36,7 @@ export async function stageNativeRelease({
 		throw new Error("Missing or unsafe native city release paths");
 	}
 	if(allowPartial)throw new Error("Partial city releases are forbidden");
-	const root=path.join(outDir,"releases",releaseId);
+	const root=outDir;
 	const low=new Map();
 	for(const [zoom,dir] of [[13,z13Dir],[14,z14Dir]]){
 		const manifest=await readJson(path.join(dir,"manifest.json"));
@@ -61,16 +61,14 @@ export async function stageNativeRelease({
 						chunk.rawBytes>=16*1024*1024)throw new Error("Invalid bounded native Z13 chunk "+key);
 					const content=await verifiedFile(path.join(dir,"tiles",chunk.key),
 						chunk.gzipBytes,chunk.sha256);
-					await copyVerified(path.join(dir,"tiles",chunk.key),
-						path.join(root,"tiles",chunk.key),content);
+					await copyVerified(path.join(root,"tiles",chunk.key),content);
 					counted+=chunk.parts;bytesCount+=chunk.gzipBytes;
 				}
 				if(counted!==record.buildingParts)throw new Error("Dropped source building parts "+key);
 			}else{
 				const content=await verifiedFile(path.join(dir,"tiles",key+".bin.gz"),
 					record.gzipBytes,record.sha256);
-				await copyVerified(path.join(dir,"tiles",key+".bin.gz"),
-					path.join(root,"tiles",key+".bin.gz"),content);
+				await copyVerified(path.join(root,"tiles",key+".bin.gz"),content);
 				bytesCount+=record.gzipBytes;
 			}
 			parts+=record.buildingParts;
@@ -98,8 +96,7 @@ export async function stageNativeRelease({
 		if(!tileKey(key,15))throw new Error("Invalid Z15 original roof tile key "+key);
 		const bytes=await verifiedFile(path.join(z15Dir,"tiles",key+".bin.gz"),
 			metric.gzipBytes,metric.sha256);
-		await copyVerified(path.join(z15Dir,"tiles",key+".bin.gz"),
-			path.join(root,"tiles",key+".bin.gz"),bytes);
+		await copyVerified(path.join(root,"tiles",key+".bin.gz"),bytes);
 		z15Bytes+=metric.gzipBytes;
 		parts15+=metric.buildingParts;
 		roofs+=metric.lod21Parts;
@@ -110,8 +107,7 @@ export async function stageNativeRelease({
 	if(indexMeta?.path!=="building-index.json.gz")throw new Error("No verified Z15 building index");
 	const index=await verifiedFile(path.join(z15Dir,indexMeta.path),
 		indexMeta.gzipBytes,indexMeta.sha256);
-	await copyVerified(path.join(z15Dir,indexMeta.path),
-		path.join(root,indexMeta.path),index);
+	await copyVerified(path.join(root,indexMeta.path),index);
 	const levels={};
 	for(const [zoom,manifest] of low){
 		const file="release-z"+zoom+".json";
@@ -134,11 +130,11 @@ export async function stageNativeRelease({
 		schemaVersion:1,format:"KSWN0001",status:"complete",releaseId,
 		fmzkRelease:reference,attribution:"Stadt Wien – data.wien.gv.at, CC BY 4.0",
 		source:"Kartensammlung original FMZK and validated original CityGML",
-		versionedPath:"releases/"+releaseId+"/",
+		tileRoot:"tiles/",cacheVersion:releaseId,
 		zoomLevels:levels,
 		note:"Z13 tiles are split into independently decodable native geometry chunks; Z14 and Z15 use single files."
 	};
-	// This pointer is committed only AFTER all source files were uploaded.
+	// Commit this manifest and all changed XYZ tiles together in one Git commit.
 	const bytes=JSON.stringify(publication,null,"\t")+"\n";
 	await fs.mkdir(outDir,{recursive:true});
 	await fs.writeFile(path.join(outDir,"release.json"),bytes);
