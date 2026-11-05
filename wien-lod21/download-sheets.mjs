@@ -21,7 +21,8 @@ export function optionsFrom(argv = process.argv.slice(2), env = process.env) {
 		args[argv[i].slice(2)] = argv[i + 1];
 	}
 	const allowed = ["targets", "cache-dir", "summary", "limit", "offset", "parallel", "interval-ms", "attempts",
-		"threshold", "cooldown-ms", "max-cooldowns", "retry-ms", "revalidate", "missing-policy"];
+		"threshold", "cooldown-ms", "max-cooldowns", "retry-ms", "revalidate", "missing-policy",
+		"continue-on-error", "only-unresolved"];
 	for (const key of Object.keys(args)) if (!allowed.includes(key)) throw new Error("Unknown option " + key);
 	return {
 		targets: path.resolve(args.targets || env.WIEN_LOD21_TARGETS || "wien-lod21/targets.pilot.json"),
@@ -36,6 +37,8 @@ export function optionsFrom(argv = process.argv.slice(2), env = process.env) {
 		cooldownMs: number(args["cooldown-ms"] ?? env.WIEN_LOD21_COOLDOWN_MS ?? 90000, "cooldown-ms", 0, 1800000),
 		maxCooldowns: number(args["max-cooldowns"] ?? env.WIEN_LOD21_MAX_COOLDOWNS ?? 2, "max-cooldowns", 0, 20),
 		retryMs: number(args["retry-ms"] ?? env.WIEN_LOD21_RETRY_MS ?? 3000, "retry-ms", 0, 60000),
+		continueOnError: args["continue-on-error"] === "true",
+		onlyUnresolved: args["only-unresolved"] === "true",
 		missingPolicy: (() => {
 			const mode = args["missing-policy"] || "fail";
 			if (!["fail", "confirmed-404"].includes(mode)) throw new Error("Invalid missing-policy " + mode);
@@ -138,6 +141,8 @@ export async function downloadBatch(sheets, config, overrides = {}) {
 		downloaded: 0, cached: 0, notModified: 0, cachedUnverified: 0,
 		missing: [], failed: [], attempts: 0, cooldowns: 0, events: [] };
 	let cursor = 0, stop = false, streak = 0, cooldownUntil = 0, nextStart = 0;
+	const continueOnError = config.continueOnError === true;
+	const onlyUnresolved = config.onlyUnresolved === true;
 	let gate = Promise.resolve();
 	const log = (kind, details) => {
 		const entry = { at: new Date().toISOString(), kind, ...details };
@@ -165,6 +170,28 @@ export async function downloadBatch(sheets, config, overrides = {}) {
 		const file = path.join(config.cacheDir, sheet + "_lod2_gml.zip");
 		const metadataFile = file + ".http.json";
 		const previouslyValid = await validate(file);
+		if (onlyUnresolved) {
+			if (previouslyValid) {
+				const metadata = await fs.readFile(metadataFile, "utf8").then(JSON.parse).catch(() => null);
+				if (metadata?.schemaVersion === 1 && metadata.sheet === sheet &&
+					/^[a-f0-9]{64}$/.test(metadata.sha256 || "")) {
+					const digest = createHash("sha256").update(await fs.readFile(file)).digest("hex");
+					if (digest === metadata.sha256) {
+						report.cached++;
+						log("already-verified", { sheet });
+						return;
+					}
+				}
+			}
+				const missing = await fs.readFile(file + ".missing.json", "utf8")
+					.then(JSON.parse).catch(() => null);
+				if (!previouslyValid && missing?.status === "confirmed-missing" &&
+					missing.sheet === sheet && missing.httpStatus === 404) {
+					report.missing.push(sheet);
+					log("already-confirmed-missing", { sheet });
+					return;
+				}
+		}
 		let prior = null;
 		if (previouslyValid && config.revalidate !== "off" && config.revalidate) {
 			try {
@@ -241,7 +268,7 @@ export async function downloadBatch(sheets, config, overrides = {}) {
 				if (streak >= config.threshold) {
 					streak = 0;
 					report.cooldowns++;
-					if (report.cooldowns > config.maxCooldowns) {
+					if (report.cooldowns > config.maxCooldowns && !continueOnError) {
 						stop = true;
 						log("stop", { reason: "Maximum cooldowns exceeded" });
 					} else {
@@ -254,7 +281,7 @@ export async function downloadBatch(sheets, config, overrides = {}) {
 			}
 			if (attempt < config.attempts && !stop) await sleep(config.retryMs * attempt);
 		}
-		stop = true;
+		if (!continueOnError) stop = true;
 		report.failed.push(sheet);
 		log("failed-sheet", { sheet });
 	}
@@ -283,7 +310,7 @@ async function main() {
 		cachedUnverified: report.cachedUnverified, missing: report.missing.length,
 		failed: report.failed, skipped: report.skipped, cooldowns: report.cooldowns
 	}));
-	if (!report.success) process.exitCode = 1;
+	if (!report.success && !opts.continueOnError) process.exitCode = 1;
 }
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
 	main().catch((error) => { console.error(error); process.exitCode = 1; });
