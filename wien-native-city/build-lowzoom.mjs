@@ -18,6 +18,7 @@ import {buildWienOgdFallbackTileGeometry}
 import {encodeNativeTile,BASE}
 	from "../wien-native-pilot/build.mjs";
 import {readNativeTile} from "./native-tile-patch.mjs";
+import {chunkNativeParts} from "./native-chunks.mjs";
 
 export const REFERENCE_OGD_RELEASE="2026-11-03T11:04:51.669Z";
 const sha256=buffer=>createHash("sha256").update(buffer).digest("hex");
@@ -72,19 +73,41 @@ export async function buildLowZoom({
 		if(!geometry)throw new Error("Missing official FMZK buildings in "+key);
 		try{
 			const encoded=encodeNativeTile({z,x,y},[{source:"lod1",geometry}]);
-			const parsed=readNativeTile(encoded.compressed);
+			const parsed=readNativeTile(encoded.raw,
+				zoom===13?{maxBytes:256*1024*1024}:undefined);
 			if(parsed.parts.length!==encoded.stats.buildingParts ||
 				parsed.parts.some(p=>p.info.source!=="lod1"||!p.info.id.startsWith("ogd:"))){
 				throw new Error("Unexpected native FMZK source geometry in "+key);
 			}
+			const chunks=zoom===13?chunkNativeParts(parsed.parts):null;
 			const output=path.join(outDir,"tiles",key+".bin.gz");
 			await fs.mkdir(path.dirname(output),{recursive:true});
-			await fs.writeFile(output,encoded.compressed);
-			manifest.tiles[key]={sha256:sha256(encoded.compressed),...encoded.stats};
+			let bytes=0;
+			if(chunks){
+				for(const chunk of chunks){
+					const chunkName=key+"/"+chunk.index+".bin.gz";
+					const target=path.join(outDir,"tiles",chunkName);
+					await fs.mkdir(path.dirname(target),{recursive:true});
+					await fs.writeFile(target,chunk.compressed);
+					chunk.key=chunkName;
+					chunk.sha256=sha256(chunk.compressed);
+					bytes+=chunk.compressed.length;
+					readNativeTile(chunk.compressed);
+				}
+			}else{
+				await fs.writeFile(output,encoded.compressed);
+				bytes=encoded.compressed.length;
+			}
+			manifest.tiles[key]={
+				...(chunks?{chunks:chunks.map(({key,parts,rawBytes,gzipBytes,sha256})=>({
+					key,parts,rawBytes,gzipBytes,sha256}))}
+					:{sha256:sha256(encoded.compressed)}),
+				...encoded.stats,gzipBytes:bytes
+			};
 			manifest.parts+=encoded.stats.buildingParts;
 			manifest.vertices+=encoded.stats.vertices;
 			manifest.triangles+=encoded.stats.triangles;
-			manifest.gzipBytes+=encoded.compressed.length;
+			manifest.gzipBytes+=bytes;
 		}finally{geometry.dispose();}
 	}
 	await fs.mkdir(outDir,{recursive:true});
