@@ -1,0 +1,19 @@
+name: Validate Vienna native GitHub Actions workflow syntax
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/lint-native-workflows.yml'
+      - '.github/workflows/wien-native-production.yml'
+      - '.github/workflows/wien-native-region-pipeline.yml'
+jobs:
+  lint:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v7
+      - name: Check all native workflow expressions and schema
+        run: |
+          set -euo pipefail
+          docker run --rm -v "$PWD:/repo" -w /repo rhysd/actionlint:latest -color \
+            .github/workflows/wien-native-production.yml \
+            .github/workflows/wien-native-region-pipeline.yml
