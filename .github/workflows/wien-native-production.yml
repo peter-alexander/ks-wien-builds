@@ -43,8 +43,9 @@ jobs:
           node --check wien-native-city/package-multizoom-release.mjs
           node --check wien-native-city/source-fingerprint.mjs
           node --check wien-native-city/reuse-production-region.mjs
+          node --check wien-native-city/validate-production-delta.mjs
           node --check wien-native-city/source-fingerprint.mjs
-          node --test wien-native-city/build-lowzoom.test.mjs wien-native-city/build-lowzoom-city.test.mjs wien-native-city/native-chunks.test.mjs wien-native-city/region-plan.test.mjs wien-native-city/assemble-regions.test.mjs wien-native-city/incremental-plan.test.mjs wien-native-city/roof-inventory.test.mjs wien-native-city/native-tile-patch.test.mjs wien-native-city/source-state.test.mjs wien-native-city/building-index.test.mjs wien-native-city/canonical-native-anchors.test.mjs wien-native-city/source-fingerprint.test.mjs wien-native-city/reuse-production-region.test.mjs wien-native-pilot/build.test.mjs wien-lod21/download-sheets.test.mjs
+          node --test wien-native-city/build-lowzoom.test.mjs wien-native-city/build-lowzoom-city.test.mjs wien-native-city/native-chunks.test.mjs wien-native-city/region-plan.test.mjs wien-native-city/assemble-regions.test.mjs wien-native-city/incremental-plan.test.mjs wien-native-city/roof-inventory.test.mjs wien-native-city/native-tile-patch.test.mjs wien-native-city/source-state.test.mjs wien-native-city/building-index.test.mjs wien-native-city/canonical-native-anchors.test.mjs wien-native-city/source-fingerprint.test.mjs wien-native-city/reuse-production-region.test.mjs wien-native-city/validate-production-delta.test.mjs wien-native-pilot/build.test.mjs wien-lod21/download-sheets.test.mjs
 
   source:
     name: Download one authoritative FMZK snapshot for every native zoom
@@ -281,6 +282,10 @@ jobs:
           path: sources/wien-native-city/build
       - uses: actions/download-artifact@v8
         with:
+          name: wien-previous-native-z15
+          path: sources/wien-native-city/build/previous
+      - uses: actions/download-artifact@v8
+        with:
           pattern: wien-native-roof-region-*
           path: sources/wien-native-city/build/region-artifacts
       - name: Reuse unchanged native Z13/Z14, otherwise rebuild from this FMZK snapshot
@@ -307,6 +312,12 @@ jobs:
         run: |
           node --max-old-space-size=6144 wien-native-city/assemble-regions.mjs \
             wien-native-city/build/region-artifacts wien-native-city/build/z15
+      - name: Reject unexplained loss of previously matched original roofs
+        working-directory: sources
+        run: |
+          node wien-native-city/validate-production-delta.mjs \
+            wien-native-city/build/previous/release-z15.json \
+            wien-native-city/build/z15/release.json
       - name: Validate and stage complete final XYZ-only release
         working-directory: sources
         run: |
