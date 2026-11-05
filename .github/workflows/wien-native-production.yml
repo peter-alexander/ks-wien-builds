@@ -216,7 +216,7 @@ jobs:
             --targets "wien-native-city/build/region-${{ matrix.region }}/sources.json" \
             --cache-dir "wien-native-city/build/region-${{ matrix.region }}/downloads" \
             --summary "wien-native-city/build/region-${{ matrix.region }}/download-pass-1.json" \
-            --only-unresolved true --continue-on-error true \
+            --only-unresolved false --continue-on-error true \
             --missing-policy confirmed-404 --revalidate strict \
             --parallel 1 --interval-ms 2000 --attempts 2 \
             --threshold 2 --cooldown-ms 12000 --max-cooldowns 1 --retry-ms 4000
