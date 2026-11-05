@@ -296,3 +296,42 @@ test("two blocked TCP connections stop a six-sheet runner and hand work to a new
 		assert.ok(result.events.some(e=>e.kind==="blocked-runner"));
 	});
 });
+
+
+test("repair shard only skips ZIPs whose current-run HTTP freshness has been confirmed",async()=>{
+	await temporary(async cacheDir=>{
+		const sheet="104078";
+		const content="known-valid";
+		const file=path.join(cacheDir,sheet+"_lod2_gml.zip");
+		await fs.writeFile(file,content);
+		const {createHash}=await import("node:crypto");
+		await fs.writeFile(file+".http.json",JSON.stringify({
+			schemaVersion:1,sheet,etag:'"previous"',
+			sha256:createHash("sha256").update(content).digest("hex"),
+			verifiedRunId:"older-build"
+		}));
+		let attempts=0;
+		const mock={
+			validate:async f=>(await fs.readFile(f,"utf8").catch(()=>""))===content,
+			fetch:async()=>{attempts++;return {httpStatus:304};}
+		};
+		const one=await downloadBatch([sheet],{
+			...settings,cacheDir,runId:"new-build",onlyUnresolved:true,
+			revalidate:"strict"
+		},mock);
+		assert.equal(one.notModified,1);
+		assert.equal(attempts,1);
+		const two=await downloadBatch([sheet],{
+			...settings,cacheDir,runId:"new-build",onlyUnresolved:true,
+			revalidate:"strict"
+		},mock);
+		assert.equal(two.cached,1);
+		assert.equal(attempts,1);
+		const three=await downloadBatch([sheet],{
+			...settings,cacheDir,runId:"third-build",onlyUnresolved:true,
+			revalidate:"strict"
+		},mock);
+		assert.equal(three.notModified,1);
+		assert.equal(attempts,2);
+	});
+});
