@@ -32,12 +32,15 @@ export function groupKey(record) {
 	return record.source + ":" + record.id;
 }
 
-export function readNativeTile(input) {
+export function readNativeTile(input, {maxBytes=MAX_BYTES} = {}) {
+	if(!Number.isSafeInteger(maxBytes) || maxBytes<MAX_BYTES || maxBytes>256*1024*1024){
+		throw new Error("Unsafe native build-time buffer limit");
+	}
 	let raw = Buffer.isBuffer(input) ? input : Buffer.from(input);
 	if (raw[0] === 0x1f && raw[1] === 0x8b) {
-		raw = gunzipSync(raw, {maxOutputLength: MAX_BYTES});
+		raw = gunzipSync(raw, {maxOutputLength: maxBytes});
 	}
-	if (raw.length < HEADER_BYTES || raw.length > MAX_BYTES ||
+	if (raw.length < HEADER_BYTES || raw.length > maxBytes ||
 		raw.subarray(0,8).toString("ascii") !== NATIVE_MAGIC ||
 		raw.readUInt32LE(8) !== 1 || raw.readUInt32LE(12) !== NATIVE_EXTENT) {
 		throw new Error("Unsupported or excessively large KSWN0001 tile");
@@ -47,7 +50,7 @@ export function readNativeTile(input) {
 	const partCount = raw.readUInt32LE(24);
 	const metadataLength = raw.readUInt32LE(28);
 	requireNumber(partCount, "Invalid native part count", 1);
-	if (partCount > MAX_PARTS || metadataLength > 8*1024*1024 ||
+	if (partCount > MAX_PARTS || metadataLength > Math.min(32*1024*1024,maxBytes/2) ||
 		indexCount % 3 || vertexCount === 0 || indexCount === 0) {
 		throw new Error("Invalid native tile header cardinality");
 	}
