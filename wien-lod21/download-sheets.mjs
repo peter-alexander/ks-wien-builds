@@ -39,6 +39,7 @@ export function optionsFrom(argv = process.argv.slice(2), env = process.env) {
 		retryMs: number(args["retry-ms"] ?? env.WIEN_LOD21_RETRY_MS ?? 3000, "retry-ms", 0, 60000),
 		continueOnError: args["continue-on-error"] === "true",
 		onlyUnresolved: args["only-unresolved"] === "true",
+		runId: env.WIEN_CITYGML_RUN_ID || null,
 		abortOnNetworkErrors: number(args["abort-on-network-errors"] ?? 0,
 			"abort-on-network-errors",0,20),
 		missingPolicy: (() => {
@@ -179,7 +180,8 @@ export async function downloadBatch(sheets, config, overrides = {}) {
 				if (metadata?.schemaVersion === 1 && metadata.sheet === sheet &&
 					/^[a-f0-9]{64}$/.test(metadata.sha256 || "")) {
 					const digest = createHash("sha256").update(await fs.readFile(file)).digest("hex");
-					if (digest === metadata.sha256) {
+					if (digest === metadata.sha256 &&
+						(!config.runId || metadata.verifiedRunId===config.runId)) {
 						report.cached++;
 						log("already-verified", { sheet });
 						return;
@@ -189,7 +191,8 @@ export async function downloadBatch(sheets, config, overrides = {}) {
 				const missing = await fs.readFile(file + ".missing.json", "utf8")
 					.then(JSON.parse).catch(() => null);
 				if (!previouslyValid && missing?.status === "confirmed-missing" &&
-					missing.sheet === sheet && missing.httpStatus === 404) {
+					missing.sheet === sheet && missing.httpStatus === 404 &&
+					(!config.runId || missing.verifiedRunId===config.runId)) {
 					report.missing.push(sheet);
 					log("already-confirmed-missing", { sheet });
 					return;
@@ -230,6 +233,11 @@ export async function downloadBatch(sheets, config, overrides = {}) {
 					if (!previouslyValid) throw new Error("HTTP 304 but no validated cached ZIP");
 					report.cached++;
 					report.notModified++;
+					if(config.runId){
+						const priorMetadata=JSON.parse(await fs.readFile(metadataFile,"utf8"));
+						priorMetadata.verifiedRunId=config.runId;
+						await fs.writeFile(metadataFile,JSON.stringify(priorMetadata)+"\n");
+					}
 					log("not-modified", { sheet, attempt, httpStatus: 304 });
 					streak = 0;
 					networkFailures = 0;
@@ -246,7 +254,8 @@ export async function downloadBatch(sheets, config, overrides = {}) {
 					lastModified: response?.lastModified ?? null,
 					contentLength: response?.contentLength ?? null,
 					sha256: createHash("sha256").update(content).digest("hex"),
-					downloadedAt: new Date().toISOString()
+					downloadedAt: new Date().toISOString(),
+					verifiedRunId:config.runId||null
 				};
 				const metadataPartial = metadataFile + ".partial";
 				await fs.writeFile(metadataPartial, JSON.stringify(metadata) + "\n");
@@ -260,7 +269,8 @@ export async function downloadBatch(sheets, config, overrides = {}) {
 				if (error.httpStatus === 404 && config.missingPolicy === "confirmed-404" && !previouslyValid) {
 					await fs.writeFile(file + ".missing.json", JSON.stringify({
 						status: "confirmed-missing", httpStatus: 404, sheet,
-						checkedAt: new Date().toISOString()
+						checkedAt: new Date().toISOString(),
+						verifiedRunId:config.runId||null
 					}) + "\n");
 					report.missing.push(sheet);
 					log("confirmed-missing", { sheet, attempt, httpStatus: 404 });
