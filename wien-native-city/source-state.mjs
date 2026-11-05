@@ -22,6 +22,8 @@ export async function collectSourceState({manifest,sourceDir,readFile=fs.readFil
 		if(archive){
 			const metadata=JSON.parse(await readFile(prefix+".http.json","utf8"));
 			if(metadata.schemaVersion!==1 || metadata.sheet!==sheet ||
+				(process.env.WIEN_CITYGML_RUN_ID &&
+					metadata.verifiedRunId!==process.env.WIEN_CITYGML_RUN_ID) ||
 				!/^[a-f0-9]{64}$/.test(metadata.sha256||"")) {
 				throw new Error("Source archive has no valid SHA256 metadata: "+sheet);
 			}
@@ -38,6 +40,8 @@ export async function collectSourceState({manifest,sourceDir,readFile=fs.readFil
 			const missing=JSON.parse(await readFile(prefix+".missing.json","utf8"));
 			if(missing.sheet!==sheet || missing.httpStatus!==404 ||
 				missing.status!=="confirmed-missing" ||
+				(process.env.WIEN_CITYGML_RUN_ID &&
+					missing.verifiedRunId!==process.env.WIEN_CITYGML_RUN_ID) ||
 				!Number.isFinite(Date.parse(missing.checkedAt))) {
 				throw new Error("Unverified missing original CityGML source: "+sheet);
 			}
