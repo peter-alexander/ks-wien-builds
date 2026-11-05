@@ -127,11 +127,28 @@ export async function stageNativeRelease({
 		gzipBytes:z15.gzipBytes,
 		manifest:"release-z15.json",buildingIndex:indexMeta.path,
 		tileTemplate:"tiles/15/{x}/{y}.bin.gz"};
+	// Identical geometry receives the same cache-buster, even if a fresh
+	// official WFS export has a different generatedAt timestamp.
+	const contentFingerprint=createHash("sha256");
+	for(const [zoom,manifest] of [...low].sort((a,b)=>a[0]-b[0])){
+		for(const [key,entry] of Object.entries(manifest.tiles).sort(([a],[b])=>a.localeCompare(b))){
+			const signatures=zoom===13?entry.chunks.map(chunk=>chunk.sha256):[entry.sha256];
+			for(const signature of signatures){
+				if(!/^[a-f0-9]{64}$/.test(signature))throw new Error("Unverified native tile digest "+key);
+				contentFingerprint.update(key+"\\0"+signature+"\\n");
+			}
+		}
+	}
+	for(const [key,entry] of Object.entries(z15.tiles).sort(([a],[b])=>a.localeCompare(b))){
+		contentFingerprint.update(key+"\\0"+entry.sha256+"\\n");
+	}
+	contentFingerprint.update("building-index\\0"+indexMeta.sha256+"\\n");
+	const cacheVersion=contentFingerprint.digest("hex").slice(0,20);
 	const publication={
 		schemaVersion:1,format:"KSWN0001",status:"complete",releaseId,
 		fmzkRelease:reference,attribution:"Stadt Wien – data.wien.gv.at, CC BY 4.0",
 		source:"Kartensammlung original FMZK and validated original CityGML",
-		tileRoot:"tiles/",cacheVersion:releaseId,
+		tileRoot:"tiles/",cacheVersion,
 		zoomLevels:levels,
 		note:"Z13 tiles are split into independently decodable native geometry chunks; Z14 and Z15 use single files."
 	};
