@@ -2,10 +2,8 @@ name: Build and publish Vienna native Z13-Z15 from current official sources
 
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/wien-native-production.yml'
+  schedule:
+    - cron: '19 2 * * 0'
 
 permissions:
   contents: write
@@ -130,7 +128,7 @@ jobs:
     timeout-minutes: 240
     strategy:
       fail-fast: false
-      max-parallel: 3
+      max-parallel: 1
       matrix:
         region: ${{ fromJSON(needs.source.outputs.regions) }}
     env:
