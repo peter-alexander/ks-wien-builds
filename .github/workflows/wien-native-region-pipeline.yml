@@ -202,6 +202,19 @@ jobs:
           path: wien-native-city/build/region-${{ inputs.region }}/receipts/
           retention-days: 3
 
+      - name: Provide an empty repair report if all first-pass shards succeeded
+        if: matrix.shard < 0
+        run: |
+          mkdir -p empty-report
+          printf '{"requested":0,"failed":[],"skipped":0}\n' > empty-report/shard--1.json
+      - uses: actions/upload-artifact@v7
+        if: matrix.shard < 0
+        with:
+          name: wien-region-${{ inputs.region }}-report-pass2-none
+          path: empty-report/
+          retention-days: 3
+          if-no-files-found: error
+
   audit2:
     name: Identify still unresolved CityGML shards
     needs: [plan, repair1]
