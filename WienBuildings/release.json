@@ -6,7 +6,6 @@
 	"fmzkRelease": "2026-11-03T11:04:51.669Z",
 	"attribution": "Stadt Wien – data.wien.gv.at, CC BY 4.0",
 	"source": "Kartensammlung original FMZK and validated original CityGML",
-	"versionedPath": "releases/2026-11-05-fmzk-native-v1/",
 	"zoomLevels": {
 		"13": {
 			"geometry": "pretriangulated-lod1-flat-roofs",
@@ -41,5 +40,7 @@
 			"tileTemplate": "tiles/15/{x}/{y}.bin.gz"
 		}
 	},
-	"note": "Z13 tiles are split into independently decodable native geometry chunks; Z14 and Z15 use single files."
+	"note": "Z13 tiles are split into independently decodable native geometry chunks; Z14 and Z15 use single files.",
+	"tileRoot": "tiles/",
+	"cacheVersion": "2026-11-05-fmzk-native-v1"
 }
