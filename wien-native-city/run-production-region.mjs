@@ -9,6 +9,7 @@ import path from "node:path";
 import {spawnSync} from "node:child_process";
 import {createHash} from "node:crypto";
 import {readNativeTile} from "./native-tile-patch.mjs";
+import {reuseProductionRegion} from "./reuse-production-region.mjs";
 
 function run(executable,args,env=process.env){
 	const result=spawnSync(executable,args,{stdio:"inherit",env,maxBuffer:16*1024*1024});
@@ -78,6 +79,12 @@ async function main(){
 		"--threshold","3","--cooldown-ms","60000","--max-cooldowns","2",
 		"--retry-ms","4000"]);
 	node(["wien-native-city/source-state.mjs",targets,downloads,path.join(root,"source-state.json")]);
+	if(await reuseProductionRegion({
+		regionRoot:root,
+		oldReleaseFile:process.env.WIEN_NATIVE_PREVIOUS_Z15,
+		allowReuse:process.env.WIEN_NATIVE_ALLOW_REUSE==="true"
+	}))return;
+
 	const archiveNames=(await fs.readdir(downloads)).filter(x=>x.endsWith("_lod2_gml.zip"));
 	const source=path.join(root,"source");
 	await fs.mkdir(source,{recursive:true});
