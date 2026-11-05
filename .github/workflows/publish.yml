@@ -4,7 +4,6 @@ on:
   push:
     branches: [main]
     paths:
-      - 'wien-buildings/**'
       - '.github/workflows/publish.yml'
   workflow_dispatch:
     inputs:
@@ -14,11 +13,9 @@ on:
         required: true
         options:
           - baumkataster
-          - buildings-lod1
           - stadtplan
   schedule:
     - cron: '37 2 * * *'
-    - cron: '23 3 * * 2,5'
     - cron: '19 0 * * *'
 
 permissions:
@@ -32,7 +29,7 @@ jobs:
   build-publish:
     runs-on: ubuntu-latest
     env:
-      DATASET: ${{ github.event_name == 'workflow_dispatch' && inputs.dataset || (github.event_name == 'push' && 'buildings-lod1' || github.event.schedule == '37 2 * * *' && 'baumkataster' || github.event.schedule == '19 0 * * *' && 'stadtplan' || github.event.schedule == '23 3 * * 2,5' && 'buildings-lod1' || '') }}
+      DATASET: ${{ github.event_name == 'workflow_dispatch' && inputs.dataset || (github.event.schedule == '37 2 * * *' && 'baumkataster' || github.event.schedule == '19 0 * * *' && 'stadtplan' || '') }}
     steps:
       - uses: actions/checkout@v7
         with:
@@ -60,7 +57,7 @@ jobs:
           sudo apt-get install -y build-essential libsqlite3-dev zlib1g-dev unzip
 
       - name: Cache tippecanoe
-        if: env.DATASET == 'baumkataster' || env.DATASET == 'buildings-lod1'
+        if: env.DATASET == 'baumkataster'
         id: tippecanoe-cache
         uses: actions/cache@v6
         with:
@@ -68,7 +65,7 @@ jobs:
           key: ${{ runner.os }}-wien-tippecanoe-v1
 
       - name: Build tippecanoe
-        if: (env.DATASET == 'baumkataster' || env.DATASET == 'buildings-lod1') && steps.tippecanoe-cache.outputs.cache-hit != 'true'
+        if: env.DATASET == 'baumkataster' && steps.tippecanoe-cache.outputs.cache-hit != 'true'
         working-directory: sources
         run: bash .github/scripts/build-tippecanoe.sh
 
@@ -84,9 +81,6 @@ jobs:
           case "$DATASET" in
             baumkataster)
               bash baumkataster/run.sh
-              ;;
-            buildings-lod1)
-              bash wien-buildings/run.sh
               ;;
             stadtplan)
               node stadtplan-wien/test.mjs
@@ -111,24 +105,6 @@ jobs:
               target="pages/StadtplanWien"
               source="sources/stadtplan-wien/build"
               ;;
-            buildings-lod1)
-              target="pages/WienBuildings/LOD1"
-              source="sources/wien-buildings/build/WienBuildings"
-              # GitHub Pages cannot configure Content-Encoding for pre-gzipped PBF.
-              # Store actual PBF bytes uncompressed so browsers can parse them.
-              find "$source/tiles" -type f -name '*.pbf' -print0 |
-                while IFS= read -r -d '' tile; do
-                  gzip -dc "$tile" > "$tile.tmp"
-                  mv "$tile.tmp" "$tile"
-                done
-              node -e '
-                const fs = require("fs");
-                const p = process.argv[1];
-                const data = JSON.parse(fs.readFileSync(p, "utf8"));
-                data.vectorTiles.compression = "none";
-                fs.writeFileSync(p, JSON.stringify(data, null, 2) + String.fromCharCode(10));
-              ' "$source/release.json"
-              ;;
           esac
           test -d "$source"
           if [ "$DATASET" = "stadtplan" ]; then
@@ -140,10 +116,7 @@ jobs:
           else
             mkdir -p "$target"
             cp -a "$source/." "$target/"
-            if [ "$DATASET" = "buildings-lod1" ]; then
-              rm -f "$target/.htaccess"
             fi
-          fi
           touch pages/.nojekyll
           echo "PAGES_TARGET=$target" >> "$GITHUB_ENV"
 
