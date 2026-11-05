@@ -25,7 +25,9 @@ import {
 	createWienLod21ThreeGeometry
 } from "../wien-optimized/src/app/buildings/wien-lod21-geometry.js";
 
-export const BASE = "https://peter-alexander.github.io/ks-wien-builds/WienBuildings";
+// Production region jobs use an immutable FMZK snapshot served from the same Action run.
+export const BASE = process.env.WIEN_NATIVE_SOURCE_BASE
+	|| "https://peter-alexander.github.io/ks-wien-builds/WienBuildings";
 export const MAGIC = "KSWN0001";
 export const EXTENT = 8192;
 export const CENTER = Object.freeze({ z: 15, x: 17873, y: 11364 }); // Straußengasse
