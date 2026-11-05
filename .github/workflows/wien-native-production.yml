@@ -169,14 +169,148 @@ jobs:
           retention-days: 3
           if-no-files-found: error
 
-  regions:
-    name: Build original CityGML + current FMZK region ${{ matrix.region }}
+
+  download:
+    name: download CityGML region ${{ matrix.region }}
     needs: source
+    runs-on: ubuntu-24.04
+    timeout-minutes: 100
+    strategy:
+      fail-fast: true
+      max-parallel: 1
+      matrix:
+        region: ${{ fromJSON(needs.source.outputs.regions) }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+      - uses: actions/download-artifact@v8
+        with:
+          name: wien-current-native-inventory
+          path: wien-native-city/build
+      - name: Create source plan from the frozen same-run FMZK inventory
+        env:
+          WIEN_NATIVE_INVENTORY_FILE: wien-native-city/build/roof-inventory.json
+        run: |
+          node wien-native-city/region-plan.mjs \
+            --region "${{ matrix.region }}" --out "wien-native-city/build/region-${{ matrix.region }}"
+      - name: Restore previously checked original ZIPs
+        uses: actions/cache/restore@v6
+        with:
+          path: wien-native-city/build/region-${{ matrix.region }}/downloads
+          key: wien-original-region-${{ matrix.region }}-${{ github.run_id }}
+          restore-keys: |
+            wien-original-region-${{ matrix.region }}-
+
+      - name: Download reachable original CityGML sheets
+        run: |
+          set -euo pipefail
+          node wien-lod21/download-sheets.mjs \
+            --targets "wien-native-city/build/region-${{ matrix.region }}/sources.json" \
+            --cache-dir "wien-native-city/build/region-${{ matrix.region }}/downloads" \
+            --summary "wien-native-city/build/region-${{ matrix.region }}/download-pass-1.json" \
+            --only-unresolved true --continue-on-error true \
+            --missing-policy confirmed-404 --revalidate strict \
+            --parallel 1 --interval-ms 2000 --attempts 2 \
+            --threshold 2 --cooldown-ms 12000 --max-cooldowns 1 --retry-ms 4000
+      - name: Preserve partial and complete verified ZIPs for the next runner
+        uses: actions/upload-artifact@v7
+        with:
+          name: wien-citygml-pass1-${{ matrix.region }}
+          path: wien-native-city/build/region-${{ matrix.region }}/
+          retention-days: 3
+          compression-level: 0
+          if-no-files-found: error
+
+  repair1:
+    name: repair1 CityGML region ${{ matrix.region }}
+    needs: [source, download]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 100
+    strategy:
+      fail-fast: true
+      max-parallel: 1
+      matrix:
+        region: ${{ fromJSON(needs.source.outputs.regions) }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+      - uses: actions/download-artifact@v8
+        with:
+          name: wien-citygml-pass1-${{ matrix.region }}
+          path: wien-native-city/build/region-${{ matrix.region }}
+
+      - name: Retry only unresolved original CityGML sheets on a fresh GitHub-hosted runner
+        run: |
+          set -euo pipefail
+          node wien-lod21/download-sheets.mjs \
+            --targets "wien-native-city/build/region-${{ matrix.region }}/sources.json" \
+            --cache-dir "wien-native-city/build/region-${{ matrix.region }}/downloads" \
+            --summary "wien-native-city/build/region-${{ matrix.region }}/download-pass-2.json" \
+            --only-unresolved true --continue-on-error true \
+            --missing-policy confirmed-404 --revalidate strict \
+            --parallel 1 --interval-ms 3000 --attempts 2 \
+            --threshold 2 --cooldown-ms 30000 --max-cooldowns 2 --retry-ms 5000
+      - name: Preserve partial and complete verified ZIPs for the next runner
+        uses: actions/upload-artifact@v7
+        with:
+          name: wien-citygml-pass2-${{ matrix.region }}
+          path: wien-native-city/build/region-${{ matrix.region }}/
+          retention-days: 3
+          compression-level: 0
+          if-no-files-found: error
+
+  repair2:
+    name: repair2 CityGML region ${{ matrix.region }}
+    needs: [source, repair1]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 100
+    strategy:
+      fail-fast: true
+      max-parallel: 1
+      matrix:
+        region: ${{ fromJSON(needs.source.outputs.regions) }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+      - uses: actions/download-artifact@v8
+        with:
+          name: wien-citygml-pass2-${{ matrix.region }}
+          path: wien-native-city/build/region-${{ matrix.region }}
+
+      - name: Retry only unresolved original CityGML sheets on a fresh GitHub-hosted runner
+        run: |
+          set -euo pipefail
+          node wien-lod21/download-sheets.mjs \
+            --targets "wien-native-city/build/region-${{ matrix.region }}/sources.json" \
+            --cache-dir "wien-native-city/build/region-${{ matrix.region }}/downloads" \
+            --summary "wien-native-city/build/region-${{ matrix.region }}/download-pass-3.json" \
+            --only-unresolved true --continue-on-error true \
+            --missing-policy confirmed-404 --revalidate strict \
+            --parallel 1 --interval-ms 4000 --attempts 3 \
+            --threshold 2 --cooldown-ms 45000 --max-cooldowns 3 --retry-ms 7000
+      - name: Preserve partial and complete verified ZIPs for the next runner
+        uses: actions/upload-artifact@v7
+        with:
+          name: wien-citygml-pass3-${{ matrix.region }}
+          path: wien-native-city/build/region-${{ matrix.region }}/
+          retention-days: 3
+          compression-level: 0
+          if-no-files-found: error
+
+  regions:
+    name: Build native Z15 region ${{ matrix.region }}
+    needs: [source, repair2]
     runs-on: ubuntu-24.04
     timeout-minutes: 240
     strategy:
       fail-fast: true
-      max-parallel: 1
+      max-parallel: 2
       matrix:
         region: ${{ fromJSON(needs.source.outputs.regions) }}
     env:
@@ -184,13 +318,14 @@ jobs:
       WIEN_NATIVE_INVENTORY_FILE: wien-native-city/build/roof-inventory.json
       WIEN_NATIVE_ALLOW_REUSE: ${{ needs.source.outputs.fmzk_reuse }}
       WIEN_NATIVE_PREVIOUS_Z15: wien-native-city/build/previous/release-z15.json
+      WIEN_NATIVE_DOWNLOADS_PREPARED: 'true'
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-node@v7
         with:
           node-version: '24'
           cache: npm
-      - name: Install official geometry parsing dependencies
+      - name: Install geometry dependencies
         run: |
           npm ci --ignore-scripts --no-audit --no-fund
           npm install --no-save --ignore-scripts --no-audit --no-fund @mapbox/vector-tile@3.0.0 pbf@5.1.2 three@0.186.1
@@ -206,66 +341,31 @@ jobs:
         with:
           name: wien-previous-native-z15
           path: wien-native-city/build/previous
-      - name: Restore previously validated originals; strictly revalidate every sheet
-        uses: actions/cache/restore@v6
+      - uses: actions/download-artifact@v8
         with:
-          path: wien-native-city/build/region-${{ matrix.region }}/downloads
-          key: wien-original-region-${{ matrix.region }}-${{ github.run_id }}
-          restore-keys: |
-            wien-original-region-${{ matrix.region }}-
-      - name: Start frozen FMZK source and create complete region download plan
+          name: wien-citygml-pass3-${{ matrix.region }}
+          path: wien-native-city/build/region-${{ matrix.region }}
+      - name: Verify all required original ZIPs and source lineage before geometry
+        run: |
+          set -euo pipefail
+          node wien-native-city/source-state.mjs \
+            "wien-native-city/build/region-${{ matrix.region }}/sources.json" \
+            "wien-native-city/build/region-${{ matrix.region }}/downloads" \
+            "wien-native-city/build/region-${{ matrix.region }}/source-state.json"
+      - name: Build verified region on same-run FMZK data
         run: |
           set -euo pipefail
           nohup node wien-native-city/serve-fmzk.mjs wien-buildings/build/WienBuildings 18765 \
             > /tmp/wien-fmzk-server.log 2>&1 &
           ready=false
           for i in $(seq 1 30); do
-            if curl --fail --silent http://127.0.0.1:18765/LOD1/release.json >/dev/null; then ready=true; break; fi
+            if curl --fail --silent http://127.0.0.1:18765/LOD1/release.json > /dev/null; then ready=true; break; fi
             sleep 1
           done
-          test "$ready" == true
-          node wien-native-city/region-plan.mjs \
-            --region "${{ matrix.region }}" --out "wien-native-city/build/region-${{ matrix.region }}"
-      - name: CityGML download pass – collect all reachable sheets without early exit
-        run: |
-          node wien-lod21/download-sheets.mjs \
-            --targets "wien-native-city/build/region-${{ matrix.region }}/sources.json" \
-            --cache-dir "wien-native-city/build/region-${{ matrix.region }}/downloads" \
-            --summary "wien-native-city/build/region-${{ matrix.region }}/download-pass-1.json" \
-            --only-unresolved true --continue-on-error true \
-            --missing-policy confirmed-404 --revalidate strict \
-            --parallel 1 --interval-ms 2000 --attempts 2 \
-            --threshold 2 --cooldown-ms 12000 --max-cooldowns 1 --retry-ms 4000
-      - name: CityGML repair pass 1 – retry only unresolved ZIPs
-        run: |
-          sleep 15
-          node wien-lod21/download-sheets.mjs \
-            --targets "wien-native-city/build/region-${{ matrix.region }}/sources.json" \
-            --cache-dir "wien-native-city/build/region-${{ matrix.region }}/downloads" \
-            --summary "wien-native-city/build/region-${{ matrix.region }}/download-pass-2.json" \
-            --only-unresolved true --continue-on-error true \
-            --missing-policy confirmed-404 --revalidate strict \
-            --parallel 1 --interval-ms 3000 --attempts 2 \
-            --threshold 2 --cooldown-ms 30000 --max-cooldowns 2 --retry-ms 5000
-      - name: CityGML repair pass 2 – last recovery attempt for missing ZIPs
-        run: |
-          sleep 30
-          node wien-lod21/download-sheets.mjs \
-            --targets "wien-native-city/build/region-${{ matrix.region }}/sources.json" \
-            --cache-dir "wien-native-city/build/region-${{ matrix.region }}/downloads" \
-            --summary "wien-native-city/build/region-${{ matrix.region }}/download-pass-3.json" \
-            --only-unresolved true --continue-on-error true \
-            --missing-policy confirmed-404 --revalidate strict \
-            --parallel 1 --interval-ms 4000 --attempts 3 \
-            --threshold 2 --cooldown-ms 45000 --max-cooldowns 3 --retry-ms 7000
-      - name: Validate every required sheet, then build exact Z15 geometry
-        env:
-          WIEN_NATIVE_DOWNLOADS_PREPARED: 'true'
-        run: |
+          test "$ready" = true
           node --max-old-space-size=4096 wien-native-city/run-production-region.mjs \
             "${{ matrix.region }}" "wien-native-city/build/region-${{ matrix.region }}"
-      - name: Retain validated original ZIP downloads for future source comparisons
-        if: always()
+      - name: Preserve verified originals for subsequent builds
         uses: actions/cache/save@v6
         with:
           path: wien-native-city/build/region-${{ matrix.region }}/downloads
@@ -280,7 +380,7 @@ jobs:
 
   publish:
     name: Validate all native Z13-Z15 geometry and publish a single Git snapshot
-    needs: [source, regions]
+    needs: [source, regions, repair2]
     if: success()
     runs-on: ubuntu-24.04
     timeout-minutes: 180
