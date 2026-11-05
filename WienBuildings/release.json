@@ -2,18 +2,22 @@
 	"schemaVersion": 1,
 	"format": "KSWN0001",
 	"status": "complete",
-	"releaseId": "2026-11-05-fmzk-native-v1",
-	"fmzkRelease": "2026-11-03T11:04:51.669Z",
+	"releaseId": "2026-11-05T15-27-20-088Z",
+	"fmzkRelease": "2026-11-05T15:27:20.088Z",
 	"attribution": "Stadt Wien – data.wien.gv.at, CC BY 4.0",
 	"source": "Kartensammlung original FMZK and validated original CityGML",
+	"fmzkSourceSha256": "633c01f84fa7e4f2d58a0f38b438aee20a506687a0441169fb11e2740a93bb83",
+	"lowZoomBuilderRevision": "31c6938550de34680e9d5a20e7ada7e1b1d992746328789065f45aeffa19f85d",
+	"tileRoot": "tiles/",
+	"cacheVersion": "e298c97b80a04cfc1d9e",
 	"zoomLevels": {
 		"13": {
 			"geometry": "pretriangulated-lod1-flat-roofs",
 			"tiles": 62,
-			"parts": 725214,
-			"vertices": 14188415,
-			"triangles": 7131603,
-			"gzipBytes": 102820504,
+			"parts": 725228,
+			"vertices": 14188825,
+			"triangles": 7131837,
+			"gzipBytes": 102824219,
 			"manifest": "release-z13.json",
 			"tilesFormat": "chunked-by-tile",
 			"tileTemplate": "tiles/13/{x}/{y}/{chunk}.bin.gz"
@@ -21,10 +25,10 @@
 		"14": {
 			"geometry": "pretriangulated-lod1-flat-roofs",
 			"tiles": 200,
-			"parts": 729375,
-			"vertices": 16814770,
-			"triangles": 8706373,
-			"gzipBytes": 122588724,
+			"parts": 729388,
+			"vertices": 16815265,
+			"triangles": 8706658,
+			"gzipBytes": 122592691,
 			"manifest": "release-z14.json",
 			"tilesFormat": "one-binary-per-tile",
 			"tileTemplate": "tiles/14/{x}/{y}.bin.gz"
@@ -32,15 +36,13 @@
 		"15": {
 			"geometry": "pretriangulated-verified-original-roofs",
 			"tiles": 678,
-			"parts": 621698,
-			"roofParts": 59589,
-			"gzipBytes": 245913243,
+			"parts": 621729,
+			"roofParts": 59576,
+			"gzipBytes": 245922080,
 			"manifest": "release-z15.json",
 			"buildingIndex": "building-index.json.gz",
 			"tileTemplate": "tiles/15/{x}/{y}.bin.gz"
 		}
 	},
-	"note": "Z13 tiles are split into independently decodable native geometry chunks; Z14 and Z15 use single files.",
-	"tileRoot": "tiles/",
-	"cacheVersion": "2026-11-05-fmzk-native-v1"
+	"note": "Z13 tiles are split into independently decodable native geometry chunks; Z14 and Z15 use single files."
 }

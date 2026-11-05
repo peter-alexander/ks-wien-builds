@@ -1,15 +1,15 @@
 {
 	"schemaVersion": 2,
 	"format": "KSWN0001",
-	"generatedAt": "2026-11-04T21:27:44.326Z",
-	"fmzkRelease": "2026-11-03T11:04:51.669Z",
-	"buildRevision": "74c45705fd8ea0a0ef148e103c7bf8a683ab98e1b64449ebfcfbde24acdf89fa",
+	"generatedAt": "2026-11-05T17:03:45.813Z",
+	"fmzkRelease": "2026-11-05T15:27:20.088Z",
+	"buildRevision": "d87bfc130499ff5f4e31f193e6f461d60a4c6f9d35a384125c8c20dcaa9e19f7",
 	"metadataRevision": "d72e41be2ee48aa3d1b6b40e39ded7c24f126e52532d7c41a3ea41be3edc7938",
 	"publishedTileCount": 678,
-	"buildingParts": 621698,
-	"lod1Parts": 562109,
-	"lod21Parts": 59589,
-	"gzipBytes": 245913243,
+	"buildingParts": 621729,
+	"lod1Parts": 562153,
+	"lod21Parts": 59576,
+	"gzipBytes": 245922080,
 	"anchorPolicy": "global-logical-building",
 	"canonicalAnchors": {
 		"lod1:ogd:wien-fmzk:4000089185": [
@@ -23755,10 +23755,6 @@
 		"lod1:ogd:wien-fmzk:4001102926": [
 			146494213.33333334,
 			93052834.66666666
-		],
-		"lod1:ogd:wien-fmzk:4001103000": [
-			146494688.66666666,
-			93053084
 		],
 		"lod1:ogd:wien-fmzk:4001103794": [
 			146472914.66666666,
@@ -73480,29 +73476,13 @@
 			146448126,
 			93102134.66666666
 		],
-		"lod1:ogd:wien-fmzk:4003352531": [
-			146448292.66666666,
-			93102426
-		],
-		"lod1:ogd:wien-fmzk:4003352551": [
-			146448256.66666666,
-			93102475.33333333
-		],
-		"lod1:ogd:wien-fmzk:4003352579": [
-			146448278,
-			93102573.33333333
-		],
 		"lod1:ogd:wien-fmzk:4003352614": [
-			146448206.66666666,
-			93102581.33333333
+			146448212.66666666,
+			93102574.66666669
 		],
 		"lod1:ogd:wien-fmzk:4003352725": [
 			146448294.66666666,
 			93102851.33333333
-		],
-		"lod1:ogd:wien-fmzk:4003352743": [
-			146448514.66666666,
-			93102997.33333333
 		],
 		"lod1:ogd:wien-fmzk:4003352750": [
 			146448217.33333334,
@@ -75721,8 +75701,8 @@
 			93069272
 		],
 		"lod1:ogd:wien-fmzk:4003410661": [
-			146504541.33333334,
-			93069318
+			146504537.33333334,
+			93069308.66666667
 		],
 		"lod1:ogd:wien-fmzk:4003410666": [
 			146503851.33333334,
@@ -100424,6 +100404,10 @@
 			146489290,
 			93064302
 		],
+		"lod1:ogd:wien-fmzk:4004109672": [
+			146487528.66666666,
+			93063983.33333334
+		],
 		"lod1:ogd:wien-fmzk:4004109678": [
 			146489212.66666666,
 			93063856
@@ -109621,8 +109605,8 @@
 			93069389.33333334
 		],
 		"lod1:ogd:wien-fmzk:4004349068": [
-			146497537.33333334,
-			93058721.33333333
+			146497508.66666666,
+			93058706
 		],
 		"lod1:ogd:wien-fmzk:4004349121": [
 			146500790.66666666,
@@ -134189,7 +134173,7 @@
 			93058816.66666667
 		],
 		"lod1:ogd:wien-fmzk:4005244401": [
-			146497568.66666666,
+			146497569.33333334,
 			93058651.33333333
 		],
 		"lod1:ogd:wien-fmzk:4005244436": [
@@ -136008,33 +135992,9 @@
 			146379594.66666666,
 			93166812.66666666
 		],
-		"lod1:ogd:wien-fmzk:4005302023": [
-			146448240.66666666,
-			93103212.66666667
-		],
-		"lod1:ogd:wien-fmzk:4005302025": [
-			146448211.33333334,
-			93103198
-		],
-		"lod1:ogd:wien-fmzk:4005302027": [
-			146448200.66666666,
-			93103188
-		],
 		"lod1:ogd:wien-fmzk:4005302115": [
 			146448254.66666666,
 			93102478.66666666
-		],
-		"lod1:ogd:wien-fmzk:4005302116": [
-			146448258.66666666,
-			93102472
-		],
-		"lod1:ogd:wien-fmzk:4005302120": [
-			146448290.66666666,
-			93102429.33333333
-		],
-		"lod1:ogd:wien-fmzk:4005302122": [
-			146448294.66666666,
-			93102424
 		],
 		"lod1:ogd:wien-fmzk:4005302301": [
 			146448402.66666666,
@@ -136069,16 +136029,12 @@
 			93103099.33333333
 		],
 		"lod1:ogd:wien-fmzk:4005302580": [
-			146448238,
-			93102500.66666667
+			146448245.33333334,
+			93102489.33333333
 		],
 		"lod1:ogd:wien-fmzk:4005302582": [
 			146448270.66666666,
 			93102458
-		],
-		"lod1:ogd:wien-fmzk:4005302589": [
-			146448306,
-			93102410
 		],
 		"lod1:ogd:wien-fmzk:4005302718": [
 			146448398.66666666,
@@ -156821,8 +156777,8 @@
 			93070309.33333334
 		],
 		"lod1:ogd:wien-fmzk:4005952497": [
-			146489162,
-			93070273.33333331
+			146489153.33333334,
+			93070270.66666666
 		],
 		"lod1:ogd:wien-fmzk:4005952543": [
 			146489408,
@@ -157819,18 +157775,6 @@
 		"lod1:ogd:wien-fmzk:4005971680": [
 			146495580,
 			93053368.66666667
-		],
-		"lod1:ogd:wien-fmzk:4005971706": [
-			146494668.66666666,
-			93053081.33333331
-		],
-		"lod1:ogd:wien-fmzk:4005971709": [
-			146494695.33333334,
-			93053072.66666669
-		],
-		"lod1:ogd:wien-fmzk:4005971710": [
-			146494678.66666666,
-			93053063.33333333
 		],
 		"lod1:ogd:wien-fmzk:4005971733": [
 			146495476,
@@ -161531,14 +161475,6 @@
 		"lod1:ogd:wien-fmzk:4006047866": [
 			146501469.33333334,
 			93071857.33333333
-		],
-		"lod1:ogd:wien-fmzk:4006047959": [
-			146504299.33333334,
-			93070108
-		],
-		"lod1:ogd:wien-fmzk:4006047969": [
-			146504088.66666666,
-			93070037.33333331
 		],
 		"lod1:ogd:wien-fmzk:4006048005": [
 			146501504.66666666,
@@ -191316,42 +191252,6 @@
 			146317291.33333334,
 			93075064
 		],
-		"lod1:ogd:wien-fmzk:4006630151": [
-			146448421.33333334,
-			93103510.66666667
-		],
-		"lod1:ogd:wien-fmzk:4006630154": [
-			146448391.33333334,
-			93103474.66666669
-		],
-		"lod1:ogd:wien-fmzk:4006630158": [
-			146448348.66666666,
-			93103380.66666666
-		],
-		"lod1:ogd:wien-fmzk:4006630161": [
-			146448368,
-			93103369.33333333
-		],
-		"lod1:ogd:wien-fmzk:4006630183": [
-			146448243.33333334,
-			93103273.33333333
-		],
-		"lod1:ogd:wien-fmzk:4006630184": [
-			146448254,
-			93103266.66666667
-		],
-		"lod1:ogd:wien-fmzk:4006630185": [
-			146448230.66666666,
-			93103224.66666667
-		],
-		"lod1:ogd:wien-fmzk:4006630198": [
-			146448348,
-			93103417.33333334
-		],
-		"lod1:ogd:wien-fmzk:4006630223": [
-			146448318.66666666,
-			93102401.33333333
-		],
 		"lod1:ogd:wien-fmzk:4006630428": [
 			146448308,
 			93100723.33333331
@@ -203888,10 +203788,6 @@
 			146497630.66666666,
 			93058994
 		],
-		"lod1:ogd:wien-fmzk:4006891934": [
-			146497641.33333334,
-			93058932.66666667
-		],
 		"lod1:ogd:wien-fmzk:4006891963": [
 			146497479.33333334,
 			93058732.66666669
@@ -214628,29 +214524,13 @@
 			146424236,
 			93060809.33333331
 		],
-		"lod1:ogd:wien-fmzk:4007062452": [
-			146448542,
-			93103609.33333331
-		],
-		"lod1:ogd:wien-fmzk:4007062453": [
-			146448444.66666666,
-			93103358
-		],
-		"lod1:ogd:wien-fmzk:4007062455": [
-			146448438.66666666,
-			93103334.66666666
-		],
-		"lod1:ogd:wien-fmzk:4007062460": [
-			146448298.66666666,
-			93103169.33333333
-		],
 		"lod1:ogd:wien-fmzk:4007062477": [
 			146448196.66666666,
 			93102832
 		],
 		"lod1:ogd:wien-fmzk:4007062486": [
 			146448396,
-			93102486
+			93102489.33333333
 		],
 		"lod1:ogd:wien-fmzk:4007062504": [
 			146448521.33333334,
@@ -251824,10 +251704,6 @@
 			146382788,
 			93046756.66666667
 		],
-		"lod1:ogd:wien-fmzk:4007756973": [
-			146499910,
-			93094014
-		],
 		"lod1:ogd:wien-fmzk:4007757017": [
 			146500572.66666666,
 			93092657.33333334
@@ -257432,6 +257308,98 @@
 			146346786.66666666,
 			93077216
 		],
+		"lod1:ogd:wien-fmzk:4007940551": [
+			146448421.33333334,
+			93103510.66666667
+		],
+		"lod1:ogd:wien-fmzk:4007940558": [
+			146448460,
+			93103561.33333333
+		],
+		"lod1:ogd:wien-fmzk:4007940561": [
+			146448542,
+			93103609.33333331
+		],
+		"lod1:ogd:wien-fmzk:4007940568": [
+			146448485.33333334,
+			93103336.66666669
+		],
+		"lod1:ogd:wien-fmzk:4007940580": [
+			146448282.66666666,
+			93103160.66666667
+		],
+		"lod1:ogd:wien-fmzk:4007940587": [
+			146448348,
+			93103417.33333334
+		],
+		"lod1:ogd:wien-fmzk:4007940602": [
+			146448514.66666666,
+			93102997.33333333
+		],
+		"lod1:ogd:wien-fmzk:4007940656": [
+			146448240,
+			93102528
+		],
+		"lod1:ogd:wien-fmzk:4007940657": [
+			146448242.66666666,
+			93102524
+		],
+		"lod1:ogd:wien-fmzk:4007940662": [
+			146448256.66666666,
+			93102475.33333333
+		],
+		"lod1:ogd:wien-fmzk:4007940663": [
+			146448258.66666666,
+			93102472.66666667
+		],
+		"lod1:ogd:wien-fmzk:4007940668": [
+			146448290.66666666,
+			93102429.33333333
+		],
+		"lod1:ogd:wien-fmzk:4007940669": [
+			146448292.66666666,
+			93102426.66666669
+		],
+		"lod1:ogd:wien-fmzk:4007940670": [
+			146448294.66666666,
+			93102424
+		],
+		"lod1:ogd:wien-fmzk:4007940673": [
+			146448318.66666666,
+			93102403.33333333
+		],
+		"lod1:ogd:wien-fmzk:4007940674": [
+			146448314.66666666,
+			93102397.33333333
+		],
+		"lod1:ogd:wien-fmzk:4007941438": [
+			146499930.66666666,
+			93094042.66666666
+		],
+		"lod1:ogd:wien-fmzk:4007941439": [
+			146499910,
+			93094014
+		],
+		"lod1:ogd:wien-fmzk:4007941542": [
+			146489313.33333334,
+			93080524
+		],
+		"lod1:ogd:wien-fmzk:4007942009": [
+			146504297.33333334,
+			93070112
+		],
+		"lod1:ogd:wien-fmzk:4007942022": [
+			146504088.66666666,
+			93070037.33333331
+		],
+		"lod1:ogd:wien-fmzk:4007942383": [
+			146497494,
+			93058679.33333334
+		],
+		"lod1:ogd:wien-fmzk:4007942385": [
+			146497672,
+			93058628
+		],
 		"lod21:lod21:5284486": [
 			146473432.603,
 			93117548.05799998
@@ -259168,10 +259136,6 @@
 			146386717.612,
 			93144386.697
 		],
-		"lod21:lod21:5311565": [
-			146490354.574,
-			93079500.97500001
-		],
 		"lod21:lod21:5311584": [
 			146371084.542,
 			93089256.732
@@ -259479,10 +259443,6 @@
 		"lod21:lod21:5315950": [
 			146409710.704,
 			93082243.48800002
-		],
-		"lod21:lod21:5315993": [
-			146494909.292,
-			93055915.772
 		],
 		"lod21:lod21:5316019": [
 			146375657.363,
@@ -262580,10 +262540,6 @@
 			146403612.206,
 			93094729.84
 		],
-		"lod21:lod21:5363158": [
-			146451989.179,
-			93108003.233
-		],
 		"lod21:lod21:5363163": [
 			146473779.29,
 			93013919.169
@@ -265143,10 +265099,6 @@
 		"lod21:lod21:5402640": [
 			146395154.961,
 			93145900.14900002
-		],
-		"lod21:lod21:5402643": [
-			146453379.02,
-			93107797.973
 		],
 		"lod21:lod21:5402645": [
 			146398566.018,
@@ -275537,22 +275489,22 @@
 		"path": "building-index.json.gz",
 		"format": "gzip-json",
 		"schemaVersion": 1,
-		"sha256": "e40e7786ea3608eb5611f757907f9a10d24f91fdc2898d21f2165df324c2788c",
-		"buildingCount": 546328,
-		"partCount": 621698,
-		"gzipBytes": 48046886
+		"sha256": "305878a22128f8a8654ae14fb20b188c7bc42bc0d0170ed5b151ff6ac34869aa",
+		"buildingCount": 546356,
+		"partCount": 621729,
+		"gzipBytes": 48048565
 	},
 	"anchorAudit": {
-		"affectedIdentities": 68880,
-		"anchorDisagreements": 31808,
-		"correctedParts": 31808,
+		"affectedIdentities": 68868,
+		"anchorDisagreements": 31812,
+		"correctedParts": 31812,
 		"changedTiles": 587
 	},
 	"sources": {
 		"100065": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:41:21.670Z"
+			"checkedAt": "2026-11-05T15:56:56.514Z"
 		},
 		"100066": {
 			"status": "present",
@@ -275788,17 +275740,17 @@
 		"100099": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:19:46.286Z"
+			"checkedAt": "2026-11-05T15:36:53.603Z"
 		},
 		"100100": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:19:47.534Z"
+			"checkedAt": "2026-11-05T15:36:53.077Z"
 		},
 		"100101": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:19:48.623Z"
+			"checkedAt": "2026-11-05T15:36:54.657Z"
 		},
 		"101065": {
 			"status": "present",
@@ -276055,12 +276007,12 @@
 		"101101": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:19:54.062Z"
+			"checkedAt": "2026-11-05T15:36:56.913Z"
 		},
 		"102065": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:58:10.793Z"
+			"checkedAt": "2026-11-05T16:25:05.660Z"
 		},
 		"102066": {
 			"status": "present",
@@ -276303,17 +276255,17 @@
 		"102100": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:19:57.186Z"
+			"checkedAt": "2026-11-05T15:36:57.628Z"
 		},
 		"102101": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:46:07.040Z"
+			"checkedAt": "2026-11-05T16:01:46.773Z"
 		},
 		"103064": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:58:40.909Z"
+			"checkedAt": "2026-11-05T16:25:24.901Z"
 		},
 		"103065": {
 			"status": "present",
@@ -276556,12 +276508,12 @@
 		"103100": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:46:07.174Z"
+			"checkedAt": "2026-11-05T16:01:45.965Z"
 		},
 		"103101": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:46:33.696Z"
+			"checkedAt": "2026-11-05T16:02:08.447Z"
 		},
 		"104064": {
 			"status": "present",
@@ -276811,27 +276763,27 @@
 		"104099": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:46:35.445Z"
+			"checkedAt": "2026-11-05T16:02:10.999Z"
 		},
 		"104100": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:46:36.480Z"
+			"checkedAt": "2026-11-05T16:02:17.222Z"
 		},
 		"104101": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:46:57.588Z"
+			"checkedAt": "2026-11-05T16:02:28.961Z"
 		},
 		"105064": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:58:11.539Z"
+			"checkedAt": "2026-11-05T16:25:01.217Z"
 		},
 		"105065": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:58:35.357Z"
+			"checkedAt": "2026-11-05T16:25:19.750Z"
 		},
 		"105066": {
 			"status": "present",
@@ -277067,17 +277019,17 @@
 		"105100": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:47:09.217Z"
+			"checkedAt": "2026-11-05T16:02:55.992Z"
 		},
 		"105101": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:47:22.621Z"
+			"checkedAt": "2026-11-05T16:02:59.590Z"
 		},
 		"106064": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:59:26.529Z"
+			"checkedAt": "2026-11-05T16:26:04.120Z"
 		},
 		"106066": {
 			"status": "present",
@@ -277341,12 +277293,12 @@
 		"106103": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:46:09.547Z"
+			"checkedAt": "2026-11-05T16:01:47.681Z"
 		},
 		"106104": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:46:09.486Z"
+			"checkedAt": "2026-11-05T16:01:47.270Z"
 		},
 		"107064": {
 			"status": "present",
@@ -277358,7 +277310,7 @@
 		"107065": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T21:00:17.953Z"
+			"checkedAt": "2026-11-05T16:26:56.762Z"
 		},
 		"107066": {
 			"status": "present",
@@ -277629,7 +277581,7 @@
 		"107104": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:47:04.828Z"
+			"checkedAt": "2026-11-05T16:02:53.633Z"
 		},
 		"107105": {
 			"status": "present",
@@ -277641,7 +277593,7 @@
 		"107106": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:47:24.881Z"
+			"checkedAt": "2026-11-05T16:03:00.680Z"
 		},
 		"108063": {
 			"status": "present",
@@ -277954,7 +277906,7 @@
 		"109062": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:59:57.662Z"
+			"checkedAt": "2026-11-05T16:26:35.219Z"
 		},
 		"109063": {
 			"status": "present",
@@ -278267,17 +278219,17 @@
 		"109107": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:47:42.538Z"
+			"checkedAt": "2026-11-05T16:03:17.278Z"
 		},
 		"109108": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:46:14.990Z"
+			"checkedAt": "2026-11-05T16:01:52.764Z"
 		},
 		"110064": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:58:49.709Z"
+			"checkedAt": "2026-11-05T16:25:27.705Z"
 		},
 		"110065": {
 			"status": "present",
@@ -278548,7 +278500,7 @@
 		"110106": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:46:43.367Z"
+			"checkedAt": "2026-11-05T16:02:21.133Z"
 		},
 		"111062": {
 			"status": "present",
@@ -278679,7 +278631,7 @@
 		"111081": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T19:48:51.127Z"
+			"checkedAt": "2026-11-05T16:15:11.225Z"
 		},
 		"111082": {
 			"status": "present",
@@ -278887,12 +278839,12 @@
 		"112067": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:59:10.762Z"
+			"checkedAt": "2026-11-05T16:25:41.353Z"
 		},
 		"112068": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:59:07.130Z"
+			"checkedAt": "2026-11-05T16:25:49.899Z"
 		},
 		"112069": {
 			"status": "present",
@@ -278904,7 +278856,7 @@
 		"112070": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:59:16.508Z"
+			"checkedAt": "2026-11-05T16:26:04.501Z"
 		},
 		"112071": {
 			"status": "present",
@@ -279140,17 +279092,17 @@
 		"112106": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:46:45.711Z"
+			"checkedAt": "2026-11-05T16:02:22.627Z"
 		},
 		"112107": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:47:07.306Z"
+			"checkedAt": "2026-11-05T16:02:35.867Z"
 		},
 		"113063": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:59:40.298Z"
+			"checkedAt": "2026-11-05T16:26:11.835Z"
 		},
 		"113064": {
 			"status": "present",
@@ -279414,12 +279366,12 @@
 		"113107": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:46:19.794Z"
+			"checkedAt": "2026-11-05T16:01:56.028Z"
 		},
 		"114063": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T21:00:25.309Z"
+			"checkedAt": "2026-11-05T16:27:01.256Z"
 		},
 		"114064": {
 			"status": "present",
@@ -279445,7 +279397,7 @@
 		"114067": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:58:21.278Z"
+			"checkedAt": "2026-11-05T16:25:07.413Z"
 		},
 		"114069": {
 			"status": "present",
@@ -279513,7 +279465,7 @@
 		"114079": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T19:49:43.926Z"
+			"checkedAt": "2026-11-05T16:16:11.057Z"
 		},
 		"114080": {
 			"status": "present",
@@ -279693,17 +279645,17 @@
 		"114106": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:47:14.944Z"
+			"checkedAt": "2026-11-05T16:02:35.570Z"
 		},
 		"115064": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:59:12.960Z"
+			"checkedAt": "2026-11-05T16:25:42.776Z"
 		},
 		"115065": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T21:17:52.790Z"
+			"checkedAt": "2026-11-05T16:43:24.492Z"
 		},
 		"115066": {
 			"status": "present",
@@ -279729,7 +279681,7 @@
 		"115069": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T21:18:14.877Z"
+			"checkedAt": "2026-11-05T16:43:46.724Z"
 		},
 		"115070": {
 			"status": "present",
@@ -279965,7 +279917,7 @@
 		"115104": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T21:03:05.982Z"
+			"checkedAt": "2026-11-05T16:30:05.296Z"
 		},
 		"115106": {
 			"status": "present",
@@ -279977,12 +279929,12 @@
 		"115107": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T21:02:45.350Z"
+			"checkedAt": "2026-11-05T16:29:48.104Z"
 		},
 		"116066": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T21:18:37.957Z"
+			"checkedAt": "2026-11-05T16:44:00.725Z"
 		},
 		"116067": {
 			"status": "present",
@@ -279994,7 +279946,7 @@
 		"116068": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T21:18:47.295Z"
+			"checkedAt": "2026-11-05T16:44:12.044Z"
 		},
 		"116069": {
 			"status": "present",
@@ -280083,7 +280035,7 @@
 		"116081": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T21:14:02.145Z"
+			"checkedAt": "2026-11-05T16:39:27.206Z"
 		},
 		"116082": {
 			"status": "present",
@@ -280235,7 +280187,7 @@
 		"116106": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T21:03:10.931Z"
+			"checkedAt": "2026-11-05T16:30:08.608Z"
 		},
 		"117066": {
 			"status": "present",
@@ -280702,7 +280654,7 @@
 		"119067": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T21:18:28.288Z"
+			"checkedAt": "2026-11-05T16:43:51.131Z"
 		},
 		"119068": {
 			"status": "present",
@@ -280770,7 +280722,7 @@
 		"119077": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T21:11:46.727Z"
+			"checkedAt": "2026-11-05T16:37:33.271Z"
 		},
 		"119078": {
 			"status": "present",
@@ -280922,7 +280874,7 @@
 		"120067": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T21:17:58.743Z"
+			"checkedAt": "2026-11-05T16:43:28.647Z"
 		},
 		"120068": {
 			"status": "present",
@@ -281130,7 +281082,7 @@
 		"121068": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T21:18:29.716Z"
+			"checkedAt": "2026-11-05T16:44:00.475Z"
 		},
 		"121069": {
 			"status": "present",
@@ -281324,27 +281276,27 @@
 		"121098": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T21:05:33.434Z"
+			"checkedAt": "2026-11-05T16:32:54.678Z"
 		},
 		"121099": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T21:03:13.547Z"
+			"checkedAt": "2026-11-05T16:30:10.890Z"
 		},
 		"121100": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T21:02:50.067Z"
+			"checkedAt": "2026-11-05T16:29:50.714Z"
 		},
 		"121101": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T21:02:51.198Z"
+			"checkedAt": "2026-11-05T16:29:49.225Z"
 		},
 		"122069": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T21:18:01.104Z"
+			"checkedAt": "2026-11-05T16:43:29.744Z"
 		},
 		"122070": {
 			"status": "present",
@@ -281377,7 +281329,7 @@
 		"122074": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T21:12:44.742Z"
+			"checkedAt": "2026-11-05T16:38:32.246Z"
 		},
 		"122075": {
 			"status": "present",
@@ -281522,7 +281474,7 @@
 		"122097": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T21:07:00.262Z"
+			"checkedAt": "2026-11-05T16:34:03.856Z"
 		},
 		"122098": {
 			"status": "present",
@@ -281555,7 +281507,7 @@
 		"123069": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T21:18:27.708Z"
+			"checkedAt": "2026-11-05T16:43:49.377Z"
 		},
 		"123070": {
 			"status": "present",
@@ -281721,7 +281673,7 @@
 		"123095": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T21:05:09.722Z"
+			"checkedAt": "2026-11-05T16:32:27.521Z"
 		},
 		"123096": {
 			"status": "present",
@@ -281803,12 +281755,12 @@
 		"124075": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T21:12:38.677Z"
+			"checkedAt": "2026-11-05T16:38:22.302Z"
 		},
 		"124076": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T21:12:43.711Z"
+			"checkedAt": "2026-11-05T16:38:18.334Z"
 		},
 		"124079": {
 			"status": "present",
@@ -281820,7 +281772,7 @@
 		"124080": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T21:12:47.459Z"
+			"checkedAt": "2026-11-05T16:38:33.436Z"
 		},
 		"124081": {
 			"status": "present",
@@ -281853,7 +281805,7 @@
 		"124085": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T21:13:38.627Z"
+			"checkedAt": "2026-11-05T16:38:59.194Z"
 		},
 		"124086": {
 			"status": "present",
@@ -281921,7 +281873,7 @@
 		"124096": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T21:06:45.256Z"
+			"checkedAt": "2026-11-05T16:33:52.130Z"
 		},
 		"124097": {
 			"status": "present",
@@ -281954,7 +281906,7 @@
 		"125070": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T21:18:57.226Z"
+			"checkedAt": "2026-11-05T16:44:17.855Z"
 		},
 		"125071": {
 			"status": "present",
@@ -281980,17 +281932,17 @@
 		"125074": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T21:13:44.673Z"
+			"checkedAt": "2026-11-05T16:39:12.688Z"
 		},
 		"125075": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T21:14:06.443Z"
+			"checkedAt": "2026-11-05T16:39:19.828Z"
 		},
 		"125076": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T21:14:07.365Z"
+			"checkedAt": "2026-11-05T16:39:25.358Z"
 		},
 		"125080": {
 			"status": "present",
@@ -282037,12 +281989,12 @@
 		"125086": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T21:07:14.150Z"
+			"checkedAt": "2026-11-05T16:34:11.822Z"
 		},
 		"125087": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T21:07:25.078Z"
+			"checkedAt": "2026-11-05T16:34:17.453Z"
 		},
 		"125088": {
 			"status": "present",
@@ -282117,7 +282069,7 @@
 		"126070": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T21:18:03.075Z"
+			"checkedAt": "2026-11-05T16:43:31.834Z"
 		},
 		"126071": {
 			"status": "present",
@@ -282150,7 +282102,7 @@
 		"126075": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T21:11:54.218Z"
+			"checkedAt": "2026-11-05T16:37:37.356Z"
 		},
 		"126077": {
 			"status": "present",
@@ -282211,7 +282163,7 @@
 		"126087": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T21:05:14.114Z"
+			"checkedAt": "2026-11-05T16:32:30.368Z"
 		},
 		"126088": {
 			"status": "present",
@@ -282244,12 +282196,12 @@
 		"126097": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T21:05:42.454Z"
+			"checkedAt": "2026-11-05T16:33:06.133Z"
 		},
 		"127070": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T21:18:30.423Z"
+			"checkedAt": "2026-11-05T16:43:50.564Z"
 		},
 		"127071": {
 			"status": "present",
@@ -282268,7 +282220,7 @@
 		"127075": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T21:13:16.748Z"
+			"checkedAt": "2026-11-05T16:38:38.169Z"
 		},
 		"127077": {
 			"status": "present",
@@ -282315,7 +282267,7 @@
 		"127085": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T21:06:01.228Z"
+			"checkedAt": "2026-11-05T16:33:07.583Z"
 		},
 		"127086": {
 			"status": "present",
@@ -282369,12 +282321,12 @@
 		"128069": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T21:24:48.473Z"
+			"checkedAt": "2026-11-05T16:57:47.566Z"
 		},
 		"128070": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T21:24:46.036Z"
+			"checkedAt": "2026-11-05T16:57:48.345Z"
 		},
 		"128071": {
 			"status": "present",
@@ -282491,12 +282443,12 @@
 		"129071": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T21:24:51.007Z"
+			"checkedAt": "2026-11-05T16:57:48.629Z"
 		},
 		"129073": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T21:22:53.206Z"
+			"checkedAt": "2026-11-05T16:51:16.166Z"
 		},
 		"129081": {
 			"status": "present",
@@ -282627,7 +282579,7 @@
 		"130077": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T21:22:55.813Z"
+			"checkedAt": "2026-11-05T16:51:16.182Z"
 		},
 		"130079": {
 			"status": "present",
@@ -282639,7 +282591,7 @@
 		"130080": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T21:23:14.582Z"
+			"checkedAt": "2026-11-05T16:51:15.755Z"
 		},
 		"130081": {
 			"status": "present",
@@ -282749,7 +282701,7 @@
 		"131072": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T21:24:53.431Z"
+			"checkedAt": "2026-11-05T16:57:49.830Z"
 		},
 		"131076": {
 			"status": "present",
@@ -282761,17 +282713,17 @@
 		"131077": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T21:23:08.989Z"
+			"checkedAt": "2026-11-05T16:51:18.873Z"
 		},
 		"131080": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T21:23:00.388Z"
+			"checkedAt": "2026-11-05T16:51:19.591Z"
 		},
 		"131081": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T21:23:25.241Z"
+			"checkedAt": "2026-11-05T16:51:40.014Z"
 		},
 		"131082": {
 			"status": "present",
@@ -282860,7 +282812,7 @@
 		"132084": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T21:23:27.714Z"
+			"checkedAt": "2026-11-05T16:51:41.200Z"
 		},
 		"132087": {
 			"status": "present",
@@ -282914,7 +282866,7 @@
 		"134070": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T21:25:10.625Z"
+			"checkedAt": "2026-11-05T16:58:02.610Z"
 		},
 		"135066": {
 			"status": "present",
@@ -282933,7 +282885,7 @@
 		"135068": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T21:24:58.340Z"
+			"checkedAt": "2026-11-05T16:57:52.114Z"
 		},
 		"135070": {
 			"status": "present",
@@ -282959,7 +282911,7 @@
 		"136070": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T21:25:16.769Z"
+			"checkedAt": "2026-11-05T16:58:10.548Z"
 		},
 		"078085": {
 			"status": "present",
@@ -282971,27 +282923,27 @@
 		"078086": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:11:25.957Z"
+			"checkedAt": "2026-11-05T15:28:49.191Z"
 		},
 		"078087": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:11:25.227Z"
+			"checkedAt": "2026-11-05T15:28:52.844Z"
 		},
 		"078088": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:11:25.465Z"
+			"checkedAt": "2026-11-05T15:28:52.189Z"
 		},
 		"078089": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:11:50.276Z"
+			"checkedAt": "2026-11-05T15:29:01.725Z"
 		},
 		"078090": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:11:52.600Z"
+			"checkedAt": "2026-11-05T15:29:07.304Z"
 		},
 		"079072": {
 			"status": "present",
@@ -283003,7 +282955,7 @@
 		"079083": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:13:56.030Z"
+			"checkedAt": "2026-11-05T15:30:58.770Z"
 		},
 		"079085": {
 			"status": "present",
@@ -283071,12 +283023,12 @@
 		"080078": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:14:16.949Z"
+			"checkedAt": "2026-11-05T15:31:20.263Z"
 		},
 		"080080": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:14:22.734Z"
+			"checkedAt": "2026-11-05T15:31:21.618Z"
 		},
 		"080081": {
 			"status": "present",
@@ -283088,7 +283040,7 @@
 		"080082": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:14:40.465Z"
+			"checkedAt": "2026-11-05T15:31:41.076Z"
 		},
 		"080083": {
 			"status": "present",
@@ -283100,7 +283052,7 @@
 		"080085": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:14:48.373Z"
+			"checkedAt": "2026-11-05T15:31:48.188Z"
 		},
 		"080086": {
 			"status": "present",
@@ -283126,7 +283078,7 @@
 		"080090": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:12:00.957Z"
+			"checkedAt": "2026-11-05T15:29:26.081Z"
 		},
 		"080091": {
 			"status": "present",
@@ -283145,12 +283097,12 @@
 		"081073": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:15:07.072Z"
+			"checkedAt": "2026-11-05T15:32:03.690Z"
 		},
 		"081075": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:15:08.008Z"
+			"checkedAt": "2026-11-05T15:32:07.826Z"
 		},
 		"081080": {
 			"status": "present",
@@ -283183,7 +283135,7 @@
 		"081084": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:13:57.636Z"
+			"checkedAt": "2026-11-05T15:30:59.921Z"
 		},
 		"081085": {
 			"status": "present",
@@ -283202,12 +283154,12 @@
 		"081087": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:11:30.857Z"
+			"checkedAt": "2026-11-05T15:28:51.581Z"
 		},
 		"081088": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:11:30.039Z"
+			"checkedAt": "2026-11-05T15:28:54.816Z"
 		},
 		"081089": {
 			"status": "present",
@@ -283226,12 +283178,12 @@
 		"081094": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:11:57.437Z"
+			"checkedAt": "2026-11-05T15:29:09.210Z"
 		},
 		"081095": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:12:03.410Z"
+			"checkedAt": "2026-11-05T15:29:26.990Z"
 		},
 		"082063": {
 			"status": "present",
@@ -283243,22 +283195,22 @@
 		"082066": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:17:22.270Z"
+			"checkedAt": "2026-11-05T15:34:17.794Z"
 		},
 		"082070": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:17:21.237Z"
+			"checkedAt": "2026-11-05T15:34:19.103Z"
 		},
 		"082072": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:14:15.868Z"
+			"checkedAt": "2026-11-05T15:31:18.247Z"
 		},
 		"082073": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:14:17.126Z"
+			"checkedAt": "2026-11-05T15:31:22.507Z"
 		},
 		"082079": {
 			"status": "present",
@@ -283305,7 +283257,7 @@
 		"082089": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:12:21.119Z"
+			"checkedAt": "2026-11-05T15:29:21.459Z"
 		},
 		"082090": {
 			"status": "present",
@@ -283324,17 +283276,17 @@
 		"082092": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:11:33.218Z"
+			"checkedAt": "2026-11-05T15:28:52.788Z"
 		},
 		"082093": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:11:32.669Z"
+			"checkedAt": "2026-11-05T15:28:57.446Z"
 		},
 		"082094": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:11:32.964Z"
+			"checkedAt": "2026-11-05T15:28:56.138Z"
 		},
 		"083063": {
 			"status": "present",
@@ -283346,12 +283298,12 @@
 		"083064": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:17:50.327Z"
+			"checkedAt": "2026-11-05T15:34:38.569Z"
 		},
 		"083065": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:18:04.694Z"
+			"checkedAt": "2026-11-05T15:34:38.049Z"
 		},
 		"083066": {
 			"status": "present",
@@ -283370,7 +283322,7 @@
 		"083070": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:17:24.487Z"
+			"checkedAt": "2026-11-05T15:34:17.839Z"
 		},
 		"083076": {
 			"status": "present",
@@ -283382,7 +283334,7 @@
 		"083077": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:15:09.475Z"
+			"checkedAt": "2026-11-05T15:32:04.544Z"
 		},
 		"083081": {
 			"status": "present",
@@ -283429,12 +283381,12 @@
 		"083092": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:12:05.891Z"
+			"checkedAt": "2026-11-05T15:29:28.489Z"
 		},
 		"084063": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:17:25.219Z"
+			"checkedAt": "2026-11-05T15:34:33.100Z"
 		},
 		"084064": {
 			"status": "present",
@@ -283446,7 +283398,7 @@
 		"084065": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:17:23.230Z"
+			"checkedAt": "2026-11-05T15:34:20.216Z"
 		},
 		"084066": {
 			"status": "present",
@@ -283521,12 +283473,12 @@
 		"084085": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:14:27.536Z"
+			"checkedAt": "2026-11-05T15:31:23.781Z"
 		},
 		"084086": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:12:23.591Z"
+			"checkedAt": "2026-11-05T15:29:22.564Z"
 		},
 		"084087": {
 			"status": "present",
@@ -283538,7 +283490,7 @@
 		"084089": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:11:34.651Z"
+			"checkedAt": "2026-11-05T15:28:50.377Z"
 		},
 		"084090": {
 			"status": "present",
@@ -283550,7 +283502,7 @@
 		"084092": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:11:34.958Z"
+			"checkedAt": "2026-11-05T15:28:58.214Z"
 		},
 		"085064": {
 			"status": "present",
@@ -283583,7 +283535,7 @@
 		"085075": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:14:48.632Z"
+			"checkedAt": "2026-11-05T15:31:47.213Z"
 		},
 		"085079": {
 			"status": "present",
@@ -283630,7 +283582,7 @@
 		"085091": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:11:35.376Z"
+			"checkedAt": "2026-11-05T15:28:57.339Z"
 		},
 		"086064": {
 			"status": "present",
@@ -283670,12 +283622,12 @@
 		"086073": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:15:21.157Z"
+			"checkedAt": "2026-11-05T15:32:13.433Z"
 		},
 		"086074": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:13:55.135Z"
+			"checkedAt": "2026-11-05T15:31:02.160Z"
 		},
 		"086079": {
 			"status": "present",
@@ -283757,7 +283709,7 @@
 		"087064": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:18:19.138Z"
+			"checkedAt": "2026-11-05T15:34:56.646Z"
 		},
 		"087065": {
 			"status": "present",
@@ -283776,7 +283728,7 @@
 		"087068": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:17:29.279Z"
+			"checkedAt": "2026-11-05T15:34:21.116Z"
 		},
 		"087070": {
 			"status": "present",
@@ -283802,7 +283754,7 @@
 		"087074": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:14:53.205Z"
+			"checkedAt": "2026-11-05T15:31:48.270Z"
 		},
 		"087077": {
 			"status": "present",
@@ -283814,7 +283766,7 @@
 		"087079": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:15:14.647Z"
+			"checkedAt": "2026-11-05T15:32:08.227Z"
 		},
 		"087080": {
 			"status": "present",
@@ -283861,12 +283813,12 @@
 		"087086": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:11:37.279Z"
+			"checkedAt": "2026-11-05T15:28:51.438Z"
 		},
 		"087089": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:11:38.024Z"
+			"checkedAt": "2026-11-05T15:28:54.947Z"
 		},
 		"088064": {
 			"status": "present",
@@ -284193,12 +284145,12 @@
 		"089087": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:12:05.076Z"
+			"checkedAt": "2026-11-05T15:29:12.810Z"
 		},
 		"089089": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:12:10.919Z"
+			"checkedAt": "2026-11-05T15:29:30.590Z"
 		},
 		"089090": {
 			"status": "present",
@@ -284210,7 +284162,7 @@
 		"090064": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:39:57.073Z"
+			"checkedAt": "2026-11-05T15:56:05.733Z"
 		},
 		"090065": {
 			"status": "present",
@@ -284390,7 +284342,7 @@
 		"091064": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:41:04.236Z"
+			"checkedAt": "2026-11-05T15:56:47.737Z"
 		},
 		"091065": {
 			"status": "present",
@@ -284962,7 +284914,7 @@
 		"094063": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:39:05.969Z"
+			"checkedAt": "2026-11-05T15:55:11.316Z"
 		},
 		"094064": {
 			"status": "present",
@@ -285653,12 +285605,12 @@
 		"096094": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:22:10.872Z"
+			"checkedAt": "2026-11-05T15:39:20.433Z"
 		},
 		"097062": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:40:20.259Z"
+			"checkedAt": "2026-11-05T15:56:04.313Z"
 		},
 		"097063": {
 			"status": "present",
@@ -285894,7 +285846,7 @@
 		"097097": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:23:37.641Z"
+			"checkedAt": "2026-11-05T15:40:34.924Z"
 		},
 		"098063": {
 			"status": "present",
@@ -286123,7 +286075,7 @@
 		"098095": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:22:13.679Z"
+			"checkedAt": "2026-11-05T15:39:22.006Z"
 		},
 		"098097": {
 			"status": "present",
@@ -286135,12 +286087,12 @@
 		"099064": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:40:17.388Z"
+			"checkedAt": "2026-11-05T15:56:00.337Z"
 		},
 		"099065": {
 			"status": "missing",
 			"httpStatus": 404,
-			"checkedAt": "2026-11-04T20:40:22.426Z"
+			"checkedAt": "2026-11-05T15:56:05.240Z"
 		},
 		"099066": {
 			"status": "present",
@@ -382633,8 +382585,8 @@
 			"lod21Parts": 262
 		},
 		"15/17876/11363": {
-			"sha256": "eefa1430fcdaabbc28e36313eda76f0bfd9a317d50fc3765e715afb50c36182d",
-			"gzipBytes": 1286385,
+			"sha256": "bdf0db13d02793729429aff49d413da64a05b0375b65e118da15e93b78a9e717",
+			"gzipBytes": 1286721,
 			"buildingParts": 2143,
 			"lod21Parts": 237
 		},
@@ -382645,9 +382597,9 @@
 			"lod21Parts": 164
 		},
 		"15/17876/11365": {
-			"sha256": "22fc4551cac984a15f6ef4261d7ca1690225d2937af0ec48f2e502b398e21860",
-			"gzipBytes": 326373,
-			"buildingParts": 700,
+			"sha256": "ad5622e2b8e214823ca20e3eb2c4fdd2d7f526ac777358314722a0d7823c6acd",
+			"gzipBytes": 324374,
+			"buildingParts": 696,
 			"lod21Parts": 23
 		},
 		"15/17876/11366": {
@@ -382807,8 +382759,8 @@
 			"lod21Parts": 11
 		},
 		"15/17877/11363": {
-			"sha256": "c734cf8f78d6b9f868a8d670f8581b611761cf39cb4d577244238e83be315794",
-			"gzipBytes": 620708,
+			"sha256": "657a30480a2e9d0af2d3518580afab8884b1cf438de4087a5ee1c59ad0ed0f3a",
+			"gzipBytes": 620742,
 			"buildingParts": 1456,
 			"lod21Parts": 163
 		},
@@ -382819,10 +382771,10 @@
 			"lod21Parts": 65
 		},
 		"15/17877/11365": {
-			"sha256": "068ab7822cce51463e28bd15d1eb545b7c03d1f3b67319f1c4a7aa85a771917e",
-			"gzipBytes": 526067,
-			"buildingParts": 1353,
-			"lod21Parts": 66
+			"sha256": "9b78f89c69fcaffa447e1e39553d8f7627ef168757a1efb5e547f5e29ac79cdf",
+			"gzipBytes": 537465,
+			"buildingParts": 1391,
+			"lod21Parts": 61
 		},
 		"15/17877/11366": {
 			"sha256": "b2215b3d70614d6f3c17398c4888c0c83d9cb3c9ae8fc0d7346cea3aadbd4d62",
@@ -383443,21 +383395,21 @@
 			"lod21Parts": 65
 		},
 		"15/17881/11360": {
-			"sha256": "46d413322aa4a13787ff1f8607024600b6e6daccb6ebb9cd3d1097af486c8915",
-			"gzipBytes": 619708,
-			"buildingParts": 1877,
+			"sha256": "321f0b53df35fea1e74e73dab416e26bfec6f7457a0af25d43b587ee2389f169",
+			"gzipBytes": 619837,
+			"buildingParts": 1878,
 			"lod21Parts": 49
 		},
 		"15/17881/11361": {
-			"sha256": "171480b73c10b41f0210082454a1ff28ca2023c14e50cfb9ac2ee9afbfcd6003",
-			"gzipBytes": 375501,
-			"buildingParts": 1352,
+			"sha256": "b3eec1124cb3c1198050aa79003ecf5f628aba2c9a21b1f70fbbe9ba24dd7e7c",
+			"gzipBytes": 376093,
+			"buildingParts": 1353,
 			"lod21Parts": 106
 		},
 		"15/17881/11362": {
-			"sha256": "4224a9e84949092f00fd11f4e826be707e84f1d006793a5ebc8f5f5387f3d7ec",
-			"gzipBytes": 322756,
-			"buildingParts": 1105,
+			"sha256": "fec7b026be6daa9fc80549e978f6f996fe489afcda3ec220b1afbf115b53cb9b",
+			"gzipBytes": 324108,
+			"buildingParts": 1112,
 			"lod21Parts": 116
 		},
 		"15/17881/11363": {
@@ -383557,44 +383509,44 @@
 			"lod21Parts": 20
 		},
 		"15/17882/11358": {
-			"sha256": "c3f347910ee09d891caf0fa41b00c22d5f8431793627466820324c97fad388a0",
-			"gzipBytes": 457654,
-			"buildingParts": 1379,
+			"sha256": "92680187c6f3e407e02c114e244facfbc7f67d0f6b00ab9de3bca183d4ebcebc",
+			"gzipBytes": 457138,
+			"buildingParts": 1375,
 			"lod21Parts": 117
 		},
 		"15/17882/11359": {
-			"sha256": "e71b60e4a1468d6994ee9dc6cab238cc8d3ac82b7e03b8f47b64f04febcd013b",
-			"gzipBytes": 670405,
-			"buildingParts": 2317,
-			"lod21Parts": 174
+			"sha256": "77b5e19350be3703ad3fed54ec0b9f5b37ab369e890e201c4c0ac6370e491ec9",
+			"gzipBytes": 667819,
+			"buildingParts": 2309,
+			"lod21Parts": 172
 		},
 		"15/17882/11360": {
-			"sha256": "9ca4173044be37de6a597df2f560d33f0de42a85fff85f76c2cff2e63ca4a760",
-			"gzipBytes": 814737,
-			"buildingParts": 2448,
+			"sha256": "dfe9e13a31ba286c7c3f884550b380956ac390d8446a40362287b2273279583f",
+			"gzipBytes": 813495,
+			"buildingParts": 2444,
 			"lod21Parts": 54
 		},
 		"15/17882/11361": {
-			"sha256": "caba5c208e7d8b262b4fde34b2640530e395bd96bd413661e300062f5a4c906f",
-			"gzipBytes": 655502,
-			"buildingParts": 2223,
-			"lod21Parts": 203
+			"sha256": "f71205f4b2c1c646fb5c85b728e6e67c7f88719b801fa3dbbc3ecca1cd3123fc",
+			"gzipBytes": 656149,
+			"buildingParts": 2219,
+			"lod21Parts": 201
 		},
 		"15/17882/11362": {
-			"sha256": "2c2c70d6a0c99a4b781d4e9ffe15b971ed44b415ef279d59c97e4f2adad83bcc",
-			"gzipBytes": 326747,
-			"buildingParts": 1155,
-			"lod21Parts": 118
+			"sha256": "f606d7dd5eeaf3eeb3bd129f144662f508583396a35986e264a22d7885585f3b",
+			"gzipBytes": 326130,
+			"buildingParts": 1162,
+			"lod21Parts": 114
 		},
 		"15/17882/11363": {
-			"sha256": "3341758a7c771a2547e4bf2baa6f552bf055448434488097bfe47211b92460cb",
-			"gzipBytes": 155680,
-			"buildingParts": 592,
+			"sha256": "048c285abd43110b11ced389aefde6773c87d2b3cfce49037450304c2552deec",
+			"gzipBytes": 155280,
+			"buildingParts": 590,
 			"lod21Parts": 23
 		},
 		"15/17882/11364": {
-			"sha256": "9da61a77502e18dd9f8d84270764255c4a31e82288adf0611232151f24c7c597",
-			"gzipBytes": 32879,
+			"sha256": "fa7b123c89c81003bdd018909615610e23325ffebbeb66947188687b5c9f6b02",
+			"gzipBytes": 32877,
 			"buildingParts": 110,
 			"lod21Parts": 0
 		},
@@ -383683,39 +383635,39 @@
 			"lod21Parts": 51
 		},
 		"15/17883/11359": {
-			"sha256": "a457cff32806e60016533021ca80aa06e45cf6a9f1b806dea61c47173a9fb92d",
-			"gzipBytes": 336745,
-			"buildingParts": 1265,
-			"lod21Parts": 67
+			"sha256": "e7c0cc297e8bd9bc161c9d66129fadef01dc1eaa23e440ce17d0a906af55c809",
+			"gzipBytes": 338049,
+			"buildingParts": 1262,
+			"lod21Parts": 68
 		},
 		"15/17883/11360": {
-			"sha256": "a0612ba8cc408cdf76a886413677d2131ef31d42b9eb5e7e483d4cb269d97381",
-			"gzipBytes": 808579,
-			"buildingParts": 2289,
+			"sha256": "df8cd2da2bcf44c676391175387c02edb60a68a2add540f64bfa07adf2179507",
+			"gzipBytes": 808892,
+			"buildingParts": 2292,
 			"lod21Parts": 72
 		},
 		"15/17883/11361": {
-			"sha256": "f74c2eb882a002fa5434097a8dde6ead07f910c1c039c631cfd603b473a1315c",
-			"gzipBytes": 791407,
-			"buildingParts": 2544,
+			"sha256": "42cbdce80bdb0d2bf9852bd072ce721ef64df0d855950e7a58df7d2547dcc1ea",
+			"gzipBytes": 791491,
+			"buildingParts": 2543,
 			"lod21Parts": 76
 		},
 		"15/17883/11362": {
-			"sha256": "a8d3bd989b9d6b4f7377d7bd885e9689359a7b324d4705ca151959bc9601075b",
-			"gzipBytes": 405147,
-			"buildingParts": 1397,
-			"lod21Parts": 114
+			"sha256": "17730c469b6aa19b9ded125f3fd62aaa4c5f885d5eaa3704c5fab050d0701d16",
+			"gzipBytes": 405454,
+			"buildingParts": 1401,
+			"lod21Parts": 113
 		},
 		"15/17883/11363": {
-			"sha256": "195baa1228705d521df8351dc647b4aad2740e044c3cfff9f16690b87f661340",
-			"gzipBytes": 399903,
-			"buildingParts": 1469,
+			"sha256": "d8fcd724997f9b7c174e368c1e477abce5e34dbcec19e7334843e7efd4356a03",
+			"gzipBytes": 399940,
+			"buildingParts": 1470,
 			"lod21Parts": 111
 		},
 		"15/17883/11364": {
-			"sha256": "e2ef84a3b9bf1c096b39072f5dcce42524635a9551500a17069041f541af375f",
-			"gzipBytes": 34734,
-			"buildingParts": 100,
+			"sha256": "fd206f5e70d5fd14963c62d9465dc369e897f33e84c899d431c0bb44e6b25e73",
+			"gzipBytes": 34840,
+			"buildingParts": 101,
 			"lod21Parts": 0
 		},
 		"15/17883/11365": {
@@ -383815,15 +383767,15 @@
 			"lod21Parts": 285
 		},
 		"15/17884/11360": {
-			"sha256": "de728069b9450cd6f1de0bea60b45abb9b0be15223204fd829f1616de824ef45",
-			"gzipBytes": 808000,
+			"sha256": "b1a2f8ae32ef898c4c25440dfb13cc21723e11cddcbcab370cba0a4dd6e74ce8",
+			"gzipBytes": 808001,
 			"buildingParts": 2356,
 			"lod21Parts": 160
 		},
 		"15/17884/11361": {
-			"sha256": "17d172e8dab83200b1bbd831653880f786f6b7ba0893236fa44ff4666abe52ef",
-			"gzipBytes": 568249,
-			"buildingParts": 2042,
+			"sha256": "dcb43c90da9ea8998fbad3ef7ad5dd9bc728651eaea6b9e800487ed121c9782e",
+			"gzipBytes": 567808,
+			"buildingParts": 2040,
 			"lod21Parts": 47
 		},
 		"15/17884/11362": {
