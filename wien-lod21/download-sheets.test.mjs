@@ -270,3 +270,29 @@ test("repair stages retain successful downloads, continue after a failure, then 
 		assert.equal(attempts.get("106082"),1);
 	});
 });
+
+
+test("two blocked TCP connections stop a six-sheet runner and hand work to a new IP",async()=>{
+	await temporary(async cacheDir=>{
+		const sheets=["104078","105080","106082","107083","108084","109085"];
+		const fetched=[];
+		const result=await downloadBatch(sheets,{
+			...settings,cacheDir,parallel:1,attempts:1,continueOnError:true,
+			abortOnNetworkErrors:2
+		},{
+			validate:async()=>false,
+			fetch:async sheet=>{
+				fetched.push(sheet);
+				const e=new Error("cannot reach official source");
+				e.curlCode=28;
+				e.httpStatus=0;
+				throw e;
+			}
+		});
+		assert.deepEqual(fetched,sheets.slice(0,2));
+		assert.deepEqual(result.failed,sheets.slice(0,2));
+		assert.equal(result.skipped,4);
+		assert.equal(result.success,false);
+		assert.ok(result.events.some(e=>e.kind==="blocked-runner"));
+	});
+});
