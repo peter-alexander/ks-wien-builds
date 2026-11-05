@@ -25,6 +25,17 @@ const BUILDER_INPUTS=[
 	"wien-native-city/canonical-native-anchors.mjs"
 ];
 
+
+export async function currentNativeBuilderRevision(){
+	const projectRoot=path.join(ROOT,"..");
+	const sources=[];
+	for(const filename of BUILDER_INPUTS){
+		sources.push({path:filename,
+			content:await fs.readFile(path.join(projectRoot,filename),"utf8")});
+	}
+	return computeBuilderRevision(sources);
+}
+
 export function sameSourceVersion(a,b) {
 	if(a?.status!==b?.status)return false;
 	if(a?.status==="missing")return a.httpStatus===404 && b.httpStatus===404;
@@ -125,13 +136,8 @@ export async function assembleCityRelease({
 		buildingIndex.buildingParts!==lod1Parts+lod21Parts){
 		throw new Error("Incomplete stable building identity index for full Vienna");
 	}
-	const buildFiles=[];
+	const builderRevision=await currentNativeBuilderRevision();
 	const projectRoot=path.join(ROOT,"..");
-	for(const filename of BUILDER_INPUTS){
-		buildFiles.push({path:filename,
-			content:await fs.readFile(path.join(projectRoot,filename),"utf8")});
-	}
-	const builderRevision=computeBuilderRevision(buildFiles);
 	const metadataRevision=computeBuilderRevision([{
 		path:"wien-native-city/building-index.mjs",
 		content:await fs.readFile(path.join(projectRoot,"wien-native-city/building-index.mjs"),"utf8")
