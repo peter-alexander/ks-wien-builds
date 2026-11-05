@@ -35,6 +35,7 @@ export async function collectRegionSources({regionRoot,inputsDir}={}){
 		if(!chosen)throw new Error("Missing all source downloads for shard "+shard.shard);
 		const found=new Set();
 		for(const file of await fs.readdir(chosen)){
+			if(file==="__stage-receipt.txt")continue;
 			const hit=ZIP.exec(file);
 			if(!hit)throw new Error("Unexpected original CityGML input "+file);
 			const sheet=hit[1];
