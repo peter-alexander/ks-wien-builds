@@ -185,6 +185,12 @@ jobs:
       - uses: actions/setup-node@v7
         with:
           node-version: '24'
+      - name: Log this runner's outbound IP (non-blocking diagnostic)
+        run: |
+          printf 'Runner: %s\n' "$RUNNER_NAME"
+          printf 'IPv4: '
+          curl -4 --fail --silent --show-error --max-time 8 https://api.ipify.org || true
+          printf '\n'
       - uses: actions/download-artifact@v8
         with:
           name: wien-current-native-inventory
@@ -238,6 +244,12 @@ jobs:
       - uses: actions/setup-node@v7
         with:
           node-version: '24'
+      - name: Log this runner's outbound IP (non-blocking diagnostic)
+        run: |
+          printf 'Runner: %s\n' "$RUNNER_NAME"
+          printf 'IPv4: '
+          curl -4 --fail --silent --show-error --max-time 8 https://api.ipify.org || true
+          printf '\n'
       - uses: actions/download-artifact@v8
         with:
           name: wien-citygml-pass1-${{ matrix.region }}
@@ -278,6 +290,12 @@ jobs:
       - uses: actions/setup-node@v7
         with:
           node-version: '24'
+      - name: Log this runner's outbound IP (non-blocking diagnostic)
+        run: |
+          printf 'Runner: %s\n' "$RUNNER_NAME"
+          printf 'IPv4: '
+          curl -4 --fail --silent --show-error --max-time 8 https://api.ipify.org || true
+          printf '\n'
       - uses: actions/download-artifact@v8
         with:
           name: wien-citygml-pass2-${{ matrix.region }}
