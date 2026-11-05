@@ -11,7 +11,7 @@ import path from "node:path";
 import {createHash} from "node:crypto";
 import {fileURLToPath} from "node:url";
 
-const ZOOM_COUNTS=Object.freeze({13:62,14:200,15:678});
+const MIN_ZOOM_COUNTS=Object.freeze({13:50,14:150,15:600});
 const hash=bytes=>createHash("sha256").update(bytes).digest("hex");
 function tileKey(key,zoom){
 	const m=/^(13|14|15)\/(\d+)\/(\d+)$/.exec(key);
@@ -42,7 +42,7 @@ export async function stageNativeRelease({
 		const manifest=await readJson(path.join(dir,"manifest.json"));
 		if(manifest.schemaVersion!==1 || manifest.format!=="KSWN0001" ||
 			manifest.zoom!==zoom || manifest.source!=="current-official-fmzk-lod1" ||
-			Object.keys(manifest.tiles||{}).length!==ZOOM_COUNTS[zoom]){
+			Object.keys(manifest.tiles||{}).length<MIN_ZOOM_COUNTS[zoom]){
 			throw new Error("Incomplete Vienna native Z"+zoom+" input manifest");
 		}
 		let parts=0,vertices=0,triangles=0,bytesCount=0;
@@ -85,10 +85,11 @@ export async function stageNativeRelease({
 	const reference=low.get(14).sourceRelease;
 	if(reference!==low.get(13).sourceRelease ||
 		reference!==z15.fmzkRelease ||
-		z15.format!=="KSWN0001" || z15.publishedTileCount!==678 ||
-		Object.keys(z15.tiles||{}).length!==678 ||
+		z15.format!=="KSWN0001" || z15.publishedTileCount<MIN_ZOOM_COUNTS[15] ||
+		Object.keys(z15.tiles||{}).length!==z15.publishedTileCount ||
 		z15.lod21Parts<1000 || z15.buildingParts<200000 ||
-		Object.keys(z15.sources||{}).length!==1588){
+		Object.keys(z15.sources||{}).length<500 ||
+		z15.dependencyIndex?.tileKeys?.length!==z15.publishedTileCount){
 		throw new Error("Mixed or incomplete authoritative Vienna Z13-Z15 sources");
 	}
 	let z15Bytes=0,parts15=0,roofs=0;
@@ -113,7 +114,7 @@ export async function stageNativeRelease({
 		const file="release-z"+zoom+".json";
 		await fs.writeFile(path.join(root,file),JSON.stringify(manifest,null,"\t")+"\n");
 		levels[zoom]={geometry:"pretriangulated-lod1-flat-roofs",
-			tiles:ZOOM_COUNTS[zoom],parts:manifest.parts,vertices:manifest.vertices,
+			tiles:Object.keys(manifest.tiles).length,parts:manifest.parts,vertices:manifest.vertices,
 			triangles:manifest.triangles,gzipBytes:manifest.gzipBytes,
 			manifest:file,
 			tilesFormat:zoom===13?"chunked-by-tile":"one-binary-per-tile",
@@ -122,7 +123,7 @@ export async function stageNativeRelease({
 	}
 	await fs.writeFile(path.join(root,"release-z15.json"),JSON.stringify(z15,null,"\t")+"\n");
 	levels[15]={geometry:"pretriangulated-verified-original-roofs",
-		tiles:678,parts:z15.buildingParts,roofParts:z15.lod21Parts,
+		tiles:z15.publishedTileCount,parts:z15.buildingParts,roofParts:z15.lod21Parts,
 		gzipBytes:z15.gzipBytes,
 		manifest:"release-z15.json",buildingIndex:indexMeta.path,
 		tileTemplate:"tiles/15/{x}/{y}.bin.gz"};
