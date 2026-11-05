@@ -106,7 +106,7 @@ jobs:
           mkdir -p "$dest"
           # All generated tiles are complete here. rsync does not publish a live
           # website; GitHub Pages only sees the subsequent pushed Git commit.
-          rsync -a --delete "$src/tiles/" "$dest/tiles/"
+          rsync -a --checksum --delete "$src/tiles/" "$dest/tiles/"
           for file in release-z13.json release-z14.json release-z15.json building-index.json.gz release.json; do
             cp "$src/$file" "$dest/$file"
           done
