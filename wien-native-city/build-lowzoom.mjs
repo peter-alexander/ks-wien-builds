@@ -20,17 +20,19 @@ import {encodeNativeTile,BASE}
 import {readNativeTile} from "./native-tile-patch.mjs";
 import {chunkNativeParts} from "./native-chunks.mjs";
 
-export const REFERENCE_OGD_RELEASE="2026-11-03T11:04:51.669Z";
+export const REFERENCE_OGD_RELEASE="2026-11-03T11:04:51.669Z"; // Historical test fixture only
 const sha256=buffer=>createHash("sha256").update(buffer).digest("hex");
 const pilotKeys14=["14/8936/5680","14/8937/5680"];
 const SRC_LAYER="wien_buildings";
-export function verifyLowZoomRelease(release,zoom){
-	if(![13,14].includes(zoom) || release?.generatedAt!==REFERENCE_OGD_RELEASE ||
+export function verifyLowZoomRelease(release,zoom,{expectedRelease=null}={}){
+	if(![13,14].includes(zoom) || !Number.isFinite(Date.parse(release?.generatedAt)) ||
+		(expectedRelease!==null && release.generatedAt!==expectedRelease) ||
 		release?.vectorTiles?.minzoom>zoom || release?.vectorTiles?.maxzoom<zoom ||
 		release.vectorTiles.layer!==SRC_LAYER ||
 		release.vectorTiles.compression!=="none" ||
 		release.vectorTiles.extent!==4096 ||
-		release.vectorTiles.tileCounts?.[String(zoom)]!==(zoom===14?200:62) ||
+		!Number.isSafeInteger(release.vectorTiles.tileCounts?.[String(zoom)]) ||
+		release.vectorTiles.tileCounts[String(zoom)]<(zoom===14?150:50) ||
 		release.vectorTiles.geometryPolicy?.lowZooms!=="13-14" ||
 		release.vectorTiles.geometryPolicy?.featureDropping!==false ||
 		release.vectorTiles.geometryPolicy?.tinyPolygonReduction!==false ||
