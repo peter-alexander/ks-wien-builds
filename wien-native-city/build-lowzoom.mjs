@@ -10,6 +10,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import {fileURLToPath} from "node:url";
 import {createHash} from "node:crypto";
+import {gunzipSync} from "node:zlib";
 import {VectorTile} from "@mapbox/vector-tile";
 import {PbfReader} from "pbf";
 import * as THREE from "three";
@@ -29,7 +30,7 @@ export function verifyLowZoomRelease(release,zoom,{expectedRelease=null}={}){
 		(expectedRelease!==null && release.generatedAt!==expectedRelease) ||
 		release?.vectorTiles?.minzoom>zoom || release?.vectorTiles?.maxzoom<zoom ||
 		release.vectorTiles.layer!==SRC_LAYER ||
-		release.vectorTiles.compression!=="none" ||
+		!["none","gzip"].includes(release.vectorTiles.compression) ||
 		release.vectorTiles.extent!==4096 ||
 		!Number.isSafeInteger(release.vectorTiles.tileCounts?.[String(zoom)]) ||
 		release.vectorTiles.tileCounts[String(zoom)]<(zoom===14?150:50) ||
@@ -67,17 +68,19 @@ export async function buildLowZoom({
 		const [z,x,y]=key.split("/").map(Number);
 		const source=await fetchTile(baseUrl+"/LOD1/tiles/"+key+".pbf");
 		if(!source.ok)throw new Error("Missing official FMZK tile "+key+" HTTP "+source.status);
-		const input=new Uint8Array(await source.arrayBuffer());
+		const encoded=Buffer.from(await source.arrayBuffer());
+		const input=new Uint8Array(encoded[0]===0x1f && encoded[1]===0x8b
+			?gunzipSync(encoded):encoded);
 		if(!input.byteLength)throw new Error("Empty official FMZK source tile "+key);
 		const data=buildWienOgdFallbackTileGeometry(input,{z,x,y},
 			{THREE,VectorTile,Protobuf:PbfReader});
 		const geometry=data.geometry;
 		if(!geometry)throw new Error("Missing official FMZK buildings in "+key);
 		try{
-			const encoded=encodeNativeTile({z,x,y},[{source:"lod1",geometry}]);
-			const parsed=readNativeTile(encoded.raw,
+			const native=encodeNativeTile({z,x,y},[{source:"lod1",geometry}]);
+			const parsed=readNativeTile(native.raw,
 				zoom===13?{maxBytes:256*1024*1024}:undefined);
-			if(parsed.parts.length!==encoded.stats.buildingParts ||
+			if(parsed.parts.length!==native.stats.buildingParts ||
 				parsed.parts.some(p=>p.info.source!=="lod1"||!p.info.id.startsWith("ogd:"))){
 				throw new Error("Unexpected native FMZK source geometry in "+key);
 			}
@@ -97,18 +100,18 @@ export async function buildLowZoom({
 					readNativeTile(chunk.compressed);
 				}
 			}else{
-				await fs.writeFile(output,encoded.compressed);
-				bytes=encoded.compressed.length;
+				await fs.writeFile(output,native.compressed);
+				bytes=native.compressed.length;
 			}
 			manifest.tiles[key]={
 				...(chunks?{chunks:chunks.map(({key,parts,rawBytes,gzipBytes,sha256})=>({
 					key,parts,rawBytes,gzipBytes,sha256}))}
-					:{sha256:sha256(encoded.compressed)}),
-				...encoded.stats,gzipBytes:bytes
+					:{sha256:sha256(native.compressed)}),
+				...native.stats,gzipBytes:bytes
 			};
-			manifest.parts+=encoded.stats.buildingParts;
-			manifest.vertices+=encoded.stats.vertices;
-			manifest.triangles+=encoded.stats.triangles;
+			manifest.parts+=native.stats.buildingParts;
+			manifest.vertices+=native.stats.vertices;
+			manifest.triangles+=native.stats.triangles;
 			manifest.gzipBytes+=bytes;
 		}finally{geometry.dispose();}
 	}
