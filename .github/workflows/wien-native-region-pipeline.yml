@@ -357,6 +357,22 @@ jobs:
           test "$ready" = true
           node --max-old-space-size=4096 wien-native-city/run-production-region.mjs \
             "${{ inputs.region }}" "wien-native-city/build/region-${{ inputs.region }}"
+      - name: Collect roof matching audits from rebuilt quadrants
+        run: |
+          root="wien-native-city/build/region-${{ inputs.region }}"
+          mkdir -p "$root/roof-audits"
+          for report in "$root"/quadrant-*/roof-matching-audit.json; do
+            if [ -f "$report" ]; then
+              quadrant="$(basename "$(dirname "$report")")"
+              cp "$report" "$root/roof-audits/$quadrant.json"
+            fi
+          done
+      - uses: actions/upload-artifact@v7
+        with:
+          name: wien-native-roof-audits-${{ inputs.region }}
+          path: wien-native-city/build/region-${{ inputs.region }}/roof-audits/
+          retention-days: 3
+          if-no-files-found: ignore
       - uses: actions/upload-artifact@v7
         with:
           name: wien-native-roof-region-${{ inputs.region }}
