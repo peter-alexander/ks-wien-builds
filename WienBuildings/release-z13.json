@@ -3,7 +3,7 @@
 	"format": "KSWN0001",
 	"zoom": 13,
 	"source": "current-official-fmzk-lod1",
-	"sourceRelease": "2026-11-05T15:27:20.088Z",
+	"sourceRelease": "2026-11-08T09:04:12.650Z",
 	"sourceTilePolicy": {
 		"lowZooms": "13-14",
 		"lowZoomSimplification": 4,
@@ -1055,24 +1055,24 @@
 				},
 				{
 					"key": "13/4469/2839/1.bin.gz",
-					"parts": 10035,
-					"rawBytes": 5970812,
-					"gzipBytes": 1388650,
-					"sha256": "aec6dfbd3c58592429ba80d5652f0a9b96742ce0eedfd90b5f1596927068349d"
+					"parts": 10058,
+					"rawBytes": 5981736,
+					"gzipBytes": 1390742,
+					"sha256": "35344e8232cdeb7cab8b20d08adb202b0cf5fb94847429fd1313f03ba54e8557"
 				}
 			],
-			"buildingParts": 22117,
-			"lod1Parts": 22117,
+			"buildingParts": 22140,
+			"lod1Parts": 22140,
 			"lod21Parts": 0,
-			"vertices": 425645,
-			"triangles": 213257,
+			"vertices": 425970,
+			"triangles": 213406,
 			"faceTriangles": {
-				"wall": 170258,
+				"wall": 170388,
 				"pitchedRoof": 0,
-				"flatRoof": 42999
+				"flatRoof": 43018
 			},
-			"rawBytes": 13221232,
-			"gzipBytes": 3080254
+			"rawBytes": 13232160,
+			"gzipBytes": 3082346
 		},
 		"13/4469/2840": {
 			"chunks": [
@@ -1086,23 +1086,23 @@
 				{
 					"key": "13/4469/2840/1.bin.gz",
 					"parts": 7944,
-					"rawBytes": 4771552,
-					"gzipBytes": 1116390,
-					"sha256": "81f5c48d8f9b72b43e87f314016c686e6acca09633f9dbd2def4b5433803acf7"
+					"rawBytes": 4771404,
+					"gzipBytes": 1116317,
+					"sha256": "943b41004d63414f4d6ed97f255660f4db10f8cf9854c3eb4fd4bf01aeb0bf65"
 				}
 			],
 			"buildingParts": 19104,
 			"lod1Parts": 19104,
 			"lod21Parts": 0,
-			"vertices": 399905,
-			"triangles": 205055,
+			"vertices": 399895,
+			"triangles": 205049,
 			"faceTriangles": {
-				"wall": 159962,
+				"wall": 159958,
 				"pitchedRoof": 0,
-				"flatRoof": 45093
+				"flatRoof": 45091
 			},
-			"rawBytes": 12188820,
-			"gzipBytes": 2895769
+			"rawBytes": 12188668,
+			"gzipBytes": 2895696
 		},
 		"13/4469/2841": {
 			"chunks": [
@@ -1253,8 +1253,8 @@
 					"key": "13/4470/2838/1.bin.gz",
 					"parts": 4925,
 					"rawBytes": 2933316,
-					"gzipBytes": 688209,
-					"sha256": "0922a95010052a03fa2fcaf057c6c123fb3f5b5f91f186e49ed302799d453fe0"
+					"gzipBytes": 688214,
+					"sha256": "b4833e47a7da5f8f99ed69ad9da8f00041af78aa61e136a495a65fa319d4d87e"
 				}
 			],
 			"buildingParts": 17091,
@@ -1268,44 +1268,44 @@
 				"flatRoof": 32444
 			},
 			"rawBytes": 10167664,
-			"gzipBytes": 2369423
+			"gzipBytes": 2369428
 		},
 		"13/4470/2839": {
 			"chunks": [
 				{
 					"key": "13/4470/2839/0.bin.gz",
-					"parts": 12328,
-					"rawBytes": 7196196,
-					"gzipBytes": 1666185,
-					"sha256": "8a03c0b4e89ab76a465ab341d6b6ab04de2b38f2e839147b70828f2eefdd9777"
+					"parts": 12323,
+					"rawBytes": 7196604,
+					"gzipBytes": 1666682,
+					"sha256": "1cd19a86571d9896f5f2df60f86e2579ed29c213665bbcf7786b183c73b7288e"
 				},
 				{
 					"key": "13/4470/2839/1.bin.gz",
-					"parts": 12324,
-					"rawBytes": 7188672,
-					"gzipBytes": 1672026,
-					"sha256": "2b6edf6ff26603028b30119efdad99e515ce6d8b88393a0916c2c4a6a752b09c"
+					"parts": 12331,
+					"rawBytes": 7194876,
+					"gzipBytes": 1673571,
+					"sha256": "455641f7ae15bd966b8bcd79385486794dfd15ca6f3ac9ffb7effea2088114b3"
 				},
 				{
 					"key": "13/4470/2839/2.bin.gz",
-					"parts": 5967,
-					"rawBytes": 3436672,
-					"gzipBytes": 791808,
-					"sha256": "2f73494cccf67238763824a7d65d206a9003a4394b33cff3509b189778fb1f64"
+					"parts": 5977,
+					"rawBytes": 3442712,
+					"gzipBytes": 793161,
+					"sha256": "30171cb0ebdb232326204c604b8d4fbc9cd6f95af9d9fad5f69dd582b75e1077"
 				}
 			],
-			"buildingParts": 30619,
-			"lod1Parts": 30619,
+			"buildingParts": 30631,
+			"lod1Parts": 30631,
 			"lod21Parts": 0,
-			"vertices": 570075,
-			"triangles": 282569,
+			"vertices": 570540,
+			"triangles": 282824,
 			"faceTriangles": {
-				"wall": 228030,
+				"wall": 228216,
 				"pitchedRoof": 0,
-				"flatRoof": 54539
+				"flatRoof": 54608
 			},
-			"rawBytes": 17841464,
-			"gzipBytes": 4130019
+			"rawBytes": 17854108,
+			"gzipBytes": 4133414
 		},
 		"13/4470/2840": {
 			"chunks": [
@@ -1470,24 +1470,24 @@
 				},
 				{
 					"key": "13/4471/2839/1.bin.gz",
-					"parts": 4360,
-					"rawBytes": 2537936,
-					"gzipBytes": 579606,
-					"sha256": "41c017ce1e83b5550c0c6e3523aaf61774b8435b01228b683cfa57f1f1baa135"
+					"parts": 4373,
+					"rawBytes": 2543300,
+					"gzipBytes": 580976,
+					"sha256": "95403c68a0ca059bb75126544d38636170a480463076945590be36fd88480446"
 				}
 			],
-			"buildingParts": 16824,
-			"lod1Parts": 16824,
+			"buildingParts": 16837,
+			"lod1Parts": 16837,
 			"lod21Parts": 0,
-			"vertices": 309865,
-			"triangles": 153101,
+			"vertices": 310015,
+			"triangles": 153163,
 			"faceTriangles": {
-				"wall": 123946,
+				"wall": 124006,
 				"pitchedRoof": 0,
-				"flatRoof": 29155
+				"flatRoof": 29157
 			},
-			"rawBytes": 9717700,
-			"gzipBytes": 2228575
+			"rawBytes": 9723080,
+			"gzipBytes": 2229945
 		},
 		"13/4471/2840": {
 			"chunks": [
@@ -1592,47 +1592,47 @@
 			"chunks": [
 				{
 					"key": "13/4472/2839/0.bin.gz",
-					"parts": 4269,
-					"rawBytes": 2419840,
-					"gzipBytes": 551321,
-					"sha256": "68e0f3feb567ed419db814916b1016c12d2d8027c419c0c3eeacbe4549c72594"
+					"parts": 4275,
+					"rawBytes": 2422664,
+					"gzipBytes": 551870,
+					"sha256": "7e3635b6798b211fe3117937a5e93e2f9758536c92a3b4ca1ad92616ab5f3997"
 				}
 			],
-			"buildingParts": 4269,
-			"lod1Parts": 4269,
+			"buildingParts": 4275,
+			"lod1Parts": 4275,
 			"lod21Parts": 0,
-			"vertices": 77095,
-			"triangles": 37733,
+			"vertices": 77180,
+			"triangles": 37772,
 			"faceTriangles": {
-				"wall": 30838,
+				"wall": 30872,
 				"pitchedRoof": 0,
-				"flatRoof": 6895
+				"flatRoof": 6900
 			},
-			"rawBytes": 2419840,
-			"gzipBytes": 551321
+			"rawBytes": 2422664,
+			"gzipBytes": 551870
 		},
 		"13/4472/2840": {
 			"chunks": [
 				{
 					"key": "13/4472/2840/0.bin.gz",
-					"parts": 9289,
-					"rawBytes": 5227156,
-					"gzipBytes": 1195764,
-					"sha256": "9cc77d452aba260c967d34eb369fb3b544174a872cbf01985ce0b3b94bc16e0b"
+					"parts": 9331,
+					"rawBytes": 5249028,
+					"gzipBytes": 1200539,
+					"sha256": "5d4a1d581bda54c351dccc9d8bb7ba20cee546542a71e3b08b911f60a71d6dfb"
 				}
 			],
-			"buildingParts": 9289,
-			"lod1Parts": 9289,
+			"buildingParts": 9331,
+			"lod1Parts": 9331,
 			"lod21Parts": 0,
-			"vertices": 165440,
-			"triangles": 80827,
+			"vertices": 166105,
+			"triangles": 81144,
 			"faceTriangles": {
-				"wall": 66176,
+				"wall": 66442,
 				"pitchedRoof": 0,
-				"flatRoof": 14651
+				"flatRoof": 14702
 			},
-			"rawBytes": 5227156,
-			"gzipBytes": 1195764
+			"rawBytes": 5249028,
+			"gzipBytes": 1200539
 		},
 		"13/4472/2841": {
 			"chunks": [
@@ -1727,8 +1727,8 @@
 			"gzipBytes": 371
 		}
 	},
-	"parts": 725228,
-	"vertices": 14188825,
-	"triangles": 7131837,
-	"gzipBytes": 102824219
+	"parts": 725324,
+	"vertices": 14190505,
+	"triangles": 7132653,
+	"gzipBytes": 102836332
 }
