@@ -1,6 +1,6 @@
 {
 	"schemaVersion": 3,
-	"generatedAt": "2026-11-12T10:12:45.424Z",
+	"generatedAt": "2026-11-13T10:03:13.798Z",
 	"sources": {
 		"wienBaumkataster": {
 			"url": "https://data.wien.gv.at/daten/geo",
@@ -666,19 +666,19 @@
 		}
 	},
 	"counts": {
-		"totalOutput": 281764,
+		"totalOutput": 281777,
 		"wfs": {
-			"source": 233382,
-			"output": 233382,
+			"source": 233389,
+			"output": 233389,
 			"skippedGeometry": 0,
 			"pages": 10,
-			"sourceReportedTotal": 233382
+			"sourceReportedTotal": 233389
 		},
 		"osm": {
-			"elements": 173673,
-			"treeNodes": 173123,
-			"treeNodesOutput": 41927,
-			"treeNodesSkippedWfsOverlap": 131174,
+			"elements": 173682,
+			"treeNodes": 173132,
+			"treeNodesOutput": 41933,
+			"treeNodesSkippedWfsOverlap": 131177,
 			"treeNodesSkippedDuplicate": 22,
 			"treeRows": 550,
 			"treeRowsInvalidGeometry": 0,
