@@ -3,7 +3,7 @@
 	"format": "KSWN0001",
 	"zoom": 14,
 	"source": "current-official-fmzk-lod1",
-	"sourceRelease": "2026-11-08T09:04:12.650Z",
+	"sourceRelease": "2026-11-15T09:32:26.333Z",
 	"sourceTilePolicy": {
 		"lowZooms": "13-14",
 		"lowZoomSimplification": 4,
@@ -509,19 +509,19 @@
 			"gzipBytes": 187756
 		},
 		"14/8931/5685": {
-			"sha256": "df879716e5496074b56df952b13f9a7a16323bdd85106b46acca9f072392632b",
-			"buildingParts": 2322,
-			"lod1Parts": 2322,
+			"sha256": "5c95077ba3ceaaaa4a7d2cdf0d0ca798e6e1c73f8acfa7074875acd57e73ddf5",
+			"buildingParts": 2321,
+			"lod1Parts": 2321,
 			"lod21Parts": 0,
-			"vertices": 49625,
-			"triangles": 25193,
+			"vertices": 49605,
+			"triangles": 25183,
 			"faceTriangles": {
-				"wall": 19850,
+				"wall": 19842,
 				"pitchedRoof": 0,
-				"flatRoof": 5343
+				"flatRoof": 5341
 			},
-			"rawBytes": 1495004,
-			"gzipBytes": 363592
+			"rawBytes": 1494412,
+			"gzipBytes": 363452
 		},
 		"14/8931/5686": {
 			"sha256": "143128dc2d49398e68207385d14f08643777763ee4b8b531a12adcefe3594af0",
@@ -629,34 +629,34 @@
 			"gzipBytes": 1125878
 		},
 		"14/8932/5683": {
-			"sha256": "3f3524e1fbb1acd0306abc0dc07c0bdb89d313ae45cf6efec806366e1278f67e",
-			"buildingParts": 7004,
-			"lod1Parts": 7004,
+			"sha256": "c987643cc0213e8c47adf445baf22549657a457939788acac3fb095adeb57d28",
+			"buildingParts": 6995,
+			"lod1Parts": 6995,
 			"lod21Parts": 0,
-			"vertices": 148770,
-			"triangles": 75436,
+			"vertices": 148610,
+			"triangles": 75360,
 			"faceTriangles": {
-				"wall": 59508,
+				"wall": 59444,
 				"pitchedRoof": 0,
-				"flatRoof": 15928
+				"flatRoof": 15916
 			},
-			"rawBytes": 4497148,
-			"gzipBytes": 1083693
+			"rawBytes": 4492108,
+			"gzipBytes": 1082593
 		},
 		"14/8932/5684": {
-			"sha256": "36881ef7e3464f9eac4abc2733fd47065df8b9392a2b534c56bd5432f2afe5f3",
-			"buildingParts": 8668,
-			"lod1Parts": 8668,
+			"sha256": "d50469218054fa25dd9acdc6514dd344ca24208e6e3fe457cd31f56ce1298b23",
+			"buildingParts": 8671,
+			"lod1Parts": 8671,
 			"lod21Parts": 0,
-			"vertices": 179000,
-			"triangles": 90213,
+			"vertices": 179145,
+			"triangles": 90296,
 			"faceTriangles": {
-				"wall": 71600,
+				"wall": 71658,
 				"pitchedRoof": 0,
-				"flatRoof": 18613
+				"flatRoof": 18638
 			},
-			"rawBytes": 5447724,
-			"gzipBytes": 1309628
+			"rawBytes": 5451636,
+			"gzipBytes": 1310842
 		},
 		"14/8932/5685": {
 			"sha256": "5078cdda4286377152010ec54779a1b4d29a331f9faec00771a355a149f57d3a",
@@ -704,34 +704,34 @@
 			"gzipBytes": 4333
 		},
 		"14/8933/5677": {
-			"sha256": "e76fa20a122a1f4d3b34dff07a8caa6b37e3ee7415b259b896f9b2b92dc99e5c",
-			"buildingParts": 601,
-			"lod1Parts": 601,
+			"sha256": "b89c7d942515eba8f2c0a1723c3dfd59cca1734dc5c1628c4fce1ec91053939c",
+			"buildingParts": 603,
+			"lod1Parts": 603,
 			"lod21Parts": 0,
-			"vertices": 12620,
-			"triangles": 6379,
+			"vertices": 12645,
+			"triangles": 6390,
 			"faceTriangles": {
-				"wall": 5048,
+				"wall": 5058,
 				"pitchedRoof": 0,
-				"flatRoof": 1331
+				"flatRoof": 1332
 			},
-			"rawBytes": 381436,
-			"gzipBytes": 94565
+			"rawBytes": 382316,
+			"gzipBytes": 94777
 		},
 		"14/8933/5678": {
-			"sha256": "858edb2c2e55a3bc4cc08eb71458091ee95316ff9111f0322b80a83587fbd083",
-			"buildingParts": 3566,
-			"lod1Parts": 3566,
+			"sha256": "fb0defc3cfd051f9c19e1b326574352894f6ccf0567b7a82a708478a44c57f6b",
+			"buildingParts": 3560,
+			"lod1Parts": 3560,
 			"lod21Parts": 0,
-			"vertices": 76495,
-			"triangles": 38853,
+			"vertices": 76425,
+			"triangles": 38817,
 			"faceTriangles": {
-				"wall": 30598,
+				"wall": 30570,
 				"pitchedRoof": 0,
-				"flatRoof": 8255
+				"flatRoof": 8247
 			},
-			"rawBytes": 2303976,
-			"gzipBytes": 557069
+			"rawBytes": 2301348,
+			"gzipBytes": 557023
 		},
 		"14/8933/5679": {
 			"sha256": "2e1a87ff6a7882cffeede83eabf4b563dc872eede50868736b539169390caf0c",
@@ -809,19 +809,19 @@
 			"gzipBytes": 1228375
 		},
 		"14/8933/5684": {
-			"sha256": "fe6dcb6531597887b9d64bd3fbaa618bb1682edb8bcdafa260c232d5a1799b94",
-			"buildingParts": 8354,
-			"lod1Parts": 8354,
+			"sha256": "7f02826955184d030e0971b98a63104a3b81983237b1b03d6b2e6d48151bba08",
+			"buildingParts": 8350,
+			"lod1Parts": 8350,
 			"lod21Parts": 0,
-			"vertices": 177985,
-			"triangles": 90533,
+			"vertices": 177905,
+			"triangles": 90493,
 			"faceTriangles": {
-				"wall": 71194,
+				"wall": 71162,
 				"pitchedRoof": 0,
-				"flatRoof": 19339
+				"flatRoof": 19331
 			},
-			"rawBytes": 5380036,
-			"gzipBytes": 1297771
+			"rawBytes": 5377600,
+			"gzipBytes": 1297043
 		},
 		"14/8933/5685": {
 			"sha256": "db017a6ed6232128ec79cbd17af731d420fce2817a551090e0ca8b1a96e2810c",
@@ -899,19 +899,19 @@
 			"gzipBytes": 159492
 		},
 		"14/8934/5678": {
-			"sha256": "a7662e647d00b69f8f1549dc568b77f9fb8ee12490b298ce3b5b5404d84ad8b9",
-			"buildingParts": 7772,
-			"lod1Parts": 7772,
+			"sha256": "1b61e4a53471608da59a2870e02264fe56434891f1d38ee199f457ebe9d485b0",
+			"buildingParts": 7769,
+			"lod1Parts": 7769,
 			"lod21Parts": 0,
-			"vertices": 168070,
-			"triangles": 85592,
+			"vertices": 167965,
+			"triangles": 85531,
 			"faceTriangles": {
-				"wall": 67228,
+				"wall": 67186,
 				"pitchedRoof": 0,
-				"flatRoof": 18364
+				"flatRoof": 18345
 			},
-			"rawBytes": 5062492,
-			"gzipBytes": 1236254
+			"rawBytes": 5059544,
+			"gzipBytes": 1235591
 		},
 		"14/8934/5679": {
 			"sha256": "7dfb2b557ee389cd0b60cb90d63c8345d700901e2afcc8c0a69c63729a210217",
@@ -944,49 +944,49 @@
 			"gzipBytes": 1836767
 		},
 		"14/8934/5681": {
-			"sha256": "050244c88c9ddeab44b9b2f2a996ee786eeedf7fa9868c49005d56d7f3d3a34e",
-			"buildingParts": 9062,
-			"lod1Parts": 9062,
+			"sha256": "44e784fd44fdfa8f0c61a408d58e7dbc092473016fb1a30bf4f37acd96026b63",
+			"buildingParts": 9077,
+			"lod1Parts": 9077,
 			"lod21Parts": 0,
-			"vertices": 226565,
-			"triangles": 119314,
+			"vertices": 226850,
+			"triangles": 119457,
 			"faceTriangles": {
-				"wall": 90626,
+				"wall": 90740,
 				"pitchedRoof": 0,
-				"flatRoof": 28688
+				"flatRoof": 28717
 			},
-			"rawBytes": 6629064,
-			"gzipBytes": 1644370
+			"rawBytes": 6637992,
+			"gzipBytes": 1646749
 		},
 		"14/8934/5682": {
-			"sha256": "9ead6f399fced348311afeabdeeb572e78aef9b46ec07c845703f51233d57914",
-			"buildingParts": 6218,
-			"lod1Parts": 6218,
+			"sha256": "7c0c3692205fcd7717a4d778ecebc5265d31ca7754c48c4931c7523885f9be93",
+			"buildingParts": 6210,
+			"lod1Parts": 6210,
 			"lod21Parts": 0,
-			"vertices": 155835,
-			"triangles": 82023,
+			"vertices": 155650,
+			"triangles": 81928,
 			"faceTriangles": {
-				"wall": 62334,
+				"wall": 62260,
 				"pitchedRoof": 0,
-				"flatRoof": 19689
+				"flatRoof": 19668
 			},
-			"rawBytes": 4555036,
-			"gzipBytes": 1133861
+			"rawBytes": 4549584,
+			"gzipBytes": 1132657
 		},
 		"14/8934/5683": {
-			"sha256": "f82486d882e9b3d57a601e34d47a5dee8262bf24fe728ab09d8a1a575d1ae305",
-			"buildingParts": 5125,
-			"lod1Parts": 5125,
+			"sha256": "221946ab786fe9de837c9dbd8ba8221bcc8b35a739293a60c2cf4011a97afaf7",
+			"buildingParts": 5121,
+			"lod1Parts": 5121,
 			"lod21Parts": 0,
-			"vertices": 120740,
-			"triangles": 62833,
+			"vertices": 120655,
+			"triangles": 62790,
 			"faceTriangles": {
-				"wall": 48296,
+				"wall": 48262,
 				"pitchedRoof": 0,
-				"flatRoof": 14537
+				"flatRoof": 14528
 			},
-			"rawBytes": 3570292,
-			"gzipBytes": 881764
+			"rawBytes": 3567712,
+			"gzipBytes": 881113
 		},
 		"14/8934/5684": {
 			"sha256": "cd5e26c7905538623a0b681226bfdf99e49780cf0eed9d97a4f357ddde7fdcc9",
@@ -1079,19 +1079,19 @@
 			"gzipBytes": 44572
 		},
 		"14/8935/5677": {
-			"sha256": "82fad53250a79892cd0fa83388e37a1b096cc2ad07f8a89f882caf698fc3e961",
-			"buildingParts": 3002,
-			"lod1Parts": 3002,
+			"sha256": "ffbc71df7fdcbabd8d045e090ddbf49d7fc4e8db7059a941e2e2992e4898bf7e",
+			"buildingParts": 3000,
+			"lod1Parts": 3000,
 			"lod21Parts": 0,
-			"vertices": 67085,
-			"triangles": 34438,
+			"vertices": 67025,
+			"triangles": 34404,
 			"faceTriangles": {
-				"wall": 26834,
+				"wall": 26810,
 				"pitchedRoof": 0,
-				"flatRoof": 7604
+				"flatRoof": 7594
 			},
-			"rawBytes": 2002584,
-			"gzipBytes": 494859
+			"rawBytes": 2000868,
+			"gzipBytes": 494378
 		},
 		"14/8935/5678": {
 			"sha256": "bb3b60f95eb3a285727ac27b3538d5d2594b3b3d431d138531bc5d7df8b5f2c6",
@@ -1124,64 +1124,64 @@
 			"gzipBytes": 1540498
 		},
 		"14/8935/5680": {
-			"sha256": "2e012bf6acb82bb5ffbc2eff947f0072ed4017edaf8a391b313f55106dfe8035",
-			"buildingParts": 13390,
-			"lod1Parts": 13390,
+			"sha256": "805ec6e96eba4f0f76ecf2bc7879ebc6f31c1e951ea3712bb78ce40462b522d2",
+			"buildingParts": 13389,
+			"lod1Parts": 13389,
 			"lod21Parts": 0,
-			"vertices": 339445,
-			"triangles": 178979,
+			"vertices": 339410,
+			"triangles": 178960,
 			"faceTriangles": {
-				"wall": 135778,
+				"wall": 135764,
 				"pitchedRoof": 0,
-				"flatRoof": 43201
+				"flatRoof": 43196
 			},
-			"rawBytes": 9904316,
-			"gzipBytes": 2464828
+			"rawBytes": 9903384,
+			"gzipBytes": 2464744
 		},
 		"14/8935/5681": {
-			"sha256": "527cb2aa758ad636e65cf7e9538f5cad16843e5275cafbb847e88d08c0b37db5",
+			"sha256": "5c5ba4545ee82be96859582c7301c139ace4cb68e8e824e5fe824dd2b11f50e6",
 			"buildingParts": 13132,
 			"lod1Parts": 13132,
 			"lod21Parts": 0,
-			"vertices": 342185,
-			"triangles": 181361,
+			"vertices": 342170,
+			"triangles": 181352,
 			"faceTriangles": {
-				"wall": 136874,
+				"wall": 136868,
 				"pitchedRoof": 0,
-				"flatRoof": 44487
+				"flatRoof": 44484
 			},
-			"rawBytes": 9932640,
-			"gzipBytes": 2462870
+			"rawBytes": 9932236,
+			"gzipBytes": 2462835
 		},
 		"14/8935/5682": {
-			"sha256": "963f9439d56f00cacbd20053d49da120d782b5347bcf7dc02e8d79616f816be8",
-			"buildingParts": 11890,
-			"lod1Parts": 11890,
+			"sha256": "085459d15542d8258756ac2c81ede272b2c4ceee803313fdf4eb4532d9598418",
+			"buildingParts": 11870,
+			"lod1Parts": 11870,
 			"lod21Parts": 0,
-			"vertices": 301835,
-			"triangles": 159132,
+			"vertices": 301585,
+			"triangles": 159024,
 			"faceTriangles": {
-				"wall": 120734,
+				"wall": 120634,
 				"pitchedRoof": 0,
-				"flatRoof": 38398
+				"flatRoof": 38390
 			},
-			"rawBytes": 8805288,
-			"gzipBytes": 2207520
+			"rawBytes": 8796496,
+			"gzipBytes": 2205902
 		},
 		"14/8935/5683": {
-			"sha256": "d9ec0ee994e4bf7682856d1b65d48d9348f13a1992c1f989498229f38a0f2680",
+			"sha256": "01f2f0ab6be547e3aa7f821398cc74d6a2784b260ac72d3fc8233d806ed62ea2",
 			"buildingParts": 8812,
 			"lod1Parts": 8812,
 			"lod21Parts": 0,
-			"vertices": 213795,
-			"triangles": 111961,
+			"vertices": 213790,
+			"triangles": 111958,
 			"faceTriangles": {
-				"wall": 85518,
+				"wall": 85516,
 				"pitchedRoof": 0,
-				"flatRoof": 26443
+				"flatRoof": 26442
 			},
-			"rawBytes": 6294712,
-			"gzipBytes": 1557808
+			"rawBytes": 6294584,
+			"gzipBytes": 1557695
 		},
 		"14/8935/5684": {
 			"sha256": "380b2d27b93cb52b1d32c4efef9a0f97aaa6ede52e1799158cb7fd3dad359850",
@@ -1229,34 +1229,34 @@
 			"gzipBytes": 119817
 		},
 		"14/8936/5675": {
-			"sha256": "749ab50594f53039f93fb5b8c52cb58c8ab52a13dbfbcd9ceb195c08c35f9e73",
-			"buildingParts": 437,
-			"lod1Parts": 437,
+			"sha256": "d6cda23497599b66498a0e0af673af843e8d5edfce8badfe9a80c06b20924b27",
+			"buildingParts": 436,
+			"lod1Parts": 436,
 			"lod21Parts": 0,
-			"vertices": 10695,
-			"triangles": 5559,
+			"vertices": 10680,
+			"triangles": 5552,
 			"faceTriangles": {
-				"wall": 4278,
+				"wall": 4272,
 				"pitchedRoof": 0,
-				"flatRoof": 1281
+				"flatRoof": 1280
 			},
-			"rawBytes": 312524,
-			"gzipBytes": 81325
+			"rawBytes": 312084,
+			"gzipBytes": 81208
 		},
 		"14/8936/5676": {
-			"sha256": "9e717a2dddb76f59a45d6ccb737ac6486c6dbdc782f8ad1fe56607f9c3f71a9b",
-			"buildingParts": 1056,
-			"lod1Parts": 1056,
+			"sha256": "a7bd21d6346e22edf58206351985fccd2dd78297784a1fefb2b0c3cc9edaed85",
+			"buildingParts": 1058,
+			"lod1Parts": 1058,
 			"lod21Parts": 0,
-			"vertices": 22160,
-			"triangles": 11192,
+			"vertices": 22195,
+			"triangles": 11209,
 			"faceTriangles": {
-				"wall": 8864,
+				"wall": 8878,
 				"pitchedRoof": 0,
-				"flatRoof": 2328
+				"flatRoof": 2331
 			},
-			"rawBytes": 669908,
-			"gzipBytes": 165217
+			"rawBytes": 671056,
+			"gzipBytes": 165438
 		},
 		"14/8936/5677": {
 			"sha256": "e0392f1a1913c8a9239b185d0ba23ac6871150ce91ad544d34599fa729641477",
@@ -1424,94 +1424,94 @@
 			"gzipBytes": 14844
 		},
 		"14/8937/5674": {
-			"sha256": "1584aab2837790464f19e327b64c880bf0fec004e1e79f57c67098ab0908450f",
-			"buildingParts": 2156,
-			"lod1Parts": 2156,
+			"sha256": "b186c68ea729bcdd2c8cd5125f1eec9a8d26572cfa3862d58a6f4cfc20510fbc",
+			"buildingParts": 2163,
+			"lod1Parts": 2163,
 			"lod21Parts": 0,
-			"vertices": 44740,
-			"triangles": 22566,
+			"vertices": 44880,
+			"triangles": 22636,
 			"faceTriangles": {
-				"wall": 17896,
+				"wall": 17952,
 				"pitchedRoof": 0,
-				"flatRoof": 4670
+				"flatRoof": 4684
 			},
-			"rawBytes": 1356488,
-			"gzipBytes": 328669
+			"rawBytes": 1360800,
+			"gzipBytes": 329623
 		},
 		"14/8937/5675": {
-			"sha256": "a2d3c09360f9d9f0cf09f76e09d6c471694fa411dcf861aef6f8a3454b47e023",
-			"buildingParts": 4674,
-			"lod1Parts": 4674,
+			"sha256": "b804525f5477fcf877434c2c29e258c746ad19bbbb0123910caac4375b793f3f",
+			"buildingParts": 4687,
+			"lod1Parts": 4687,
 			"lod21Parts": 0,
-			"vertices": 101480,
-			"triangles": 51794,
+			"vertices": 101735,
+			"triangles": 51923,
 			"faceTriangles": {
-				"wall": 40592,
+				"wall": 40694,
 				"pitchedRoof": 0,
-				"flatRoof": 11202
+				"flatRoof": 11229
 			},
-			"rawBytes": 3051624,
-			"gzipBytes": 744370
+			"rawBytes": 3059616,
+			"gzipBytes": 746008
 		},
 		"14/8937/5676": {
-			"sha256": "081de799d39a82b8994561257b2ed6eea8377aa13a2c88ba2ff19ce297b6106e",
-			"buildingParts": 6916,
-			"lod1Parts": 6916,
+			"sha256": "06cd739c39e96be97ca579f845cfef7349ae30c8a06a17eba3285b02ef51eb7b",
+			"buildingParts": 6920,
+			"lod1Parts": 6920,
 			"lod21Parts": 0,
-			"vertices": 147135,
-			"triangles": 74725,
+			"vertices": 147195,
+			"triangles": 74753,
 			"faceTriangles": {
-				"wall": 58854,
+				"wall": 58878,
 				"pitchedRoof": 0,
-				"flatRoof": 15871
+				"flatRoof": 15875
 			},
-			"rawBytes": 4445780,
-			"gzipBytes": 1075272
+			"rawBytes": 4447744,
+			"gzipBytes": 1075863
 		},
 		"14/8937/5677": {
-			"sha256": "c0ba95a037a973abe75fed50a7e9b331b3192fd0650f27cc2468ee6229e3b577",
-			"buildingParts": 3576,
-			"lod1Parts": 3576,
+			"sha256": "e56a86bc5812803ea86ed0f5ea448a0bf93ac2e3958acf43ce6532d3dff30fc6",
+			"buildingParts": 3582,
+			"lod1Parts": 3582,
 			"lod21Parts": 0,
-			"vertices": 79680,
-			"triangles": 40936,
+			"vertices": 79785,
+			"triangles": 40987,
 			"faceTriangles": {
-				"wall": 31872,
+				"wall": 31914,
 				"pitchedRoof": 0,
-				"flatRoof": 9064
+				"flatRoof": 9073
 			},
-			"rawBytes": 2381592,
-			"gzipBytes": 583645
+			"rawBytes": 2384920,
+			"gzipBytes": 584423
 		},
 		"14/8937/5678": {
-			"sha256": "f1e89d7bdca5aeb4c1e15ef583fb015dba3bc97f11186b050f78ab35a07ecf96",
-			"buildingParts": 4134,
-			"lod1Parts": 4134,
+			"sha256": "5109d6d4aec89f761c6f3e7c1bd80d7133009b03f450f4df40d8c1913041e87f",
+			"buildingParts": 4135,
+			"lod1Parts": 4135,
 			"lod21Parts": 0,
-			"vertices": 100350,
-			"triangles": 52510,
+			"vertices": 100365,
+			"triangles": 52517,
 			"faceTriangles": {
-				"wall": 40140,
+				"wall": 40146,
 				"pitchedRoof": 0,
-				"flatRoof": 12370
+				"flatRoof": 12371
 			},
-			"rawBytes": 2950168,
-			"gzipBytes": 725137
+			"rawBytes": 2950644,
+			"gzipBytes": 725307
 		},
 		"14/8937/5679": {
-			"sha256": "9adc41c44cc6e965241d51394f3572fa366aefda5a9084834c15d9157e6d8f40",
-			"buildingParts": 6829,
-			"lod1Parts": 6829,
+			"sha256": "946554b20123a9f499e31bfa53ee4f6d60475ce65d5be510ae1c462267a56747",
+			"buildingParts": 6851,
+			"lod1Parts": 6851,
 			"lod21Parts": 0,
-			"vertices": 179525,
-			"triangles": 95668,
+			"vertices": 179945,
+			"triangles": 95876,
 			"faceTriangles": {
-				"wall": 71810,
+				"wall": 71978,
 				"pitchedRoof": 0,
-				"flatRoof": 23858
+				"flatRoof": 23898
 			},
-			"rawBytes": 5204356,
-			"gzipBytes": 1310145
+			"rawBytes": 5217388,
+			"gzipBytes": 1312888
 		},
 		"14/8937/5680": {
 			"sha256": "98073ca509ce337069e3d006b2222b98491481ba5a5577c81f138f92b9a8b283",
@@ -1589,19 +1589,19 @@
 			"gzipBytes": 943222
 		},
 		"14/8937/5685": {
-			"sha256": "2eb3795efdf74daac52e024e597e6d3f879a388672b858dd1c86b0e651c42dcb",
-			"buildingParts": 5044,
-			"lod1Parts": 5044,
+			"sha256": "d44ab033f7584234ea96f8b3f684ab086fd75bfe47f4295ecfe5b98d56224f9a",
+			"buildingParts": 5043,
+			"lod1Parts": 5043,
 			"lod21Parts": 0,
-			"vertices": 112485,
-			"triangles": 58085,
+			"vertices": 112465,
+			"triangles": 58075,
 			"faceTriangles": {
-				"wall": 44994,
+				"wall": 44986,
 				"pitchedRoof": 0,
-				"flatRoof": 13091
+				"flatRoof": 13089
 			},
-			"rawBytes": 3365852,
-			"gzipBytes": 819619
+			"rawBytes": 3365244,
+			"gzipBytes": 819491
 		},
 		"14/8937/5686": {
 			"sha256": "bdf32f599ef78aae5ce82b2e14c4aaeb18d1ab616e75c802194d9704a971a54f",
@@ -1649,19 +1649,19 @@
 			"gzipBytes": 366085
 		},
 		"14/8938/5675": {
-			"sha256": "ab5ffe8a8cda7bb5145b142e35cd5a7533c6c2a7925e2c3908f6b494f0896a23",
-			"buildingParts": 3434,
-			"lod1Parts": 3434,
+			"sha256": "6cd84131cdba7054468a2f46c738d86ba60f27a2b603752ddfe605daacc53d6b",
+			"buildingParts": 3441,
+			"lod1Parts": 3441,
 			"lod21Parts": 0,
-			"vertices": 75085,
-			"triangles": 38397,
+			"vertices": 75200,
+			"triangles": 38452,
 			"faceTriangles": {
-				"wall": 30034,
+				"wall": 30080,
 				"pitchedRoof": 0,
-				"flatRoof": 8363
+				"flatRoof": 8372
 			},
-			"rawBytes": 2252704,
-			"gzipBytes": 543952
+			"rawBytes": 2256448,
+			"gzipBytes": 544996
 		},
 		"14/8938/5676": {
 			"sha256": "0971e27c9e8c3368b4159ab5a984243fb349abb0853d22a65551c356985b45b7",
@@ -1679,64 +1679,64 @@
 			"gzipBytes": 1245583
 		},
 		"14/8938/5677": {
-			"sha256": "2c56c02186353ed4e475105dcc470851e59ff828105a72954e2c896a047a6910",
-			"buildingParts": 8017,
-			"lod1Parts": 8017,
+			"sha256": "e8f91f6d38da72482b649ad3a4eabe73e8eb474b977c6d0d90fdf43270824a40",
+			"buildingParts": 8022,
+			"lod1Parts": 8022,
 			"lod21Parts": 0,
-			"vertices": 195145,
-			"triangles": 102410,
+			"vertices": 195245,
+			"triangles": 102458,
 			"faceTriangles": {
-				"wall": 78058,
+				"wall": 78098,
 				"pitchedRoof": 0,
-				"flatRoof": 24352
+				"flatRoof": 24360
 			},
-			"rawBytes": 5740800,
-			"gzipBytes": 1429156
+			"rawBytes": 5743848,
+			"gzipBytes": 1429957
 		},
 		"14/8938/5678": {
-			"sha256": "216585cf456116e50f9420da0deb439a659feec8eea1859127cfbdec3e79ef94",
-			"buildingParts": 5406,
-			"lod1Parts": 5406,
+			"sha256": "87269c7ff3b49072e3eaa294f981d8c2d13a20929513a02b7be358114a4a2103",
+			"buildingParts": 5444,
+			"lod1Parts": 5444,
 			"lod21Parts": 0,
-			"vertices": 117020,
-			"triangles": 59696,
+			"vertices": 117710,
+			"triangles": 60038,
 			"faceTriangles": {
-				"wall": 46808,
+				"wall": 47084,
 				"pitchedRoof": 0,
-				"flatRoof": 12888
+				"flatRoof": 12954
 			},
-			"rawBytes": 3522120,
-			"gzipBytes": 854763
+			"rawBytes": 3543700,
+			"gzipBytes": 859302
 		},
 		"14/8938/5679": {
-			"sha256": "c1699382a7385f7395f809425904c543dfda1fbe1af7b279ca676303fa156c2c",
-			"buildingParts": 4058,
-			"lod1Parts": 4058,
+			"sha256": "fb368b8b7bc1cf7b8877ecf9cc3ad6c60fcae1c261eb5b333bb1281d6085818c",
+			"buildingParts": 4050,
+			"lod1Parts": 4050,
 			"lod21Parts": 0,
-			"vertices": 98230,
-			"triangles": 51603,
+			"vertices": 98045,
+			"triangles": 51508,
 			"faceTriangles": {
-				"wall": 39292,
+				"wall": 39218,
 				"pitchedRoof": 0,
-				"flatRoof": 12311
+				"flatRoof": 12290
 			},
-			"rawBytes": 2891356,
-			"gzipBytes": 709025
+			"rawBytes": 2885844,
+			"gzipBytes": 707767
 		},
 		"14/8938/5680": {
-			"sha256": "b5cc1ddfd70bbd21479b45539174b21b30b980adf44a8420896ebb929206be5c",
-			"buildingParts": 6912,
-			"lod1Parts": 6912,
+			"sha256": "5d50ba69d9231879caf39d15ce5adadcb9f98d8e15879caecc3aa145a51cd1f1",
+			"buildingParts": 6870,
+			"lod1Parts": 6870,
 			"lod21Parts": 0,
-			"vertices": 179340,
-			"triangles": 95564,
+			"vertices": 178535,
+			"triangles": 95161,
 			"faceTriangles": {
-				"wall": 71736,
+				"wall": 71414,
 				"pitchedRoof": 0,
-				"flatRoof": 23828
+				"flatRoof": 23747
 			},
-			"rawBytes": 5214744,
-			"gzipBytes": 1298035
+			"rawBytes": 5189808,
+			"gzipBytes": 1292629
 		},
 		"14/8938/5681": {
 			"sha256": "58c0d0bc1383f108b95797a8bcd41c40116070caf9cfea5d82744a0489ddb9fe",
@@ -1874,19 +1874,19 @@
 			"gzipBytes": 514206
 		},
 		"14/8939/5675": {
-			"sha256": "a075e0faeed38349507f519b8d400a185d4086f4589ee14d8465b0af4c60ca77",
-			"buildingParts": 7562,
-			"lod1Parts": 7562,
+			"sha256": "3fc0ee28df8f6c864ec541eeb0a06f750c16cf0b48db18a5f3f4fb193252845b",
+			"buildingParts": 7633,
+			"lod1Parts": 7633,
 			"lod21Parts": 0,
-			"vertices": 164710,
-			"triangles": 84081,
+			"vertices": 165930,
+			"triangles": 84673,
 			"faceTriangles": {
-				"wall": 65884,
+				"wall": 66372,
 				"pitchedRoof": 0,
-				"flatRoof": 18197
+				"flatRoof": 18301
 			},
-			"rawBytes": 4953284,
-			"gzipBytes": 1197077
+			"rawBytes": 4992200,
+			"gzipBytes": 1207259
 		},
 		"14/8939/5676": {
 			"sha256": "0abb8d9cc2f22705fe15a8cd9cc00822d603dee2d3cdbc20de7db50b572ee99d",
@@ -1919,34 +1919,34 @@
 			"gzipBytes": 1227694
 		},
 		"14/8939/5678": {
-			"sha256": "409c02f3c669f438de5206119967d6fb04300693ecbfe4657326d326b4bb43d5",
-			"buildingParts": 7139,
-			"lod1Parts": 7139,
+			"sha256": "9ebf5a887fac99ea6dff44eac1d6566e6e3acd1531e616d98d1bb67f7c80e976",
+			"buildingParts": 7138,
+			"lod1Parts": 7138,
 			"lod21Parts": 0,
 			"vertices": 161965,
-			"triangles": 83656,
+			"triangles": 83658,
 			"faceTriangles": {
 				"wall": 64786,
 				"pitchedRoof": 0,
-				"flatRoof": 18870
+				"flatRoof": 18872
 			},
-			"rawBytes": 4833612,
-			"gzipBytes": 1172298
+			"rawBytes": 4833452,
+			"gzipBytes": 1172306
 		},
 		"14/8939/5679": {
-			"sha256": "0fdae5fc031129250bbcb963420ce1c5893adfbd2682eb2b7962650933f1f381",
-			"buildingParts": 5600,
-			"lod1Parts": 5600,
+			"sha256": "c2c35e82fe83089c1c5a3f29cdc4500fd11068e4100466821bb4628e729e483c",
+			"buildingParts": 5599,
+			"lod1Parts": 5599,
 			"lod21Parts": 0,
-			"vertices": 125650,
-			"triangles": 64804,
+			"vertices": 125630,
+			"triangles": 64794,
 			"faceTriangles": {
-				"wall": 50260,
+				"wall": 50252,
 				"pitchedRoof": 0,
-				"flatRoof": 14544
+				"flatRoof": 14542
 			},
-			"rawBytes": 3757436,
-			"gzipBytes": 917336
+			"rawBytes": 3756848,
+			"gzipBytes": 917064
 		},
 		"14/8939/5680": {
 			"sha256": "38bded7c09c59df030cf9fa2f4a128a9f94675e357e86bde0a0b7289fde67a18",
@@ -2354,7 +2354,7 @@
 			"gzipBytes": 1078884
 		},
 		"14/8941/5680": {
-			"sha256": "8fbab0b2e523b9de0231eb3cdee8fd194d5602aa2f51aa025d90adce7fc37553",
+			"sha256": "00963879ad81c44a229a030797a6558a171e079c234d0a15301f3331894e46cb",
 			"buildingParts": 10206,
 			"lod1Parts": 10206,
 			"lod21Parts": 0,
@@ -2366,7 +2366,7 @@
 				"flatRoof": 23900
 			},
 			"rawBytes": 6602984,
-			"gzipBytes": 1590076
+			"gzipBytes": 1590087
 		},
 		"14/8941/5681": {
 			"sha256": "4717522c8589726e03ad6f5c106bc72a2d0aa560beb402737ce0a14ce528334d",
@@ -3014,8 +3014,8 @@
 			"gzipBytes": 393
 		}
 	},
-	"parts": 729478,
-	"vertices": 16817110,
-	"triangles": 8707587,
-	"gzipBytes": 122606328
+	"parts": 729562,
+	"vertices": 16818605,
+	"triangles": 8708314,
+	"gzipBytes": 122619769
 }
