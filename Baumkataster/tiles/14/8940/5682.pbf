@@ -1,7 +1,8 @@
-Ω≈x
+∏øx
 baumkataster(Ä OBJECTIDBAUM_IDBEZIRKOBJEKT_STRASSEGEBIETSGRUPPEGATTUNG_ART
 PFLANZJAHRPFLANZJAHR_TXTSTAMMUMFANGSTAMMUMFANG_TXT	BAUMHOEHEBAUMHOEHE_TXTKRONENDURCHMESSERKRONENDURCHMESSER_TXT
-BAUMNUMMER	KS_SOURCEKS_IDOSM_TYPEOSM_ID	LEAF_TYPEOSM_TREE_ROW_IDOSM_TREE_ROW_INDEXOSM_TREE_COUNT"
+BAUMNUMMER	KS_SOURCEKS_IDOSM_TYPEOSM_ID	LEAF_TYPE
+LEAF_CYCLEOSM_TREE_ROW_IDOSM_TREE_ROW_INDEXOSM_TREE_COUNT"
 1"
 2"
 3"
@@ -24,7 +25,6 @@ BAUMNUMMER	KS_SOURCEKS_IDOSM_TYPEOSM_ID	LEAF_TYPEOSM_TREE_ROW_IDOSM_
 20"
 21"
 22"
-23"
 24"
 25"
 26"
@@ -42,6 +42,7 @@ BAUMNUMMER	KS_SOURCEKS_IDOSM_TYPEOSM_ID	LEAF_TYPEOSM_TREE_ROW_IDOSM_
 38"
 39"
 40"
+41"
 42"
 43"
 44"
@@ -58,37 +59,37 @@ BAUMNUMMER	KS_SOURCEKS_IDOSM_TYPEOSM_ID	LEAF_TYPEOSM_TREE_ROW_IDOSM_
 55"
 56"
 57"
-58"
 59"
 60"
 61"
 62"
 63"
 64"
+65"
 66"
 67"
+68"
 69"
 70"
-71"
-73"
-74"
+72"
+75"
 76"
 77"
 78"
 79"
+80"
 81"
 82"
 83"
+84"
 85"
-86"
+87"
 88"
 89"
 90"
-91"
 92"
-93"
 94"
-96"
+95"
 97"
 98"
 99"
@@ -107,226 +108,207 @@ BAUMNUMMER	KS_SOURCEKS_IDOSM_TYPEOSM_ID	LEAF_TYPEOSM_TREE_ROW_IDOSM_
 112"
 113"
 114"
-115"
 116"
 117"
 118"
+119"
 120"
 121"
 122"
 123"
+124"
 125"
-126"
 127"
+128"
 129"
 130"
 131"
-133"
+132"
+134"
 135"
-136"
+137"
 138"
-139"
+140"
 141"
-142"
-143"
-144"
-146"
 147"
-148"
+149"
 150"
-151"
+152"
 153"
-155"
-156"
-158"
-160"
-162"
-164"
+154"
+159"
+161"
+163"
+166"
 167"
-168"
-169"
-170"
 172"
 173"
-174"
-175"
-177"
-178"
-179"
-184"
-187"
-192"
-193"
-197"
-2/1"
-218"
-223"
-224"
+176"
+180"
+182"
+186"
+188"
+190"
+191"
+194"
+198"
+217"
+219"
+222"
+226"
 4 m"
 5 m"
-5/A"
 6 m"
+6/A"
+7 m"
+8 m"
 9 m"
 way"
 10 m"
-1002"
+1001"
 1003"
 1004"
-1005"
-1006"
-1007"
 1008"
-1010"
-1013"
-1016"
-1018"
-1020"
-1022"
-1026"
-1028"
-1031"
-1033"
-1036"
-1038"
-1040"
-1042"
-1044"
-1046"
-1050"
-1051"
-1054"
-1056"
-1059"
-1061"
-1064"
-1066"
-1070"
-1072"
-1074"
-1077"
-1100"
-1103"
-1105"
-1107"
-1114"
-1116"
-1120"
-1122"
-1125"
-1128"
-1131"
-1133"
-1136"
-1139"
-1142"
-1143"
-1148"
-1151"
-1154"
-1155"
-1157"
-1160"
-1166"
-1169"
-1171"
-1173"
-1181"
-1185"
-1187"
-1190"
-1193"
-1196"
-1199"
+1009"
+1012"
+1015"
+1017"
+1019"
+1021"
+1023"
+1027"
+1030"
+1034"
+1037"
+1041"
+1043"
+1045"
+1047"
+1049"
+1052"
+1055"
+1057"
+1060"
+1062"
+1065"
+1067"
+1069"
+1071"
+1073"
+1075"
+1078"
+11 m"
+1101"
+1102"
+1106"
+1110"
+1115"
+1117"
+1121"
+1123"
+1127"
+1129"
+1132"
+1137"
+1140"
+1144"
+1145"
+1146"
+1149"
+1152"
+1159"
+1161"
+1164"
+1168"
+1170"
+1174"
+1175"
+1178"
+1179"
+1182"
+1186"
+1188"
+1191"
+1194"
+1198"
 12 m"
-1203"
-1207"
-1209"
-1212"
-1214"
-1217"
-1222"
-1227"
-1230"
-1232"
-1238"
-1245"
-1247"
-1249"
-1254"
-1258"
-1260"
-1264"
-1266"
+1200"
+1202"
+1204"
+1208"
+1210"
+1213"
+1215"
+1218"
+1221"
+1224"
+1225"
+1228"
+1229"
+1231"
+1233"
+1237"
+1243"
+1246"
+1248"
+1250"
+1253"
+1255"
+1259"
+1262"
+1265"
+1267"
 13 m"
-13/A"
-14 m"
-16 m"
-18 m"
-1806"
-1820"
-1822"
-1833"
-1845"
+15 m"
+17 m"
+18/1"
+1835"
 1849"
-1850"
-1853"
-1860"
-1865"
-1866"
 1870"
+1873"
 1875"
-1876"
-1877"
 1880"
 1885"
-1889"
+1888"
 1890"
-1893"
+1894"
 1895"
 1896"
 1897"
-1899"
-19/A"
 1900"
+1901"
+1902"
+1904"
 1905"
 1907"
 1909"
 1910"
-1911"
-1912"
+1913"
+1914"
 1915"
 1916"
 1917"
 1920"
 1921"
-1923"
-1924"
+1922"
 1925"
 1926"
-1927"
 1929"
 1930"
-1932"
+1934"
 1935"
 1936"
 1937"
-1938"
 1939"
 1940"
 1941"
-1942"
-1944"
+1943"
 1945"
-1946"
-1948"
+1947"
 1949"
 1950"
-1951"
-1952"
 1953"
-1954"
 1956"
-1957"
 1958"
 1959"
 1960"
@@ -337,13 +319,14 @@ BAUMNUMMER	KS_SOURCEKS_IDOSM_TYPEOSM_ID	LEAF_TYPEOSM_TREE_ROW_IDOSM_
 1965"
 1966"
 1967"
+1968"
 1969"
 1970"
+1971"
 1972"
 1973"
 1974"
 1975"
-1976"
 1977"
 1978"
 1979"
@@ -367,6 +350,7 @@ BAUMNUMMER	KS_SOURCEKS_IDOSM_TYPEOSM_ID	LEAF_TYPEOSM_TREE_ROW_IDOSM_
 1997"
 1998"
 1999"
+20 m"
 2000"
 2001"
 2002"
@@ -396,148 +380,149 @@ BAUMNUMMER	KS_SOURCEKS_IDOSM_TYPEOSM_ID	LEAF_TYPEOSM_TREE_ROW_IDOSM_
 2026"
 2027"
 2028"
-2029"
-2034"
-2035"
-24/A"
-24/D"
-24/G"
+2030"
+2033"
+2036"
+2037"
+21/A"
+24/E"
+24/F"
 2490"
-2493"
-2495"
-2496"
-2497"
+2491"
+2494"
+2499"
 25/A"
-25/B"
-25/C"
-2500"
-2505"
-2507"
-2511"
-2514"
-2518"
-2520"
-2521"
-2528"
-27/B"
-27/D"
-3008"
-31/A"
-32/A"
-3498"
-3500"
-3503"
-3504"
-3506"
-3508"
-3511"
-3512"
-3514"
-3517"
-3520"
-3521"
-3522"
-3523"
-3527"
-3528"
-3530"
-3531"
-3533"
-37/A"
-4009"
-4010"
-4012"
-4014"
-4502"
-4503"
-4505"
-4509"
-4511"
-4512"
-4515"
-4516"
-4521"
-4522"
-4524"
-4525"
-4528"
-4530"
-4532"
-4534"
-4535"
-4538"
-46/A"
-47/A"
-5 cm"
-5004"
-5007"
-5510"
-5513"
-5516"
-5517"
-5521"
-5525"
-5528"
-5533"
-5534"
-58/A"
-6001"
-6003"
-6005"
-6009"
-6301"
-6302"
-6305"
-6308"
-68/A"
-69/A"
-7 cm"
-7001"
-7003"
-7005"
-7007"
-7009"
-7011"
-77/1"
-79/3"
+2501"
+2502"
+2503"
+2504"
+2508"
+2509"
+2510"
+2512"
+2515"
+2517"
+2519"
+2523"
+2524"
+2526"
+2527"
+26/1"
+27/A"
+27/C"
+27/E"
+3001"
+3003"
+3006"
+3496"
+3497"
+3501"
+3502"
+3507"
+3510"
+3513"
+3516"
+3524"
+3525"
+3526"
+3529"
+3532"
+37/C"
+4004"
+4011"
+4015"
+42/A"
+45/2"
+4504"
+4506"
+4508"
+4510"
+4513"
+4519"
+4523"
+4526"
+4533"
+4536"
+4537"
+4539"
+5002"
+5005"
+5008"
+5509"
+5515"
+5518"
+5519"
+5520"
+5522"
+5523"
+5524"
+5526"
+5527"
+5529"
+5530"
+5531"
+5532"
+5535"
+5536"
+5537"
+5539"
+5541"
+6002"
+6006"
+6303"
+6304"
+6306"
+6309"
+7002"
+7006"
+7008"
+7010"
+7012"
+7016"
+73/A"
+73/B"
+75/A"
+77/2"
+79/1"
+79/2"
+79/4"
+79/A"
 8 cm"
-80/C"
-85/B"
-88/A"
-9001"
+8028"
+85/A"
+N146"
 node"
 0-3 m"
 0-5 m"
-1.5 m"
-10 cm"
-100/A"
-101/E"
-101/H"
-102/B"
-102/D"
-103/C"
-103/E"
-104/A"
-104/E"
-108/B"
-11 cm"
-110/A"
-117/A"
-118/A"
-118/B"
-119/C"
-119/E"
-14 cm"
-142/A"
-147/B"
-15 cm"
+100/B"
+101/A"
+101/D"
+101/F"
+102/A"
+102/E"
+103/A"
+104/D"
+104/F"
+104/G"
+104/H"
+108/A"
+115/A"
+117/B"
+119/A"
+119/B"
+12 cm"
+13 cm"
+138/B"
+138/D"
+142/B"
+145/A"
+147/A"
 16 cm"
-163/B"
-163/C"
+165/A"
+165/B"
 18 cm"
-186/A"
-186/C"
-186/F"
+186/B"
+186/D"
 19 cm"
 20 cm"
 21 cm"
@@ -552,24 +537,26 @@ BAUMNUMMER	KS_SOURCEKS_IDOSM_TYPEOSM_ID	LEAF_TYPEOSM_TREE_ROW_IDOSM_
 30 cm"
 31 cm"
 32 cm"
+33 cm"
+34 cm"
 35 cm"
-36 cm"
+37 cm"
 38 cm"
+39 cm"
 4-6 m"
 40 cm"
 41 cm"
 42 cm"
-45 cm"
+43 cm"
 46 cm"
 47 cm"
 48 cm"
 49 cm"
 50 cm"
 51 cm"
+52 cm"
 53 cm"
-54 cm"
 55 cm"
-56 cm"
 57 cm"
 58 cm"
 59 cm"
@@ -579,6 +566,7 @@ BAUMNUMMER	KS_SOURCEKS_IDOSM_TYPEOSM_ID	LEAF_TYPEOSM_TREE_ROW_IDOSM_
 63 cm"
 64 cm"
 65 cm"
+66 cm"
 67 cm"
 68 cm"
 69 cm"
@@ -602,68 +590,58 @@ BAUMNUMMER	KS_SOURCEKS_IDOSM_TYPEOSM_ID	LEAF_TYPEOSM_TREE_ROW_IDOSM_
 86 cm"
 87 cm"
 88 cm"
-89 cm"
 90 cm"
 91 cm"
 92 cm"
 93 cm"
 94 cm"
-95 cm"
 96 cm"
-97 cm"
 98 cm"
 99 cm"
 100 cm"
 101 cm"
 102 cm"
 103 cm"
+1032/A"
+1038/B"
 104 cm"
 105 cm"
 106 cm"
-1068/A"
 107 cm"
 108 cm"
 109 cm"
-1098/A"
+1098/B"
 110 cm"
 111 cm"
 112 cm"
-1126/A"
+1126/B"
 113 cm"
-1135/B"
+1135/C"
 114 cm"
-1144/A"
 115 cm"
+1155/A"
+1155/B"
 116 cm"
-1161/B"
-1164/A"
+1164/B"
 117 cm"
-1178/A"
-1178/B"
 118 cm"
-1183/A"
+1183/B"
 119 cm"
 120 cm"
-1201/A"
 121 cm"
 122 cm"
-1221/A"
-1224/A"
-1229/A"
 123 cm"
-1237/A"
+124 cm"
 125 cm"
-1251/A"
 126 cm"
 127 cm"
 128 cm"
 129 cm"
 130 cm"
 131 cm"
-132 cm"
-133 cm"
 134 cm"
 135 cm"
+136 cm"
 137 cm"
 138 cm"
 139 cm"
@@ -673,20 +651,24 @@ BAUMNUMMER	KS_SOURCEKS_IDOSM_TYPEOSM_ID	LEAF_TYPEOSM_TREE_ROW_IDOSM_
 143 cm"
 144 cm"
 145 cm"
+146 cm"
 147 cm"
 148 cm"
 149 cm"
-150 cm"
 151 cm"
 152 cm"
 153 cm"
-154 cm"
 155 cm"
+156 cm"
+157 cm"
+158 cm"
 159 cm"
 160 cm"
 161 cm"
 162 cm"
 163 cm"
+164 cm"
+165 cm"
 166 cm"
 167 cm"
 168 cm"
@@ -706,123 +688,109 @@ BAUMNUMMER	KS_SOURCEKS_IDOSM_TYPEOSM_ID	LEAF_TYPEOSM_TREE_ROW_IDOSM_
 183 cm"
 184 cm"
 185 cm"
+186 cm"
 187 cm"
-188 cm"
 189 cm"
 190 cm"
-191 cm"
 192 cm"
-193 cm"
-194 cm"
-195 cm"
 196 cm"
 197 cm"
 198 cm"
+199 cm"
 200 cm"
+2001/A"
 201 cm"
 202 cm"
 203 cm"
 204 cm"
 205 cm"
-207 cm"
+206 cm"
 208 cm"
 209 cm"
-210 cm"
 211 cm"
-212 cm"
 213 cm"
+214 cm"
 215 cm"
+216 cm"
 217 cm"
-218 cm"
-219 cm"
 220 cm"
+221 cm"
 222 cm"
+224 cm"
 225 cm"
 226 cm"
-227 cm"
-229 cm"
+228 cm"
 230 cm"
+231 cm"
+232 cm"
 233 cm"
 235 cm"
 236 cm"
+237 cm"
 238 cm"
 240 cm"
-243 cm"
+242 cm"
+245 cm"
+247 cm"
 248 cm"
 250 cm"
-251 cm"
 254 cm"
 255 cm"
 257 cm"
+258 cm"
+259 cm"
 260 cm"
-263 cm"
+264 cm"
+265 cm"
 267 cm"
+268 cm"
+269 cm"
 270 cm"
 271 cm"
-277 cm"
+272 cm"
+274 cm"
+275 cm"
 278 cm"
-279 cm"
 280 cm"
-281 cm"
 283 cm"
 285 cm"
 290 cm"
 293 cm"
-295 cm"
-297 cm"
-298 cm"
-300 cm"
-3001/A"
-3002/B"
-3002/C"
-3003/A"
-301 cm"
-302 cm"
+3002/A"
+3002/D"
+3003/B"
 305 cm"
+307 cm"
 308 cm"
-311 cm"
+310 cm"
+312 cm"
+314 cm"
+315 cm"
+318 cm"
 319 cm"
-320 cm"
-325 cm"
+324 cm"
+326 cm"
+328 cm"
 330 cm"
 332 cm"
-334 cm"
-335 cm"
-336 cm"
+337 cm"
 340 cm"
-342 cm"
 345 cm"
-350 cm"
-358 cm"
-363 cm"
-364 cm"
-373 cm"
-380 cm"
-382 cm"
-386 cm"
-387 cm"
+353 cm"
+361 cm"
+362 cm"
 390 cm"
-392 cm"
-398 cm"
-407 cm"
-408 cm"
-410 cm"
-411 cm"
-440 cm"
-445 cm"
-448 cm"
-460 cm"
+4001/C"
+428 cm"
+429 cm"
+450 cm"
 472 cm"
-482 cm"
-484 cm"
-490 cm"
-517 cm"
-532 cm"
-558 cm"
+501 cm"
+518 cm"
+535 cm"
+595 cm"
 6-10 m"
-602 cm"
-672 cm"
-7012/A"	
+730 cm"	
 10-12 m"	
 11-15 m"	
 13-15 m"	
@@ -834,935 +802,922 @@ BAUMNUMMER	KS_SOURCEKS_IDOSM_TYPEOSM_ID	LEAF_TYPEOSM_TREE_ROW_IDOSM_
 31-35 m"
 
 osm_tree"
+	182953699"
 	182953700"
-	891579205"
+	891579205"
+	deciduous"
 
-2044069737"
+2044068772"
 
-2044103462"
+2044099440"
 
-2044103503"
+2044102609"
 
-2044103983"
+2044102611"
 
-2044103998"
+2044103312"
 
-2044104136"
+2044103422"
 
-2044105676"
+2044103499"
 
-2044106984"
+2044103987"
 
-2044107639"
+2044104055"
 
-2044108358"
+2044104547"
 
-3263036186"
+2044108953"
 
-3263036619"
+3263035409"
 
-3263037973"
+3263036198"
 
-3674091046"
+7449338591"
 
-7449338594"
+7449338592"
+
+7449338593"
 
 Hauptallee"
 
 Wien Kanal"
 
-wien:36218"
+wien:36214"
 
-wien:36219"
+wien:36215"
 
-wien:36222"
+wien:36216"
 
-wien:36224"
+wien:36220"
 
-wien:36233"
+wien:36221"
 
-wien:36234"
+wien:36236"
 
-wien:36237"
+wien:36238"
 
-wien:36239"
+wien:36240"
 
-wien:36241"
+wien:36243"
 
-wien:36242"
+wien:36246"
 
-wien:37131"
+wien:36250"
 
-wien:37133"
+wien:37139"
 
-wien:37138"
+wien:37149"
 
-wien:37141"
+wien:37152"
 
-wien:37146"
+wien:39617"
 
-wien:39619"
+wien:39618"
 
-wien:39624"
+wien:39622"
 
-wien:39625"
+wien:39631"
 
-wien:39629"
+wien:39634"
 
-wien:39632"
+wien:39637"
 
-wien:39633"
+wien:39646"
 
-wien:39635"
+wien:39647"
 
-wien:39638"
+wien:39650"
 
-wien:39643"
-
-wien:39644"
-
-wien:39648"
-
-wien:39649"
-
-wien:39651"
-
-wien:39652"
-
-wien:39654"
+wien:39653"
 
 wien:39713"
 
-wien:39716"
+wien:39714"
 
-wien:39718"
+wien:39717"
 
-wien:39719"
+wien:39722"
 
-wien:39720"
+wien:39725"
 
-wien:39723"
+wien:39726"
 
-wien:39728"
+wien:39727"
 
-wien:39730"
+wien:39731"
 
-wien:39734"
+wien:39732"
 
-wien:39737"
+wien:39733"
 
-wien:39741"
+wien:39735"
 
-wien:39743"
+wien:39738"
 
-wien:39744"
+wien:39740"
 
-wien:39751"
+wien:39742"
 
-wien:40303"
+wien:39746"
 
-wien:40304"
+wien:39750"
 
-wien:40306"
+wien:40305"
 
-wien:40310"
+wien:40307"
 
-wien:40312"
+wien:40311"
 
-wien:40313"
+wien:40320"
 
-wien:40316"
+wien:40327"
 
-wien:40317"
+wien:40337"
 
-wien:40323"
+wien:40338"
 
-wien:40325"
+wien:40340"
 
-wien:40326"
+wien:40858"
 
-wien:40329"
+wien:40864"
 
-wien:40331"
+wien:40867"
 
-wien:40333"
+wien:40868"
 
-wien:40336"
+wien:40871"
 
-wien:40339"
+wien:40872"
 
-wien:40859"
+wien:40876"
 
-wien:40862"
+wien:40878"
 
-wien:40865"
+wien:40879"
 
-wien:40866"
+wien:40880"
 
-wien:40870"
+wien:40881"
 
-wien:40877"
+wien:40884"
 
-wien:40882"
+wien:40885"
 
-wien:40883"
+wien:40886"
 
-wien:41192"
+wien:40888"
 
-wien:41193"
+wien:40890"
 
-wien:41196"
+wien:41194"
 
-wien:41199"
+wien:41195"
 
-wien:41201"
+wien:41197"
 
-wien:41202"
+wien:41200"
 
-wien:41203"
+wien:41208"
 
-wien:41205"
+wien:41211"
 
-wien:41210"
+wien:41214"
 
-wien:41212"
+wien:42471"
 
-wien:41213"
+wien:42476"
 
-wien:41216"
+wien:42483"
 
-wien:41218"
+wien:42488"
 
-wien:41220"
+wien:42490"
 
-wien:42472"
+wien:42493"
 
-wien:42475"
+wien:42494"
 
-wien:42479"
+wien:42498"
 
-wien:42485"
+wien:42501"
 
-wien:42502"
+wien:42504"
 
-wien:42505"
+wien:46190"
 
-wien:42507"
+wien:46191"
 
-wien:46192"
+wien:46199"
 
-wien:46196"
+wien:46202"
 
-wien:46198"
+wien:46207"
 
-wien:46203"
+wien:46208"
 
-wien:46215"
+wien:46212"
 
-wien:46218"
+wien:46213"
 
-wien:46221"
+wien:46219"
 
-wien:46224"
+wien:46220"
 
-wien:46232"
+wien:46222"
 
-wien:46234"
+wien:46225"
 
-wien:46238"
+wien:46240"
 
-wien:46239"
+wien:46244"
 
-wien:46243"
+wien:46248"
 
-wien:46247"
+wien:46251"
 
-wien:46249"
+wien:46254"
 
-wien:46253"
+wien:46255"
 
-wien:46257"
+wien:46271"
 
-wien:46266"
+wien:46274"
 
-wien:46268"
+wien:46281"
 
-wien:46269"
+wien:48006"
 
-wien:46270"
+wien:54866"
 
-wien:46273"
+wien:54870"
 
-wien:46279"
+wien:54876"
 
-wien:46280"
+wien:54880"
 
-wien:46284"
+wien:54886"
 
-wien:48004"
+wien:54890"
 
-wien:48005"
+wien:54910"
 
-wien:48009"
+wien:54916"
 
-wien:54864"
+wien:54926"
 
-wien:54872"
+wien:54928"
 
-wien:54874"
+wien:54930"
 
-wien:54878"
+wien:54977"
 
-wien:54884"
+wien:54989"
 
-wien:54888"
+wien:54995"
 
-wien:54894"
+wien:88645"
 
-wien:54898"
+wien:88647"
 
-wien:54900"
+wien:88648"
 
-wien:54908"
+wien:88651"
 
-wien:54922"
+wien:88653"
 
-wien:54975"
+wien:88655"
 
-wien:54979"
+wien:88659"
 
-wien:54981"
+wien:88662"
 
-wien:54983"
+wien:88665"
 
-wien:54985"
+wien:88668"
 
-wien:54991"
+wien:88673"
 
-wien:54997"
+wien:88676"
 
-wien:54999"
+wien:88680"
 
-wien:88641"
+wien:88684"
 
-wien:88642"
+wien:88687"
 
-wien:88644"
+wien:88694"
 
-wien:88649"
+wien:88697"
 
-wien:88657"
+wien:88701"
 
-wien:88658"
+wien:88704"
 
-wien:88661"
+wien:88711"
 
-wien:88663"
+wien:88714"
 
-wien:88664"
+wien:88715"
 
-wien:88669"
-
-wien:88671"
-
-wien:88672"
-
-wien:88674"
-
-wien:88681"
-
-wien:88683"
-
-wien:88688"
-
-wien:88693"
-
-wien:88696"
-
-wien:88698"
-
-wien:88700"
-
-wien:88705"
-
-wien:88706"
-
-wien:88708"
-
-wien:88710"
-12065052933"
-12065052966"
-12065052967"
-12065052971"
-12065052977"
-12065052981"
-12065052982"
-12065052984"
-12065052986"
-12065052987"
-12065052991"
-12065052993"
-12065052995"
-12065052998"
-12065053002"
-12065053004"
-12065053005"
-12065053009"
-12065053013"
-12065053015"
-12065053016"
-12065053018"
-12065053019"
-12065053021"
-12065053026"
-12065053028"
-13935094264"
+wien:93821"
+10808972688"
+10808972694"
+12065052964"
+12065052968"
+12065052972"
+12065052974"
+12065052976"
+12065052979"
+12065052980"
+12065052985"
+12065052988"
+12065052990"
+12065052992"
+12065052994"
+12065052997"
+12065053001"
+12065053003"
+12065053006"
+12065053007"
+12065053011"
+12065053012"
+12065053014"
+12065053017"
+12065053020"
+12065053022"
+12065053024"
+12065053027"
+12065053030"
+13899077630"
+13935094291"
 Aspernallee"
 RDD, Pagode"
 broadleaved"
-wien:106183"
-wien:145383"
-wien:162011"
-wien:167719"
-wien:171469"
-wien:172070"
-wien:172075"
-wien:172079"
-wien:173333"
-wien:173346"
-wien:174008"
-wien:174011"
-wien:177831"
-wien:180739"
-wien:187277"
-wien:187738"
-wien:187742"
-wien:187927"
-wien:187929"
-wien:187932"
-wien:187936"
-wien:187938"
-wien:187939"
-wien:190884"
-wien:190888"
-wien:193217"
-wien:194506"
-wien:194508"
-wien:194959"
-wien:195576"
-wien:195578"
-wien:195582"
-wien:195584"
-wien:195587"
-wien:195589"
-wien:195592"
-wien:195594"
-wien:195596"
-wien:195598"
-wien:195600"
-wien:195602"
-wien:195606"
-wien:195607"
-wien:195610"
-wien:195612"
-wien:195615"
-wien:195633"
-wien:195636"
-wien:195638"
-wien:195649"
-wien:195651"
-wien:195653"
-wien:195656"
-wien:195700"
-wien:195703"
-wien:195705"
-wien:195707"
-wien:195714"
-wien:195716"
-wien:195720"
-wien:195722"
-wien:195725"
-wien:195728"
-wien:195731"
-wien:195733"
-wien:195736"
-wien:195744"
-wien:195747"
-wien:195748"
-wien:195753"
-wien:195756"
-wien:195759"
-wien:195760"
-wien:195762"
-wien:195765"
-wien:195771"
-wien:195774"
-wien:195782"
-wien:195784"
-wien:195792"
-wien:195796"
-wien:195798"
-wien:195801"
-wien:195804"
-wien:195807"
-wien:195810"
-wien:195814"
-wien:195818"
-wien:195820"
-wien:195823"
-wien:195825"
-wien:195828"
-wien:195833"
-wien:195838"
-wien:195841"
-wien:195843"
-wien:195849"
-wien:195856"
-wien:195858"
-wien:195860"
-wien:195865"
-wien:195869"
-wien:195871"
-wien:195875"
-wien:195877"
-wien:195890"
-wien:196351"
-wien:196439"
-wien:196725"
-wien:196727"
-wien:205698"
-wien:205700"
-wien:205713"
-wien:205716"
-wien:205720"
-wien:205724"
-wien:205729"
-wien:205730"
-wien:205734"
-wien:205736"
-wien:205738"
-wien:205739"
-wien:205741"
-wien:205745"
-wien:205750"
-wien:205753"
-wien:205758"
-wien:205759"
-wien:205763"
-wien:205784"
-wien:205789"
-wien:205790"
-wien:209742"
-wien:209746"
-wien:209751"
-wien:209756"
-wien:209758"
-wien:209764"
-wien:209765"
-wien:209770"
-wien:239329"
-wien:239333"
-wien:240589"
-wien:255473"
-wien:256767"
-wien:256768"
-wien:282962"
-wien:286242"
-wien:286244"
-wien:287575"
-wien:293911"
-wien:302816"
-wien:303587"
-wien:314567"
-wien:315845"
-wien:317463"
-wien:317532"
-wien:317566"
-wien:319613"
-wien:319618"
-wien:319626"
-wien:319630"
-wien:319634"
-wien:323356"
-wien:323358"
-wien:323364"
-wien:323381"
-wien:323384"
-wien:323385"
-wien:323387"
-wien:323390"
-wien:323393"
-wien:323396"
-wien:323398"
-wien:323410"
-wien:323412"
-wien:323413"
-wien:323526"
-wien:323528"
-wien:323531"
-wien:323555"
-wien:323557"
-wien:323558"
-wien:323576"
-wien:323586"
-wien:323590"
-wien:323597"
-wien:323620"
-wien:330885"
-wien:332067"
-wien:334203"
-wien:334799"
-wien:334817"
-wien:334820"
-wien:334834"
-wien:334840"
-wien:336172"
-wien:336208"
-wien:336306"
-wien:336319"
-wien:337497"
-wien:337657"
-wien:337662"
-wien:337672"
-wien:338793"
-wien:339916"
-wien:340976"
-wien:340978"
-wien:343324"
-wien:344369"
-wien:344707"
-wien:344712"
-wien:345332"
-wien:345333"
-wien:345336"
-wien:345357"
-wien:345405"
-wien:345536"
-wien:345538"
-wien:345545"
-wien:345698"
-wien:346091"
-wien:346093"
-wien:346095"
-wien:346104"
-wien:346681"
-wien:348618"
-wien:348865"
-wien:348866"
-wien:348867"
-wien:348869"
-wien:349010"
-wien:349013"
-wien:349015"
-wien:349051"
-wien:349052"
-wien:349058"
-wien:349061"
-wien:349085"
-wien:349086"
-wien:349087"
-wien:349090"
-wien:349209"
-wien:349210"
-wien:349240"
-wien:349241"
-wien:349246"
-wien:352595"
-wien:352597"
-wien:352598"
-wien:352600"
-wien:352602"
-wien:352604"
-wien:352607"
-wien:352778"
-wien:352910"
-wien:352912"
-wien:352915"
-wien:353047"
-wien:353051"
-wien:353053"
-wien:353055"
-wien:353065"
-wien:353089"
-wien:357226"
-wien:357227"
-wien:357229"
-wien:357234"
-wien:357237"
-wien:357240"
-wien:357242"
-wien:357642"
-wien:357643"
-wien:357650"
-wien:357651"
-wien:357660"
-wien:357664"
-wien:357666"
-wien:357669"
-wien:357671"
-wien:357672"
-wien:357675"
-wien:357679"
-wien:357681"
-wien:357682"
-wien:357684"
-wien:357687"
-wien:357692"
-wien:357694"
-wien:357695"
-wien:357696"
-wien:357699"
-wien:357701"
-wien:357704"
-wien:357707"
-wien:357708"
-wien:357711"
-wien:357713"
-wien:357716"
-wien:357718"
-wien:357721"
-wien:357723"
-wien:357724"
-wien:357728"
-wien:357729"
-wien:357734"
-wien:357736"
-wien:357739"
-wien:357741"
-wien:357742"
-wien:357746"
-wien:357749"
-wien:357751"
-wien:357753"
-wien:357754"
-wien:357762"
-wien:357765"
-wien:357767"
-wien:357769"
-wien:357773"
-wien:357775"
-wien:357777"
-wien:357781"
-wien:357783"
-wien:357786"
-wien:357788"
-wien:357789"
-wien:358414"
-wien:358417"
-wien:358420"
-wien:358421"
-wien:358423"
-wien:358426"
-wien:358428"
-wien:358429"
-wien:358434"
-wien:358436"
-wien:358443"
-wien:358444"
-wien:358447"
-wien:358453"
-wien:358457"
-wien:358458"
-wien:358459"
-wien:358466"
-wien:358469"
-wien:358472"
-wien:358474"
-wien:358477"
-wien:358478"
-wien:358479"
-wien:358483"
-wien:358484"
-wien:358506"
-wien:358555"
-wien:358558"
-wien:358603"
-wien:358604"
-wien:358608"
-wien:358612"
-wien:358614"
-wien:358615"
-wien:358623"
-wien:358670"
-wien:358673"
-wien:358676"
-wien:358680"
-wien:358682"
-wien:358686"
-wien:358694"
-wien:358697"
-wien:358699"
-wien:358703"
-wien:358705"
-wien:358709"
-wien:358712"
-wien:358713"
-wien:358715"
-wien:358716"
-wien:358721"
-wien:358723"
-wien:358728"
-wien:358730"
-wien:358733"
-wien:359027"
-wien:359028"
-wien:359029"
-wien:359047"
-wien:359068"
-wien:359073"
-wien:359074"
-wien:359076"
-wien:359080"
-wien:359081"
-wien:359083"
-wien:359088"
-wien:359090"
-wien:359094"
-wien:359095"
-wien:359097"
-wien:359102"
-wien:359106"
-wien:359111"
-wien:359112"
-wien:359115"
-wien:359116"
-wien:359121"
-wien:359122"
-wien:359124"
-wien:359126"
-wien:359130"
-wien:359131"
-wien:359132"
-wien:359142"
-wien:359148"
-wien:359584"
-wien:359620"
-wien:362643"
-wien:364560"
-wien:364884"
-wien:365395"
-wien:365772"
-wien:366872"
-wien:367074"
-wien:367079"
-wien:367080"
-wien:367082"
-wien:367085"
-wien:368267"
-wien:375935"
-wien:377633"
-wien:377634"
-wien:377635"
-wien:377636"
-wien:378331"
-wien:378336"
-wien:378339"
-wien:378342"
-wien:378344"
-wien:379670"
-wien:379803"
-wien:379805"
-wien:381110"
-wien:383485"
-wien:389633"
-wien:389978"
-wien:390206"
-wien:392885"
-wien:392888"
-wien:396319"
-wien:396344"
-wien:399505"
-wien:402586"
-wien:402588"
-wien:403386"
-wien:403388"
-wien:407041"
-wien:408520"
-wien:408974"
-wien:409475"
-wien:409478"
-wien:409960"
-wien:410597"
-wien:412634"
+wien:119056"
+wien:119966"
+wien:123195"
+wien:123198"
+wien:123199"
+wien:134736"
+wien:135719"
+wien:147318"
+wien:161872"
+wien:161908"
+wien:162012"
+wien:167720"
+wien:171468"
+wien:172074"
+wien:172076"
+wien:172148"
+wien:173345"
+wien:173347"
+wien:174009"
+wien:177832"
+wien:180212"
+wien:180740"
+wien:184475"
+wien:187276"
+wien:187278"
+wien:187741"
+wien:187743"
+wien:187925"
+wien:187928"
+wien:187931"
+wien:187935"
+wien:187937"
+wien:189346"
+wien:190885"
+wien:193216"
+wien:194507"
+wien:194509"
+wien:195577"
+wien:195579"
+wien:195583"
+wien:195586"
+wien:195590"
+wien:195593"
+wien:195597"
+wien:195599"
+wien:195601"
+wien:195603"
+wien:195605"
+wien:195608"
+wien:195611"
+wien:195613"
+wien:195617"
+wien:195634"
+wien:195637"
+wien:195639"
+wien:195641"
+wien:195650"
+wien:195652"
+wien:195654"
+wien:195657"
+wien:195701"
+wien:195702"
+wien:195706"
+wien:195710"
+wien:195715"
+wien:195717"
+wien:195721"
+wien:195723"
+wien:195727"
+wien:195729"
+wien:195732"
+wien:195742"
+wien:195745"
+wien:195749"
+wien:195750"
+wien:195751"
+wien:195754"
+wien:195757"
+wien:195764"
+wien:195766"
+wien:195769"
+wien:195773"
+wien:195775"
+wien:195785"
+wien:195786"
+wien:195789"
+wien:195790"
+wien:195793"
+wien:195797"
+wien:195799"
+wien:195802"
+wien:195805"
+wien:195809"
+wien:195811"
+wien:195813"
+wien:195815"
+wien:195819"
+wien:195821"
+wien:195824"
+wien:195826"
+wien:195829"
+wien:195832"
+wien:195835"
+wien:195836"
+wien:195839"
+wien:195840"
+wien:195842"
+wien:195844"
+wien:195848"
+wien:195854"
+wien:195857"
+wien:195859"
+wien:195861"
+wien:195864"
+wien:195866"
+wien:195870"
+wien:195873"
+wien:195876"
+wien:195878"
+wien:205699"
+wien:205701"
+wien:205709"
+wien:205711"
+wien:205714"
+wien:205717"
+wien:205718"
+wien:205723"
+wien:205725"
+wien:205727"
+wien:205733"
+wien:205742"
+wien:205746"
+wien:205752"
+wien:205754"
+wien:205756"
+wien:205757"
+wien:205760"
+wien:205764"
+wien:205783"
+wien:205785"
+wien:205788"
+wien:205792"
+wien:206347"
+wien:209536"
+wien:209727"
+wien:209737"
+wien:209743"
+wien:209748"
+wien:209749"
+wien:209753"
+wien:209759"
+wien:239317"
+wien:239328"
+wien:239334"
+wien:240590"
+wien:256761"
+wien:256766"
+wien:256769"
+wien:273335"
+wien:282963"
+wien:282964"
+wien:286241"
+wien:286245"
+wien:293913"
+wien:302817"
+wien:303244"
+wien:303245"
+wien:315468"
+wien:317154"
+wien:319612"
+wien:319616"
+wien:319617"
+wien:319619"
+wien:319620"
+wien:319622"
+wien:319628"
+wien:319631"
+wien:319632"
+wien:319641"
+wien:323347"
+wien:323352"
+wien:323353"
+wien:323368"
+wien:323370"
+wien:323382"
+wien:323386"
+wien:323389"
+wien:323391"
+wien:323395"
+wien:323397"
+wien:323400"
+wien:323402"
+wien:323404"
+wien:323409"
+wien:323415"
+wien:323512"
+wien:323516"
+wien:323527"
+wien:323532"
+wien:323548"
+wien:323559"
+wien:323564"
+wien:323565"
+wien:323577"
+wien:323591"
+wien:323592"
+wien:323596"
+wien:323598"
+wien:323603"
+wien:323604"
+wien:330116"
+wien:330881"
+wien:330882"
+wien:332066"
+wien:334795"
+wien:334802"
+wien:334818"
+wien:334821"
+wien:336304"
+wien:336307"
+wien:336402"
+wien:336975"
+wien:337181"
+wien:337493"
+wien:339504"
+wien:339882"
+wien:339913"
+wien:339917"
+wien:341480"
+wien:343325"
+wien:344017"
+wien:344731"
+wien:344736"
+wien:345235"
+wien:345313"
+wien:345323"
+wien:345348"
+wien:345520"
+wien:345537"
+wien:345540"
+wien:345541"
+wien:345542"
+wien:345543"
+wien:345546"
+wien:346092"
+wien:346096"
+wien:346105"
+wien:347868"
+wien:347869"
+wien:348193"
+wien:348617"
+wien:348871"
+wien:348872"
+wien:349012"
+wien:349053"
+wien:349055"
+wien:349059"
+wien:349082"
+wien:349089"
+wien:349091"
+wien:349208"
+wien:349211"
+wien:349239"
+wien:349401"
+wien:350481"
+wien:352599"
+wien:352603"
+wien:352605"
+wien:352617"
+wien:352911"
+wien:352914"
+wien:353038"
+wien:353041"
+wien:353050"
+wien:353052"
+wien:353054"
+wien:353310"
+wien:353465"
+wien:353983"
+wien:357225"
+wien:357228"
+wien:357231"
+wien:357235"
+wien:357236"
+wien:357238"
+wien:357241"
+wien:357640"
+wien:357644"
+wien:357646"
+wien:357647"
+wien:357653"
+wien:357661"
+wien:357662"
+wien:357665"
+wien:357667"
+wien:357670"
+wien:357673"
+wien:357676"
+wien:357677"
+wien:357680"
+wien:357683"
+wien:357685"
+wien:357688"
+wien:357689"
+wien:357690"
+wien:357693"
+wien:357697"
+wien:357702"
+wien:357703"
+wien:357706"
+wien:357709"
+wien:357712"
+wien:357715"
+wien:357717"
+wien:357720"
+wien:357726"
+wien:357727"
+wien:357730"
+wien:357733"
+wien:357735"
+wien:357737"
+wien:357740"
+wien:357743"
+wien:357744"
+wien:357745"
+wien:357747"
+wien:357752"
+wien:357761"
+wien:357764"
+wien:357770"
+wien:357772"
+wien:357774"
+wien:357776"
+wien:357782"
+wien:357785"
+wien:357791"
+wien:357793"
+wien:357819"
+wien:358413"
+wien:358415"
+wien:358418"
+wien:358419"
+wien:358422"
+wien:358427"
+wien:358432"
+wien:358433"
+wien:358435"
+wien:358437"
+wien:358441"
+wien:358442"
+wien:358446"
+wien:358448"
+wien:358450"
+wien:358454"
+wien:358456"
+wien:358463"
+wien:358464"
+wien:358467"
+wien:358470"
+wien:358471"
+wien:358473"
+wien:358476"
+wien:358481"
+wien:358482"
+wien:358557"
+wien:358587"
+wien:358605"
+wien:358607"
+wien:358610"
+wien:358611"
+wien:358613"
+wien:358616"
+wien:358618"
+wien:358619"
+wien:358620"
+wien:358672"
+wien:358675"
+wien:358677"
+wien:358679"
+wien:358681"
+wien:358683"
+wien:358685"
+wien:358687"
+wien:358693"
+wien:358695"
+wien:358698"
+wien:358704"
+wien:358707"
+wien:358710"
+wien:358714"
+wien:358717"
+wien:358719"
+wien:358722"
+wien:358724"
+wien:358727"
+wien:358729"
+wien:359046"
+wien:359066"
+wien:359069"
+wien:359070"
+wien:359071"
+wien:359072"
+wien:359075"
+wien:359077"
+wien:359079"
+wien:359086"
+wien:359087"
+wien:359089"
+wien:359092"
+wien:359093"
+wien:359099"
+wien:359100"
+wien:359105"
+wien:359107"
+wien:359110"
+wien:359119"
+wien:359120"
+wien:359123"
+wien:359125"
+wien:359127"
+wien:359133"
+wien:359136"
+wien:359137"
+wien:359139"
+wien:359141"
+wien:359550"
+wien:359615"
+wien:363772"
+wien:364298"
+wien:364516"
+wien:365157"
+wien:365765"
+wien:366440"
+wien:367084"
+wien:367086"
+wien:368268"
+wien:375676"
+wien:378330"
+wien:378332"
+wien:378335"
+wien:378337"
+wien:378340"
+wien:378343"
+wien:378498"
+wien:379804"
+wien:380573"
+wien:383406"
+wien:386869"
+wien:387933"
+wien:389972"
+wien:392886"
+wien:396802"
+wien:397365"
+wien:397637"
+wien:397976"
+wien:402584"
+wien:402585"
+wien:402587"
+wien:402590"
+wien:403108"
+wien:403387"
+wien:403389"
+wien:407040"
+wien:407782"
+wien:408264"
+wien:408524"
+wien:409120"
+wien:409476"
+wien:409479"
+wien:409519"
+wien:410233"
+wien:410520"
+wien:411891"
+wien:414762"
+needleleaved"
 osm_tree_row"
 nicht bekannt"
 Dammhaufengasse"
 G√§rtnerstra√üe"
 Rennbahnstra√üe"
 nicht definiert"
-osm:n2044069737"
-osm:n2044103462"
-osm:n2044103503"
-osm:n2044103983"
-osm:n2044103998"
-osm:n2044104136"
-osm:n2044105676"
-osm:n2044106984"
-osm:n2044107639"
-osm:n2044108358"
-osm:n3263036186"
-osm:n3263036619"
-osm:n3263037973"
-osm:n3674091046"
-osm:n7449338594"
+osm:n2044068772"
+osm:n2044099440"
+osm:n2044102609"
+osm:n2044102611"
+osm:n2044103312"
+osm:n2044103422"
+osm:n2044103499"
+osm:n2044103987"
+osm:n2044104055"
+osm:n2044104547"
+osm:n2044108953"
+osm:n3263035409"
+osm:n3263036198"
+osm:n7449338591"
+osm:n7449338592"
+osm:n7449338593"
 MA 34 - Amtshaus"
-osm:n12065052933"
-osm:n12065052966"
-osm:n12065052967"
-osm:n12065052971"
-osm:n12065052977"
-osm:n12065052981"
-osm:n12065052982"
-osm:n12065052984"
-osm:n12065052986"
-osm:n12065052987"
-osm:n12065052991"
-osm:n12065052993"
-osm:n12065052995"
-osm:n12065052998"
-osm:n12065053002"
-osm:n12065053004"
-osm:n12065053005"
-osm:n12065053009"
-osm:n12065053013"
-osm:n12065053015"
-osm:n12065053016"
-osm:n12065053018"
-osm:n12065053019"
-osm:n12065053021"
-osm:n12065053026"
-osm:n12065053028"
-osm:n13935094264"
-osm:w182953700:4"
-osm:w891579205:0"
-osm:w891579205:3"
-osm:w891579205:6"
-osm:w891579205:8"
+osm:n10808972688"
+osm:n10808972694"
+osm:n12065052964"
+osm:n12065052968"
+osm:n12065052972"
+osm:n12065052974"
+osm:n12065052976"
+osm:n12065052979"
+osm:n12065052980"
+osm:n12065052985"
+osm:n12065052988"
+osm:n12065052990"
+osm:n12065052992"
+osm:n12065052994"
+osm:n12065052997"
+osm:n12065053001"
+osm:n12065053003"
+osm:n12065053006"
+osm:n12065053007"
+osm:n12065053011"
+osm:n12065053012"
+osm:n12065053014"
+osm:n12065053017"
+osm:n12065053020"
+osm:n12065053022"
+osm:n12065053024"
+osm:n12065053027"
+osm:n12065053030"
+osm:n13899077630"
+osm:n13935094291"
+osm:w182953699:7"
+osm:w182953700:2"
+osm:w891579205:2"
+osm:w891579205:4"
+osm:w891579205:7"
+osm:w891579205:9"
+Malus (Apfelbaum)"
 Prater 80er Linie"
-osm:w891579205:10"
-osm:w891579205:12"
-osm:w891579205:17"
-osm:w891579205:19"
+osm:w182953699:14"
+osm:w182953699:24"
+osm:w891579205:11"
+osm:w891579205:14"
+osm:w891579205:16"
+osm:w891579205:18"
+osm:w891579205:20"
 wien_baumkataster"
-Acer spec. (Ahorn)"
+7.Haidequerstra√üe"
 MA 42 - Parkanlage"
 Simmeringer L√§nde"
-Ulmus spec. (Ulme)"
-Tamarix (Tamariske)"
-Hafenzufahrtsstra√üe"
+Ulmus spec. (Ulme)"
+Hafenzufahrtsstra√üe"
+Juglans (Walnussbaum)"
+Populus spec. (Pappel)"
 02., Aspernallee 2, KTH"
 Jungbaum wird gepflanzt"
-MA 10 - Kindertagesheim"
-Robinia spec. (Robinie)"
-Quercus rubra (Roteiche)"
+MA 10 - Kindertagesheim"
 Salix alba (Silberweide)"
 Thuja spec. (Lebensbaum)"
-MA 45 - Rechter Donaudamm"
+MA 45 - Rechter Donaudamm"
+Magnolia spec. (Magnolie)"
 Acer campestre (Feldahorn)"
 Acer negundo (Eschenahorn)"
 Fagus sylvatica (Rotbuche)"
+Prunus dulcis (Mandelbaum)"
 Quercus robur (Stieleiche)"
-Acer tataricum (Feuerahorn)"
 Betula pendula (Wei√übirke)"
 Juglans regia (Walnussbaum)"
 MA 34 - Amtshaus verpachtet"
@@ -1783,11 +1738,12 @@ wien:88710"
 Populus nigra (Schwarzpappel)"
 Sophora japonica (Schnurbaum)"
 Tilia tomentosa (Silberlinde)" 
-Populus simonii (Birkenpappel)" 
-Pyrus communis (Gemeine Birne)" 
-Taxus baccata (Heimische Eibe)"!
+Crataegus monogyna (Wei√üdorn)" 
+Populus simonii (Birkenpappel)"!
 02., Prater - Grafenwiese, MA42"!
-Acer pseudoplatanus (Bergahorn)""
+Acer pseudoplatanus (Bergahorn)"!
+Cercis siliquastrum (Judasbaum)"!
+Juglans nigra (Schwarznussbaum)""
  Ginkgo biloba (F√§cherblattbaum)""
  Populus x canescens (Graupappel)""
  Tilia platyphyllos (Sommerlinde)"#
@@ -1795,32 +1751,29 @@ wien:88710"
 !02., Prater - Schlager-Nord, MA42"#
 !02., Prater - Schlager-S√ºd, MA42"#
 !Ailanthus altissima (G√∂tterbaum)"#
-!Alnus cordata (Italienische Erle)"#
 !Fraxinus pennsylvanica (Rotesche)"#
-!Ostrya carpinifolia (Hopfenbuche)"$
+!Morus alba (Wei√üer Maulbeerbaum)"#
+!Ostrya carpinifolia (Hopfenbuche)"#
+!Prunus cerasifera (Kirschpflaume)"$
 "02., Freudenau 254 - Lusthaus, AMT"$
 "02., Prater - Feuerwehrwiese, MA42"$
 "Fraxinus excelsior (Gemeine Esche)"$
 "Salix alba 'Tristis' (Trauerweide)"%
-#Picea pungens 'Glauca' (Blaufichte)"%
 #Robinia pseudoacacia (Scheinakazie)"&
 $02., Freudenau 255 - J√§gerhaus, AMT"&
 $02., Freudenau 555 - Reiterhaus, AMT"&
 $02., Prater - Objekt Freudenau, MA42"&
 $02., Prater - Seitenhafenwiese, MA42"&
 $Acer campestre 'Elsrijk' (Feldahorn)"&
-$Catalpa bignonioides (Trompetenbaum)"&
-$Koelreuteria paniculata (Blasenbaum)"&
-$Larix decidua (Europ√§ische L√§rche)"'
+$Catalpa bignonioides (Trompetenbaum)"'
 %Aesculus hippocastanum (Rosskastanie)"'
-%Rhamnus cathartica (Echter Kreuzdorn)"'
+%Paulownia tomentosa (Blauglockenbaum)"'
 %Tilia americana (Amerikanische Linde)")
 '02., SO Auslauf Donau D√ºker, WienKanal")
-'Magnolia x soulangiana (Tulpenmagnolie)")
 'Prunus cerasifera 'Nigra' (Blutpflaume)")
+'Tilia cordata 'Greenspire' (Stadtlinde)")
 'Tilia tomentosa 'Brabant' (Silberlinde)"*
 (Acer platanoides 'Eurostar' (Spitzahorn)"*
-(Betula pendula (H√§ngebirke 'Laciniata')"*
 (Gleditsia triacanthos (Lederh√ºlsenbaum)"*
 (Populus x canadensis (Kanadische Pappel)"+
 )02., Prater - Rennbahnstra√üenwiese, MA42"+
@@ -1828,851 +1781,837 @@ $Larix decidua (Europ√§ische L√§rche)"'
 )Celtis australis (S√ºdlicher Z√ºrgelbaum)"+
 )Populus nigra 'Italica' (Pyramidenpappel)"+
 )Quercus robur 'Fastigiata' (S√§uleneiche)",
-*Betula pendula 'Fastigiata' (S√§ulenbirke)",
-*Pinus nigra (Schwarzkiefer, Schwarzf√∂hre)"-
+*Fagus sylvatica 'Pendula' (H√§ngerotbuche)",
+*Pinus nigra (Schwarzkiefer, Schwarzf√∂hre)",
+*Pyrus calleryana 'Chanticleer' (Zierbirne)"-
 +Acer platanoides 'Columnare' (S√§ulenahorn)"-
-+Fraxinus excelsior 'Altena' (Gemeine Esche)"-
-+Platanus orientalis (Orientalische Platane)"-
-+Ulmus pumila var. arborea (Sibirische Ulme)".
++Fraxinus excelsior 'Altena' (Gemeine Esche)".
 ,02., Prater - Gro√ü-Enzersdorfer Wiese, MA42".
+,Celtis occidentalis (Westlicher Z√ºrgelbaum)".
 ,Fraxinus excelsior 'Westhofs Glorie' (Esche)"/
 -Fraxinus ornus 'Obelisk' (S√§ulenblumenesche)"0
 .Acer platanoides 'Cleveland' (Kegelspitzahorn)"0
-.Fraxinus angustifolia (Schmalbl√§ttrige Esche)"0
-.Salix matsudana 'Tortuosa' (Korkenzieherweide)"1
+.Fraxinus angustifolia (Schmalbl√§ttrige Esche)"1
+/Crataegus monogyna 'Stricta' (S√§ulenwei√üdorn)"1
 /Platanus x acerifolia (Ahornbl√§ttrige Platane)"2
-0Thuja occidentalis (Abendl√§ndischer Lebensbaum)"4
+0Carpinus betulus 'Fastigiata' (S√§ulenhainbuche)"4
 2Pinus nigra nigra (√ñsterreichische Schwarzkiefer)"6
-4Prunus x yedoensis 'Shidare Yoshino' (Trauerkirsche)"7
+4Prunus x yedoensis 'Shidare Yoshino' (Trauerkirsche)"6
+4Tilia cordata 'Rancho' (Kleinbl√§ttrige Winterlinde)"7
 5Prunus avium 'Plena' (Gef√ºlltbl√ºhende Vogelkirsche)"7
 5Prunus serrulata 'Kanzan' (Japanische Bl√ºtenkirsche)"9
 7Fraxinus excelsior 'Diversifolia' (Einbl√§ttrige Esche)":
 8Fraxinus angustifolia 'Raywood' (Schmalbl√§ttrige Esche)":
-8Platanus x acerifolia 'Tremonia' (Schmalkronige Platane)";
-9Prunus serrulata 'Shirofugen' (Japanische Bl√ºtenkirsche)"?
-=Carpinus betulus 'Frans Fontaine' (Schlanke S√§ulenhainbuche)"B
-@Fraxinus americana 'Autumn Purple' (Wei√ü-Esche 'Autumn Purple')"  " " " " " " " " " 
-" " " " " " " " " " " " " " " " " " " " "  " #" $" &" (" )" *" -" ." /" 0" 1" 2" 3" 5" 6" 7" 8" 9" :" ;" <" =" >" ?" @" A" C" D" E" F" G" H" I" J" K" L" M" N" O" P" Q" R" S" T" U" V" W" X" Y" Z" [" \" ]" ^" _" `" a" b" c" d" e" f" g" h" i" j" k" l" m" n" o" p" q" r" s" t" u" v" w" x" y" z" {" }" ~" " Ä" Ä" ÄÖÆè" Äô§è" Äõ" Ä¬" Ä∆Øè" Ä—™è" Ä÷" Äˆ§è" Ä¯" Å" Å" Å" Åµ" Å∂≠è" Å∫™è" Åæ¶è" Å—≠è" Å‰" ÅÏ" Å˙" Ç" Ç" Çú™è" Çß" ÇØ§è" Çµ" Ç∑´è" Ç¡" Ç¬" Ç«" Ç‡" ÇÎ" Ç¯™è" Ç˘" É" É" É" ÉÑ" ÉÖ" ÉµÆè" Éª" É…™è" É¯" É˙" É˝Æè" Éˇ" Ñ" Ñ" Ñ" Ñï´è" Ñµ" Ñ¬" Ñ«" ÑŸ•è" Ñ˜" Ñ˘" Ö" Ö" Ö" ÖìÆè" Öô" Öß" Ö™™è" Ö∑¢è" Öª" Öƒ§è" Ö≈©è" Öﬁßè" ÖÊ¨è" ÖÎ" Ö˜" Ö¯" Ü" Ü" Ü" Üâ´è" ÜíÆè" Üú™è" Ü¨Øè" Üµ" Ü∏´è" Üª" Ü¿≠è" ÜÃ" Ü‘¶è" Ü‡" Ü˛¶è" Üˇ" á" á" á" áÖÆè" áìÆè" áµÆè" á∏´è" áπ´è" á∫´è" á¬©è" á≈¶è" á‚´è" áÈ" áÎ" áı" à" àÖ" àâ´è" à¢ßè" à∫´è" àæ¶è" àŒ" à¯" à˘" à¸™è" â" â" âî´è" âõ" âú™è" âª" â¿≠è" âÃ" â„£è" âÎ" âı©è" â˜" â˙" â˛¶è" ä" ä" äç©è" äó®è" äõ" ä≠" ä∑¢è" ä¡" äƒ" äÈ" äÍ" ä¯" ä˘" ã" ã" ã¢" ãØ§è" ã∞§è" ã∏´è" ãª" ãΩ" ãÃ" ã—§è" ãÁ•è" ãÍ" å" å" å∞≠è" å∑´è" å¯" ç" çä" çõ" ç¢" ç•Æè" ç∂≠è" ç∑" çª" çº¨è" ç‡" çÈ" çÎ" ç˘" é" é" é" é" éÉ£è" éÑØè" éí¶è" éÆ¶è" é∫´è" é¡" é≈" é›´è" é" éÚ" é¯" é˚" é¸™è" è" è" è" èã´è" èã¨è" èõ" è∂≠è" è»™è" è‘®è" èÎ" èÛ" ê" ê" êí¶è" ê†" êØ§è" ê¥¶è" êµÆè" êπ´è" êª" ê≈" ê–Øè" êÈ" ê¯" ê˘" ê˙" ê¸™è" ê˛¶è" ë" ë" ëå¨è" ëè•è" ëõ" ëÆ¶è" ëØ§è" ë±" ë∑¢è" ë«" ë»™è" ë…™è" ëÊ¨è" ëÎ" ë" ëÚ" í" íã´è" íõ" íõ•è" í¢" í∑´è" íæ¶è" í¡" íƒ¶è" í›™è" í„£è" íÍ" íÙ§è" í¯" í˙" ì" ì" ìá¶è" ìë" ìï´è" ì¢Æè" ì±¢è" ì∂≠è" ì∏´è" ìª" ì≈" ìÍ" ìÚ¨è" ìı©è" ì˘" ì¸™è" î" î" î" îÜ´è" î±§è" îª¨è" î¡•è" îƒ¶è" î«" îÏ£è" î" îÚ" î˙" ï" ï" ï" ï¢" ï 
-" ï—≠è" ï”Øè" ï›™è" ïÎ" ï" ï˘" ï˛¶è" ñ" ñ" ñ" ññ" ñ¥¶è" ñ¯" ó" ó" ó" óìÆè" óõ•è" óÆ¶è" óØ§è" ó∞" ó∑´è" ó∏´è" óº" ó∆" óÎ" ó" ó¯" ó¯" ò" ò" ò" ò" òØ§è" ò∞§è" ò≤" òƒ¶è" ò«" òﬁßè" òÈ" òÚ" ò¯§è" ò˘" ô" ô" ô" ôà™è" ôä•è" ôõ•è" ôü£è" ô®" ô∂¢è" ôº" ô”Øè" ô˙" ô¸™è" ö" ö" ö" öÜ¨è" öî´è" öï´è" ö¢" ö®" ö¥ßè" ö∑´è" ö…" öÈ" öÎ" ö" öÚ" ö¯" õ" õ" õ" õó" õæ•è" õø" õ∆" õ∆™è" õŒ™è" õÒ" ú" ú" úêØè" úï´è" úüØè" ú•≠è" ú∏´è" úº" ú«" ú…" úﬁ" úﬁßè" úÍ" úÎ" ú" úı" ú¯" ú˙" ù" ù" ùä•è" ùí¶è" ùó" ùò¢è" ùß" ù¨§è" ù∏•è" ù∆" ùÎ" ù" ù˙" ù¸™è" û" û" û£Æè" ûß" ûØ§è" ûø" û—≠è" û”Øè" ûﬁ" ûÈ" ûÒ" ûÚ" ûı©è" ü" ü" üò" üß" ü∆" üÈ" ü¯" ü˙" †" †" †" †∏´è" †º" †Ã´è" †Í" †˘" †˘" °" °" °Ü" °∞§è" °∂" °ø" °«" °ı" ¢" ¢" ¢" ¢ÑØè" ¢Ü" ¢â¨è" ¢ß" ¢∂¢è" ¢∑´è" ¢º" ¢º" ¢ø" ¢∆™è" ¢«" ¢ 
-" ¢Í" ¢" ¢ı" £" £Ü" £Ü¶è" £¢" £∑∞è" £º" £È" £˘" £˙" §" §Ü" §ó¶è" §õ•è" §∂" §º" §º¨è" §æ¶è" §—≠è" §”" §”Øè" §ﬁ" §‡" §È£è" §" §ı" §˘" •" •" •ä•è" •∏´è" •›´è" •Í" •˙" ¶" ¶" ¶ï¶è" ¶™¨è" ¶Ø§è" ¶∂" ¶ø" ¶¿
-" ¶«" ¶»•è" ¶—≠è" ¶Ú" ß" ß" ß" ßã´è" ßû
-" ß∞§è" ß∂" ßƒ¨è" ßÈ" ßÍ" ßÌ
-" ß¯§è" ®" ®" ®ÖÆè" ®çØè" ®ó®è" ®∂" ®∑∞è" ®«" ®Õ™è" ®”" ®‘¶è" ®Í" ®ı" ®ˇÆè" ©" ©" ©" ©" ©áÆè" ©ƒ§è" ©∆" ©È" ©Ú" ©ı" ©˘" ™" ™" ™" ™Æ¶è" ™≤§è" ™π´è" ™«" ™—≠è" ™›™è" ´" ´" ´Ä´è" ´áÆè" ´îÆè" ´Ø§è" ´∂" ´∑∞è" ´º¨è" ´¿
-" ´«" ´Ã©è" ´›´è" ´Í" ´" ´Ú" ´ı" ¨" ¨" ¨" ¨Ø¶è" ¨π´è" ¨¬" ¨«™è" ¨‚Æè" ¨" ¨˘" ¨˝£è" ≠" ≠" ≠" ≠™®è" ≠∏´è" ≠æ¶è" ≠ø" ≠«" ≠”Øè" ≠›™è" ≠È" ≠¸™è" Æ" Æ" Æ" Æ" Æà©è" Æ¥≠è" Ø" Ø" Ø¥≠è" Ø∏´è" Ø¿
-" Ø‹®è" Ø›™è" Ø›´è" ØÍ" Ø" ØÚ" Ø˘" ∞" ∞ã´è" ∞ò≠è" ∞∂" ∞∑∞è" ∞œßè" ∞ı" ∞ˆ§è" ∞˘" ±" ±" ±" ±Ç" ±Ü¨è" ±∏´è" ±º¨è" ±æ¶è" ±«" ±«™è" ±—≠è" ±›™è" ±È" ±Í" ±Ú" ±¯" ≤" ≤" ≤É™è" ≤ò≠è" ≤¨§è" ≤∂" ≤º¨è" ≤ø" ≤√" ≤Í" ≤ı" ≤˘" ≤˙" ≤˚¶è" ≥í¶è" ≥ï¶è" ≥∑∞è" ≥ø" ≥—≠è" ≥›™è" ≥˚¶è" ¥" ¥" ¥" ¥óÆè" ¥∂´è" ¥π≠è" ¥Í" ¥Ì©è" ¥ˆ§è" ¥˜§è" ¥¯" ¥ˇ©è" µ" µ" µ" µ∂´è" µπ´è" µπ≠è" µ÷§è" µﬁ" µ" µÚ" µ˜™è" µ˘" µ˝" ∂" ∂" ∂°" ∂¥≠è" ∂∂" ∂∏∞è" ∂ƒ§è" ∂«" ∂Ÿ®è" ∂ı" ∂¯" ∑" ∑" ∑" ∑à´è" ∑Æ¶è" ∑¥®è" ∑Í" ∑Ù©è" ∑ı" ∏" ∏" ∏" ∏ò" ∏®" ∏Ø§è" ∏∏´è" ∏º™è" ∏œ
-" ∏ﬁ" ∏Ú" ∏˝" π" π" π" πî" πñ¢è" π®" πµßè" π∂" π«" π»¶è" πœ•è" πŸ®è" πﬁ" π" πÚ" πÙ¶è" πı" π˚¨è" ∫" ∫" ∫îÆè" ∫ï¶è" ∫ò≠è" ∫µ≠è" ∫∂´è" ∫∑´è" ∫∏´è" ∫º§è" ∫œ" ∫—≠è" ∫›™è" ∫È" ∫" ª" ª" ªè§è" ª∆Øè" ªÃÆè" ªœ
-" ªﬁ" ª„£è" ªÓ´è" ª" ª¢è" ªÚ" ª˘" º" º" ºà´è" ºè∞è" ºòÆè" ºœ" ºœßè" º›™è" ºÈ" ºÍ" ºÚ" º˚¶è" Ω" Ω" Ω" Ω" Ωä" Ωë®è" Ω¢ßè" Ω∂" Ω∂¢è" Ω∑∞è" Ωπ≠è" ΩÈ" ΩÓ´è" æ" æ" æß´è" æ®" æ∞§è" æ«" æﬁ" æË" æÈ" æÍ" æı" æ˜§è" æ˘" ø" ø" ø" øïÆè" øñÆè" ø≠" ø∂" ø∑´è" øº§è" ø√" ø«" ø—≠è" øÍ" ¿" ¿" ¿" ¿" ¿ã" ¿ã´è" ¿è∞è" ¿∂" ¿π´è" ¿∆Æè" ¿œ•è" ¿—≠è" ¿Í" ¿ı≠è" ¡" ¡" ¡•" ¡ß£è" ¡™§è" ¡∞¨è" ¡¥" ¡∆" ¡ﬁ" ¡Â" ¡Ë£è" ¡È" ¡Ú" ¡¯" ¬" ¬" ¬ã" ¬¢ßè" ¬•" ¬¥" ¬∂¢è" ¬∏´è" ¬π´è" ¬—≠è" ¬Á•è" ¬" ¬Û§è" ¬ı" √" √" √à©è" √ã´è" √ñ©è" √òÆè" √•" √≠" √≥®è" √µ" √∂´è" √«" √›™è" √Í" √Ú" √¯" ƒ" ƒ" ƒ" ƒï¶è" ƒß£è" ƒ¥" ƒ ®è" ƒœßè" ƒ›™è" ƒﬁ" ƒ‚£è" ƒÙ©è" ƒˆ§è" ƒ˘" ≈" ≈" ≈" ≈à©è" ≈ï¶è" ≈£" ≈•" ≈≠" ≈±§è" ≈Í" ≈" ≈¯" ∆" ∆" ∆îÆè" ∆π´è" ∆›´è" ∆ﬁ" ∆ﬂ" ∆˘" «" «ô" «´ßè" «≠" «∂" «∂´è" «Ω" «æ¶è" «√´è" «‡£è" «È" «ı" «˚©è" »" »" »ç•è" »µ" »∑´è" »ﬂ" »‚£è" »È" »Í" »" »Ú" »Û§è" »ı" »˜" »¯" »˘" …" …" …" …ã" …ì´è" …≠" …Ø§è" …¥" …µ" …∑∞è" …ª¨è" …º§è" …»™è" …›™è"  "  "  "  "  é•è"  £"  π´è"  Ô"  "  Ú" À" À" ÀîÆè" À∑´è" À ®è" Àﬂ" ÀÍ" ÀÒ" Àı" À˜§è" Ã" Ã" Ã" Ã" Ãâ¨è" Ãè∞è" Ãë¶è" Ã©" Ã∂´è" Ãﬂ" ÃÈ" ÃÍ" ÃÔ" ÃÒ" Ãı" Õ" Õ" ÕêÆè" Õµ" Õª
-" Õ◊" Õ‚£è" Õ" ÕÚ" Œ" Œ" Œ" Œâ¨è" Œª¨è" ŒÊ" Œ" œ" œ" œ" œ≠" œØ§è" œ∑" œœßè" œ›™è" œÍ" œ" œ˚™è" –" –" –" –ã´è" –ï¶è" –ö•è" –¨" –µ" –∑∞è" –π´è" –¬" –Ò" –˜§è" –˘" —" —" —Ä¨è" —ã´è" —ï¶è" —¥" —µ" —›™è" —Í" —ı" “" “" “ûßè" “¢" “¶" “¥" “∏´è" “¡ßè" “ﬁ" “Ê" “ı" ”" ”" ”" ”ÉØè" ”ë¶è" ”îÆè" ”¶" ”Ø§è" ”µ" ”∏´è" ”¬" ”√´è" ”" ‘" ‘" ‘" ‘" ‘ì´è" ‘îÆè" ‘¢" ‘π´è" ‘ﬁ" ‘Í" ‘" ‘Ò" ‘ı" ‘˘" ’" ’" ’" ’Ü¨è" ’îÆè" ’¶" ’≠" ’¥" ’¬" ’ﬁ" ÷" ÷" ÷µ" ÷¬" ÷√´è" ÷Í" ÷Ò" ÷ı" ÷ı§è" ÷˜™è" ÷˘" ◊" ◊" ◊ÉØè" ◊îÆè" ◊ñ®è" ◊¶" ◊≠" ◊¥" ◊∑´è" ◊∏´è" ◊∆" ◊Ê" ◊Ï£è" ◊Ò" ◊˛" ÿ" ÿ" ÿ" ÿà´è" ÿîÆè" ÿ¨" ÿ¥" ÿ∏´è" ÿ¬" ÿ∆Æè" ÿ«" ÿÿ¶è" ÿÛ§è" Ÿ" Ÿ" Ÿ" Ÿâ¢è" Ÿå¨è" ŸîÆè" Ÿ∑∞è" ŸÃ" Ÿ’¶è" ŸÍ" Ÿ˘" ⁄" ⁄" ⁄" ⁄ë•è" ⁄ó" ⁄¨" ⁄ØØè" ⁄π´è" ⁄∫" ⁄¬" ⁄Ê" ⁄ı" ⁄˜™è" €" €" €ÉØè" €ã" €è∞è" €µ" €∑´è" €π´è" €»™è" €Í" €Ò	" €ı" €ı§è" ‹" ‹ö•è" ‹´¨è" ‹∞" ‹µ" ‹∂´è" ‹∑∞è" ‹¬" ‹œ™è" ‹Ê" ‹Í" ‹ı" ‹˘" ›" ›" ›è∞è" ›ë¶è" ›¥" ›∂¢è" ›ø®è" ›«" ›œßè" ››´è" ﬁ" ﬁ" ﬁ" ﬁõ≠è" ﬁ¨" ﬁ∂¢è" ﬁ∫" ﬁ∫®è" ﬁ«" ﬁÊ" ﬂã´è" ﬂè∞è" ﬂë¶è" ﬂ¶≠è" ﬂ¥" ﬂ¬" ﬂ⁄•è" ﬂ„£è" ﬂÔ©è" ﬂÒ" ﬂÚ®è" ﬂ˘" ‡" ‡ã" ‡ö•è" ‡Ø©è" ‡∞§è" ‡¥" ‡µ" ‡∑´è" ‡Ω" ‡Í" ‡ˆ§è" ·" ·" ·" ·µ" ·µ∞è" ·∑" ·Õ" ·Í" ‚" ‚" ‚" ‚" ‚å" ‚ö•è" ‚Ø§è" ‚≥" ‚¥" ‚π´è" ‚·¢è" ‚Ì©è" ‚˘" „" „" „ÉØè" „ã" „èÆè" „ë•è" „ë¶è" „ö•è" „µ" „∑´è" „√" „ﬂ" „ˆ§è" ‰" ‰" ‰î´è" ‰™¨è" ‰¨" ‰Æ§è" ‰µ" ‰∑" ‰Ê" Â" Â" Â" Âá" Âñ®è" ÂñÆè" Â¡´è" ÂÕ" Â–®è" Â⁄•è" Âﬂ" ÂÊ" Âˇ¶è" Ê" Ê" Ê" Êã" Êè∞è" Êë¢è" Êß´è" Ê©≠è" ÊØ§è" Ê∞§è" Êµ" Ê∑∞è" Êﬂ" ÊÍ" ÊÓ´è" Êı" Ê˘" Á" Á" Áñ®è" Á≥" Áƒ¶è" Á«™è" Á›´è" ÁÓ´è" ÁÔ" Áı§è" Ë" Ë" ËÇ" Ëã" Ë¨" Ë≥" Ë∂¢è" Ë¡" Ëƒ©è" ËÀ" ËÀ¶è" ËÍ" Ëˇ©è" È" È" È" È¥" È∑∞è" È¡" È”Øè" È÷" È·¢è" ÈÂ¨è" Í" Í" Í≥" Í–™è" ÍÊ" ÍÊ" Í" Í˘" Î" Î" Î" Îè" Îè∞è" Î¥" ÎÀ" ÎÊ" ÎÍ" ÎÓ§è" Ï" Ï" Ï" ÏëÆè" Ï∂¢è" Ï¡" Ïı" Ï˘" Ï˝©è" Ìè" Ìë•è" Ì≥" Ì∂¢è" Ì∂™è" Ì∑´è" Ì∑∞è" Ì≈¶è" ÌÊ" ÌÍ" Ó" ÓÑÆè" Ó¨" ÓØ§è" Óµ≠è" Ó∂¢è" Ó⁄•è" Ó·¢è" ÓÍ" Ôè" Ôõ™è" Ôõ≠è" Ô∑´è" Ôπ´è" Ô∫" Ô¡" ÔÀ" ÔÀ¶è" ÔÏ£è" ÔÓ§è" Ô˘" " á©è" ¥" ∫" ›ßè" Á" Ë" ˇ¶è" Ò" Òπ´è" Òø§è" Ò¡" ÒÀ" Ò˘" Úñ∞è" Ú¨" Ú≥¶è" Ú≥®è" Úµ≠è" Ú∑" Ú∫" Ú¡" ÚÕ®è" ÚÊ" ÚÁ" ÚÍ" ÚÒ©è" Û" Û" ÛÑÆè" Ûà™è" ÛíÆè" Ûó≠è" Û°Æè" ÛÆ§è" Ûµ∞è" Ûª¨è" Û¡" ÛÕ®è" Û·Øè" ÛÎ£è" ÛÙ" Ùâ" Ù©™è" Ù¨" Ù∞§è" Ùµ∞è" Ù∏´è" ÙŒ§è" ÙË" ÙÙ" Ù¯" Ù˘" ı" ı" ıÄ" ıà´è" ıâ" ıõÆè" ı™¨è" ı≥¶è" ı¥" ı¡" ıÀ" ı·£è" ıÊ" ıÍ" ıÙ" ıÙ©è" ˆ" ˆÑ∞è" ˆëÆè" ˆ∫" ˆ”Øè" ˆË" ˜" ˜Ä" ˜Ø≠è" ˜¥Æè" ˜À¶è" ˜Í" ˜¯" ¯" ¯" ¯â" ¯è" ¯ë¢è" ¯¥" ¯¥Æè" ¯∂´è" ¯∑" ¯∫" ¯ø¶è" ¯ﬂ" ¯Ê" ¯˜" ˘î¶è" ˘õÆè" ˘∞§è" ˘≥¶è" ˘∑´è" ˘π™è" ˘∫" ˘Õ" ˘Í" ˘Ù©è" ˘ı§è" ˘¯" ˘˘" ˙" ˙ÑÆè" ˙Ü´è" ˙ö" ˙Æ§è" ˙¥" ˙¡" ˙ƒ¶è" ˙Ê" ˙Í" ˙˜" ˚" ˚" ˚ÑÆè" ˚Ü´è" ˚ó≠è" ˚ö" ˚¶" ˚Æ§è" ˚≤" ˚∏´è" ˚ª¨è" ˚Ω¶è" ˚Ë" ˚¯" ¸" ¸" ¸ë¢è" ¸õ™è" ¸¶" ¸©¨è" ¸¨" ¸¥" ¸∫" ¸¡" ¸·¢è" ¸˝™è" ˝" ˝ÉØè" ˝Ø≠è" ˝≥" ˝∑´è" ˝∫" ˝¿" ˝¡" ˝˙©è" ˛" ˛" ˛ö" ˛∞" ˛Õ" ˛ı§è" ˛˜" ˛˘" ˇ" ˇ∞§è" ˇ∂¢è" ˇ∂´è" ˇπ´è" ˇ’" ˇÏ£è" ˇ¯" ˇ˝>3 ‘´ä–∫‡™‘Â	Ê
-ã∂ä©êõ"	ôÚ=3 ¿Œä–∫‡˛ßß	™
-åπãƒëõÒ"	C∂=3 ≥—ä–∫‡™‘⁄	‚
-åπãƒ¶õ·"	K‡=3 ∏Áä–∫‡˛ßñ	®
-åπåµíõÚ"	Ê>3 ÒÃä–∫‡∆ì»	»
-åπåµæõ˛"	ôÇ>3 ïâä–∫‡πñì	±
-ã∂ãƒ„õñ"	ìÚ=3 ◊÷ä–∫‡ÏŸ⁄	€
-ã∂ä©øõˇ"	{ú=3 “Áä–∫‡≠ù 	∂
-ã∂åµ¿õÄ"	A =3 ¬Œä–∫‡±˛†	ü
-â˘â¯ßõ®	"	ê=3 ªîä–∫‡¸ÔÃ	Õ
-ã∂ä©‰õó"	så=3 °‰ä–∫‡≠ùΩ	ø
-çªåµ’õé"	-ä=3 ÷∞ä–∫‡Ã§÷	û
-åπãƒÂõò"	‘=3 ßöä„∫π“Å°	†
-â˘â¯åõ◊	"	YÏ"=3 ·Ìä„∫–ÉÖù	ú
-â˘â¯ãõ’	"	=Œ">3 ù∂ä⁄ùı‹Çû	ù
-â˘â¯Öõª"	ôÜ%>3 ’ˇä⁄ùëÜç	“
-â˘â¯Ñõ…"	áÃ%=3 ¸˚ä⁄ùÓ‹Ç™	™
-ã∂â¯Óõ∏"	º$=3 ’áä⁄ù‡‹Ç®	ß
-â˘â¯Çõπ"	Kà%=3 ˝õä⁄ùØ‹Ç£	¢
-â˘â¯Éõ∫"	gË%æˆ˜Úè"	óí:<2 œìäç∫‘∫Ãﬂ	‡
-ã∂ãƒzõ™"	¸i<2 ï˜äç∫‘˚«	ı
-ã∂ãƒyõ©"	÷9<2 ≥Æäé©æàÂœ	–
-â˘ä©Gõ°"	¥%5=2 ÷Èäé©¿àÂ†	®
-éºåµNõ«"	ñ&ç=3 äÙä–∫‡º±©	õ
-åπãƒìõÛ"	˛=3 öˇä–∫‡ˇØ◊	ï
-ã∂ãƒîõÙ"	6ñ=3 ‰ää–∫‡™‘©	õ
-ã∂ä©®õ‚"	H÷=3 Âüä–∫‡”ÎÀ	Ã
-ã∂ä©©õ„"	h=3 åõä–∫‡∞ËË	È
-ã∂ä©¡õÅ"	8™=3 ¿éä–∫‡˛ßÌ	
-åπãƒ÷õè"	,–=3 ¬Æä–∫‡˙‰Ÿ	⁄
-ã∂ä©¬õÇ"	pÿ>3 ø¢ä–∫‡Ñî“	⁄
-åπåµòõı"	é‹>3 ◊ôä–∫‡˘Ñ¢	°
-â˘â¯™õ≥"	¢û>3 øπä–∫‡πñÊ	 
-ã∂ãƒ√õÉ"	ê=3 ƒÕä–∫‡Ã§ù	º
-ã∂ãƒÊõô"	@ö>3 ¸¨ä–∫‡Ë‚‰	Â
-ã∂ãƒ◊õê"	Üö>3 „·ä–∫‡…ÍÏ	Ô
-ã∂ä©ƒõÑ"	æ˙>3 óÀä–∫‡≠ù•	Œ
-åπåµ´õ‰"	‘™>3 √∫ä–∫‡…ÍÈ	Î
-ã∂ä©ÿõë"	†é>3 »Íä–∫‡”Î 	À
-ä±ä©≈õÖ"	ﬁî=2 ÆﬁäÀù‡ÏŸÑ	∫
-ã∂ãƒ õö"	∆Ó>3 ØŸä–∫‡˚«ú	≤
-åπãƒôõˆ"	òÆ>3 ˛Íä–∫‡€ûì	±
-ã∂ãƒ¨õÂ"	¨Ú>3 «Ùä–∫‡ˇØﬂ	ß
-åπãƒöõ˜"	÷ﬁ>3 âËä–∫‡ôÊ„	‰
-ã∂ãƒŸõí"	êÏ>3 “˜ä–∫‡ˇØñ	®
-ã∂ãƒ≠õÊ"	 ä>3  •ä∆ù‘àÂÆ	
-çªç∑®õ‚	"	‡¬>3 Ûéä–∫‡€ûﬁ	¿
-ã∂ãƒÆõÁ"	Ü∫>3 è°ä–∫‡œäÆ	
-åπç∑õõ¯"	 ¿>3 è≠ä–∫‡ì‹·	‚
-ã∂ä©ØõË"	ﬁÄ=2 ØËäÀù‡Ë‚Ñ	∫
-ã∂ä©õõ"	‰Ü=2 ‹¯äÀù‡˙‰ﬂ	ß
-ã∂ãƒõú"	Ñ†=2 öëäÀù‡Ë‚¬	•
-ã∂ãƒõù"	¿Œ>3 •Ää–∫‡∑Ù’	÷
-ä±ä©∆õë"	Ùä=2 ‘ÙäÀù‡Î¯º	º
-ä±â¯õí"	˙¸>3 ‰°äÀù∞ñÒ≈	∆
-ã∂ä©–õ˙
-"	î†	=2 …√äÀù˙≠ﬁÏ	Ô
-ã∂ä©&õ˘
-"	‰¯
-=2 π±äÀù‡ƒ∫˚	’
-ã∂åµ%õ¯
-"	‹é=2 ◊ÎäÀùÓπñ”	ï
-çªãƒ)õÆ	"	¨∞
-=2 •µäÀù«ÒÆÆ	
-åπç∑$õÑ
-"	íÿ=2 ØËä”ùπ √ù	º
-åπåµhõ™"	Ä∫=2 ò¬äÀù«¶£‡	à
-åπç∑!õÖ
-"	Ùö=2 ∑ıä”ù˙·œû	¢
-åπåµiõ´"	Ü˛=2 √Çä”ùπﬂÿ◊	ï
-ã∂åµkõ¨"	–æ>3 §ßä–∫‡º±≠	í
-åπä©«õÜ"	ê¢>3 ¥Ÿä–∫‡“Å®	ß
-â˘â¯⁄õÿ	"	Ü >3 æøä–∫‡á∂Ì	
-ã∂ä©»õá"	Œ“>3 È–ä–∫‡πñ±	æ
-ã∂ãƒ…õà"	ÏÍ>3 áæä–∫‡πñê	ª
-åπãƒ€õì"	‡ê	=2 †∆äÀù‡∆ì›	€
-ã∂åµ	õû"	“¬	>3 ˛ƒä–∫‡˛ß¡	¨
-åπåµúõ˘"	¶Ü>3 €µä–∫‡ê˚Ω	Ω
-ä±ä©∞õ©"	∏»>3 ›Ää–∫‡¨ÛÍ	Ï
-ä±ä©±õê"	÷‡>3 ÍÔä–∫‡Û„≠	í
-ã∂ä©≤õÈ"	Úˆ=2 —‚äÀù‡áêÁ	„
-ã∂åµõü"	éÙ	>3 Åıä–∫‡⁄Ïÿ	Ÿ
-ã∂ä© õâ"	ƒÆ	>3 ⁄ëä–∫‡™‘’	÷
-ä±ä©Àõä"	Ä‡	>3 ÈûäÀù∞ñÒﬂ	‡
-ã∂ä©§õ˜
-"	÷®=2 ÙÏäÀù‡áê°	Â
-åπåµõ†"	¨ä
->3 Ωˆä–∫‡–Ò	˜
-ã∂ãƒ‹õî"	ÓÇ
-=2 ±ÇäÀù‡ÏŸ˚	å
-ã∂ãƒõ°"	˛ 
-=2  áäÀù™®¡»	»
-ã∂åµõÜ
-"	åƒ>3 ˝˛ä–∫‡á∂˛	ó
-åπãƒùõ˙"	ú‰>3 “˚ä–∫‡á∂˜	É
-ã∂ãƒ≥õÍ"	êé	>3  óä–∫‡Ÿåâ	Ô
-åπåµûõ˚"	ÿî	>3 ç•ä–∫‡á∂à	è
-åπä©üõ¸"	ˆ™	>3 Á™ä–∫‡°›◊	ï
-ä±ä©¥õÎ"	ÜÍ	=2 ´åä∆ù‡ÈÉ¢	°
-â˘â¯ õ¥"	ﬁ–	>3 ‘Ää–∫‡–Ó	Ò
-ã∂ãƒ›õï"	Ññ
->3 Ω£ä–∫‡≠ùﬂ	∏
-ã∂ãƒÃõã"	∫é
-=2 ãõäÀù‡∆ìÁ	„
-åπåµõ¢"	§Í
->3 Ù»ä–∫‡˘Ñ†	ü
-â˘â¯Õõ≤"	Ó∏
-=2 Î∆äÀù™…¨Æ	
-ã∂åµõı
-"	¢‚=2 »≤äÀù‡˚«÷	û
-ã∂ãƒõ£"	ﬁò>3 ı≤ä–∫‡°›Ë	È
-ä±ä©µõÏ"	¢Ç
->3 úÕä–∫‡Ë‚‹	›
-ã∂ä©Œõå"	àÃ
->3 ÏÃä–∫‡Û„÷	◊
-ä±ä©∂õÌ"	÷®
->3 ÿ◊ä–∫‡™‘Ò	˜
-ã∂ä©∑õÓ"	¿
-=2 É∂äÀù‡ø÷˛	ó
-ã∂ãƒõÙ
-"	†˛>3 ©˛ä–∫‡˙‰≠	í
-ã∂ãƒœõç"	˛™=2 à≤ä”ùπﬂÿì	ê
-åπåµcõ©"	é¯=2 ˝üä”ù ˙‰Ì	
-ã∂ãƒaõ®"	Ù˙=2 ·ÓäÀù™‹ƒÑ	∫
-ã∂ç∑õˆ
-"	¶Ç=2 ìÖä”ù ˙‰Ì	
-ã∂ãƒ_õß"	‹˙=2 â˙ä”ù Ö€◊	ï
-ã∂åµ^õ¶"	é˙=2 ¯Ïä”ù≠£õÁ	ç
-éºé∏oõˆ	"	≤†=2 ¿Œä”ù≠ïëÔ	ú
-çªç∑[õı	"	¯Ç=2 ˇæä”ù≠Çô∫	è
-éºé∏YõÙ	"	ö¶=2 ¢Æä”ù‚û¢Ô	˛
-çªé∏VõÛ	"	òÜ=2 ∂«ä”ù…óøÿ	…
-åπç∑Uõ•"	ˆ¯=2 …•ä∆ùæ¸Ô»	…
-ã∂ãƒõ 	"	¨	–>3 ¢Ïä∆ù‘àÂß	™
-ä±â¯¨õ€	"	Ä	é>3 ËÁä∆ùæàÂπ	π
-ã∂ä©èõÕ"	º	‡>3 Å‘ä∆ùæ⁄Ï—	“
-ã∂ãƒéõ…	"	 	¸=2 Ó›ä∆ùΩëÜö	ô
-â˘â¯õ”"	∫	§=2 ∂Áä∆ùæã»à	∞
-ã∂ä©õ„	"	Æ	¬>3 ãùä∆ùæàƒ	≈
-ã∂ä©çõ»	"	‹	û=2  ∞ä∆ù‘∆ƒ	µ
-çªç∑õ«	"	ÿ	‘>3 ‡÷ä∆ù«àÂ”	Ë
-çªåµºõÀ	"	¬í=2 Áãäç∫‘ˇØÑ	∫
-ã∂ãƒ]õ§"	î˙=2 Äßäç∫‘…ÍÁ	Ë
-ã∂ãƒ`õ•"	‘™>3 ŸÎä∆ù‘àÂπ	Ü
-çªç∑∫õﬂ	"	˛“=2 ôíäç∫‘á∂Ñ	∫
-åπåµjõß"	¥Ù=2 îãäç∫ÇëÜö	ô
-â˘â¯lõŒ"	‘‡,!æÌ˜»‘ˇÎ¬	•äè"	Æê=2 ≥Œäç∫‘äæı	ü
-ã∂ãƒdõ¶"	®º>3 ú≥ä¢§∏˘Ñï	ê
-â˘â¯•õø"	‘¯)æÏ˜«†Î£Â	Êè"	æò=2 éáä¢§µàÂ›	ﬁ
-ã∂ãƒõ∞"	Œ∞=2 è„ä¢§˝àÂ∫	∫
-ä±ä©õØ"	Œ¸=2 ¯˛ä¢§æàÂê	ª
-çªåµ\õ¢	"	æÚ=2 ë¶ä¢§ÙàÂ¨	∆
-åπä©!õ±"	åÏ=2 ©œä∆ù‡ØÀ¡	¨
-åπãƒõƒ	"	∏∏	=2 „‰ä∆ù‡ √ù	º
-åπåµõ≈	"	¥‘	=2 ëÛä∆ù‡ÀŒœ	¶
-åπåµõ∆	"	‡‰	=2 ¸àäÿıæàÂØ	œ
-çªç∑õ„"	ˆ‹	=2 èÿä∆ù‘ò∞Ó	È
-åπç∑õﬁ	"	∏	Æ=2 ÃŸäÿıüàÂ≤	≤
-ä±ä©,õ‘"	¯	é=2 ÌÚäÿıüàÂƒ	≈
-ä±ä©.õ’"	˙	ä=2 Êøäÿı∞àÂﬂ	‡
-ä±ãƒõÊ"	˙	™=2 ˙úäÿıﬂàÂı	Ä
-åπãƒõ‰"	 	à	=2 Ì≠ä∆ù‡Çô∫	è
-åπåµõ”	"	íÑ
->3 £˛ä–∫‡⁄Ïœ	–
-ä±ä©†õ˝"	¨æ
->3 öÒä–∫‡⁄·«	î
-ã∂ä©∏õÔ"	¢Ë
-=2 »Úä∆ù‡∫Ãû	©
-ã∂ãƒ
-õ⁄	"	˙÷
->3 ∆ëäÿı ëÜò	î
-â˘â¯úõÿ"	î	à
-=2 â®äÿı‡àÂÊ	Á
-ã∂ãƒõ‡"	≤	≤
-=2 ∆Ääÿı‡àÂñ	®
-åπãƒ	õﬂ"	¥	Ã
-=2 ´ˆäÿı‡àÂÓ	Ò
-ã∂ãƒõﬁ"	“	ƒ
-=2 ≤¿äÿıƒàÂø	ø
-â˘â¯(õ•	"	ñ
-™=2 É©äÿı≤àÂ¶	•
-â˘â¯õÂ"	§
-¸=2 Ü’äÿı≈àÂ	ñ
-ä±ãƒ'õÈ"	 
-‚=2 ˆ¶äÿı≤àÂÿ	Ÿ
-ã∂ä©"õË"	Ï
-¯=2 ÏÀäÿıæàÂ˚	’
-çªé∏õ‚"	à
-	=2 ÆíäÿıÒàÂà	∞
-ã∂ãƒ õÁ"	íî	=2 ∏Ωäÿı‡àÂ°	ÿ
-åπç∑õ·"	†
-í
-=2 Ãûäÿı‡àÂÍ	‹
-åπãƒ õ›"	¢∏
-=2 Ç¢äˆù‘ÒÆ¿	Î
-åπåµõÈ	"	˛“
-=2 ÷˜äˆùµôÊÂ	Ê
-ä±ä©õ÷	"	ˆ÷=2 ˝ûäÎù‡ÏŸ◊	ï
-ã∂ãƒõò
-"	ú¯=2 î®äÎù‡ã»÷	∑
-ã∂åµõô
-"	®ò=2 åºäÎùˇﬂ˜√	√
-â˘â¯õö
-"	ˆ¥=2 ¬≤ä“±‡àÂ¯	Ñ
-ä±ä© õ⁄"	÷	ê=2 Œøä“±‡àÂà	∞
-ä±ä©õ€"	¯	Ü=2 ØÍäÎùŒÔüí	ã
-åπç∑
-õõ
-"	˙÷=2  ∑ä”ùÇÈÉß	¶
-ä±â¯Tõ§"	¢–=2 ôîäÎùÌ±˛≤	≤
-â˘â¯õú
-"	ﬁ	¯=2 œ…äÎù¡Â¶˚	˚
-ã∂åµõÇ
-"	¸	ú=2 à›ä“±‡àÂÑ	√
-ä±ä©õ‹"	¿
-¿>3 –„äˆù‡Ë‚Ì	
-ä±ãƒíõõ"	¿Ä>3 çπäˆù‡ä®ª	Ù
-çªé∏îõö"	ÿ
-Ü>3 Å®äˆù¡ò°â	ˇ
-åπè∫ïõ	"	Ó
-‡>3 ˛¿äˆù¡Ÿ≠Ó	Ì
-åπç∑ñõÒ	"	ò˙>3 Ë∏äˆùæàÂ÷	∑
-ã∂åµˆõ⁄"	åÃ>3 †æäç∫◊˘Ñ•	§
-â˘â¯¸õ∑"	®‰=2 ﬁ¨äç∫Û∫ˇ£	¢
-ä±â¯[õß	"	Ë¥>3 ≠ªä¢§ú∫ˇî	ç
-â˘â¯ÛõÃ	"	ﬁÿ	=2 ‚©ä¢§∏˘Ñî	ç
-â˘â¯ õæ"	åÏ=2 ÊÑä¢§˛àÂ∑	∑
-ä±ä©õ¨"	‡Æ=2 ªùä¢§˛àÂ≈	∆
-ã∂ä©
-õ≠"	ú=2 ÔŸä¢§˛àÂÂ	Ê
-ã∂ä©õ´"	–÷,!æÈ˜ƒ ÉÎ∏	¥®è"	 ˛=2 Ò‹ä¢§¶àÂƒ	≈
-ä±ä©Iõº"	ÇÏ	>3 Ú¯ä¢§∏ﬂ˜õ	ö
-â˘â¯õú"	æ‡	>3 …ªäˆù‹‹Çß	¶
-â˘â¯¢õÏ	"	òê
->3 ÇÚä¢§∏àÂü	û
-â˘â¯Òõì"	¿Ü
-=2 õàäˆùæ™‘ÿ	“
-åπåµõü
-"	Œú
-=2 Ãñäˆùæ”Î’	÷
-ã∂ãƒõ†
-"	“¶
-=2 £Çä¢§ÒàÂÔ	Û
-åπä©Kõæ"	¨
-=2 ‡åä¢§ÒàÂÊ	Á
-åπä©Lõø"	˛Æ
-=2 „Ääˆùæ˚«≠	≥
-åπç∑õ¢
-"	˛™=2 ‘Ûä¢§ÒàÂ˙	ä
-åπä©JõΩ"	Üî
-=2 Ú∑ä¢§ÒàÂ¯	Ñ
-åπãƒNõ¿"	ò∂
-=2 óÒäˆùæø÷ã	ò
-åπåµõ°
-"	éÓ
-=2 †ºäˆù‘·œ§	£
-åπåµõÍ	"	¥ú=2 ”ıäˆù◊™‘˛	ó
-åπåµõ£
-"	ú“=2 §Ñä¢§ÒàÂ‘	’
-ã∂ä©Sõ¡"	‚∞=2 ®éä¢§ÒàÂ≠	≠
-ä±â¯Tõ¬"	æ=2 Ω§äˆùæ⁄Ï÷	◊
-ã∂ãƒõ§
-"	˛“=2 Ç◊ä¢§÷àÂÙ	˛
-ã∂ä©õÆ"	ñ‘=2 õ¬ä¢§∏˘Ñï	ê
-â˘â¯&õ¿"	ÚÓ)æË˜√∞ÅÅú	öè"	¥⁄	)æÎ˜∆‘£†∞	∞è"	ú¥=2 Ø–ä¢§∞àÂ≈	ù
-ã∂ãƒ$õ≤"	≤¿=2 ¡˚ä¢§º∫ˇê	Ú
-â˘â¯(õ©	"	àÙ)æÍ˜≈Ë°˙õ	öè"	¬ˆ=2 ‡Îä¢§‡àÂÕ	Œ
-ä±ä©Bõª"	ä‹	)æÁ˜¬¥ÎÇ»	—è"	¸Ê	=2 ·√ä¢§◊àÂ÷	û
-ã∂åµWõ√"	Æ¿=2 Áæäˆù∞ÚÓœ	–
-ã∂ãƒõ•
-"	†Œ=2 é‡äˆù™˙‰Ì	
-ã∂åµõ¶
-"	Ã»=2 Ñ˜äˆù◊Ë‚Ê	Á
-ã∂åµõß
-"	Êƒ=2 Áƒä¢§ÂàÂ¨	¨
-ä±â¯[õ˚"	íÆ
-=2 ÎÖäˆù™®Á‚	„
-ä±åµ õ®
-"	Ç¬=2 â©äˆùµÚÓ–	—
-ã∂ãƒ#õ©
-"	Êæ=2 —Ûäˆù‡∑πì	◊
-åπåµVõ≥	"	˙÷>3 ≈ˆäˆù‡∑π“	⁄
-åπç∑éõ’
-"	Í–=2 òëäˆù‡Ø™ÿ	Ò
-åπç∑Xõ¥	"	∆Ê>3 ‘€äˆù‡ √±	æ
-ã∂åµåõ‘
-"	∂⁄>3 ÏÖäˆùµªﬂ˜	É
-ã∂åµèõ÷
-"	÷î=2 ﬂÆäˆù‡ÈÉ¢	°
-â˘â¯Zõâ
-"	úÙ=2 ˆÅäˆùÓﬂÿœ	¶
-åπä©Tõæ
-"	ﬁò>3 ˘∞äˆù‡ÏŸì	ê
-ä±ãƒãõ”
-"	¶Ï>3 óöäˆù‡†¿û	≈
-åπç∑äõ“
-"	ÙÙ=2 —ÛäˆùÓóøÿ	…
-åπä©QõΩ
-"	–ä=2 ≥≠äˆù‡‹ƒê	ª
-ã∂åµ^õø
-"	®å=2 ”∂äˆù‡˙⁄¸	ç
-ã∂ãƒ_õ¿
-"	Œî>3 ú§äˆù‡º±´	Ê
-åπç∑àõÌ	"	‰Ñ=2 ‡éä”ùπ«ıπ	π
-ä±ä©Iõ†"	¢Í=2 ¥Öä”ù«ÚÓŒ	œ
-ã∂ãƒOõ¢"	¯¥=2 Ä«ä”ùπÚÓÕ	Œ
-ä±ãƒLõ°"	§ê>3 •¸ä”ù™ªﬂÒ	˜
-ä±åµïõê"	æ¸>3 åñä”ù™≠ﬁ˘	à
-ä±åµóõí"	∆Ó>3 £Öä”ù™ÂÌÕ	Œ
-ä±ä©ñõë"	¬˙=2 £˙ä”ùŒ“è´	°
-åπç∑ õ‡	"	Ïﬁ=2 ‚Æä”ù¸˙⁄ˆ	Å
-ã∂åµ,õï"	¶Ä=2 üÕä”ùπ⁄ÏŒ	œ
-ä±ãƒEõü"	∞®=2 ∫Âä”ùÉÈÉû	ù
-â˘â¯Dõì"	–Ñ=2 ÿ‹ä”ùµ™‘«	î
-ã∂ç∑>õõ"	ÑŒ=2 ¥¿ä”ùŒ∫Ãû	©
-åπç∑-õñ"	Íé=2 ì∞ä”ùπÚÓ»	…
-ã∂ä©Bõû"	îƒ>3 Ú¶ä”ù™àÂ˙	ä
-ã∂ç∑Ëõù"	∂Ê=2 Î¨ä”ù¸®¡ë	ƒ
-ã∂ç∑9õö"	¸¥=2 ≈ñä”ù«ï…Ó	Æ
-åπåµõ¸	"	æú=2 ∞¯ä”ù™í“ã	ò
-åπåµ#õî"	™“>3 ÄÑä”ùæàÂ∂	∂
-ä±â¯§õ›"	»î=2 ¢ºä”ù‡˚«∏	¥
-åπåµ$õ˝	"	Ãˆ=2 ˇˇä”ù™–œ	¶
-ã∂åµ)õ˜	"	ºÍ=2 ŒÌä”ù«ÚÓ–	—
-ä±ãƒõ≤	"	¸»=2 ÄŸä”ùµà…	 
-ä±ä©/õó"	Ñ÷=2 †Üä”ùπñÒ»	…
-ã∂ä©3õò"	¥ˆ=2 ⁄±ä”ù¿ëàª	©
-åπè∫(õÆ"	ˆ∂=2 È¶ä”ù¿êö¶	é
-åπé∏7õ¯	"	§‡=2 œëä”ù◊‹ƒÑ	∫
-ã∂åµ4õô"	»ö<2 Ñˆä”ùÈÜ—≈	ù
-ã∂åµrõ≠"	xæ=2 æªä”ù™∞ïè	ñ
-ã∂ç∑qõ˘	"	≤Ë=2 ﬁ¿ä”ùÊÈÉü	û
-â˘â¯uõµ"	¥˛>3 ⁄ûä„∫‘∆ì√	˘
-ã∂åµÖõÿ"	ú˙>3 ‚Çä„∫‘≠ùÒ	‘
-ã∂ãƒÇõ◊"	Ëà>3 ÕÛä„∫‘“èÖ	â
-åπç∑Åõ÷"	‰÷>3 ≈·ä„∫£àÂà	·
-à·à·¸õﬂ"	‘∞>3 á˛ä„∫˜ê˚≤	≤
-ä±ä©ˇõ˙"	êí>3 ô”äñ∫‘û”È	Î
-ã∂ä©ßõß"	Ñ¿>3 Ñ¯äñ∫¯˘Ñö	ô
-â˘â¯©õ±"	¥ˆ=2 ˝˘ä”ùµÚÓŒ	œ
-ä±ä©?õú"	î>3 Ô√ä„∫‘ò°Ø	´
-ã∂ãƒÚõ“"	∏‚>3 „ä„∫‘ò°ÿ	“
-ã∂åµˆõ‘"	ﬁË>3 √Åä„∫π⁄Ï´	´
-ä±ä©¯õ’"	ÆÆ>3 Ê·ä„∫Û∫ˇ®	ß
-ä±â¯˜õù	"	»ä>3 û–ä„∫‘≠ùü	å
-ã∂åµÛõ”"	§Ñ=2 ¸Êä”ù≥òç–	§
-éºé∏Põ“	"	ò	à>3 ’ìä”ù‘ØÀØ	´
-åπç∑ıõ£"	¨	‡=2 ß≤ä”ùµ⁄·Ú	¯
-ã∂ãƒõ±	"	Œ‡=2 Ó—ä”ù¸ò°î	Ä
-åπç∑õ˙	"	ûº=2 Üåä”ùæÎ¯∏	∏
-ä±ä©õˇ	"	–˙=2 æÖä”ùµ”Î’	÷
-ã∂ãƒõ∞	"	∫	Ú=2 öµä”ù‡ÒÆÀ	Ï
-åπç∑õÅ
-"	ƒ	öæÙ˜œ"	¢
-⁄=2 ï±äÎùÂ⁄ÏŒ	œ
-ä±ãƒõù
-"	˙
-≤=2 ¡»äÎù¿Ã§∞	¸
-çªç∑õû
-"	†˙=2 Óöä”ùÆ¸Ωá	Ã
-ä±ãƒ õØ	"	é
-à=2 §Åä”ù ã»ì	±
-ã∂åµõ˛	"	ê
-Ë=2 –êäŸ±‡àÂÊ	 
-ã∂ãƒõÍ"	ﬁ
-=2 „÷äÎù¡¶£€	˝
-ã∂é∏õÉ
-"	Ñ¶=2 Â™äŸ±‡àÂ©	õ
-ã∂ãƒõÎ"	ö“=2 ı≈äŸ±◊àÂ◊	ÿ
-ã∂ä©õÏ"	‘≤=2 ôôä”ù∞˚«≠	≥
-ã∂ç∑õÄ
-"	÷†=2 Î›ä”ù∞ÀŒñ	®
-ä±åµõ˚	"	§ñ>3 §¢äŸ±ÏàÂØ	Ø
-â˘ä©úõû"	Ú“>3 „∫äˆù¿ßé∂	£
-éºç∑óõŸ	"	îû=2 §‡äŸ±‡àÂû	¢
-ã∂ä©
-õÌ"	àû=2 ’ãäŸ±‡àÂ¸	ç
-åπãƒõÓ"	¢º=2 °ŒäŸ±™àÂª	ª
-ä±ä©õÒ"	‰Ú=2 ¡çä‰∫‡ÈÖµ	¯
-ã∂åµ[õ‹"	åÄ=2 ˜òäŸ±‡àÂ∂	Ÿ
-åπãƒõÔ"	ºÑ=2 ’±äŸ±ÏàÂ•	§
-â˘ä©õ"	‡é=2 äüäŸ±•àÂó	ô
-ã∂ãƒõ "	Ã‰=2 Õüä‰∫‡€ûØ	ﬂ
-ã∂ãƒ]õ›"	‘é=2 ˇ§ä‰∫‡Î¯¶	•
-ä±â¯`õù"	ÜË=2 «Íä‰∫‡Û„Ë	È
-ã∂ä©bõﬁ"	¨¨=2 ⁄ïä‰∫‡Ë‚„	‰
-ã∂ä©eõﬂ"	Íò=2 ñ¥ä‰∫‡ëÜà	·
-à·à·gõ“"	ê‡=2 ®’ä‰∫‡€û∑	‡
-ã∂ãƒjõ‡"	Ã»=2 Ã°ä‰∫‡ÉÖú	õ
-â˘â¯lõ«"	Úé=2 »òäç∫ÇëÜô	ò
-â˘â¯põ—"	÷∏,!æÓ˜…‘ˇ†Œ	œè"	ƒÿ=2 È™äç∫Ç‹Ç¶	•
-ä±â¯sõÚ	"	 ú<2 ˘≤äç∫Ç‹Çü	û
-â˘â¯võ‘	"	“r,!æÔ˜ ™¶§≠	íˇè"	¢∏<2 Û“äç∫‘∫Ã	ñ
-åπãƒwõ®"	ò>3 Óùäˆù«±¬Î	¡
-çªãƒÓõÁ	"	§å>3 †™äˆù‡≥’∑	ì
-åπãƒàõ¿	"	†Ê>3 Ωõäˆù«ÈÉ†	ü
-â˘â¯Ñõø	"	–>3 ˝Éäˆùæ∫Ãñ	®
-åπãƒÉõæ	"	Ëä>3 ˇÖä¢§«àÂ·	‚
-åπãƒ®õ°	"	ÜÓ>3 ﬂ˚ä¢§«àÂ‹	›
-åπãƒßõ†	"	ñˆ=2 ≥æä¢§ àÂ•	˜
-éºé∏+õ≥"	öŒ>3 Ø‚äˆù≠∑π°	ÿ
-çªç∑™õ·	"	ö»>3 Œ·äˆù«≥’∑	ì
-åπãƒÛõº	"	ñÇ>3 ∑˚äˆù«‹ƒê	ª
-çªåµÙõË	"	≤§>3 È˜äˆù˛∆ 	∂
-çªãƒˆõΩ	"	 Ä>3 ª˝äˆù™—ªÿ	“
-ã∂åµ˘õ‰	"	Óå>3 ååäˆù‘º±´	Ê
-çªé∏¯õÂ	"	à>3 ãßäˆù‘äæÊ	 
-çªé∏¸õÊ	"	¬æ>3 €Àä¢§∏˘Ññ	ë
-â˘â¯Áõ¡"	å¢	=2 Ë⁄ä¢§ àÂŒ	œ
-ã∂ä©-õ¥"	¸Ç	=2 Úèä¢§¿àÂ∏	´
-çªåµ<õπ"	íÏ	=2 ”¬ä¢§∞àÂÔ	Û
-ã∂ãƒ?õ∫"	∆ê
-=2 »“äˆùÓÍº•	Œ
-çªãƒ'õ™
-"	æ¥=2 ïÏäˆùæ˙‰Ê	Á
-ã∂ãƒ(õ´
-"	¢=2 ò¯äˆù∂ñÒƒ	≈
-ã∂ä©)õ¨
-"	à†=2 Éääˆù∂£Úæ	æ
-ã∂â¯+õ≠
-"	öû=2 Ê€äˆùÍì‹∫	ú
-åπåµMõº
-"	úÙ=2 ÒÆäˆù‘à…	 
-ã∂ãƒ.õÆ
-"	“†=2 ÿíä¢§∞àÂã	ò
-åπåµ1õµ"	ÜË=2 –õä¢§¿àÂ¢	û
-çªåµ2õ∂"	“¶	=2 Í«ä¢§¨àÂ£	¢
-â˘â¯6õ∑"	ñÓ	=2 Çˆä¢§æàÂ”	‘
-ã∂ãƒ:õ∏"	™ñ
-=2 ÃÙäˆù∂ÚÓÕ	Œ
-ä±ä©3õØ
-"	éî=2 êçäˆù‘…‡Ï	Ô
-ã∂ãƒ5õ∞
-"	òí=2 Åùäˆù‘‘ˆ¡	¡
-ã∂ä©6õ±
-"	∆ê=2 ◊™äˆù∞£Ú‹	›
-ã∂ãƒ8õ≤
-"	‡é=2 Ì∞äˆùÑÎ¯±	±
-ã∂â¯Jõª
-"	‘‹=2 £ƒäˆù™ÂÌ”	‘
-ã∂ä©Cõ∑
-"	˛˙=2 Ú’äˆù™¨ÛΩ	Ω
-ä±â¯;õ≥
-"	íÜ=2 ‘µäˆù™∞Ë›	ﬁ
-ã∂ãƒAõ∂
-"	Çˆ=2 ÙêäˆùÜ∫ˇ§	£
-ä±â¯Põá
-"	ÄÜ=2 ÒÕäˆù‡ÈÉ†	ü
-â˘â¯aõä
-"	öû=2 €©äˆù‡‹Ç§	£
-â˘â¯dõà
-"	ä≤=2 óÙäˆù‡óøÿ	…
-ã∂ç∑fõ¡
-"	–æ>3 ¡¥äˆù‡∆≤è	‰
-åπç∑áõÓ	"	∞ê>3 ï„äˆù‡ÏŸ˝	é
-ã∂åµÜõ—
-"	‡ñ>3 ∞√äˆù‡™‘ã	ò
-ä±ãƒÖõ–
-"	¨†>3 Îßäˆù‡ÀŒû	©
-ã∂ãƒÑõœ
-"	Ï®=2 ¿úäˆù™⁄Ï€	‹
-ä±ãƒHõ∫
-"	Ï§=2 ¥çäˆù‡⁄•‡	˙
-åπé∏iõ¬
-"	ƒ–=2 À‡äˆù™”Î“	”
-ã∂ãƒEõ∏
-"	ûÜ=2 ”˘äˆùæ⁄·Î	Ì
-ã∂ãƒFõπ
-"	öñ=2 ˆ©äˆù‡„≈Ô	π
-ã∂åµlõ√
-"	≤‰=2 ÅΩäˆù‡–û	¢
-ã∂åµmõƒ
-"	ÄÚ>3 ˆ«äˆù‡‹ƒ®	Ω
-åπåµÇõÔ	"	‚∏>3  ˘äˆù‡®¡û	≈
-åπåµÄõŒ
-"	™¬=2 ÏÔäˆùÓù ‚	≠
-éºä©>õ¥
-"	®¸
-=2 ⁄èäˆùÓ™‘©	õ
-çªâ¯@õµ
-"	¥æ=2 º∆äˆù‡ƒ∫°	ÿ
-åπç∑nõ≈
-"	§ˆ=2 Ê‰äˆù‡ÀŒﬂ	ß
-ã∂åµõÕ
-"	û“=2 ïƒäˆù‡≥’«	î
-ã∂ãƒ}õÃ
-"	‰⁄=2 ﬂöäˆù‡äæÊ	 
-åπç∑qõÎ	"	æí=2 ®Ïäˆù‡ã»∏	¥
-åπåµrõ∆
-"	‰ñ=2 Ωûäˆù‡…Íﬂ	‡
-ä±ãƒ{õÀ
-"	˛#‡ë•øøåõè"	∫§=2 ˛’äˆù‡£©™	Û
-çªç∑tõµ	"	“™=2 Ç…äˆù‡ø÷°	ë
-ã∂åµyõ 
-"	ÄÜ=2 ˙ïäˆù‡‹ƒ±	æ
-åπç∑uõ«
-"	û∂=2 —ªäˆù‡ÀŒû	©
-åπåµxõ…
-"	¶å=2 Ω£äˆù‡û”≈	ù
-ã∂åµwõ»
-"	Ïî=2 å”ä‰∫‡ÈÉû	ù
-â˘â¯nõŒ	"	™ˆ=2 üﬂä‰∫‡∫ˇô	ò
-â˘â¯põü	"	‘º=3 ƒøä„∫‘≠ùé	ﬁ
-ã∂ãƒáõŸ"	ræ =3 ﬁËä„∫‘ò°á	Ã
-ã∂ä©äõ€"	2¶!=3 ﬂ⁄ä„∫‘≠ùØ	ﬂ
-ã∂ãƒâõ⁄"	HÑ!=3 ‡øä⁄ù™˙⁄¸	ç
-ã∂åµ°õﬂ
-"	h¥!=3 ©ÿä⁄ù‘Î¯µ	µ
-ä±ä©¢õ‡
-"	lﬁ!<2 ˙∫ä⁄ùÉÈÉ°	†
-ä±â¯õ∂"	b˛!=2 ¢Üä⁄ù‘‘ˆª	ª
-ã∂ä©õﬁ
-"	»™ =2 ﬁ˜ä⁄ù´‘ˆ∏	∏
-ä±ä©õ›
-"	÷¢ =2 ∫‹ä⁄ù‘ﬂ˜¡	¡
-ä±ãƒõ‹
-"	‰¬ <2 Àüä⁄ù∞†¿¨	∆
-ã∂ç∑õÒ
-"	vÓ"=2 ôùä⁄ù’î∑˜	›
-ã∂ç∑õç
-"	ú∏ =2 º±ä⁄ù√†∏“	⁄
-çªé∏õ€
-"	 ¿ =2 ÿõä⁄ùﬁ¸Ô—	“
-ä±ä©õ⁄
-"	ÓÙ =2 ∞èä⁄ù´Ö˙≥	≥
-ä±â¯õŸ
-"	Ü¯ =2 Ïµä⁄ù ≥’Ö	†
-ã∂ãƒõ◊
-"	∆ÿ =2 ¶‰ä⁄ù√∆ìà	ö
-çªç∑	õÿ
-"	 ö!=2 ¯˛ä⁄ù√Ÿ≠ˆ	Ó
-åπåµõå
-"	ﬁ !=2 ËÊä⁄ù√¢íŸ	õ
-çªç∑õã
-"	˙ƒ!=2 ﬁœä⁄ù›àÂÀ	Ã
-ä±ä©AõÏ
-"	 Ü#=3 µ‚ä⁄ùøëÜè	È
-â˘â¯πõ»"	÷$<2 …”ä⁄ù´–◊	ñ
-ã∂åµ#õ„
-"	Xà%=2 €µä⁄ù—àÂË	È
-ã∂åµ õ‚
-"	ö∞$=2 Å™ä⁄ù¸ªﬂ˜	É
-ã∂åµõ·
-"	∆∞$=2 ∞ ä⁄ù»ØÀê	ª
-åπåµ*õÂ
-"	⁄Œ%=2 ˛òä⁄ùÔ–◊¸	ç
-ã∂åµ&õ‰
-"	ÿÆ&=2 –öä⁄ù√®¡Ò	‘
-åπç∑-õï
-"	¥‡$>3 ©Áä⁄ù√≥’∫	ú
-åπãƒ—õÁ
-"	≤‚$=2 ÈÑä⁄ù√ˆµ∑	‡
-åπç∑0õî
-"	∆∆$=2 €›ä⁄ù◊∫Ãê	ª
-ã∂åµ+õÊ
-"	Çº%=2 ®≈ä⁄ù´Ü—û	©
-ã∂åµ5õË
-"	∂û$=2 ñä⁄ùÏàÂﬂ	‡
-ä±ä©8õÈ
-"	º‹$=2 ˝êä⁄ùÅàÂﬂ	‡
-ä±ãƒ;õÍ
-"	‹ä$>3 ÂÉäñ∫«–◊≠	í
-ã∂ãƒ´õ®"	úŒ =2 ÕØä⁄ùæ«Õ˙	Ø
-ã∂åµFõí
-"	‘Ï!=2 ≠ùä⁄ù√†∏›	€
-çªç∑Eõ
-"	÷†"=2 ¨íä⁄ù¿º±´	Ê
-åπç∑DõÔ
-"	–≤"=2 ‰·ä⁄ù∏àÂ¯	Ñ
-ä±ä©CõÓ
-"	‰“"=2 ÚÂä⁄ùß◊≥Á	„
-åπåµ@õì
-"	Üé#=2 ß≠ä⁄ù˚®Á›	ﬁ
-åπä©>õÎ
-"	∞¨#=2 «◊ä⁄ù˚àÂ»	…
-ã∂ä©BõÌ
-"	ÿî#=2 √¬ä⁄ù‘Íº•	Œ
-åπç∑Hõ›	"	Ü‹">3 ‡¨ä⁄ù›ëÜñ	ë
-â˘â¯”õ€"	≤Í%>3 œ÷ä⁄ù›ëÜï	ê
-â˘â¯‘õ‹"	¯ö&=3 É›ä⁄ù¿àÂ˚	˚
-åπç∑£õœ	"	`∂)æè˜ãè"	¯Ê.æé˜äè"	å§/>3 ªéä⁄ù˚àÂ™	Û
-ã∂åµΩõñ
-"	÷ñ)>3 ˜≥ä⁄ù¿àÂ≤	¶
-çªé∏∫õó
-"	æ¬+>3 ∫≥äñ∫¿ÏŸÎ	Ì
-ã∂ä©≠õè
-"	î	Æ%>3 Œäñ∫¿π´ü	ˆ
-ã∂ãƒÆõê
-"	∞	‘%>3 €ˇäñ∫¿Ê¥¨	ô
-åπãƒØõë
-"	Ã	ﬁ%=2 õìäÃù¿â†Æ	Å
-åπç∑õÛ
-"	¸∂.=2 √ËäÃù≥·œ§	£
-åπç∑ õÚ
-"	˛Ó.æá˜Éè"	Ê‹6æç˜âè"	æÏ2æå˜àè"	™ú3>3 ∂¨íû∫¿∆≤‰	í
-çªé∏∞õ™"	ÃÙ0>3 à≈íû∫¿ñÒØ	œ
-åπåµ±õ´"	à§1æà˜Ñè"	¨‹6æã˜áè"	ˆ§4æÖ˜Åè"	¸‡8æÜ˜Çè"	í†8æÑ˜Äè"	¯¶:æÉ˜ˇè"	ˆ¸:æÇ˜˛è"	º§;æÅ˜˝è"	⁄Ê;æ˜˜Ûè"	ûË?æÄ˜¸è"	∫‘;æ˛˜˙è"	‹ä<æˇ˜˚è"	êé<æ˝˜˘è"	† <æ˙˜ˆè"	Æ–?æ˚˜˜è"	Ñò>æ¸˜¯è"	ﬁê<æä˜Üè"	¬¯3æâ˜Öè"	‹é4>3 ì≤íû∫≥∞Ë˚	˚
-åπãƒ≤õ≠"	Ù†4>3 ’ íû∫≥ÂÌÓ	Æ
-åπç∑≥õÆ"	Ñ¶4>3 “Ùíû∫≥Û„Ê	 
-åπãƒ¥õØ"	ö¥4>3 ˇáíû∫¿ñÒ≈	∆
-ã∂ä©µõ∞"	¬¬4>3 ¡©íû∫≥ºÈÙ	˛
-åπãƒ∂õ±"	‚∆4>3 ◊∆íû∫¿∞Ë∑	ì
-åπåµ∑õ≤"	ˆ“4>3 ¸Ìíû∫≥ÚÓ–	—
-åπãƒ∏õ≥"	ö‡4>3 Ùâíû∫≥…Í©	ä
-åπåµπõ¥"	≤Ë4>3 ∑õíû∫¿ÂÌ´	Ê
-åπåµ∫õµ"	¬¸4>3 ¨∑íû∫≥”ÎÛ	˚
-åπãƒªõ∂"	Í˛4>3 ˘—íû∫≥ôÊ¥	§
-åπç∑ºõ∑"	àä5>3 ôÛíû∫≥⁄ÏÏ	Ô
-ã∂ãƒΩõ∏"	êû5>3 ö≤íû∫≥”Îﬁ	ﬂ
-ã∂ãƒøõ∫"	º†5>3 ˙£íû∫≥ºÈ˘	à
-åπãƒæõπ"	¨§5>3 Ôﬁíû∫≥…ÍË	È
-åπãƒ¿õª"	Ã™5>3 Î˘íû∫≥ôÊˆ	Å
-åπãƒ¡õº"	‹∞5>3 ¨úíû∫≥”Î‡	·
-ã∂ãƒ¬õΩ"	Ú≤5>3 ÿÓíû∫≥ºÈØ	œ
-åπåµ√õæ"	ˆ∆5>3 ãéíû∫≥ôÊØ	´
-åπåµƒõø"	ê–5>3 ≤ßíû∫≥…Íƒ	≈
-åπåµ≈õ¿"	§ÿ5>3 æ´íû∫¿àÂÃ	Õ
-ä±ä©Íõ´	"	æ‹5>3 πíû∫≥ÂÌ“	”
-ã∂ä©∆õ¡"	 –5>3 Õ◊íû∫≥¸ÔÀ	Ã
-ã∂ä©«õ¬"	ﬁÙ5>3 ÷Òíû∫≥¸ÔÕ	Œ
-ã∂ä©»õ√"	Ä6>3 ´ïíû∫≥ôÊ¥	§
-åπåµ…õƒ"	íÄ6>3 Ä¥äÕùÍàÂ∑	‡
-åπç∑™õ–	"	ºÄ2>3 ¬ÿäÕùÍàÂÔ	˛
-åπç∑ßõ—	"	ä2>3 ò¶íû∫∞àÂ∏	∏
-ä±ä©ÓõØ"	 ¶7>3 êÜíû∫≥Û„ã	ò
-åπãƒ õ≈"	Æˆ7>3 È§íû∫≥…‡≈	á
-åπåµÀõ∆"	‹˛7>3 ãæíû∫≥ºÈ—	¨
-åπåµÃõ«"	≤Æ8>3 ›ÿíû∫≥ºÈª	Ù
-åπç∑Õõ»"	˙∆8>3 ˝†íû∫≥àÂÿ	Ò
-ã∂åµŒõ…"	Œ™9>3 ˚∂íû∫≥Û„≈	™
-åπåµœõ "	Ê¥9>3  Óíû∫≥àÂå	Ú
-åπãƒ–õÀ"	™˙9>3 éäíû∫≥Û„¢	ò
-ã∂åµ—õÃ"	 Ü:>3 π®íû∫¿…‡˘	à
-åπåµ“õÕ"	Ë§:>3 ¬Îíû∫◊àÂ∫	ú
-ã∂ä©Úõ™	"	à¨:,!æÊ˜¡≥Î°ﬁ	¿≥è"	÷“:>3 –“íû∫≥”ÎÓ	Ò
-åπãƒ”õŒ"	Ç‡:>3 ¸Éíû∫¿…ÍÁ	Ë
-ã∂ä©‘õœ"	ò:>3 œúíû∫¿°›Ê	†
-åπåµ’õ–"	†:>3 ≠÷íû∫◊∑Ùƒ	≈
-ã∂â¯Ùõî	"	Ä¢;>3 ∑¡íû∫≥ºÈ«	î
-åπãƒ÷õ—"	å§;>3 Ê•íû∫¿Ë‚˙	Ø
-åπåµ◊õ“"	¥º;>3 °»íû∫¿ÂÌ’	÷
-åπä©ÿõ”"	ƒ¿;>3 ﬁ⁄íû∫¿¸Ô“	”
-ã∂ä©Ÿõ‘"	Ã∆;>3 ‰Ñíû∫¿”Î¬	•
-ã∂ãƒˆõï	"	‘»;>3 Çííû∫¿ÂÌﬁ	¿
-åπãƒ⁄õ’"	Çﬁ;>3 Û∂íû∫¿Û„¡	¨
-åπãƒ€õ÷"	†Ï;>3 Ô’íû∫¿¸Ô 	À
-ä±â¯‹õ◊"	ƒ˛;=2 ∆µí∑ıŒàÂ∂	Ÿ
-ã∂ãƒ õƒ"	Ä¬<=2 ı≈í∑ıŒàÂ˝	é
-ã∂ä©õ≈"	Ñƒ<=2 ˝˚í∑ı◊àÂ„	‰
-ã∂ä©õ∆"	™Ã<>3 ›ƒí∑ıÚ≈ÄÆ	Æ
-ä±â¯ÄõÕ	"	†à?>3 ºﬁíû∫≥”Î˜	›
-åπãƒ›õÿ"	÷Ä<>3 Õ˙íû∫¿ÂÌ±	æ
-ã∂ä©ﬁõŸ"	Êä<>3 „ƒä‚∫‹ê˚®	ß
-ä±â¯õ¨"	Œ!û>3 ´ËäˆùØÖ˙∞	∞
-ä±ä©ªõÀ"	î#™<2 ˆÀäé©æàÂ◊	ÿ
-ä±ãƒIõ¢"	Ù%"<2 ó¿äé©¿àÂì	±
-éºãƒ[õÕ"	∫&<2 ™ äé©¿àÂ§	£
-çªãƒQõ»"	º&B<2 “Üäé©¿àÂ∫	ú
-åπãƒXõÃ"	÷&$<2 ƒ’äé©¿àÂÚ	À
-éºãƒVõÀ"	‹&><2 —‚äé©¿àÂ∂	Ÿ
-èΩåµRõ…"	¬&T<2 ıíäé©¿àÂ•	Í
-éºåµTõ "	–&t=2 Åäé©æàÂ”	‘
-ä±ä©Kõ£"	–&û=3 ‘•äé©…àÂ‘	’
-ä±ä©˝õ√"	ñ' =3 ¬«äé©…àÂª	ª
-ä±ä©˛õƒ"	ò'<<2 ‹‚äé©¿àÂ©	ä
-éºåµ]õŒ"	∞':=3 éπäé©…àÂı	ü
-åπãƒˇõ£	"	∆'R=3 …œäé©…àÂ÷	û
-åπä©Äõ§	"	Œ'V=3 ÌÍäé©ØàÂ„	‰
-ä±ä©Åõ≈"	˙'p=2 ÊÃäé©≥àÂé	ﬁ
-éºåµ`õî"	ñ'ò>3 éŸäé©·àÂ…	 
-ä±ä©Çõ÷"	Í'é>3 ãÌäé©∏àÂ˝	é
-ä±ä©Ùõ¬"	 'ú>3 ò≥ä‚∫Œ≥’≠	≥
-ã∂ãƒßõ¶	"	–&ÙæÛ˜Œ"	å"˙=2 ™ˇäé©¿àÂ·	•
-çªç∑^õœ"	ò(ú>3 ∏Âäé©∞àÂ’	÷
-ä±ä©Éõü"	⁄(í>3 çîäé©ªàÂ⁄	€
-ä±ä©Ñõ†"	¿)¿>3 Ìäé©®àÂ÷	◊
-ä±â¯Öõ◊"	ú(≤=2 °ﬂäé©ÒàÂû	≈
-ã∂ãƒbõ–"	∆(å>3 ∂Õäé©‰àÂ–	—
-ä±ä©áõû	"	‚(»>3 ç∏äé©ŒàÂ„	”
-ã∂à·âõ•"	¥)‹>3 Ω∆äé©∂àÂÙ	˛
-ä±ä©äõ¶"	¶)Ï>3 Ûääé©«àÂ 	À
-ã∂ä©ãõ¸"	∂)Ó>3 ‹¢äé©æàÂπ	–
-ã∂ãƒàõ§"	ˆ)™>3 Ωüäé©æàÂó	Õ
-åπãƒåõ˝"	⁄)‹=2 ùÉäé©¿àÂﬁ	≤
-ã∂åµiõ—"	ò*æ>3 äÈä°∫¿æâ»	ü
-åπé∏Óõï"	¸)Ë=2 ÜÖäé©¬àÂª	ª
-ä±â¯nõ∆"	∆*¨=2 Üúäé©¿àÂû	≈
-ã∂ä©tõ˛"	∆.™=2 ¡≥äé©¿àÂû	©
-ã∂ãƒvõˇ"	∫/‹>3 ˚Œä°∫˜∑Ù¿	¿
-ã∂ä©˜õó"	˙+Ã	>3 ‚µä°∫˘§˝¶	•
-ä±â¯Ûõú	"	¥* 
->3 ¸¥äˆù¿ßé¶	¢
-ã∂ãƒ·õ√	"	Ä,ú>3 ¡•ä°∫Á⁄Ïº	º
-ä±ä©¯õñ"	†,Ç
->3 çåäˆùæ”Î”	‘
-ä±ãƒ‡õ¬	"	ä-Œ
->3 À¯äˆù¿âÜ∏	Æ
-çªé∏ﬂõ¡	"	‹-™=2 íœäé©¸àÂí	°
-çªåµ|õ”"	‚0˙
-=2 èÌäé© àÂ°	Â
-çªåµ}õ‘"	ƒ0ò=2 ∆ñäé©¸àÂÿ	…
-çªåµ{õ“"	ê1 
-=2 —˝äé©¿àÂ©	ä
-ã∂ãƒ~õ’"	˛1˙
-=2 πúäé©¿àÂË	ó
-éºåµõ÷"	Ê1î>3 ™€äé© àÂ«	î
-ã∂ãƒÅõ◊"	ê2é>3 ›ﬂäé©¥àÂà	è
-ã∂ãƒéõÄ	"	Œ2ò>3 Ûßäé©¿àÂ´	î
-èΩåµÉõÿ"	 2Ä>3 Úºäé©¿àÂì	ı
-éºåµÑõŸ"	®2ö>3 åçäé©¥àÂÚ	¯
-ä±ãƒèõÅ	"	¶3Ñ>3 ‰ºäé©ÄàÂ÷	◊
-ä±ä©áõÇ	"	–3à>3 àÒäé©¥àÂ«	»
-ä±ä©âõÉ	"	Ï4§>3 Æ≠äé©¿àÂ¬	•
-ã∂ãƒíõÑ	"	4»>3 –ºäé©¿àÂ—	“
-ä±ä©ìõÖ	"	î5–æê˜åè"	Ã=Ï>3 ¥ñäˆù¿¨Ñ∆	∞
-åπç∑‚õ‹	"	“0¶=2 çΩä„—ŒàÂ˜	¬
-åπãƒõô"	‡4‚=2 ∏ñä„—ŒàÂ˘	à
-ã∂ãƒõò"	˛4¿>3 Åäé©¥àÂÀ	Ã
-â˘ä©èõá	"	¸6å>3 ®Íäé©¥àÂ 	À
-â˘ä©çõÜ	"	Ï6Ã>3 Äôäé©¥àÂÎ	Ì
-ä±ä©êõà	"	®7¬>3 µ¶äé©¥àÂÓ	Ò
-ä±ãƒëõâ	"	‡7¸>3 Ó”äé©ÖàÂ—	“
-â˘ä©õõê	"	¸7ÿ>3 ˜øäé©¥àÂ«	»
-ä±ä©ìõä	"	ñ8∞>3 âÁäé©¥àÂ“	”
-â˘ä©ñõã	"	8ò>3 Ôõäé©¥àÂÏ	Ô
-ä±ãƒöõè	"	ƒ8‹>3 ∏âäé©÷àÂÓ	Ò
-ä±ä©ôõé	"	í9≤>3 ç§äé©ÅàÂ„	‰
-â˘ä©óõå	"	Í9î>3 ±íäé©»‹Çí	Ü
-â˘â¯ïõº"	ò:Ê>3 ≥úäé©™àÂ±	±
-â˘â¯ñõœ"	¬:Í>3 °∫äˆù Ö€¸	ç
-ã∂ãƒÎõ∑	"	¬9“>3 è≈äé©¿àÂó	Õ
-åπãƒòõç	"	ú:ä>3 ˘ºäé©™àÂ™	™
-â˘â¯óõ–"	ˆ:¨>3 ¿œäé©ÍàÂÑ	√
-åπãƒùõë	"	Ê;Ù>3 óãäé©ÍàÂÜ	÷
-åπãƒûõí	"	“;˙>3 ˘ñäé©¿àÂ≈	ù
-ã∂ä©üõì	"	Ù;Ó>3 «óäˆù¿áêî	ù
-çªé∏Íõ∂	"	Ï8ñ>3 ‹ääˆù¿ã»à	∞
-åπãƒÓõ∫	"	˛9»>3 ´…äˆù‹‘ˆø	ø
-ä±â¯Ïõ∏	"	ò:æ>3 ¶‰äˆù¿Ÿ≠ˆ	Ó
-ã∂ãƒÌõπ	"	ñ:ö>3 À›äˆùáöáë	˚
-â˘â¯¥õﬁ"	í:>3 ·¥äˆù¿â†Æ	Å
-çªåµÔõª	"	≤:Ê=2 ¥∂ä€ù¿¯òŸ	ë
-åπãƒõ˚
-"	 :¶=2 ∏Üä€ù¿î∑˜	›
-åπãƒõé
-"	“:“=2 »Âä€ù¿ÒÆ¿	Î
-åπãƒõ¸
-"	ÿ:í=2 ‹êä€ù¿€óî	ì
-åπç∑õ˝
-"	ÿ:»=2 ïøä€ù‹Ö˙¥	¥
-ä±ä©õ˛
-"	Ñ;å=2 Ã›ä€ù‹Î¯æ	æ
-ä±ä©õˇ
-"	å;Ó=2 ‚–ä€ù¿˘ã≤	¶
-çªé∏?õè"	Æ:†=2 áîä€ù‹Ö˙∂	∂
-ä±ä©õÄ"	å;¿æ˜À"	¯ ¶'>3 ∑õíû∫≥Ë‚ñ	®
-åπåµﬂõ⁄"	Ñ é<>3 ◊Âíû∫≥àÂΩ	Ω
-ã∂â¯˘õ∞"	∫ ¶<>3 ‘¡íû∫◊Û„¬	¬
-ã∂ä©˙õñ	"	Ê æ<>3 èÍíû∫≥…Í‰	Â
-ã∂ä©‡õ€"	ä!»<>3 Éêíû∫≥∞Ëì	±
-åπåµ·õ‹"	ú!»<>3 ı˘íû∫≥ªﬂê	ª
-åπåµ‚õ›"	§!Ã<>3 Çñíû∫≥⁄Ï∫	ú
-åπãƒ„õﬁ"	Ù!Ú<>3 ø˝íû∫¿àÂ‘	’
-ä±ãƒ˝õΩ"	Æ"¸<>3 ¡Äíû∫¿∑Ù—	“
-ä±ä©¸õó	"	æ"Ñ=>3 Ãíû∫¿®ÁÎ	Ì
-ã∂ä©‰õﬂ"	“"í=>3 Åóíû∫◊ﬂ˜∑	∑
-ã∂â¯ˇõò	"	Ë"û=>3 ¶†íû∫¿Û„È	Î
-ã∂ä©Âõ‡"	¨#ƒ=>3 Ãµíû∫¿”Î≠	í
-ã∂ä©Êõ·"	º#Ã=>3 É‹íû∫¿®Á˙	ä
-åπãƒÁõ‚"	‚#ﬁ=>3 ¬Éíû∫¿ôÊÙ	˛
-åπä©Ëõ„"	Ñ$Ó=>3 ´£íû∫¿…‡ß	™
-åπåµÈõ‰"	®$Ç>>3 ﬁ√íû∫¿ÂÌ—	“
-ã∂ä©ÍõÂ"	∆$ê>>3 ò˙íû∫¿àÂø	ø
-ä±â¯Çõ¨	"	ÿ$ñ>>3 ±˜íû∫¿ñÒ§	£
-ä±ä©ÏõÊ"	Ë$ú>>3 î†íû∫¿”ÎÎ	Ì
-ã∂ä©ÌõÁ"	¨%∏>>3 ı≤íû∫¿ºÈˆ	Å
-ã∂ä©ÓõË"	º%∆>>3 ˇ“íû∫¿⁄Ï®	Ω
-ã∂ãƒÔõÈ"	‹%∆>>3 Ï‡íû∫¿ÂÌ’	÷
-ä±ãƒõÍ"	Ï%Ã>>3 †áíû∫≥…‡À	Ï
-åπåµÒõÎ"	à&‡>>3 ìøíû∫≥ì‹˜	¬
-åπåµÚõÏ"	¨&ﬁ>>3 öŸíû∫¿Û„…	 
-ä±ä©Öõô	"	∞&Ê>>3 ÒÂíû∫¿£Ú‘	’
-ä±ä©Üõö	"	æ&>>3 ‰ıíû∫¿⁄Ï◊	ÿ
-ä±ä©ÛõÌ"	Ó&é?>3 ‚Òíû∫¿àÂπ	π
-ä±â¯áõ≠	"	Ä'ä?>3 çííû∫≥…Í°	ÿ
-åπåµÙõÓ"	ú'ñ?>3 Œ™íû∫¿…Íæ	Á
-åπãƒıõÔ"	∂'†?>3 ¿¸íû∫≥”Î˝	é
-åπãƒˆõ"	¯'º?>3 ¯˚íû∫¿™‘ü	≥
-åπç∑âõ˘"	Ç(ƒ?=2 Óêä€ù¿ëÜö	ô
-â˘â¯õÃ"	≤;¶ =2 äÌä€ù‹«ıƒ	≈
-ã∂ä©õÅ"	Æ;í!=2 ¢Æä€ù‡ˆµØ	ﬂ
-åπåµ=õé"	Ú:Í"=2 ûëä€ù‡ƒ∫˚	’
-åπç∑;õç"	¸:®#=2 Ùêä€ù‹¨Û 	À
-ä±ä©õÇ"	í<Ó&=2 ¡´ä€ù‹£Úœ	–
-ã∂ä©õÉ"	û< '=2 ß‘ä€ù¿äáô	≠
-çªç∑#õÑ"	≤<Ê(=2 ¸Ìä€ù‹±˛©	®
-ä±ä©%õÖ"	Œ<∫)=2 Ôôä€ù‹¨ÛÕ	Œ
-ä±ä©(õÜ"	˛<Ú* ‡ö•¿¿ôõ"	÷<Ï+=2 πªä€ù‹Î¯Ω	Ω
-ä±ä©+õá"	∏=Ó+ ‡ô•¿¿óõ"	¸<≤,=2 ‘Àä€ù‹∑Ù∆	«
-ä±ä©,õà"	Ã=î,=2 ÑÈä€ù‹∑Ù«	»
-ä±ä©.õâ"	Ù=Ë, ‡ò•¿¿ìõ"	ﬁ=‰-=2 Œıä€ù‹‘ˆø	ø
-ä±ä©/õä"	Ü>ê- ‡ó•¿¿ëõ"	Ü>¨. ‡ï•¿¿êõ"	Æ>Ù.=2 à∏ä€ù‹Î¯∫	∫
-ä±ä©4õã"	Í>⁄. ‡î•¿¿éõ"	‘>∫/=2 √÷ä€ù‹‘ˆΩ	Ω
-ä±ä©6õå"	í?¨/æÚ˜Õ"	™1‚2æÒ˜Ã"	‹9∞2 ‡ì•¿¿ãõ"	ê?¶0 ‡í•¿¿àõ"	 ?ê1æ¯˜Ùè"	‚à@æ˘˜ıè"	‚éA>3 ”íû∫≥≠ﬁ∫	«
-åπåµ˜õÒ"	ñ)Ñ@>3 ÀÙíû∫≥…‡ƒ	·
-åπåµ¯õÚ"	™)é@>3 Âëíû∫≥…‡≈	ù
-åπåµ˘õÛ"	»)ú@>3 üùíû∫¿∑Ù¿	¿
-ä±ä©ãõõ	"	Ç*∏@>3 ‹Õíû∫≥…ÍÙ	˛
-åπåµ˙õÙ"	ê*¬@>3 ﬂáíû∫≥–◊¯	ß
-åπç∑˚õı"	™*»@>3 Íùíû∫≥™‘Ü	Ø
-åπåµ¸õˆ"	Í*Ê@>3 ˙…íû∫¿”ÎØ	œ
-åπãƒ˝õ˜"	î+˙@>3 ±·íû∫≥ÀŒ—	ê
-åπåµ˛õ¯"	¨+ÑA>3 Õîä€ùœöáà	·
-â˘â¯ﬁõŸ"	ƒ@∫3
+8Platanus x acerifolia 'Tremonia' (Schmalkronige Platane)"?
+=Carpinus betulus 'Frans Fontaine' (Schlanke S√§ulenhainbuche)"A
+?Gleditsia triacanthos 'Elegantissima' (S√§ulenlederh√ºlsenbaum)"A
+?Liriodendron tulipifera 'Aureomarginatum' (Gelbbunt.Tulpenbaum)"  " " " " " " " " " 	" " " " " " " " " " " " " " " " " " " "  " !" "" #" %" &" '" (" )" *" +" ." /" 0" 1" 2" 3" 4" 5" 7" 9" :" ;" <" =" >" ?" @" A" B" C" D" E" F" G" H" I" J" K" L" M" N" O" P" Q" R" S" T" U" V" W" X" Z" [" \" ]" ^" `" b" c" d" e" f" g" h" i" j" k" l" m" n" o" p" q" r" s" t" u" v" w" x" y" z" {" |" }" ~" " Ä" Ä" ÄÅ»è" Äõ»è" Äµ" Äª" Ä¿√è" Ä¡" ÄÂ" ÄÈ" ÄÏ" ÄÔ…è" Ä˙" Ä˚¡è" Å" Å" Å" Åô" Åõ è" ÅÆ»è" Åæƒè" Å¡" Å÷" ÅÎ" Å˝¡è" Ç" Ç" Ç" Çç" Çô" Çú" Ç•ƒè" ÇßÃè" Çª∆è" ÇÃ" Ç¯" Ç˙" É" É" ÉñÃè" Éù…è" É•ƒè" Éß" É™√è" É¡" É«" É«¿è" ÉÃ»è" É“ƒè" ÉÁƒè" É˜√è" É˘" Ñ" ÑÇ¿è" ÑÑ" Ñä" Ñì" Ñ°ƒè" Ñ§Ãè" Ñ≠" Ñøƒè" Ñ¡" Ñÿ»è" ÑÈ" ÑÎ" Ñ˙" Ñˇ" Ñˇ¬è" Ö" ÖÅ»è" Öù…è" Öπ…è" Ö«" ÖÀ…è" ÖÃ" ÖÈ" Ö˘" Ü" Ü" Ü" Ü" ÜÄ√è" Üº»è" Ü¡" ÜÚ¿è" Üı" Ü˜" Ü¯" á" áò…è" á•ƒè" á®Ãè" áµ" áª" á◊Ãè" á‡" áÚ¡è" á¯ è" áˇ" à" à" àÇ¿è" àÑ»è" àé…è" àßÃè" à¨øè" àÃ" àŸ»è" à‡" àÍ" à˙" â" â" â" âÄ è" âÇ¿è" âÜ√è" â°ƒè" â§Ãè" â´√è" â¨√è" âÆ»è" â«¿è" âÔ≈è" âÚ¿è" â¯" â¯«è" â˘" ä" ä" äÑ√è" äû" äµ" äø¬è" äÎ" äÚ¿è" ã" ã" ãêÕè" ãëƒè" ã•Ãè" ãµ" ãÃ" ãÈ" ã˘" å" å" åë≈è" åõ" å´√è" å±≈è" å∑" åΩ" å¡" å¡" å……è" å …è" å‘ƒè" å‡" åÈ" åÍ" åÎ" åÏ∆è" ç" ç" çÄ√è" çä≈è" çé…è" ç¡" ç«" ç …è" çÿ»è" ç" ç¯" é" é" é" éêÕè" éôƒè" éõ" é•ƒè" é≠" é∑" éƒ≈è" é∆" é……è" éÕ è" é‡" éÈ" éÍ" éÎ" é˜√è" é˙" è" è" è" è¢ƒè" è¡" è≈" è«" èŒ√è" è›Ãè" èÍ" è" è¯" è˘" ê" ê" ê" êé…è" êõ" ê¢" ê≠" ê¡" ê«¿è" êÊƒè" êÎ" êÚ" ë" ë" ëá…è" ëù…è" ëûøè" ë≤" ëª" ë∆" ëÈ" ë¯" ë˘" ë˙" í" í" íÄ»è" íÅ√è" íûøè" í•ƒè" í≠" íª" íƒ" í≈" í«" íÀ…è" íÕƒè" í" íÚ¿è" ì" ì" ì" ìÇ¿è" ìâ" ìõ" ì¢" ì®Ãè" ì»√è" ì»…è" ìﬁ" ì‡" ìÓ…è" ì" ìÚ" ì¯" ì˙" î" î" îª" îø¬è" î‡" îÚ¿è" î˘" ï" ï" ïº" ï¡Õè" ï«" ï«¿è" ïÀ»è" ï€∆è" ïÍ" ïÚ" ï¯" ï˙" ñ" ñá√è" ñá…è" ñõ" ñû«è" ñ¨≈è" ñ∏¡è" ñΩ è" ñ«" ñÎ" ñ" ó" ó" ó" óá»è" óä≈è" óÚ" ò" ò" òÇ¿è" òá" ò¢¿è" ò•" ò®" òº" òø¬è" ò¿Àè" ò…" òﬁ" ò¯" ò˙" ô" ô" ôûøè" ô∏¡è" ô¡" ô…" ô …è" ôﬁ" ôﬁ»è" ôﬂ√è" ôÎ" ôÚ" ôÛ¡è" ô¯" öõ" öß" ö¨øè" ö∏¡è" öø" ö∆" ö«¿è" ö«Àè" öÚ¡è" öı" ö˙" öˇ¬è" õ" õ" õ" õÖ" õ°" õ§Ãè" õ®" õº" õ«" õ…" õ" õÚ" õ¯" ú" ú" úÅ√è" úó" ú≥Ãè" ú¿¬è" ú∆" ú€∆è" ù" ù" ù" ùä≈è" ùí…è" ùù" ù†Ãè" ù¢" ù∏¡è" ù«" ù " ùÀ…è" ùÕ è" ù”ƒè" ùÁ¬è" ùÍ" ùÒ" ùÚ" ùı" ù¯" ù˙" û" û" ûÖ√è" û©" û∆" û»" û…" û‘¬è" û€ƒè" ûÍ" ûı" û˘" û˙" ü" ü±≈è" üº" üƒ∆è" ü«" ü‡≈è" üÎ" üÚ" üı" †" †Ö" †ä≈è" †¢" †ß∆è" †∏«è" †ø" †«Àè" † …è" †È" †" †ı" †¸" °" °" °Ö√è" °üøè" °†" °°ƒè" °ß" °∂" °º" °º" °«¿è" ° 
+" °€∆è" °Í" °Î" °" °Ù¡è" °¯" °˘" °˙" ¢" ¢" ¢¢" ¢∂" ¢¬¬è" ¢«" ¢ Ãè" ¢ÿ»è" ¢Ô»è" £" £ß" £ß∆è" £≠Àè" £ø" £«¿è" £ 
+" £ Ãè" £”ƒè" £·»è" £Í" £" £ı" §" §" §ä≈è" §¨≈è" §∏¡è" §ø" §ƒ∆è" §Õ" §‘¬è" §⁄«è" §Êƒè" §È" §˙" •" •" •ü«è" •°ƒè" •∂" •º" •«" •……è" • …è" •Õƒè" •”" •”ƒè" •⁄øè" •" •Ú" •Û¡è" •ı" •˘" ¶" ¶" ¶Ç¿è" ¶á√è" ¶òÃè" ¶°ƒè" ¶’…è" ¶Í" ¶˘" ¶˙" ß" ß" ßê è" ßòÃè" ß§" ß•Ãè" ßø" ßø¬è" ßøƒè" ß……è" ß‘¬è" ßÚ" ßı" ß˘" ®" ®" ®û
+" ®¢ƒè" ®ø" ®¿¬è" ®¡Àè" ®⁄øè" ®ﬁ" ®È" ®Ì
+" ©" ©" ©îÕè" ©»…è" ©Í" ©" ©˘¡è" ™" ™" ™°ƒè" ™®" ™®«è" ™∂" ™¿
+" ™¡Àè" ™Ã¬è" ™ﬁ" ™ﬂ" ™ﬂ»è" ™" ™Ú" ™Û¡è" ™˘" ´" ´" ´" ´à√è" ´õ è" ´°ƒè" ´¿¬è" ´¬¬è" ´«¿è" ´«Àè" ´È" ¨" ¨" ¨" ¨Ä¿è" ¨Ü√è" ¨•Ãè" ¨®«è" ¨ø" ¨¿
+" ¨Í" ≠" ≠" ≠" ≠ß∆è" ≠∂" ≠π…è" ≠—Àè" ≠Í" ≠˘" Æ" Æ" Æù…è" Æ§ƒè" Æ•«è" Æ≥" Æ∂" Æø" Æ¡Àè" Æ«" Æ—Àè" Æ◊Àè" Æ‹Õè" ÆÁƒè" ÆÈ" Æ" Æ¡è" Æı" Ø" Ø" ØÄ¿è" ØÇ¿è" Øì¡è" ØòÃè" Ø∂" Øø" Ø»«è" Ø……è" ØÕƒè" Ø’…è" ØÈ" ØÔ»è" Øı" Øˇ" ∞" ∞" ∞ã" ∞è»è" ∞ïƒè" ∞ó«è" ∞©Àè" ∞ø" ∞¡Àè" ∞√" ∞»√è" ∞À…è" ∞⁄øè" ∞‹" ∞Í" ∞" ∞Ú" ±" ±" ±" ±®¿è" ±ø" ±ø¬è" ±’…è" ±‚Àè" ±Ô»è" ±ı" ≤" ≤" ≤¢ƒè" ≤º¬è" ≤ø¬è" ≤«" ≤" ≤¯" ≥" ≥" ≥Ç¿è" ≥∂" ≥√" ≥›Ãè" ≥‚Àè" ≥Í" ≥Ú" ≥Ú¡è" ¥" ¥" ¥" ¥Ü√è" ¥¥Ãè" ¥∂" ¥ø" ¥›Ãè" ¥ı" ¥˘" µ" µ" µõ è" µ†" µ∂" µº è" µø" µŒ" µÍ" µı" µ¯" ∂" ∂" ∂" ∂£Ãè" ∂ø" ∂»…è" ∂ﬁ" ∂" ∂Ú" ∂˘" ∂˝" ∑" ∑" ∑Ä¿è" ∑®" ∑®¿è" ∑∂" ∑Õƒè" ∑◊" ∑⁄øè" ∑‚Àè" ∑‚Ãè" ∑˜¿è" ∑¯" ∏" ∏" ∏ú≈è" ∏°ƒè" ∏ø" ∏«" ∏……è" ∏—Àè" ∏⁄øè" ∏ﬂ" ∏ﬂ»è" ∏Í" ∏" π" π" π" ππ≈è" π…" πœ
+" π·»è" πÍ" π¯" π˘" π˝¡è" ∫" ∫" ∫" ∫Ç¿è" ∫É¬è" ∫∂" ∫ø" ∫«" ∫ …è" ∫ﬁ" ∫Í" ∫Ô»è" ∫Ú" ∫¯Ãè" ª" ª" ª" ª¡¬è" ª¡Àè" ª¬" ªœ" ªÍ∆è" ªÎ" ªÔ»è" ªÒ" ªı" º" ºè¬è" º∂" º«" ºﬂ" ºÚÃè" ºı" Ω" Ω" Ω§ è" Ω©Àè" Ω©Ãè" Ω≥¿è" Ω¡Àè" Ω¬¬è" Ω«" Ωœ" Ω’…è" ΩŸ«è" Ωﬁ" Ωﬁ»è" ΩÍ" ΩÚ" Ω˘" Ω˝¡è" æ" æ" æ" æù…è" æ©Àè" æ∂" æ∫¬è" æ¡Àè" æ¬" æ……è" æœ…è" ø" ø" øÜ¡è" øÜ√è" øá√è" ø¬" øÕ" øﬁ" øÊ" øÈ" ø" øÚ" ø˘" ø˘" ¿" ¿" ¿ö…è" ¿°ƒè" ¿®Àè" ¿¿¬è" ¿¡Àè" ¿«" ¿Â" ¿" ¡" ¡ã" ¡í¬è" ¡§ƒè" ¡®¿è" ¡≠" ¡µ" ¡ø¬è" ¡√ƒè" ¡◊«è" ¡Í" ¡ı" ¬" ¬" ¬Ü√è" ¬µ" ¬∂" ¬È" ¬Ô»è" ¬Ò¡è" ¬Ú" ¬ı≈è" ¬¯" √" √°ƒè" √ß∆è" √®¿è" √∆¿è" √……è" √Ã»è" √“∆è" √ﬁ" √" √ı" ƒ" ƒ" ƒ" ƒã" ƒïƒè" ƒù√è" ƒ†«è" ƒ«" ƒ»…è" ƒ……è" ƒÃ¬è" ƒÚ" ƒ¯" ƒˇ«è" ≈" ≈" ≈ã" ≈é≈è" ≈ëÀè" ≈¢" ≈©" ≈¥" ≈ﬁ" ≈˜ è" ∆" ∆" ∆" ∆Ä¿è" ∆ã" ∆µ" ∆∂" ∆»…è" ∆Ã¬è" ∆‚Àè" ∆Í" ∆" ∆Ú¡è" ∆ı" ∆¯" «" «" «ã" «ëÀè" «•" «¥" «◊Ãè" «ﬂ" «Í" «" «Ú" «ˇ«è" »" »" »" »ûøè" »•" »¥" »ƒ∆è" »»…è" »Õƒè" »–≈è" »ﬁ" »Ó…è" »Ô»è" »ı" …" …" …á√è" …£" …º è" …ø¬è" …ﬂ" …Ê" …È" …" …Ú" …¯" …˘"  "  "  "  ã"  ¢Ãè"  ®¿è"  ›»è"  ﬁ"  Í"  ˘" À" À" À¢Ãè" À¥" À∑" ÀÕ è" ÀŸ»è" ÀÔ" Ã" Ã" Ã" ÃÉ√è" Ãù√è" Ã†" Ã∞≈è" Ãª
+" Ãøƒè" Ã≈∆è" Ãﬁ" Ãﬁ»è" Ãﬂ" Ã‚»è" Ã" Ã˜" Õ" Õ" ÕÉÀè" Õ≠" Õ¥" Õ»…è" Õﬂ" Õ‰ƒè" ÕÍ" ÕÔ" ÕÔ»è" ÕÒ" ÕÚ¡è" ÕÛ¡è" Õ˘" Œ" Œ" Œ" Œö«è" Œ¨øè" Œ◊" Œ⁄»è" ŒÔ»è" Œ˘" œ" œù√è" œ¢Ãè" œ¶Ãè" œ¥" œµ" œ»" œÊ" œÒ" œı" –" –" –ú" –ù…è" –•…è" –©Ãè" –¥Ãè" –ø¬è" – …è" –Í" –	" –ı" —" —" —" —" —Ü√è" —º¬è" —«Àè" —ﬁ" —" —˘" —˘¡è" —ˇ" “" “Ü»è" “á√è" “®¿è" “¨" “µ" “µÃè" “∑" “º è" “æƒè" “·»è" “" “Ò" ”" ”" ”" ”" ”¢" ”≠" ”¥" ”Í" ”Ì∆è" ”Ò" ”Ú…è" ”ı" ‘" ‘" ‘Ö√è" ‘é≈è" ‘¢" ‘¶" ‘¶…è" ‘®«è" ‘ …è" ‘Ê" ‘Ê" ’" ’" ’öƒè" ’µ" ’≈Àè" ’Ã" ’Õ" ’Õƒè" ’⁄øè" ’Ê" ’Í" ’¡è" ’Ò" ’ı" ’˘" ÷" ÷" ÷ò è" ÷°ƒè" ÷¨" ÷¥" ◊" ◊" ◊á√è" ◊¶ƒè" ◊¶…è" ◊¨√è" ◊¬" ◊«" ◊⁄øè" ◊ﬁ" ◊Û¡è" ◊ı" ◊˘" ÿ" ÿ" ÿ" ÿ" ÿÜ√è" ÿò è" ÿΩ¬è" ÿÍ" ÿÒ" Ÿ" Ÿ" Ÿ" ŸÜ√è" Ÿà√è" Ÿù…è" Ÿ©" Ÿ¥" Ÿ«" Ÿ› è" ŸÊ" ŸÛ…è" ⁄" ⁄" ⁄ã" ⁄î»è" ⁄™√è" ⁄»…è" ⁄ …è" ⁄Õ è" ⁄ÿ»è" ⁄Ò" ⁄˘" €" €¬" €……è" €‚Àè" €Ò" €Û…è" ‹" ‹" ‹ã" ‹îÕè" ‹ù" ‹•Ãè" ‹¨" ‹¥" ‹≈Àè" ‹«" ‹ﬂ" ‹Ò	" ‹Ò" ›" ›" ›" ›ù" ›°√è" ›∫" ›Ωƒè" ›¡¬è" ›¬" ›À…è" ›÷" ›ı" ›˘" ›˛«è" ﬁ" ﬁ" ﬁ¶ƒè" ﬁµ" ﬁƒÕè" ﬁÍ" ﬂ" ﬂÖ√è" ﬂã" ﬂé…è" ﬂúÃè" ﬂù»è" ﬂ£Ãè" ﬂ¨øè" ﬂ∞≈è" ﬂµ" ﬂ∫" ﬂ≈Àè" ﬂ∆¿è" ﬂ»…è" ﬂÂ≈è" ﬂÊ" ﬂÍ" ﬂ˜ è" ‡" ‡" ‡" ‡Ü√è" ‡¨" ‡«" ‡……è" ‡Õ" ‡¡è" ‡ı" ·" ·" ·" ·â" ·ã" ·¥" ·Ω" ·∆…è" · …è" ·Ó≈è" ·ı" ·˘" ·˛¬è" ‚" ‚" ‚" ‚à√è" ‚≠" ‚µ" ‚∑" ‚Ωƒè" ‚≈Àè" ‚ …è" ‚Í" ‚Ú¡è" „" „ö«è" „ö…è" „£Ãè" „≈Àè" „∆Õè" „Ò¡è" „ı" „˘" „˙¡è" ‰" ‰" ‰ã" ‰ü" ‰•…è" ‰¥" ‰Ωƒè" ‰≈Àè" ‰ÀÀè" Â" Âù…è" Â§" Âµ" Â∑" Âø¬è" Â—Õè" ÂÍ" Âı" Â˘" Ê" Ê" Ê" Ê¨" Ê≈Àè" Ê …è" Ê Àè" ÊÀ»è" ÊÕ" ÊÕ è" Ê‘Ãè" ÊÒ" Á" Á" Á" Áã" Á∫«è" Á¿¬è" Á …è" ÁÀ" Áﬂ" ÁÍ" Á˘" Ë" Ë" Ë" ËßÃè" ËÆ" Ë¥" Ë Àè" Ë’…è" ËÎ" Ë¯¡è" È" È" È" È" ÈÖ√è" ÈïÃè" È∏…è" È¬" È∆Àè" È Àè" È’Õè" ÈÊ" ÈÍ" Èˆ√è" Í" Í" Í†Õè" Í£Ãè" Í¨" Í¡" Í»…è" Í……è" Í‚Àè" Î" Îá…è" Îâ" Î¡" Î»»è" Î˘" Ï" Ï" Ïè" ÏùÃè" Ï≥" Ï¥" Ï∑¡è" Ïøƒè" Ï Àè" ÏÀ" ÏŸ»è" Ïﬂ" ÏÊ" ÏÍ" ÏÌ∆è" Ïˇ«è" Ì" Ì" Ì¡" Ìﬂ" Ì·»è" ÌÓ…è" Ì˜»è" Ì˘" Ó" Ó" Óö…è" Óö è" Ó≥" Ó Àè" ÓÕ è" ÓË" Ô†Õè" Ô¥" ÔΩƒè" Ôø¬è" ÔÊ" ÔË" ÔÍ" " " è" †Õè" ¡" ≈Ãè"  …è" À…è" ‚Àè" Í" Ù¡è" ˘" Ò" Òç…è" Òö è" Ò§ƒè" Ò∫" Ò……è" Ò‚Àè" ÒÍ" Ú" Úç…è" Úø√è" Ú˘" Û" Ûå≈è" Ûë" Û∫" Ûæ¬è" Û«»è" Û……è" ÛÀ" ÛÊ" ÛÍ" Ûˇ¬è" Ùç…è" Ù•…è" Ù≤Ãè" Ù¿
+" ÙÊ" Ù	" Ùˇ
+" ı" ı" ı" ıÖ√è" ı§ƒè" ı»…è" ı‚Àè" ıÓ…è" ıÒ¿è" ı¯" ı˘" ˆ" ˆö" ˆú…è" ˆ¥" ˆµ√è" ˆÊ" ˆÏ√è" ˆ¯" ˆ˛" ˜" ˜ôøè" ˜ö" ˜•…è" ˜´√è" ˜¨Ãè" ˜∫" ˜……è" ˜Ã è" ˜Ë" ¯" ¯ö" ¯öøè" ¯¶…è" ¯ßÃè" ¯¡" ¯À" ¯‚Àè" ¯Í" ¯˘" ˘" ˘Ñ" ˘è" ˘ïÃè" ˘∞≈è" ˘¥" ˘’" ˘ÿ»è" ˘ﬂ" ˘Ê" ˘˜" ˙" ˙" ˙Å¿è" ˙Ö√è" ˙Ö…è" ˙ΩÕè" ˙∆¿è" ˙À" ˙À…è" ˙Ë" ˙Ú¡è" ˙¯" ˙¸¡è" ˚" ˚ç…è" ˚öøè" ˚≠»è" ˚æ¬è" ˚¡" ˚Û¡è" ˚˜" ˚˘" ¸" ¸É»è" ¸ô" ¸ö" ¸¿" ¸ …è" ¸ˆ" ¸˘" ˝" ˝å≈è" ˝ñ¬è" ˝ö" ˝•…è" ˝¶" ˝¥" ˝ª»è" ˝Ωƒè" ˝»…è" ˝À" ˝Ã è" ˝“Õè" ˝‹" ˝Ò¡è" ˛" ˛ß∆è" ˛¨" ˛ø¬è" ˛¡" ˛À" ˛’" ˛¯" ˛¯" ˇ" ˇùÃè" ˇ¶" ˇ∆¿è" ˇ …è" ˇ‹Ãè" ˇË" ˇ˜" ˇ˘>3 ﬂáÓ≤üƒë√»	÷
+ÔïÓúÄÄÃ"	ôÚ>3 §ëÓ≤üƒßîÏ	ù
+ÔïÔ∑õÄ¬"	á≤=3 öóÓ≤üƒ‚ù√	§
+òîÅÄÕ"	}à=3 ÆöÓ≤üƒßîﬁ	¶
+òîúÄ√"	i =3 ÷ªÓ≤üƒıêµ	≠
+òÔ∑ÇÄŒ"	%Œ=3 ‰´Ó≤üƒ≠Ö¬	Œ
+òîÆÄ‹"	_≤=3 É´Ó≤üƒ‚ùã	ç
+ÒöÔ∑ΩÄ‰"	MÚ=3 ‹∂Ó≤üƒµ⁄ƒ	“
+ÔïÔ∑ØÄ›"	#‚=3 ‰ÍÓ≤üƒöπ◊	Ì
+ÔïÓú“ÄÙ"	U§=3 —ÒÓ≤üƒÊá„	Ÿ
+òÒñ”Äı"	7º>3 ƒßÓøüª√çŸ	ÿ
+ÔïÔ∑¸Äæ"	ë§#=3 Á˝Óøüªıêù	º
+ÔïÓú˙ÄΩ"	%Æ"=3 ∑¶Óøü€ƒÛ˛	ä
+ÌÍÌÈ˚Äé"	uà#>3 ¥¯Ó¿Ç¢¨Òˇ	ã
+ÌÍÌÈÚÄí"	ï∞%=3 ›êÓ¿ÇƒÏ¡–	·
+ÓíÔ∑ÛÄì"	mÙ$=3 úôÓ¿ÇÕÏ¡Ä	 
+òÒñôÄ	"	u§%=3 Í¬Ó¿ÇÕÏ¡∂	Õ
+òÒñòÄÒ	"	Aú%=3 ò√Ó¿Ç§⁄ıÙ	‰
+ÌÍÌÈÒÄù"	WÇ&=3 óâÓ¿Ç•Ï¡Ü	˜
+òîöÄ∑	"	é)<2 ÏÆÓﬁüª¨ÒÉ	è
+ÌÍÌÈ{Äˆ	"	ÍO<2 ŸÀÓﬁüªﬁØè	Ñ
+ÔïîzÄÑ"	¬=2 ÚÓﬂç£Ï¡Ω	À
+ÓíÓúEÄ¸"	Ú$ã<2 ÂíÓﬂç£Ï¡ø	Õ
+ÓíÔ∑HÄ˝"	“%=3 ﬂ≈ÓﬂçªÏ¡≥	¡
+ÓíÓúÏÄó"	˙&	=3 é Ó≤üƒŒ›¡	œ
+ÔïÓúùÄƒ"	¶=3 ˙ôÓ≤üƒƒË≠	ª
+ÓíÓúûÄÅ"	(º=3 ı¯Ó≤üƒ§•◊	Ì
+ÔïÓúÉÄœ"	pƒ=3 å∑Ó≤üƒΩÁö	ß
+ÓíÌÈ∞Ä˜"	í=3 ìÜÓ≤üƒöπÁ	ä
+òÔ∑‘Äˆ"	Í=3 âﬂÓ≤üƒÔ‘‘	Á
+ÔïÓú±Äﬁ"	T¬=3 Ú˘Ó≤üƒéã£	Ã
+ÔïîæÄÂ"	hÄ>3 †√Ó≤üƒΩÁ¢	Ø
+ÓíÓúÖÄÍ"	¨Ù>3 ™âÓ≤üƒƒËß	¥
+ÓíÓúüÄÉ"	æ∂>3 ÑúÓ≤üƒŒ›ﬁ	ı
+ÔïÔ∑ÜÄ–"	 å=3 †üÓ≤üƒÖö÷	â
+ÔïÓú’Ä˜"	^≤>3 ¥ˆÓ≤üâÏ¡Ï	Ω
+ÏΩÏΩ≤Ä∫"	¨Ü>3 £ßÓ≤üƒûÿÔ	˘
+ÔïÓúáÄ—"	‡Ñ>3 ‰πÓ≤üƒﬂæÔ	˘
+ÔïÔ∑àÄ“"	¸ö>3 ‹°Ó≤üƒûÿÔ	˘
+ÔïÔ∑øÄÊ"	∂§>3 £ØÓ≤üƒÊá◊	–
+òî¿ÄÁ"	“æ>3 ≤˘Ó≤üƒ¨ÒÑ	ê
+ÌÍÌÈ¡Ä˜	"	‘>3 ÷∫Ó≤üƒıêÖ	©
+òÔ∑†Ä≈"	ê⁄>3 ªúÓ™ÇªÏ¡	É
+ÚõÒñ¢Ä∞	"	÷à>3 çÈÓ≤üƒÑÉ…	Ó
+òÒñâÄ”"	¯>3 ÖÊÓ≤üƒ–ó‘	µ
+òÔ∑≥Äﬂ"	∏‹>3 …‹Ó≤üƒë√˙	˙
+ÔïÔ∑°Ä∆"	Ë¢>3 ≤ıÓ≤üƒ√çª	≥
+òîäÄ‘"	êê>3 ›˛Ó≤üƒµ⁄ù	™
+ÓíÓúãÄ’"	¨¶>3 Œ˛Ó≤üƒıêÅ	±
+òÔ∑¢Ä«"	ƒÍ>3 €ïÓ≤üƒœ«ï	¢
+ÓíÓúåÄ÷"	Í÷=2 »ªÓ±Çö≥ïÜ	˜
+òÒñ+Ä’
+"	˙≤	>3 èŸÓ≤üƒÔ‘ù	ó
+Ôïî¬ÄË"	ÆÑ>3 ≠ÂÓ≤üƒ¿‹‹	Û
+ÔïÔ∑√ÄÈ"	Ãú>3 ©…Ó≤üƒΩÁ¶	≥
+ÓíÓúƒÄÈ"	Í¥=2 Æ¡Ó±ÇïÔ‘ 	⁄
+ÔïÔ∑,Ä÷
+"	íú	=2 ¢œÓ±ÇΩº–”	Ê
+ÔïÔ∑-Ä◊
+"	î∞	=2 Ä•Ó±Ç›≈∆Ü	˚
+ÔïÓú&Ä‘
+"	Ù˛
+=2 ™íÓ±Ç—úìû	¯
+ÒöÔ∑(Ää	"	Ü†
+=2 »áÓ±Çêºßõ	’
+Ôïî"Ä”
+"	ú∂=2 ÌìÓ±Ç´ﬁØù	º
+òî!ÄÁ	"	ƒ =2 €õÓ∫Ç∞º–÷	Ï
+ÔïÔ∑eÄÑ"	≤˛=2 ı‰Ó∫Çû Æù	º
+ÔïÚódÄ›	"	‰˙=2 öÄÓ±Çûûÿ¿	Œ
+ÓíÔ∑Ä¿	"	∆§=2 ∑€Ó∫Çï«—÷	Ï
+ÓíîkÄÖ"	ˆÆ>3 ¿¶Ó≤üƒœÙÑ	ê
+ÌÍÌÈ¥Äü"	Æ∏>3 ‘¡Ó≤üâÏ¡Ï	Ω
+ÏΩÏΩ≈Ä∞"	§‚>3 ÛïÓ≤üƒ‚¥π	«
+ÔïÓú∆ÄÍ"	¬¯=2 ÿËÓ±Çƒ≠Öï	‡
+òÒñÄ¯"	òî	>3 Í®Ó≤üƒµ⁄è	õ
+ÓíÓú«ÄÎ"	˛®	=2 ìäÓ±Çƒüàõ	’
+òî
+Ä˘"	Ú‹	>3 ∫æÓ≤üƒéã™	¨
+ÒöîµÄ‡"	ÜÄ	>3 ’∫Ó≤üƒ√çÕ	œ
+ÒöîçÄ◊"	¬û>3 ô—Ó≤üƒ–ó≈	¥
+òÔ∑éÄÿ"	˛Œ>3 ë∫Ó≤üƒıê√	Æ
+òÔ∑»ÄÏ"	ö¿	>3   Ó≤üƒéã‘	µ
+ÒöÔ∑…ÄÌ"	∏ÿ	>3 ∂ÿÓ≤üƒıê∑	ô
+Òöî ÄÓ"	÷Ó	=2 ûÌÓ±Ç´Ü÷œ	‡
+ÓíÔ∑Ä“
+"	ûŒ=2 î„Ó±Çèë√è	Ñ
+ÔïÔ∑Ä—
+"	ÿ‹=2 ˙©Ó±Çƒº–›	Ù
+ÔïÓúÄ˙"	 ¢
+=2 àŒÓ±ÇƒΩÁÜ	í
+ÌÍÌÈÄÎ"	Ë∫
+=2 ØΩÓ±Ç•´Ñó	å
+ÒöÒñÄ–
+"	ÍË
+>3 Á⁄Ó±ÇﬂœÙÖ	ë
+ÌÍÌÈÑÄ°"	ˆÆ>3 •ÌÓ≤üƒıê‰	¿
+ÒöÔ∑èÄŸ"	∏¸>3 Ä¿Ó≤üƒ¨Òç	ô
+ÓíÓú£ÄÈ	"	Æ§	>3 ä·Ó≤üƒ—âÅ	±
+ÔïÔ∑§Ä»"	Œº	>3 ªÌÓ≤üƒØœ»	÷
+ÓíÓú•Ä…"	Í“	>3 ‰õÓ≤üƒıê™	¨
+òÔ∑êÄ⁄"	™ÿ	>3 Ï¥Ó≤üƒë„ù	™
+ÓíÓúëÄ·"	ƒÏ	>3 áˆÓ≤üƒﬂæ‘	Á
+ÔïÔ∑ÀÄÔ"	ö§
+>3 ¸ÄÓ≤üƒﬂæ¿	Œ
+ÔïÔ∑ÃÄ"	∞∏
+>3 ÌÅÓ≤üƒèÓà	î
+ÌÍÌÈ∂Ä¯"	‘¢
+>3 ÀâÓ≤üƒÊáÓ	—
+ÒöÔ∑ÕÄÒ"	ŒŒ
+=2 ·¡Ó±Çƒë„®	µ
+ÔïÓúÄÊ"	¿Ç=2 ∏®Ó±ÇèòÕ¢	Ö
+ÔïÔ∑Äœ
+"	Ãﬁ>3 ïíÓ≤üƒÇÀ“	‰
+ÔïÓú¶Ä "	æñ
+>3 å¡Ó≤üƒÔ‘⁄	Ò
+ÔïÔ∑∑Ä·"	§‚
+>3 †ÓÓ≤üâÏ¡Ï	Ω
+ÏΩÏΩíÄ∑"	¯ñ
+>3 à°Ó≤üƒ‚ùã	ç
+òÔ∑ŒÄÚ"	åÇ>3 ¢ŒÓ≤üƒ¿‹π	«
+ÓíÓú∏Ä‚"	‚î>3 öªÓ≤üƒ¿‹∏	∆
+ÔïÓúœÄÛ"	Ë =2 èàÓ∫Ç∞ãÃ˙	˙
+ÔïÔ∑bÄÉ"	¿¸=2 ÛÿÓ∫Ç›Ú¿¢	Ö
+ÔïÒñlÄ‹	"	ö‚=2 ±ÔÓ∫Ç∞¢Œﬂ	ˆ
+ÔïÔ∑`ÄÇ"	®¯>3 ≠ÅÓ∫ÇﬂœÙÖ	ë
+ÌÍÌÈ˘Ä†"	ÇÍ=2 ˛ Ó∫Ç∞’“ 	⁄
+ÔïÔ∑]ÄÅ"	¥¯=2 äˇÓ∫Çö§•Ù	“
+ÒöÒñpÄÜ"	û÷=2 æÓ∫Ç∆á´ê	√
+ÒöÒñZÄÄ"	Ñò=2 ´ÌÓ∫Ç…Êˆ˝	â
+ÌÍÌÈXÄ±"	ñ»=2 ¶¥Ó∫ÇòŒéé	Å
+ÒöÒñVÄè	"	¬‘=3 ¸ÎÓ™ÇªÏ¡Ä	 
+ÚõÒñ©Ä≤	"	ÆF=2 éˇÓ™Ç£‚”»	÷
+ÔïîÄØ	"	Æ	÷>3 ì·Ó™ÇªÏ¡◊	Í
+ÒöÒñ•Ä±	"	à	í>3 ØÕÓ™ÇªŒ›Ø	Ω
+ÔïÓúˇÄÆ	"	»	‘>3 –¿Ó™Ç£Ò‡•	≤
+ÓíÓú˛Ä≠	"	“	‰=2 †áÓ™Ç£º–≈	”
+òÔ∑Ä´	"	∞	º=2 ˝ˇÓ™ÇƒﬂÍó	§
+ÓíÌÈÄ™	"	®	Ê=2 õıÓ™Ç£¸·§	±
+ÔïÓúÄ¨	"	ÿ	æ>3 ≤∂Ó™Ç•Ï¡∆	é
+ÛúÒñ™Ä»	"	íÏ=2 ΩÿÓﬁüû¸·ú	©
+ÓíÓúbÄË"	¸¯=2 «ÜÓﬁü◊èÓå	ò
+ÓíÌÈ^ÄÖ	"	¨‹=2 π˝Óﬁüª˝’ƒ	˛
+ÔïÔ∑aÄ¸"	Íé=2 å∫ÓﬁüªﬁØ‘	µ
+òîhÄ˝"	˛Ã=2 ‹ÈÓﬁüª‚¥¢	Ö
+òîlÄ˛"	Ï¿=2 ÏˇÓﬁü€Êˆ¸	à
+ÌÍÌÈjÄ§"	¬ˆ=2 ÀÒÓﬁüÊ¨Òá	ì
+ÓíÌÈeÄ€	"	¿û=2 ©óÓﬁü◊¯Ïë	û
+ÓíÌÈcÄˇ"	î÷=2 ÖÍÓàäŸÏ¡»	ë
+ÔïîÄä"	ö¿=2 ⁄¥ÓàäªÏ¡Æ	¸
+òÔ∑Äâ"	Ñﬁ=2 ∏ÓàäìÏ¡∞	æ
+ÓíÓúÄç"	˙é=2 úÄÓàäﬂÏ¡≈	◊
+ÚõÚóÄé"	Í⁄>3 ≥˜ÓàäïÏ¡ô	é
+ÔïÔ∑§Ä˛"	»»=2 ßËÓàäïÏ¡”	Ê
+ÔïÔ∑]ÄÄ	"	Ê¨=2 üÕÓ™ÇƒÁøØ	Ü
+òÓúÄ®	"	®‹	=2 ÉÙÓ™ÇƒÙ∂·	ú
+ÔïÔ∑Ä…	"	¥Í	=2 ÷ Ó™ÇƒöπÄ	ï
+òÔ∑Ä©	"	‚ƒ	=2 â Óæ“ƒÏ¡ù	ƒ
+ÒöîÄ≤"	ˆˆ	=2 ‡ºÓæ“ÑÏ¡ù	™
+ÓíÓú-Ä™"	¯	å=2 ìûÓæ“ÑÏ¡¢	Ø
+ÓíÌÈ+Ä©"	ˆ	ê=2 Î„Óæ“ΩÏ¡°	Æ
+ÓíÓú0Ä´"	Í	∂=2 ®ÖÓæ“°Ï¡·	Ä
+ÒöÔ∑Ä≥"	˛	‘=2 Ó≠Óæ“ƒÏ¡‰	¿
+òÒñÄ±"	‚	‡	>3 ‡ÀÓ≤üƒŒ›Œ	ﬁ
+ÔïÔ∑ìÄ€"	í™
+>3 ÃØÓ≤üƒ«—…	Ÿ
+ÓíÓúßÄÀ"	å‘
+=2 ˜ëÓ™ÇƒÚ¿è	Ñ
+ÔïÔ∑Äâ	"	ﬁÇ
+>3 ŒÈÓ≤üƒßî…	ö
+ÔïÓúπÄ„"	ö¿=2 íÎÓæ“∞⁄ı˚	Ö
+ÌÍÌÈÄØ"	†	∞
+=2 ∞ÍÓæ“ƒÏ¡¬	Œ
+òÔ∑
+ÄØ"	ò	“
+=2 ›èÓæ“ƒÏ¡¢	Ö
+ÔïîÄ∞"	‡	¶
+>3 À¯Óæ“∏Ï¡è	Ñ
+ÓíÓúîÄ¯"	Ü
+ê=2 ùïÓæ“£Ï¡†	≠
+ÓíÓú*Ä®"	¥
+®=2 Î®Óæ“ëÏ¡Ö	©
+òîÄ¥"	˙
+≤=2 ¨ïÓæ“°Ï¡Ñ	É
+òÔ∑%Ä∑"	“
+Ú=2 ∆˘Óæ“°Ï¡ƒ	“
+ÔïÓú"Ä∂"	¸
+ˆ=2 ı“Óæ“°Ï¡Ó	ã
+òÔ∑Äµ"	¢Ê=2 áπÓæ“ƒÏ¡©	∂
+ÓíÓúÄÆ"	†
+∂
+=2 ©°Óæ“ƒÏ¡Í	ì
+ÓíÓúÄ≠"	º
+∂
+=2  àÓæ“¥Ï¡È	Å
+ÔïÔ∑Ä¨"	äﬁ
+=2 ÀÃÓÿÇö÷ΩÍ	ì
+ÔïîÄª	"	÷ú=2 ˇÍÓÿÇöö¨‰	¿
+Ôïî Äº	"	ÄÚ=2 Â‚ÓŒÇÂº–—	‚
+ÓíÔ∑Ä¯	"	Æ÷=2 ∏ÄÓŒÇ‚ΩÁ•	≤
+ÓíÌÈÄ˘	"	‚ê=2 ˛òÓŒÇƒ†‰±	ø
+ÔïÓúÄ˙	"	Í÷=2 ∫ÂÓπñƒÏ¡π	˝
+ÓíÓúÄ´"	∆	¨=2 ÁŸÓπñƒÏ¡Û	û
+ÓíÓúÄ™"	∆	Ã=2 ÅªÓŒÇ¥ñú∏	
+òÒñÄ˚	"	˛ﬁùÔË‹‡"	ŒÊ=2 …¬ÓŒÇ–ÇÌì	†
+ÌÍÓúÄ¸	"	¿	ö=2 ÿëÓŒÇ¶ıêÆ	˝
+òÒñÄÂ	"	ÿ	“=2 ±¬ÓπñƒÏ¡Ë	∞
+ÓíÓúÄ©"	Ü
+Ç>3 Ë≈ÓÿÇƒ«ñÊ	ı
+òÚóãÄŒ	"	Êﬁ>3 ’ØÓÿÇƒÚ¿÷	â
+òîåÄÛ"	ˆ
+à=2 á’ÓŒÇ–‰Îô	¶
+ÔïÌÈÄ˝	"	§
+÷>3 ÇÔÓÿÇ¶ñúå	Ï
+òÚóçÄ◊	"	ˆ‚>3 Á‰Óﬁü¬ƒÛá	ì
+ÌÍÌÈÎÄç"	ûﬁ=2 ˙…Óﬁüªéãå	Ï
+Ôïî\Ä˚"	˛ò>3 ∞ÛÓàäªÏ¡´	π
+ÓíÓú„Ä¸"	‚∏	>3 Å£ÓàäùÏ¡û	´
+ÓíÓú‡Äø"	∆˛	=2 üìÓàä·Ï¡⁄	Ò
+ÔïÔ∑ÄÖ"	∫ﬁ=2 õ‚Óàä·Ï¡Œ	ﬁ
+ÔïÓúÄá"	Ïå=2 œÅÓàäöÏ¡ù	´
+òîÄà"	˙≤=2 åôÓàä·Ï¡⁄	Ò
+ÔïÓúÄÜ"	 ‹=2 ö˛ÓàäœèÓ˙	Ç
+ÌÍÌÈJÄµ	"	§™	>3 ¿ÎÓàäùèÓ¯	¸
+ÌÍÌÈﬂÄÙ"	¥ÿ	=2 ÃÚÓàä‡èÓ˜	˚
+ÌÍÌÈHÄ¥	"	≤Ê	=2 “ŒÓÿÇ£ë„µ	√
+ÓíÓúÄˇ	"	Æ§
+>3 ˛„ÓàäùÏ¡˚	Ö
+ÌÍÌÈ‚ÄÏ"	∆ä
+>3 ò◊Óàä“ã‚Å	ç
+ÓíÌÈ·ÄÁ"	÷Ñ
+=2 ÔÅÓÿÇªÁøª	á
+òî	ÄÄ
+"	÷§
+=2 ‚ûÓÿÇΩ¸·Æ	º
+ÔïÓúÄÅ
+"	Êæ
+=2 ï´ÓÿÇ£Ö∑…	ö
+òÒñÄÇ
+"	¸ÿ
+=2 ùˆÓÿÇË∏Úà	î
+ÌÍÌÈÄÉ
+"	¸Ù=2 ≤¸Óàä‘Ï¡∏	∆
+òÓúNÄó"	ä¨
+=2 ùúÓàä‘Ï¡¿	Œ
+òÔ∑PÄò"	îº
+=2 ¶ÔÓàäœƒËÄ	å
+ÌÍÌÈFÄÔ"	Ê¶
+=2 ™◊ÓÿÇ£ë√è	Ñ
+òîÄÑ
+"	∫∫=2 √ÊÓÿÇΩÔ‘œ	‡
+ÔïÔ∑ÄÖ
+"	∂‡)ù≈Ë•ïˇü¬	–‡"	¸¢=2 ö…ÓÿÇª¥ª„	Ÿ
+òÒñÄ“	"	÷∆=2 ∫†ÓàäéÏ¡ã	ó
+ÌÍÔ∑Äã"	§Ç=2 æ¨ÓàäóÏ¡Ÿ	
+ÔïÓúÄå"	¬å)ù«Ëßò‰ö±	ø‡"	ÜÚ	)ù∆Ë¶ï¬°«	’‡"	–˙	=2 ÙùÓàä≠Ï¡£	Ã
+òÛô!Äè"	¥à)ù Ë™°€õÕ	›ª"	Ç‹=2 Ã√Óàä°Ï¡Ñ	É
+ÒöÔ∑$Äê"	§‰)ù…Ë©˜ôôî	°‡"	Í˙=2 ‘øÓàäìÏ¡º	 
+ÓíÔ∑AÄñ"	Ïñ	=2 ÏˆÓàä‘Ï¡≥	¡
+ÔïÓúUÄô"	Üæ=2 ∫çÓÿÇèÁﬂ∞	æ
+ÔïÓúÄÜ
+"	é–=2 âßÓÿÇªº–”	Ê
+ÔïÒñÄá
+"	∂Ã=2 ß–ÓÿÇªë„©	∂
+ÓíÔ∑Äà
+"	÷»=2 ”åÓÿÇèë√˚	π
+ÔïÒñÄœ	"	Ùƒ)ùƒË§ïüùß	¥‡"	Ü¢=2 ßÓÿÇö˝’»	÷
+ÓíÔ∑ Äâ
+"	®ƒ=2 ®óÓÿÇªûÿø	Õ
+ÔïÔ∑#Ää
+"	æ>3 ÙÓÿÇƒá¬ª	á
+ÓíÔ∑äÄ∞
+"	íƒ=2 ñ˛ÓÿÇƒƒºÛ	î
+ÔïîWÄ‘	"	†‹=2 ¬îÓÿÇƒƒÛ˝	â
+ÌÍÌÈYÄï"	¸Ó>3 Ë£ÓÿÇƒ Æ‡	∂
+ÔïîàÄØ
+"	‹‡=2 Ω†ÓÿÇ—˜äÅ	Ö
+ÒöÔ∑VÄñ	"	ñ¢=2 ÔñÓÿÇƒ∏ÚÑ	ê
+ÌÍÌÈ[ÄÍ	"	º¯=2 ë„ÓÿÇƒÜ÷¡	œ
+ÓíÓú\Äú
+"	⁄Ä>3 ›ÉÓÿÇƒ±¶◊	–
+òÒñáÄÆ
+"	Œ=2 õñÓÿÇ—ö¨˚	¡
+ÚõÔ∑TÄï	"	Üí=2 µÙÓÿÇƒµ⁄∏	∆
+ÓíÓú]Äù
+"	àÜ>3 µˆÓÿÇƒºß¬	Œ
+ÒöÒñÜÄ’	"	ú˙=2 íóÓÿÇƒÔ‘≈	”
+ÓíÔ∑`Äû
+"	Ùò=3 ¨éÓ∫ÇªÏ¡ˆ	…
+Òöî£Ä∏"	^˛=2 èñÓ∫Çû¸·•	≤
+ÓíÓúLÄ˝
+"	¶Ù=2 •¨Ó∫ÇûÒ‡¶	≥
+ÔïÔ∑NÄ˛
+"	¬¸=2 ¸∞Ó∫Ç´®Âù	™
+ÓíÓúÄÓ
+"	†ÿ=2 ÉõÓ∫Çõ≈∆ﬁ	ı
+ÔïîÄﬂ	"	–¿=2 ⁄ùÓ∫ÇªÙ ‘	Á
+òîÄì	"	 Ê=2 ◊ŒÓ∫Ç£Øœ›	Ù
+ÔïÔ∑FÄ˚
+"	∏‹=2 î’Ó∫ÇöØœﬁ	ı
+ÔïÓúGÄ¸
+"	îÑ=2 ∆˛Ó∫Çè•†ï	‡
+ÔïÒñ+ÄÚ
+"	˛‡=2 ˜›Ó∫Ç´Áﬂ©	∂
+ÓíÓú>Ä¯
+"	Íæ=2 ∏∂Ó∫ÇÁ∏ÚÄ	å
+ÌÍÌÈDÄÌ
+"	‰ñ=2 ‘©Ó∫ÇèöπÍ	ì
+òÒñ.ÄÛ
+"	⁄º=2 Î¡Ó∫Çèµ⁄∏	∆
+ÓíÓú<Ä˜
+"	Œ=2 ËÉÓ∫ÇèÏ¡·	Ä
+òîBÄ˙
+"	∏‹=2 À≤Ó∫Çè◊»Ÿ	
+Ôïî;Äˆ
+"	ƒê=2 ∂¯Ó∫Çöë„†	≠
+ÓíÓúAÄ˘
+"	ƒÓ=2 ËãÓ∫Çª‚¥é	†
+òÒñÄ·	"	∏¢=2 ˙∞Ó∫Çèá´ù	ƒ
+Ôïî Ä‡	"	¢Ù=2 ò‹Ó∫Ç´Ò‡Æ	º
+ÓíÓúÄ∆	"	ËÑ=2 ñÚÓ∫Çè∑≈‡	˜
+òî*ÄÒ
+"	àº=2 ≠⁄Ó∫Ç´˝’≈	”
+ÔïÓú%ÄÔ
+"	é≤=2 ≥ÁÓ∫Ç´¸·¨	∫
+ÓíÓú'Ä
+"	¯ƒ=2 Ÿ«Ó∫Çö¸·¶	≥
+ÓíÓú0ÄÙ
+"	ûƒ>3 ™êÓ∫Ç•Ï¡€	Ú
+òÔ∑¨Äß"	˛¢=2 ËﬂÓ∫ÇûΩÁò	•
+ÓíÓú2Äı
+"	“Ï=2 ¿ıÓ∫Ç∂öπÛ	î
+ÓíÔ∑6Äﬁ	"	∞˛=2 çêÓ∫Ç∂∏ÚÖ	ë
+ÌÍÌÈ5Äå"	û<2 ãäÓ∫Ç ∏Úä	ñ
+ÌÍÌÈtÄá"	rÙ=2 Ô¥Ó∫Ç£ã‚©	∂
+ÓíÓúsÄâ"	Ñ»=2 €†Ó∫Ç„ÇÌï	¢
+ÌÍÌÈwÄà"	Ãê>3 áıÓøüª–óù	º
+ÔïîÛÄπ"	≤ÿ>3 ¬ÆÓøü€ƒÛ˛	ä
+ÌÍÌÈÔÄè"	˙¥>3 ≥ªÓøüû§Ç	é
+ÌÍÌÈÏÄæ	"	æ–>3 ÛæÓøüª¯Ïï	¢
+ÓíÌÈÍÄ˙"	Ïé=2 ïçÓ¿Çﬂá´ù	ƒ
+òÒñ Ä≥
+"	é÷>3 º¡Ó¯ü•§•è	ä
+Ôïî£ÄÇ"	é“=2 ¢÷Ó∫Çë§Ö	ë
+ÌÍÌÈqÄ«	"	º»>3 á€ÓøüªÙ ≥	¡
+ÔïÓúﬁÄµ"	¸Ä>3 Ù‰Óøüªüà’	Ù
+ÔïîﬂÄ∂"	Ê†>3 ⁄ôÓøüªûÿ¶	≥
+ÔïÓú‰Ä∏"	ˆ»>3 ±“ÓøüÁ§Ç	é
+ÓíÌÈËÄø	"	öÃ>3 ·ëÓøü⁄Áﬂª	…
+ÔïÓú„Ä∑"	å¶>3 æ—ÓøüªıêÆ	‹
+òî›Ä¥"	î‹=2 ⁄¡Ó∫ÇÁ∏ÚÖ	ë
+ÌÍÌÈSÄê"	ú	»=2 Ä“Ó∫Ç´Ü÷«	’
+ÔïÔ∑PÄˇ
+"	ö¿=2 •¶Ó∫Çö’“À	€
+ÔïÔ∑Äë	"	Ñê=2 òÜÓ∫ÇﬂÒûê	Ê
+òÒñÄ„	"	‚Ü=2 ËûÓ∫Çﬂ“¢¯	⁄
+òÒñÄ‰	"	™	‘=2 √ûÓ∫Çﬂê∏ù	ó
+òÒñÄé	"		û=2 œ˚Ó∫Çﬂÿ®ç	À
+Ôïî	Äê	"	Ê	∆ù—Ë±"	⁄
+∆=2 ˝ˆÓŒÇ¬∏Úâ	ï
+ÌÍÌÈÄ˛	"	Ææù–Ë∞"	∂¸=2 øˆÓ∫Çƒá´ä	¬
+ÔïîÄå	"	¢
+®=2 ÈçÓ∫ÇΩÅ∞Ë	∞
+òîÄç	"	÷
+=2 í”ÓøñƒÏ¡∑	ô
+òÔ∑Ä∏"	Ó
+ËùœËØ"	ÿí=2 øÚÓøñƒÏ¡Ü	˚
+ÔïÓúÄπ"	¨»=2 Ó∂Ó∫Ç´è◊∫	»
+ÔïÔ∑Äí	"	íÓ=2 ŒËÓ∫Ç•´Ñó	å
+ÒöÚóÄã	"	ˆ⁄=2 Ω®Ó∫Ç∞òÕ÷	Ï
+ÓíÔ∑
+Ä‚	"	§	Ç>3 ÏéÓÿÇèﬂæÁ	ä
+ÔïîéÄ±
+"	û⁄=2 ÒπÓŒÇ¶Öëƒ	˙
+òÚóÄÊ	"	Ñ =2 πúÓøñœÏ¡à	î
+ÌÍÓúÄ∫"	ñû=2 äÂÓøñƒÏ¡”	õ
+ÔïÔ∑Äª"	∂Œ=2 õΩÓøñªÏ¡¿	ê
+ÔïîÄº"	Ë¯,!ù√Ë£ƒÅü˙	Î¡‡"	ö¶>3 ‘óÓøñƒÏ¡ß	¥
+ÓíÔ∑ÇÄ˘"	∫≤=2 ·ÓÓøñƒÏ¡Ë	∞
+ÔïÔ∑Äæ"	Ó∞=2 °ÂÓøñªÏ¡‘	Á
+ÔïÓúÄΩ"	à∞=2 ¬œÓ¿üƒ§Ä	å
+ÓíÌÈ^ÄΩ	"	Ë∞=2 ıóÓ¿üƒΩÁã	ó
+ÓíÌÈaÄˆ"	öä=2 à‹Ó¿üƒ—â∞	Ë
+ÔïîcÄø"	¿–=2 ‚µÓ¿üâÏ¡Ï	Ω
+ÏΩÏΩfÄπ"	˙∏=2 ˜ÕÓ¿üƒœÙã	ó
+ÌÍÌÈhÄû"	¢˛=2 ÕÑÓ¿üƒ¨Òã	ó
+ÌÍÌÈjÄ⁄	"	ﬁÍ=2 ≤ÉÓﬁüª‚£≠	≤
+ÔïîuÄÇ"	˛‹=2 «†Óﬁüªﬂæƒ	“
+òÓúqÄÄ"	Ë¢=2 …™ÓﬁüªﬂæÔ	˘
+òÔ∑rÄÅ"	åÚ<2 Ü´ÓﬁüªË©÷	Ø
+òÔ∑xÄÉ"	˛4+!ùÃË¨ª‰û™	∏«‡"	R>3 §ôÓÿÇƒá´ä	¬
+ÒöÒñ¯Ä£	"	˙Ê>3 ¬úÓÿÇâÏ¡Ï	Ω
+ÏΩÏΩˆÄ≤"	ä¢>3 ÁÓÿÇ´‘≥√	§
+ÒöÔ∑ﬁÄÃ	"	º¢>3 Î—ÓÿÇ´∏ÚÄ	å
+ÌÍÌÈÙÄë"	∂÷>3 ì™ÓÿÇ£Áﬂ™	∏
+ÔïÓú‡Äù	"	Ï÷=2 ≥ˇÓﬁüªıê¶	≈
+òînÄˇ"	ñà=2 àÙÓàä´Ï¡–	ˇ
+Òöî^ÄÅ	"	àÄ>3 ·´Óàä£Ï¡ú	©
+ÓíÓú¢Ä˝"	Ñ¥>3 ‡‡ÓàäªÏ¡∫	»
+ÔïÔ∑≠Ä‚"	‹‹,!ùÀË´ÜÄ¬’	Í‡°"	é¸>3 ˜“ÓÿÇ´ÁøØ	Ü
+ÒöÔ∑ÒÄ¢	"	Ç¢>3 Ï√ÓÿÇèÁøØ	Ü
+òÔ∑‰Äû	"	¨‡>3 ’ÉÓÿÇõÖ∑∑	ô
+ÒöîÊÄÀ	"	‚⁄>3 ÒÍÓÿÇ·◊»⁄	Ò
+ÔïÔ∑ÈÄü	"	Í¢>3 „ÇÓÿÇ°¸·Ø	Ω
+ÔïÓúÏÄ†	"	êÄ>3 •óÓÿÇèéõ¥	Ì
+òÒñÓÄ°	"	˛ö=2 ¿çÓàäïÏ¡”	Ê
+ÔïÒñ=Äî"	∞‰	,!ù»Ë®Ü¬ô·	¯‡°"	⁄‹	=2 ‹ØÓàä•Ï¡Â	á
+ÚõÒñ@Äï"	Ñö
+=2 ©üÓÿÇ—‚£Ÿ	ÿ
+ÚõÔ∑$Äã
+"	ñ∏=2 æ—ÓÿÇõ◊»µ	≠
+ÔïÔ∑'Äå
+"	ﬁ¶=2 §ôÓÿÇÈ§É	è
+ÌÍÌÈPÄ≥	"	»¸=2 ¯ÌÓÿÇè◊ﬁ≠	ª
+ÔïÔ∑*Äç
+"	í†=2 ºÇÓÿÇèÒ‡®	µ
+ÓíÔ∑,Äé
+"	Æû=2 ”®ÓÿÇª’“«	’
+òî/Äè
+"	‡ö=2 ‡±ÓÿÇªë√‘	µ
+òÒñ0Äê
+"	Ïñ=2 ⁄ÍÓàäƒÏ¡«	’
+ÓíÔ∑:Äì"	¢˙	=2 ã¸Óàä∞Ï¡∏	∆
+ÓíÓú3Äë"	‘Ë	=2 µµÓàäëÏ¡Å	ç
+ÓíÌÈ7Äí"	¢˙	=2 ÎøÓÿÇªûÿΩ	À
+Ôïî1Äë
+"	Çî=2 ø‰ÓÿÇªŒ›≤	¿
+ÔïÓú4Äí
+"	îí=2 Î§ÓÿÇ—‘≥™	¨
+ÚõÓúMÄõ
+"	Ü‰=2 ‹ÀÓÿÇè®Â≤	¿
+ÓíÓú7Ä≤
+"	–é=2 ¸ïÓÿÇª’“Ñ	É
+Ôïî8Äì
+"	Ùà=2 £ÉÓÿÇ—Ù π	˝
+òÓúAÄñ
+"	¯ÿ=2 À•ÓÿÇèûÿª	…
+ÓíÔ∑DÄó
+"	Ä¸=2 ö‡ÓÿÇèÌµ‘	•
+òÒñ;Äî	"	ÆÄ=2 ø¸ÓÿÇ•˘ôÒ	ˆ
+òîCÄò	"	Ç˙=2 ¿÷ÓÿÇ—¸üÍ	„
+ÚõÔ∑QÄ”	"	¢Ñ=2 ∏˝ÓÿÇƒœÙÇ	é
+ÌÍÌÈbÄú"	∂¢=2 ˆ≥ÓÿÇƒ«— 	⁄
+ÓíÔ∑eÄü
+"	™∏=2 ´∞ÓÿÇƒ Æ‡	∂
+ÔïîgÄ–	"	Ùƒ#º˙†ûûÅè‡"	»ñ>3 ÊπÓÿÇƒÙ∂Û	û
+ÔïîÑÄ≠
+"	Çò>3 ÆüÓÿÇƒ÷ΩÛ	î
+ÔïÔ∑ÇÄ¨
+"	 §=2 ´ÖÓÿÇªë√Ó	ã
+òÒñIÄö
+"	‹¥=2 âÀÓÿÇƒ‚¥é	†
+ÔïîhÄ†
+"	ú =2 î„ÓÿÇƒÁﬂÆ	º
+ÓíÓúiÄ°
+"	Í⁄=2 ﬁ»ÓÿÇèº–…	Ÿ
+ÔïÔ∑EÄò
+"	öä=2 ûÎÓÿÇèûÿ¡	œ
+ÔïÔ∑GÄô
+"	ê¶=2 ÃÅÓÿÇƒ¨ƒ˙	˙
+ÔïÔ∑lÄ¢
+"	ﬁÍ>3 ≥ÇÓÿÇƒ¢∫Û	î
+ÔïîÅÄ´
+"	î¨=2 íÁÓÿÇƒûÿπ	«
+ÔïÓúÄ™
+"	Çæ#º˘†ûû˘è‡"	‘Ã=2 ëœÓÿÇ—µ≠ù	º
+ÚõÔ∑>Äî
+"	 ˆ
+=2 §‹ÓÿÇ—ê∏√	§
+ÚõÓú?Äï
+"	‡∏=2 ÏöÓÿÇƒÍ…€	Ú
+ÔïîoÄ£
+"	Ã˛=2 »§ÓÿÇƒûÿ∫	»
+ÓíÔ∑pÄ§
+"	Ñ=2 ≠ÆÓÿÇƒÁøÖ	å
+ÔïîqÄ•
+"	òä=2 „°ÓÿÇƒ ÆÓ	∏
+ÒöÒñ~Ä©
+"	í‚#ºÒ†ûûÛè‡"	Ë=2 àºÓÿÇƒﬁØ‡	∂
+òÒñsÄ¶
+"	àû=2 Õ¯ÓÿÇƒ˚¡Û	î
+òÔ∑|Ä®
+"	®ˆ=2 ÕùÓÿÇƒö¨ê	√
+òÒñ{Ä÷	"	Ã¸#ºÚ†üüÓ˛‡"	à≤=2 ØΩÓÿÇƒöπÄ	ï
+òîwÄ—	"	ƒæ=2 ùÎÓÿÇƒ≈∆·	¯
+ÔïîyÄß
+"	 é=2 ÷œÓ¿üƒº–¥	¬
+ÓíÓúlÄ¿"	à≤=2 ¢ˆÓ¿üƒıêÓ	—
+ÔïîoÄ¡"	¿ö=2 ∏‚Ó¿üƒ¨ÒÜ	í
+ÌÍÌÈqÄı	"	Í‡=3 õ≥ÓøüªüàÖ	Â
+Ôïî˜Äª"	^‚ =3 –€ÓøüûÒ‡ê	ù
+ÓíÓú˘Äº"	 !=3 ùèÓ¿Çª◊ﬁº	 
+ÔïÔ∑ïÄ∫
+"	|ò!=3 §ƒÓ¿ÇªΩÁñ	£
+ÓíÓúóÄº
+"	\ !=3 ‘®Ó¿Çœë„û	´
+ÓíÓúñÄª
+"	rŒ!>3 ˇîÓøüµ◊ﬁ¶	≥
+ÔïÓúıÄ∫"	Ñ† =2 îﬁÓ¿Ç—Ô™√	∆
+òÓúÄÌ	"	–∂ >3 õΩÓ¿Ç¨ƒËë	û
+ÌÍÌÈ˝Ä∏
+"	‡∂ =2 «˝Ó¿ÇÎ◊ﬁ≤	¿
+ÔïÔ∑Äπ
+"	¶∂!=2 äˇÓ¿Ç∑µ⁄∞	æ
+ÔïÔ∑Äæ
+"	⁄˛#=2 •ÑÓ¿ÇœÒ‡™	∏
+ÓíÓúÄ∑
+"	≤‹ =2 ÕﬁÓ¿ÇèÒ‡∞	æ
+ÓíÓúÄ∏	"	ÿ‚ =2 ∂⁄Ó¿Ç≈‚”…	Ÿ
+ÓíÓúÄ 	"	¸ñ!=2 ∑„Ó¿Çê∑≈·	¯
+ÔïîÄ∂
+"	ñ˙ =2 ‡‘Ó¿ÇêÙ∂ù	´
+ÔïÒñ
+Äµ
+"	Æû!=2 üÿÓ¿Ç•Ö∑ò	°
+òîÄÏ	"	‡∂!=2 èæÓ¿ÇùÌµÛ	û
+ÔïîÄÎ	"	Í‡!>3 ˚ˇÓ¿ÇâÏ¡Ï	Ω
+ÏΩÏΩúÄ≥"	Æ§"=2 ©õÓ¿Ç”†‰®	µ
+ÓíÓúAÄ 
+"	ÊÇ#<2 €“Ó¿ÇœÔ‘»	÷
+ÔïÔ∑#Ä¿
+"	8¸$=3 ±‰Ó¿Ç´Í…◊	Ì
+ÔïÔ∑®Ä¡
+"	@∏%=2 ≠∞Ó¿ÇﬂãÃ˙	˙
+òÒñ!Äø
+"	Ñ˛$=2 ˇÒÓ¿Ç£µ⁄Ω	À
+ÔïÔ∑ÄΩ
+"	¸§$=2 ï©Ó¿ÇÆ≈∆¢	Ö
+Ôïî)Ä√
+"	˛Ó%=2 ¶åÓ¿Ç“ ≤‘	•
+òî&Ä¬
+"	¯∆&=2 ÿ·Ó¿Ç©ºßÑ	”
+òÒñ/ÄÙ	"	∫÷$=2 ˚˝Ó¿Ç∑µ⁄∫	»
+Ôïî2Äƒ
+"	ˆ∞$=2 ç∆Ó¿Ç© Æ‡	∂
+òî1ÄÛ	"	 ¿$=2 ˆäÓ¿Çß Æ‘	µ
+òÒñ3Ä≈
+"	åé$=2 ÷´Ó¿ÇÆ¢Œ’	Í
+òÔ∑6Ä∆
+"	¢¥$=2 Ì–Ó¿ÇÂã‚£	∞
+ÓíÓú8Ä«
+"	»û$=2 ∞›Ó¿ÇÍÏ¡Ã	‹
+ÓíÓú9Ä»
+"	ﬁ†$=2 ˜¨Ó¿Ç£Ô‘«	’
+ÓíÔ∑Ä¥
+"	Ñ™!>3 û˝Ó¿Ç»Ï¡¢	Ø
+ÓíÔ∑ﬁÄ•"	†¨">3 ñ”Ó¿Ç£Ï¡°	Æ
+ÔïÓú‹ÄÀ
+"	Œ§">3 Ê‚Ó¿Ç´“Èì	†
+ÓíÌÈ›ÄÃ
+"	ÿ¶"=2 ı£Ó¿ÇªÏ¡∂	Õ
+òÒñGÄƒ	"	ÄÊ"=2 ë¨Ó¿ÇºÏ¡√	∆
+ÔïÔ∑?ÄÚ	"	òû#=2 î˜Ó¿ÇﬁÆŸ∫	»
+ÓíÓú;Ä…
+"	Ç˙#>3 õÙÓ¿ÇªÏ¡∂	Õ
+òÒñ∫Ä√	"	÷∆#=2 ∑–Ó¿Çª◊»–	ˇ
+ÔïîIÄ¡	"	ÊÃ">3 Ï£Ó¿Ç√⁄ı˝	â
+ÌÍÌÈªÄ¥"	¬ˆ%>3 Ç√Ó¿Ç¬⁄ı˛	ä
+ÌÍÌÈºÄµ"	∂Æ&>3 Ÿ¿Ó¿ÇÃÏ¡Ÿ	
+ÔïÔ∑âÄ¶"	»ê*ùÌË⁄‡"	¢Ù.ùÏËŸ‡"	¨Ü/>3 ÕÓ¯üªÆŸ∂	ƒ
+ÓíÓú®ÄŒ
+"	Ë‚*>3 ˛¬Ó¿Ç•Ï¡≤	ì
+ÒöÚó—Ä∂"	Í¿%>3 ìßÓ¯ü•∑å¨	Ω
+ÔïÔ∑¶ÄÓ	"	Æ	∏%>3 ›–Ó¯ü•ÌòÜ	ê
+ÔïÔ∑ßÄÔ	"	ƒ	Ã%>3 Ç˝Ó¿ÇÃÏ¡õ	’
+òî´Ä¬	"	ƒ§'=2 òÿÓ≤Çò•†á	ﬂ
+òÒñÄÕ
+"	∂∫.ùÓË€‡"	(ä0ùÂË“‡"	≤⁄7ùÎËÿ‡"	–“2ùÍË◊‡"	∏Ü3>3 ÷åˆÉü•¿‹≈	”
+òÔ∑©ÄÑ"	¸ò1ùÊË”‡"	êÇ6ùÁË‘‡"	¶Ó6ùÈË÷‡"	é∏4ù„Ë–‡"	ÊÜ9ù‰Ë—‡"	§Ç8ù‚Ëœ‡"	ﬁ⁄:ù·ËŒ‡"	òñ;ù‡ËÕ‡"	ÿæ;ù’Ë¬‡"	§Æ?ùﬂËÃ‡"	§∆;ùﬁËÀ‡"	÷Ó;ù›Ë ‡"	¯ñ<ù‹Ë…‡"	Ñ»<ù◊Ëƒ‡"	æ∂=ù⁄Ë«‡"	ÿò?ù€Ë»‡"	êº>ùÿË≈‡"	¯¶>>3 Ã¶ˆÉüòöπ≈	·
+òÚó™ÄÖ"	⁄ê3ùËË’‡"	Ó®4>3 Á˜ˆÉüòè◊À	ø
+òÒñ´ÄÜ"	˙¢4>3 ¢åˆÉüò«——	‚
+òÒñ¨Äá"	ä®4>3 ÔµˆÉüòÜ÷Á	ä
+òî≠Äà"	∏º4>3 ÚÑˆÉüò˝’»	È
+òîÆÄâ"	‹ƒ4>3 ä≠ˆÉüáÏ¡≤	¿
+ÔïÔ∑◊Ää"	ÍÃ4>3 ﬂ∏ˆÉüò¿‹î	ñ
+òÒñØÄä"	¸÷4>3 µﬁˆÉüòØœ»	È
+òî∞Äã"	¶‰4>3 ¿˚ˆÉüòã‚ó	§
+ÓíÔ∑ÿÄÒ"	¥Ú4>3 ¸éˆÉüò˝’ù	º
+òÔ∑±Äå"	÷˙4>3 Ò≠ˆÉüò«—Ä	ï
+òÒñ≤Äç"	ÙÇ5>3 ’ƒˆÉüòµ⁄Û	¸
+òî≥Äé"	êê5>3 öÂˆÉüòãÃ◊	–
+òî¥Äè"	î¢5>3 Î¯ˆÉüò◊ﬁ∫	»
+ÔïÓúµÄê"	§¢5>3 ∑óˆÉüòµ⁄Œ	ﬁ
+ÔïÓú∂Äë"	¬§5>3  øˆÉüòÆŸÀ	€
+ÔïÔ∑∑Äí"	‘¨5>3 ƒ€ˆÉüòè◊Õ	›
+òÓú∏Äì"	Ê¥5>3 üëˆÉüòÜ÷›	Ù
+òÔ∑πÄî"	Ú∫5>3 ‹ÂˆÉüòè◊√	—
+òÓú∫Äï"	Ä»5>3 ºÑˆÉüòÆŸˆ	…
+ÔïÔ∑ªÄñ"	ú‘5>3 £úˆÉüòè◊€	Ú
+òÔ∑ºÄó"	Æ⁄5>3 Ò≤ˆÉüòÜ÷·	¯
+òÔ∑ΩÄò"	∆‹5>3 ß°ˆÉüòÆŸ‘	Á
+òîæÄô"	ÃÓ5>3 ∂πˆÉüòº–÷	â
+ÔïîøÄö"	Íˆ5>3 ¢”ˆÉüòûÿ¬	–
+òÓú¿Äõ"	Ç˙5>3 Ó˘ˆÉüòûÿŒ	ﬁ
+ÔïÔ∑¡Äú"	öÇ6>3 ¬ìÓ≥ÇÕÏ¡Û	‰
+òî§Äπ	"	∂í2>3 ◊∞Ó≥ÇÕÏ¡ï	Ô
+òÒñ¢Ä∫	"	ÇÇ3>3 æÄˆÉüòÏ¡é	ö
+ÓíÌÈﬂÄã"	‘∂7>3 ¸ŒˆÉüò˝’£	Á
+òî√Äù"	∂7>3 ¨◊ˆÉü•¿‹ê	√
+òÔ∑ƒÄû"	“Ñ8>3 πÉˆÉüòÜ÷–	«
+òî≈Äü"	∏Æ8>3 ‡¨ˆÉü•Ü÷ç	ª
+òÓú∆Ä†"	˛à9>3 ÏîˆÉüò˝’À	ø
+ÔïÔ∑«Ä°"	⁄∞9>3 Ù≠ˆÉü•«—¥	¬
+òî»Ä¢"	≤÷9>3 Ê‡ˆÉüòÜ÷€	Ú
+ÔïÔ∑…Ä£"	∂é:>3 ‘ÒˆÉü•Ô‘	›
+òÔ∑ Ä§"	∆ñ:>3 åíˆÅü÷¯Ïï	¢
+ÓíÌÈ›Äà	"	‘ﬁ<>3 ÑıˆÉüΩë„§	±
+ÓíÓú„ÄÚ"	êÆ:>3 ˘ÆˆÉü•˝’€	Ú
+òÔ∑ÀÄ•"	‡:>3 ≈≈ˆÉü•òÕ√	∆
+òÔ∑ÃÄ¶"	ÄÍ:>3 ”ÌˆÉü•◊»˚	π
+òîÕÄß"	ûË:,!ù¬Ë¢ò°ö 	⁄Ü‡"	ÿ˙:>3 øºˆÉüΩ®Âö	ß
+ÔïÌÈÂÄÛ"	Ü¶;>3 ¥ËˆÉü•òÕ›	í
+òÔ∑ŒÄ®"	ê®;>3 ÁíˆÉü•’“‡	˜
+òÓúœÄ©"	º¿;>3 ˝»ˆÉü•◊ﬁ∆	‘
+òÓú–Ä™"	Œ¿;>3 Ü—ˆÉü•◊ﬁ±	ø
+ÔïÌÈ—Ä´"	–Ã;>3 Ú‡ˆÉüò¢Œ	ß
+òî“Ä¨"	Ë“;>3 ·ÇˆÉü•Ô‘ÿ	Ü
+òÒñ”Ä≠"	Ü‚;>3 ã†ˆÉüòÔ‘ß	Ñ
+òî‘ÄÆ"	¥Ù;>3 –˘ˆÉüΩ¸·≤	¿
+ÔïÓúËÄÙ"	⁄˙;=2 û∑ˆú“—Ï¡Ø	÷
+ÒöÓúÄö"	Üº<=2 ™ñˆú“’ôÔˇ	ã
+ÌÍÌÈÄ∂	"	†¬<=2 êòˆú“÷§ã	ó
+ÓíÌÈÄÕ	"	∫»<=2 °Èˆú“÷ƒË≈	”
+ÔïÓúÄ"	íö?>3 üÑˆÉüò¸·Ø	Ω
+ÓíÓúÈÄı"	‹Ä<>3 «˘ˆÉüò¿‹…	Ÿ
+ÔïÓú’ÄØ"	¸í<>3 ƒ¡Óæü£˝’—	‚
+ÔïÓúﬁÄ"	Ç"“>3 ◊¶ÓæüïÜ÷ù	™
+ÓíÓú›ÄÑ	"	Í#∫<2 å€Óﬂç•Ï¡∂	˘
+ÛúÒñPÄõ"	¨&<2 ∑éÓﬂç•Ï¡√	§
+ÛúÔ∑RÄú"	≤&,<2 €∫Óﬂç£Ï¡Ø	Ω
+ÓíÓúKÄ˛"	∞&x<2 ≤πÓﬂç•Ï¡‹	Û
+ÒöÔ∑WÄü"	÷&:<2 ÊÈÓﬂç•Ï¡µ	≠
+ÚõÔ∑YÄ†"	Ê&<2 â…Óﬂç•Ï¡°	¢
+ÚõîTÄù"	»&f<2 §˙Óﬂç•Ï¡‡	∂
+ÒöÔ∑UÄû"	⁄&|=3 ˇÊÓﬂçªÏ¡©	∂
+ÓíÓúÌÄò"	Ñ'=3 ÉÑÓﬂçªÏ¡°	Æ
+ÓíÓúÓÄô"	î'.<2 ÍƒÓﬂç–≥Ê•	≤
+ÓíÓú\Äı"	¶'=3 ìâÓﬂçØÏ¡¡	œ
+ÔïÓúÔÄÇ	"	∆'L=3 £ºÓﬂçØÏ¡≈	¥
+ÒöÔ∑ÄÉ	"	»'\=3 Ú•Óﬂç´Ï¡¡	œ
+ÓíÓúÒÄö"	¿'p=2 ‚îÓﬂçòÏ¡∞	è
+Úõî_ÄÌ"	ê'î=2 »ÏÓﬂç£Ï¡ø	Õ
+ÓíÔ∑OÄˇ"	ñ'Ù>3 ∫¥ÓﬂçùÏ¡Ô	˘
+ÓíÓúÊÄñ"	¿'†=2 íßÓﬂçƒÏ¡·	ˇ
+òÒñcÄ°"	ˆ'®>3 ø¨ÓæüΩ«—≤	¿
+ÓíÓú£ÄË	"	¢&Ñ>3 ﬂâÓﬂçãÏ¡≈	”
+ÓíÓúıÄá	"	∫(Ä>3 ﬂ˙ÓﬂçãÏ¡ÿ	Ô
+ÓíÓúÙÄÜ	"	¨(Ä>3 ⁄’ÓﬂçïÏ¡©	∂
+ÓíÓúÚÄ˙"	˙(∫>3 ŸÓÓﬂç†Ï¡©	∂
+ÌÍÓúÛÄ˚"	ÿ)ÿ>3 è…ÓﬂçåÏ¡™	ò
+ÓíÓúˆÄ≠"	∞(†=2 Û±ÓﬂçîﬂÍè	õ
+ÓíÌÈeÄ˚"	(ñ=2 ∆úÓﬂç°Ï¡ù	´
+ÒöÔ∑fÄ¢"	ä)Ú=2 ¬µÓﬂç£Ï¡Û	û
+òÔ∑kÄ§"	æ)÷>3 ó»Óﬂç£Ï¡∞	æ
+ÓíÓú˙Ä„"	¶)¸=2  ñÓﬂç¥Ï¡‘	•
+òÔ∑jÄ£"	‰)™>3 ˚àÓﬂç¥Ï¡Ô	˘
+òÔ∑¯ÄÄ"	»)Ã=2 ±ÕÓﬂç•Ï¡£	Á
+ÚõÔ∑lÄ•"	¿)>3 «ﬂÓﬂçïÏ¡ó	§
+ÌÍÓú˜ÄÆ"	§*¶=2 …≈ÓﬂçßÏ¡™	∏
+ÓíÌÈmÄõ"	≤*ê>3 á˙ÓÖü£ÇÀ‘	Á
+ÓíÓú∑Ä¢"	ú*Ù=2 ’éÓﬂç•Ï¡‘	µ
+ÔïÔ∑vÄÿ"	Ñ/»>3 Ô’ÓÖü®ﬂÍè	õ
+ÓíÓú‰Ä≈	"	ñ*≤	>3 ıñÓÖüœµ⁄¶	≥
+ÓíÓú„ÄÔ"	é*à
+>3 ∆˘ÓÖüÀµ⁄∏	∆
+ÓíÓú·ÄÓ"	¸*Ë
+>3 ﬁôÓÿÇ•ÕÜØ	à
+ÒöÒñ—Äß	"	‰+Í>3 ©˝ÓÖü‹¯ÏÖ	ë
+ÓíÌÈﬂÄ˘"	‹,¨
+>3 É€ÓÿÇ£Áﬂ¨	∫
+ÓíÓú–Ä¶	"	ö-ﬁ
+=2 ®©Óﬂç•Ï¡Ú	Ç
+ÓíÔ∑xÄŸ"	¬0ƒ=2 êêÓﬂçﬂÏ¡™	ò
+Òöî}Ä¶"	Ä1‡
+>3 íäÓﬂç–Ï¡¥	¬
+ÓíÓú˝Ä⁄"	™1û
+>3 Û®ÓﬂçôÏ¡›	í
+ÔïÔ∑˛Ä€"	“1 
+>3 ﬂÓﬂçﬂÏ¡√	—
+ÔïÔ∑ÄÄ‰"	ä1Ë>3 â†Óﬂç•Ï¡Â	ë
+ÒöÚóÁÄß"	¸1Ó>3 ≈—Óﬂç∞Ï¡	ß
+ÔïÓúˇÄ‹"	†2¢>3 Ç¯ÓﬂçØÏ¡ø	æ
+òÔ∑ÅÄÂ"	Ë2Í>3 „ÈÓﬂç•Ï¡¸	Ä
+òÔ∑ÄÄ®"	‰2‹>3 ôÇÓﬂçôÏ¡»	÷
+ÓíÓúÑÄﬁ"	Ä3>3 ˆÚÓﬂçÕÏ¡é	†
+òîÉÄ›"	ˆ3˙>3 œªÓﬂç‰Ï¡«	’
+ÓíÓúÖÄﬂ"	»4û>3 ˘ÓÓﬂç•Ï¡»	÷
+ÓíÌÈáÄ·"	Ã4¬>3 ©—Óﬂç‰Ï¡∞	æ
+ÓíÌÈÜÄ‡"	¢5∞ù‘Ë¡‡°"	‰6ÚùË›‡"	ƒ>Í=2 ê£Ó«≥¥Ï¡·	Ä
+ÔïÔ∑ÄÚ"	ñ3º=2 ΩãÓ«≥¥Ï¡◊	Ì
+ÓíÓúÄÒ"	Ï4÷=2 ñ±Ó«≥œœÙ˚	Ö
+ÌÍÌÈ Ä¨"	ñ5û>3 «ΩÓﬂçôÏ¡æ	Ã
+ÓíÓúâÄ‚"	–6 >3 ∆«ÓﬂçíÏ¡†	≠
+ÓíÓúÉÄÿ	"	§6“ù”Ë¿‡°"	™7˛>3 ◊¥ÓﬂçôÏ¡©	∂
+ÌÍÓúîÄÍ"	ÿ7æ>3 Å”ÓﬂçíÏ¡®	µ
+ÓíÓúÑÄŸ	"	Œ6Ä>3 ˚™ÓﬂçôÏ¡¿	Œ
+ÓíÓúåÄ„"	™8 >3 íàÓﬂçôÏ¡«	’
+ÓíÓúìÄÈ"	∞8ƒ>3 Ã„ÓﬂçôÏ¡∞	æ
+ÌÍÌÈçÄ‰"	é9Æ>3 ŸﬁÓﬂçôÏ¡£	∞
+ÌÍÓúíÄË"	Æ9¥>3 ∆“ÓﬂçÂÏ¡∑	≈
+ÓíÓúëÄÁ"	Ê9Ó>3 ˜¢Óﬂç¬Ï¡¨	∫
+ÓíÓúèÄÂ"	§:–>3 ¶èÓﬂçèÏ¡ñ	£
+ÌÍÌÈáÄ£"	‘:Ä>3 ºÓﬂçØÏ¡õ	’
+ÔïÔ∑êÄÊ"	é:ñ>3 ›˘Óﬂç‰Ï¡õ	®
+ÓíÓúÜÄî"	¶:é>3 òóÓﬂçÕÏ¡É	ü
+òÓúïÄÎ"	∆;‘>3 äÆÓﬂçÕÏ¡Û	û
+òÔ∑ñÄÏ"	Ê;†>3 ÜÃÓﬂç•Ï¡•	€
+òÔ∑óÄÌ"	Í;‘>3 ›˚Óﬂç•Ï¡≥	£
+òÓúòÄÓ"	ä<∏>3 ÿãÓÿÇ•∑åÃ	Ç
+ÒöÚó÷Äô	"	¯8ñ>3 –”ÓÿÇƒﬂæô	é
+ÔïÔ∑€Ä•	"	¥9æ>3 †æÓÿÇ¬“Èö	ß
+ÌÍÌÈ◊Äö	"	®:‰>3 Â‚ÓÿÇ•´±ê	™
+òÔ∑ÿÄõ	"	Ñ:¬>3 ˛˙ÓÿÇ•ë§å	‘
+òÔ∑ŸÄú	"	¨: >3 ú¶ÓÿÇ•çíÈ	˚
+òÔ∑⁄Ä§	"	Œ:˙=2 Ù˜Ó¡Ç¬¯Ïí	ü
+ÓíÌÈ	Ä⁄
+"	Ï:¶=2 •∫Ó¡Ç•±°	›
+òÔ∑Äÿ
+"	∆:=2 à‰Ó¡Ç••†ï	‡
+òîÄŸ
+"	Ë:†=2 îäÓ¡Ç¬¯Ïí	ü
+ÓíÓúÄ€
+"	˛:‹=2 °§Ó¡Ç¬“Èû	´
+ÓíÓúÄ‹
+"	Ü;æ=2 ˜æÓ¡Ç¬ΩÁ§	±
+ÓíÓúÄ›
+"	é;û=2 üŸÓ¡Ç¬ƒË°	Æ
+ÔïÓúÄﬁ
+"	ä;ê=2 ÚÒÓ¡Ç•Ÿè¸	Ä
+ÒöîÄﬂ
+"	ò;˙ùÕË≠"	∫"‚'>3 ∏éˆÉü•¢Œ≥	è
+òî÷Ä∞"	® û<>3 ˚≥ˆÉü•ãÃ›	í
+òÔ∑◊Ä±"	‘ ∏<>3 à∞ˆÉüΩ¿‹§	±
+ÔïÓúÎÄˆ"	Ú ¬<>3 ΩÊˆÉü•¢ŒÓ	ã
+òÓúÿÄ≤"	í!Ã<>3 ¯ˇˆÉü•Ù Ö	©
+ÔïÔ∑ŸÄ≥"	ò!÷<>3 ø˙ˆÉüòÆŸÆ	¸
+ÔïÔ∑⁄Ä¥"	¸!<>3 ñÑˆÉü•ûÿÖ	∫
+òÔ∑€Äµ"	˛!˙<>3 ª´ˆÉü•˝’·	Ä
+ÔïÔ∑‹Ä∂"	¥"Ñ=>3 »¥ˆÉüòÒ‡ß	¥
+ÓíÌÈ›Ä∑"	∆"é=>3 ±‘ˆÉü•è◊∆	˛
+òÔ∑ﬁÄ∏"	‹"ú=>3 °ÛˆÉüΩã‚Œ	ﬁ
+ÔïÓúÓÄ˜"	Ú"†=>3 ÜâˆÉüò◊ﬁù	´
+ÔïÓúﬂÄπ"	¥#»=>3 ìúˆÉüòè◊ƒ	˛
+òÔ∑‡Ä∫"	»#–=>3 ˛ºˆÉü•‚”–	ˇ
+òÓú·Äª"	Ú#Ê=>3 ›‹ˆÉüòÆŸÖ	∫
+ÔïÔ∑‚Äº"	ê$ˆ=>3 ≤ãˆÉü•ûÿÉ	ü
+ÔïÓú„ÄΩ"	º$é>>3 ™°ˆÉü•ÆŸ«	’
+òÓúÂÄæ"	÷$é>>3 ÓµˆÉü•á¬˙	®
+òÔ∑ÊÄø"	Ë$í>>3 “ÃˆÉü•¿‹∞	æ
+ÓíÓúÁÄ¿"	Ï$ò>>3 ”ÛˆÉü•º–“	‰
+òÔ∑ËÄ¡"	∂%º>>3 ûãˆÉü•¢Œﬁ	»
+òÔ∑ÈÄ¬"	 %ƒ>>3 ü¶ˆÉü•Ô‘”	Ê
+òÔ∑ÍÄ√"	Ë%»>>3 Œ≤ˆÉü•¿‹≈	”
+òÔ∑ÎÄƒ"	%Ã>>3 §œˆÉü•¿‹¬	–
+ÔïÓúÏÄ≈"	í&‚>>3 ¡ÏˆÉüò¢Œé	†
+òÔ∑ÌÄ∆"	®&Í>>3 ØçˆÉüòµ⁄¡	œ
+òÓúÓÄ«"	∏&˙>>3 ÔïˆÉü•è◊‘	Á
+òÔ∑ÔÄ»"	‡&ˆ>>3 —∂ˆÉü•◊ﬁ∏	∆
+òÓúÄ…"	¯&å?>3 ©ÌˆÉüò‚”ª	á
+òîÒÄ "	à'Ü?>3 òÖˆÉüòòÕ«	à
+òîÚÄÀ"	™'ú?>3 Ç¢ˆÉü•Ô‘—	‚
+òÓúÛÄÃ"	æ'ú?>3 •œˆÉü•ãÃ«	à
+òÔ∑ÙÄÕ"	Ú'∆?>3 ∆°ˆÉü•¿‹≥	£
+ÔïÓúıÄŒ"	Ñ)¯?=2 ⁄≈Ó¡Ç•±°˚	ﬁ
+òÒñÄ‡
+"	¥;“ =2 „ﬁÓ¡Ç¬ë„∞	æ
+ÓíÓúÄ·
+"	¨;ƒ!=2 Ã¯Ó¡ÇöÔ‘Ω	À
+ÔïÔ∑;ÄÏ
+"	¯:à#=2 ÈﬁÓ¡Çö˚¡Ú	Ç
+òî9ÄÎ
+"	Ç;»#=2 ®ÄÓ¡Ç¬Ò‡µ	√
+ÔïÔ∑Ä‚
+"	ö<ú'>3 ≠ÈÓÿÇòÏ¡û	ç
+ÒöîÂÄó	"	Œ;‘(=2 ∞”Ó¡Ç¬‰Îò	•
+ÓíÓú#Ä„
+"	ƒ<í)=2 æÓÓ¡Ç¬ë„Æ	º
+ÓíÓú&Ä‰
+"	Ê<û* ºˇ†††˝˛"	¬<»+=2 ÜçÓ¡Ç¬≥Êß	¥
+ÓíÓú)ÄÂ
+"	ê=ò+ º˛†††˚˛"	Í<é, º˝†††˙˛"	ê=÷,=2 î¡Ó¡Ç¬®Â¶	≥
+ÓíÓú-ÄÊ
+"	ﬁ=¿, º¸†††˘˛"	∏=û- º˚†††ˆ˛"	Ú=à.=2 »ÂÓ¡Ç¬ƒËõ	®
+ÓíÓú0ÄÁ
+"	ö>∂- ºˆ†††ı˛"	ö>–.=2 à˛Ó¡Ç¬“Èö	ß
+ÓíÓú2ÄË
+"	ƒ>à. ºı†††Û˛"	¿>ñ/=2 ≤üÓ¡Ç¬®Â¶	≥
+ÓíÓú5ÄÈ
+"	¸>Ä/=2 ß∏Ó¡Ç¬ΩÁü	¨
+ÓíÓú7ÄÍ
+"	§?ÿ/ùŒËÆ"	¬8å2 ºÙ†††˛"	¸>Ç0 ºÛ†††Ó˛"	¢?»0ù÷Ë√‡"	ö∞@ùŸË∆‡"	†Ü@>3 Å∆ˆÉü•¢Œ∂	ƒ
+òÓúˆÄœ"	†)à@>3 ™ÊˆÉüòòÕÒ	ˆ
+òî˜Ä–"	æ)ò@>3 ö˘ˆÉü•òÕô	ã
+òî¯Ä—"	Ú)≤@>3 ãòˆÉüò¢Œπ	˝
+ÔïÔ∑˘Ä“"	ê*∫@>3 ê±ˆÉüòã‚∏	
+òÔ∑˙Ä”"	ò*¬@>3 ÄÈˆÉüò¢Œé	Å
+òÒñ˚Ä‘"	÷*ÿ@>3 ŸìˆÉüò¢Œ∂	˘
+òî¸Ä’"	˛*Ó@>3 ¢∂ˆÉü•¿‹”	Ê
+òÓú˝Ä÷"	¢+˛@>3 π“ˆÉü•¢Œƒ	˛
+òÔ∑˛Ä◊"	∂+äA
