@@ -1,6 +1,6 @@
 {
 	"schemaVersion": 3,
-	"generatedAt": "2026-11-24T12:54:28.376Z",
+	"generatedAt": "2026-11-25T11:41:30.552Z",
 	"sources": {
 		"wienBaumkataster": {
 			"url": "https://data.wien.gv.at/daten/geo",
@@ -9,7 +9,7 @@
 			"attribution": "Stadt Wien – data.wien.gv.at, CC BY 4.0"
 		},
 		"openStreetMap": {
-			"overpassEndpoint": "https://overpass.kumi.systems/api/interpreter",
+			"overpassEndpoint": "https://overpass-api.de/api/interpreter",
 			"query": "[out:json][timeout:300];\narea[\"boundary\"=\"administrative\"][\"ISO3166-2\"=\"AT-9\"]->.vienna;\n(\n\tnode[\"natural\"=\"tree\"](area.vienna);\n\tway[\"natural\"=\"tree_row\"](area.vienna);\n);\nout body geom qt;",
 			"attribution": "© OpenStreetMap contributors, ODbL"
 		}
@@ -116,6 +116,7 @@
 			"15/17863/11372",
 			"15/17864/11356",
 			"15/17864/11357",
+			"15/17864/11358",
 			"15/17864/11359",
 			"15/17864/11360",
 			"15/17864/11361",
@@ -646,6 +647,8 @@
 			"15/17889/11360",
 			"15/17889/11361",
 			"15/17889/11362",
+			"15/17889/11363",
+			"15/17889/11364",
 			"15/17889/11368",
 			"15/17889/11369",
 			"15/17890/11358",
@@ -659,33 +662,33 @@
 		],
 		"tileCounts": {
 			"12": 19,
-			"13": 58,
-			"14": 183,
-			"15": 616
+			"13": 59,
+			"14": 184,
+			"15": 619
 		}
 	},
 	"counts": {
-		"totalOutput": 277559,
+		"totalOutput": 282140,
 		"wfs": {
-			"source": 233735,
-			"output": 233735,
+			"source": 233734,
+			"output": 233734,
 			"skippedGeometry": 0,
 			"pages": 10,
-			"sourceReportedTotal": 233735
+			"sourceReportedTotal": 233734
 		},
 		"osm": {
-			"elements": 167002,
-			"treeNodes": 166434,
-			"treeNodesOutput": 37591,
-			"treeNodesSkippedWfsOverlap": 128822,
+			"elements": 173834,
+			"treeNodes": 173284,
+			"treeNodesOutput": 41951,
+			"treeNodesSkippedWfsOverlap": 131312,
 			"treeNodesSkippedDuplicate": 21,
-			"treeRows": 568,
+			"treeRows": 550,
 			"treeRowsInvalidGeometry": 0,
-			"treeRowGeneratedPoints": 7089,
-			"treeRowOutput": 6233,
-			"treeRowSkippedWfsOverlap": 538,
-			"treeRowSkippedExplicitTree": 313,
-			"treeRowSkippedRowOverlap": 5
+			"treeRowGeneratedPoints": 7157,
+			"treeRowOutput": 6455,
+			"treeRowSkippedWfsOverlap": 373,
+			"treeRowSkippedExplicitTree": 323,
+			"treeRowSkippedRowOverlap": 6
 		}
 	},
 	"properties": [
